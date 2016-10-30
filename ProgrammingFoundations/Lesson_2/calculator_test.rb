@@ -28,17 +28,25 @@ class InputNumbersTest < Minitest::Test
 
   def setup()
     @ui = UI.new
-    @input = StringIO.new("1 2\n")
-    @input_received = @ui.receive(stdin: @input)
     @output = StringIO.new    
   end
 
   def test_ask_for_numbers
+    input = StringIO.new("1 2\n")
+    input_received = @ui.receive(stdin: input)
     @ui.give("Please input two numbers separated by one or more spaces: ", stdout: @output)
     assert_equal "Please input two numbers separated by one or more spaces: \n", @output.string
-    assert_equal "1 2", @input_received
-    numbers = @input_received.split.map {|char| char.to_f} 
+    assert_equal "1 2", input_received
+    numbers = input_received.split.map {|char| char.to_f} 
     assert_equal numbers, [1.0, 2.0]
+  end
+
+  def test_ask_for_operation
+    @ui.give("Please type in the arithmetic operation you want on the two numbers (-, +, *, or /): ", stdout: @output)
+    assert_equal "Please type in the arithmetic operation you want on the two numbers (-, +, *, or /): \n", @output.string
+    input = StringIO.new("+\n")
+    input_received = @ui.receive(stdin: input)
+    assert_equal "+", input_received
   end
   
 end
