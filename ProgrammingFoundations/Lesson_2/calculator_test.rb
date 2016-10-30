@@ -3,7 +3,7 @@ require 'minitest/pride'
 require 'stringio'
 require_relative './ui'
 
-class CaculatorTest < Minitest::Test
+class UIClassTest < Minitest::Test
 
   def setup()
     @ui = UI.new
@@ -24,7 +24,7 @@ class CaculatorTest < Minitest::Test
 
 end
 
-class InputNumbersTest < Minitest::Test
+class InputNumbersAndPerformOperationTest < Minitest::Test
 
   def setup()
     @ui = UI.new
@@ -47,6 +47,14 @@ class InputNumbersTest < Minitest::Test
     input = StringIO.new("+\n")
     input_received = @ui.receive(stdin: input)
     assert_equal "+", input_received
+  end
+
+  def test_perform_arithmetic_operation
+    numbers = [1.0, 2.0]
+    assert_equal numbers[0].send('+', numbers[1]), 3.0
+    assert_equal numbers[0].send('-', numbers[1]), -1.0
+    assert_equal numbers[0].send('*', numbers[1]), 2.0
+    assert_equal numbers[0].send('/', numbers[1]), 0.5
   end
   
 end
