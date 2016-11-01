@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"number",
+				"number2"
+			],
+			[
+				"input",
+				"input_received"
+			],
+			[
 				"ass",
 				"assert_equal"
 			],
@@ -506,19 +514,27 @@
 			[
 				"nam",
 				"name_ary"
-			],
-			[
-				"ci",
-				"circumference"
-			],
-			[
-				"winn",
-				"winnerAry"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "ProgrammingFoundations/Lesson_2/casual_pseudo_code_lesson_2.md",
+			"settings":
+			{
+				"buffer_size": 894,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ProgrammingFoundations/Lesson_2/formal_pseudo_code_lesson_2.md",
+			"settings":
+			{
+				"buffer_size": 1134,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -570,10 +586,16 @@
 	"expanded_folders":
 	[
 		"/Users/EricRicketts/Documents/LaunchSchool",
+		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations",
 		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2"
 	],
 	"file_history":
 	[
+		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/instructor_solution_calculator.rb",
+		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/calculator.rb",
+		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/calculator_test.rb",
+		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/ui.rb",
+		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/caculator_test.rb",
 		"/Users/EricRicketts/Documents/LaunchSchool/PreparatoryWork/RubyBasics/Loops1/exercise_4.rb",
 		"/Users/EricRicketts/Documents/LaunchSchool/PreparatoryWork/RubyBasics/Loops1/exercise_3_test.rb",
 		"/Users/EricRicketts/Documents/LaunchSchool/PreparatoryWork/RubyBasics/Loops1/exercise_2_test.rb",
@@ -696,12 +718,7 @@
 		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/index.html",
 		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/assets/stylesheets/main.css",
 		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/assets/stylesheets/main.css",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/index.html",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/getting-to-know-html/index.html",
-		"/Users/EricRicketts/.bash_profile_orig",
-		"/Users/EricRicketts/.bash_profile",
-		"/Users/EricRicketts/.bashrc_orig",
-		"/Users/EricRicketts/.bashrc"
+		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/index.html"
 	],
 	"find":
 	{
@@ -813,8 +830,69 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "ProgrammingFoundations/Lesson_2/casual_pseudo_code_lesson_2.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 894,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								894,
+								894
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ProgrammingFoundations/Lesson_2/formal_pseudo_code_lesson_2.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1109,
+								1109
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
