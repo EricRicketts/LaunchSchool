@@ -26,16 +26,19 @@ def name
   name
 end
 
-prompt("Hi #{name}")
-
-number1 = ''
-loop do
-  prompt("What's the first number?")
-  number1 = gets.chomp
-
-  if valid_number?(number1)
-    break
-  else
-    prompt("Hmm... that doesn't look like a valid number")
+def format_number(msg)
+  number = ''
+  error_msg = "Hmm... that doesn't look like a valid number"
+  loop do
+    prompt(msg)
+    number = remove_white_space(gets.chomp)
+    valid_number?(number) ? break : prompt(error_msg)
   end
+  number
 end
+
+first_number_msg = "What's the first number?"
+second_number_msg = "What's the second number?"
+prompt("Hi #{name}")
+number1 = format_number(first_number_msg)
+number2 = format_number(second_number_msg)
