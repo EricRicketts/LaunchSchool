@@ -1,3 +1,6 @@
+Documentation:
+  Enabled: false
+
 Style/MethodCallParentheses:
   Enabled: false
   Description: Do not use parentheses for method calls with no arguments.
@@ -55,3 +58,4 @@ Metrics/LineLength:
   URISchemes:
   - http
   - https
+  
