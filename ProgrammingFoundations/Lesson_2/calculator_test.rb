@@ -34,4 +34,14 @@ class CalculatorTest < Minitest::Test
       refute_match(/\s+/, pure_number)
     end
   end
+
+  def test_string_to_integer
+    number = "4546"
+    assert_equal convert_str_to_int_or_float(number), 4546
+  end
+
+  def test_string_to_float
+    number = "456.789"
+    assert_equal convert_str_to_int_or_float(number), 456.789
+  end
 end
