@@ -26,4 +26,12 @@ class CalculatorTest < Minitest::Test
       refute valid_number?(number)
     end
   end
+
+  def test_strip_spaces
+    numbers = ["  3.5  ", "  4", "5.55  "]
+    numbers.each do |number|
+      pure_number = remove_white_space(number)
+      refute_match(/\s+/, pure_number)
+    end
+  end
 end
