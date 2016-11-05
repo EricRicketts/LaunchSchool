@@ -12,4 +12,18 @@ class CalculatorTest < Minitest::Test
     end
     assert_equal out[0], "=> Hello, Jimmy\n"
   end
+
+  def test_valid_numbers
+    valid_numbers = ["3", "   4.5", "8.99   ", "  120  "]
+    valid_numbers.each do |number|
+      assert valid_number?(number)
+    end
+  end
+
+  def test_invalid_numbers
+    invalid_numbers = [" ", "45x", " 10.001 z ", "  xy444"]
+    invalid_numbers.each do |number|
+      refute valid_number?(number)
+    end
+  end
 end
