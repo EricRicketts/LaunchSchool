@@ -51,6 +51,11 @@ def operation_to_message(operator)
   end
 end
 
+def read_and_format_number(msg)
+  number = format_number(msg)
+  convert_str_to_int_or_float(number)
+end
+
 first_number_msg = "What's the first number?"
 second_number_msg = "What's the second number?"
 operator_prompt = <<-MSG
@@ -64,9 +69,10 @@ MSG
 prompt("Hi #{name}")
 
 loop do # main loop
-  number1 = format_number(first_number_msg)
+  # number1 = format_number(first_number_msg)
+  # number1 = convert_str_to_int_or_float(number1)
+  number1 = read_and_format_number(first_number_msg)
   number2 = format_number(second_number_msg)
-  number1 = convert_str_to_int_or_float(number1)
   number2 = convert_str_to_int_or_float(number2)
   prompt(operator_prompt)
   operator = ''
@@ -93,7 +99,7 @@ loop do # main loop
 
   prompt("The result is #{result}")
   prompt("Do you want to perform another calculation?  (Y to calculate again)")
-  answer = Kernel.gets().chomp()
+  answer = gets.chomp
   break unless answer.downcase().start_with?('y')
 end # main loop
 
