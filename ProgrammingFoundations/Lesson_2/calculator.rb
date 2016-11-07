@@ -1,14 +1,15 @@
+require 'byebug'
 def prompt(message)
   puts "=> #{message}"
 end
 
 def valid_number?(number)
-  regex = Regexp.new('^\s*\d+\.*\d*\s*$')
+  regex = Regexp.new('\A\s*\d+\.*\d*\s*\z')
   regex.match(number)
 end
 
 def remove_white_space(str)
-  str.strip!
+  str.strip
 end
 
 def convert_str_to_int_or_float(str)
@@ -31,14 +32,69 @@ def format_number(msg)
   error_msg = "Hmm... that doesn't look like a valid number"
   loop do
     prompt(msg)
-    number = remove_white_space(gets.chomp)
+    number = gets.chomp
     valid_number?(number) ? break : prompt(error_msg)
   end
-  number
+  number = remove_white_space(number)
+end
+
+def operation_to_message(operator)
+  case operator
+  when '1'
+    'Adding'
+  when '2'
+    'Subtracting'
+  when '3'
+    'Multiplying'
+  when '4'
+    'Dividing'
+  end
 end
 
 first_number_msg = "What's the first number?"
 second_number_msg = "What's the second number?"
+operator_prompt = <<-MSG
+  What operation would you like to perform?
+  1) Add
+  2) Subtract
+  3) Multiply
+  4) Divide
+MSG
+
 prompt("Hi #{name}")
-number1 = format_number(first_number_msg)
-number2 = format_number(second_number_msg)
+
+loop do # main loop
+  number1 = format_number(first_number_msg)
+  number2 = format_number(second_number_msg)
+  number1 = convert_str_to_int_or_float(number1)
+  number2 = convert_str_to_int_or_float(number2)
+  prompt(operator_prompt)
+  operator = ''
+  loop do
+    operator = gets.chomp
+    if %w(1 2 3 4).include?(operator)
+      break
+    else
+      prompt("Must choose 1, 2, 3, or 4")
+    end
+  end
+
+  prompt("#{operation_to_message(operator)} the two numbers...")
+    result = case operator
+             when '1'
+               number1 + number2
+             when '2'
+               number1 - number2
+             when '3'
+               number1 * number2
+             when '4'
+               number1 / number2
+             end
+
+  prompt("The result is #{result}")
+  prompt("Do you want to perform another calculation?  (Y to calculate again)")
+  answer = Kernel.gets().chomp()
+  break unless answer.downcase().start_with?('y')
+end # main loop
+
+prompt("Thank you for using the calculator.  Good bye!")
