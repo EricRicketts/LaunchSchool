@@ -66,6 +66,19 @@ def prompt_for_operation
   operator
 end
 
+def compute_result(operator, number1, number2)
+  case operator
+  when '1'
+    number1 + number2
+  when '2'
+    number1 - number2
+  when '3'
+    number1 * number2
+  when '4'
+    number1.to_f / number2.to_f
+  end
+end
+
 first_number_msg = "What's the first number?"
 second_number_msg = "What's the second number?"
 operator_prompt = <<-MSG
@@ -82,18 +95,10 @@ loop do # main loop
   number1 = read_and_format_number(first_number_msg)
   number2 = read_and_format_number(second_number_msg)
   prompt(operator_prompt)
+
   operator = prompt_for_operation
   prompt("#{operation_to_message(operator)} the two numbers...")
-  result = case operator
-           when '1'
-             number1 + number2
-           when '2'
-             number1 - number2
-           when '3'
-             number1 * number2
-           when '4'
-             number1.to_f / number2.to_f
-           end
+  result = compute_result(operator, number1, number2)
 
   prompt("The result is #{result}")
   prompt("Do you want to perform another calculation?  (Y to calculate again)")
