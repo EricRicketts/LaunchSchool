@@ -56,6 +56,16 @@ def read_and_format_number(msg)
   convert_str_to_int_or_float(number)
 end
 
+def prompt_for_operation
+  operator = ''
+  usr_msg = "Must choose 1, 2, 3, or 4"
+  loop do
+    operator = gets.chomp
+    %w(1 2 3 4).include?(operator) ? break : prompt(usr_msg)
+  end
+  operator
+end
+
 first_number_msg = "What's the first number?"
 second_number_msg = "What's the second number?"
 operator_prompt = <<-MSG
@@ -69,33 +79,21 @@ MSG
 prompt("Hi #{name}")
 
 loop do # main loop
-  # number1 = format_number(first_number_msg)
-  # number1 = convert_str_to_int_or_float(number1)
   number1 = read_and_format_number(first_number_msg)
-  number2 = format_number(second_number_msg)
-  number2 = convert_str_to_int_or_float(number2)
+  number2 = read_and_format_number(second_number_msg)
   prompt(operator_prompt)
-  operator = ''
-  loop do
-    operator = gets.chomp
-    if %w(1 2 3 4).include?(operator)
-      break
-    else
-      prompt("Must choose 1, 2, 3, or 4")
-    end
-  end
-
+  operator = prompt_for_operation
   prompt("#{operation_to_message(operator)} the two numbers...")
-    result = case operator
-             when '1'
-               number1 + number2
-             when '2'
-               number1 - number2
-             when '3'
-               number1 * number2
-             when '4'
-               number1 / number2
-             end
+  result = case operator
+           when '1'
+             number1 + number2
+           when '2'
+             number1 - number2
+           when '3'
+             number1 * number2
+           when '4'
+             number1.to_f / number2.to_f
+           end
 
   prompt("The result is #{result}")
   prompt("Do you want to perform another calculation?  (Y to calculate again)")
