@@ -1,3 +1,4 @@
 GlobalStrings:
   FirstNumberMessage: "What's the first number?"
   SecondNumberMessage: "What's the second number?"
+  RepeatCalculationMessage: "Do you want to perform another calculation?  (Y to calculate again)"

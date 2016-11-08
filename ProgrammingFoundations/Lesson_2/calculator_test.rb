@@ -44,4 +44,12 @@ class CalculatorTest < Minitest::Test
     number = "456.789"
     assert_equal convert_str_to_int_or_float(number), 456.789
   end
+
+  def test_compute_result_add
+    operator = '1'
+    num1 = 4
+    num2 = 5
+    result = compute_result(operator, num1, num2)
+    assert_equal result, 9
+  end
 end

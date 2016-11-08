@@ -81,6 +81,7 @@ if __FILE__ == $PROGRAM_NAME
   APP_CONFIG = YAML.load(raw_config)
   first_number_msg = APP_CONFIG['GlobalStrings']['FirstNumberMessage']
   second_number_msg = APP_CONFIG['GlobalStrings']['SecondNumberMessage']
+  repeat_calc_msg = APP_CONFIG['GlobalStrings']['RepeatCalculationMessage']
   operator_prompt = <<-MSG
     What operation would you like to perform?
     1) Add
@@ -101,7 +102,7 @@ if __FILE__ == $PROGRAM_NAME
     result = compute_result(operator, number1, number2)
 
     prompt("The result is #{result}")
-    prompt("Do you want to perform another calculation?  (Y to calculate again)")
+    prompt(repeat_calc_msg)
     answer = gets.chomp
     break unless answer.downcase().start_with?('y')
   end # main loop
