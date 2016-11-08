@@ -1,10 +1,11 @@
 require 'byebug'
+require 'yaml'
 def prompt(message)
   puts "=> #{message}"
 end
 
 def valid_number?(number)
-  regex = Regexp.new('\A\s*\d+\.*\d*\s*\z')
+  regex = Regexp.new('\A\s*\d+\.?\d*\s*\z')
   regex.match(number)
 end
 
@@ -29,7 +30,8 @@ end
 
 def format_number(msg)
   number = ''
-  error_msg = "Hmm... that doesn't look like a valid number"
+  error_msg = "Hmm... that doesn't look like a valid number" \
+  " or you entered zero"
   loop do
     prompt(msg)
     number = gets.chomp
@@ -39,16 +41,11 @@ def format_number(msg)
 end
 
 def operation_to_message(operator)
-  case operator
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  operator_hash = {
+    '1' => 'Adding', '2' => 'Subtracting',
+    '3' => 'Multiplying', '4' => 'Dividing'
+  }
+  operator_hash[operator]
 end
 
 def read_and_format_number(msg)
@@ -79,31 +76,35 @@ def compute_result(operator, number1, number2)
   end
 end
 
-first_number_msg = "What's the first number?"
-second_number_msg = "What's the second number?"
-operator_prompt = <<-MSG
-  What operation would you like to perform?
-  1) Add
-  2) Subtract
-  3) Multiply
-  4) Divide
-MSG
+if __FILE__ == $PROGRAM_NAME
+  raw_config = File.read('./config.yml')
+  APP_CONFIG = YAML.load(raw_config)
+  first_number_msg = APP_CONFIG['GlobalStrings']['FirstNumberMessage']
+  second_number_msg = APP_CONFIG['GlobalStrings']['SecondNumberMessage']
+  operator_prompt = <<-MSG
+    What operation would you like to perform?
+    1) Add
+    2) Subtract
+    3) Multiply
+    4) Divide
+  MSG
 
-prompt("Hi #{name}")
+  prompt("Hi #{name}")
 
-loop do # main loop
-  number1 = read_and_format_number(first_number_msg)
-  number2 = read_and_format_number(second_number_msg)
-  prompt(operator_prompt)
+  loop do # main loop
+    number1 = read_and_format_number(first_number_msg)
+    number2 = read_and_format_number(second_number_msg)
+    prompt(operator_prompt)
 
-  operator = prompt_for_operation
-  prompt("#{operation_to_message(operator)} the two numbers...")
-  result = compute_result(operator, number1, number2)
+    operator = prompt_for_operation
+    prompt("#{operation_to_message(operator)} the two numbers...")
+    result = compute_result(operator, number1, number2)
 
-  prompt("The result is #{result}")
-  prompt("Do you want to perform another calculation?  (Y to calculate again)")
-  answer = gets.chomp
-  break unless answer.downcase().start_with?('y')
-end # main loop
+    prompt("The result is #{result}")
+    prompt("Do you want to perform another calculation?  (Y to calculate again)")
+    answer = gets.chomp
+    break unless answer.downcase().start_with?('y')
+  end # main loop
 
-prompt("Thank you for using the calculator.  Good bye!")
+  prompt("Thank you for using the calculator.  Good bye!")
+end
