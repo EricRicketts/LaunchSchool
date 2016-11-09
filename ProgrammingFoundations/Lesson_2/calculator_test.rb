@@ -21,7 +21,7 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_invalid_numbers
-    invalid_numbers = [" ", "45x", " 10.001 z ", "  xy444"]
+    invalid_numbers = [" ", "45x", " 10.001 z ", "  xy444", "98..507"]
     invalid_numbers.each do |number|
       refute valid_number?(number)
     end
@@ -61,5 +61,12 @@ class CalculatorTest < Minitest::Test
     msg = 'xyz'
     result = compute_result(operator, num1, num2, msg)
     assert_equal 1.25, result
+  end
+
+  def test_operator_selection
+    assert operation_to_message('1') == 'Adding'
+    assert operation_to_message('2') == 'Subtracting'
+    assert operation_to_message('3') == 'Multiplying'
+    assert operation_to_message('4') == 'Dividing'
   end
 end

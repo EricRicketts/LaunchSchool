@@ -1,5 +1,11 @@
 require 'byebug'
 require 'yaml'
+
+OPERATOR_HASH = {
+  '1' => 'Adding', '2' => 'Subtracting',
+  '3' => 'Multiplying', '4' => 'Dividing'
+}
+
 def prompt(message)
   puts "=> #{message}"
 end
@@ -41,11 +47,7 @@ def format_number(msg)
 end
 
 def operation_to_message(operator)
-  operator_hash = {
-    '1' => 'Adding', '2' => 'Subtracting',
-    '3' => 'Multiplying', '4' => 'Dividing'
-  }
-  operator_hash[operator]
+  OPERATOR_HASH[operator]
 end
 
 def read_number(msg)
@@ -64,11 +66,15 @@ def prompt_for_operation
 end
 
 def compute_result(operator, num1, num2, msg)
-  num2 = read_number(msg) while num2.zero? && operator == '4'
+  while num2.zero? && operator == '4'
+    prompt("Oops!!  Cannot divide by zero, try again ...")
+    num2 = read_number(msg)
+  end
   compute_hash = {
     '1' => (num1 + num2), '2' => (num1 - num2),
     '3' => (num1 * num2), '4' => (num1.to_f / num2.to_f)
   }
+  prompt("#{operation_to_message(operator)} the two numbers...")
   compute_hash[operator]
 end
 
@@ -79,7 +85,7 @@ if __FILE__ == $PROGRAM_NAME
   second_number_msg = APP_CONFIG['GlobalStrings']['SecondNumberMessage']
   repeat_calc_msg = APP_CONFIG['GlobalStrings']['RepeatCalculationMessage']
   operator_prompt = <<-MSG
-    What operation would you like to perform?
+    What operation would you like to perform? (enter a numbers)
     1) Add
     2) Subtract
     3) Multiply
@@ -94,7 +100,6 @@ if __FILE__ == $PROGRAM_NAME
     prompt(operator_prompt)
 
     operator = prompt_for_operation
-    prompt("#{operation_to_message(operator)} the two numbers...")
     result = compute_result(operator, number1, number2, second_number_msg)
 
     prompt("The result is #{result}")
