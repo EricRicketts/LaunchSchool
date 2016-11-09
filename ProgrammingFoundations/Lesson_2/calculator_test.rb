@@ -49,7 +49,17 @@ class CalculatorTest < Minitest::Test
     operator = '1'
     num1 = 4
     num2 = 5
-    result = compute_result(operator, num1, num2)
+    msg = 'xyz'
+    result = compute_result(operator, num1, num2, msg)
     assert_equal result, 9
+  end
+
+  def test_compute_result_divide
+    operator = '4'
+    num1 = 5.0
+    num2 = 4.0
+    msg = 'xyz'
+    result = compute_result(operator, num1, num2, msg)
+    assert_equal 1.25, result
   end
 end

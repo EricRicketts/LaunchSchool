@@ -48,7 +48,7 @@ def operation_to_message(operator)
   operator_hash[operator]
 end
 
-def read_and_format_number(msg)
+def read_number(msg)
   number = format_number(msg)
   convert_str_to_int_or_float(number)
 end
@@ -63,17 +63,13 @@ def prompt_for_operation
   operator
 end
 
-def compute_result(operator, number1, number2)
-  case operator
-  when '1'
-    number1 + number2
-  when '2'
-    number1 - number2
-  when '3'
-    number1 * number2
-  when '4'
-    number1.to_f / number2.to_f
-  end
+def compute_result(operator, num1, num2, msg)
+  num2 = read_number(msg) while num2.zero? && operator == '4'
+  compute_hash = {
+    '1' => (num1 + num2), '2' => (num1 - num2),
+    '3' => (num1 * num2), '4' => (num1.to_f / num2.to_f)
+  }
+  compute_hash[operator]
 end
 
 if __FILE__ == $PROGRAM_NAME
@@ -93,13 +89,13 @@ if __FILE__ == $PROGRAM_NAME
   prompt("Hi #{name}")
 
   loop do # main loop
-    number1 = read_and_format_number(first_number_msg)
-    number2 = read_and_format_number(second_number_msg)
+    number1 = read_number(first_number_msg)
+    number2 = read_number(second_number_msg)
     prompt(operator_prompt)
 
     operator = prompt_for_operation
     prompt("#{operation_to_message(operator)} the two numbers...")
-    result = compute_result(operator, number1, number2)
+    result = compute_result(operator, number1, number2, second_number_msg)
 
     prompt("The result is #{result}")
     prompt(repeat_calc_msg)
