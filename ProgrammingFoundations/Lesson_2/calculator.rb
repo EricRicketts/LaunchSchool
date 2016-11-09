@@ -1,6 +1,13 @@
 require 'byebug'
 require 'yaml'
 
+raw_config = File.read('./config.yml')
+APP_CONFIG = YAML.load(raw_config)
+
+FIRST_NUMBER_MSG = APP_CONFIG['OneLineMessages']['FirstNumberMessage']
+SECOND_NUMBER_MSG = APP_CONFIG['OneLineMessages']['SecondNumberMessage']
+REPEAT_CALC_MSG = APP_CONFIG['OneLineMessages']['RepeatCalculationMessage']
+
 OPERATOR_HASH = {
   '1' => 'Adding', '2' => 'Subtracting',
   '3' => 'Multiplying', '4' => 'Dividing'
@@ -79,11 +86,6 @@ def compute_result(operator, num1, num2, msg)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  raw_config = File.read('./config.yml')
-  APP_CONFIG = YAML.load(raw_config)
-  first_number_msg = APP_CONFIG['GlobalStrings']['FirstNumberMessage']
-  second_number_msg = APP_CONFIG['GlobalStrings']['SecondNumberMessage']
-  repeat_calc_msg = APP_CONFIG['GlobalStrings']['RepeatCalculationMessage']
   operator_prompt = <<-MSG
     What operation would you like to perform? (enter a numbers)
     1) Add
@@ -95,15 +97,15 @@ if __FILE__ == $PROGRAM_NAME
   prompt("Hi #{name}")
 
   loop do # main loop
-    number1 = read_number(first_number_msg)
-    number2 = read_number(second_number_msg)
+    number1 = read_number(FIRST_NUMBER_MSG)
+    number2 = read_number(SECOND_NUMBER_MSG)
     prompt(operator_prompt)
 
     operator = prompt_for_operation
-    result = compute_result(operator, number1, number2, second_number_msg)
+    result = compute_result(operator, number1, number2, SECOND_NUMBER_MSG)
 
     prompt("The result is #{result}")
-    prompt(repeat_calc_msg)
+    prompt(REPEAT_CALC_MSG)
     answer = gets.chomp
     break unless answer.downcase().start_with?('y')
   end # main loop
