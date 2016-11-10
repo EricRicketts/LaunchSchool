@@ -7,6 +7,7 @@ APP_CONFIG = YAML.load(raw_config)
 FIRST_NUMBER_MSG = APP_CONFIG['OneLineMessages']['FirstNumberMessage']
 SECOND_NUMBER_MSG = APP_CONFIG['OneLineMessages']['SecondNumberMessage']
 REPEAT_CALC_MSG = APP_CONFIG['OneLineMessages']['RepeatCalculationMessage']
+OPERATOR_PROMPT = APP_CONFIG['MultiLineMessages']['OperatorPrompt']
 
 OPERATOR_HASH = {
   '1' => 'Adding', '2' => 'Subtracting',
@@ -63,6 +64,7 @@ def read_number(msg)
 end
 
 def prompt_for_operation
+  prompt(OPERATOR_PROMPT)
   operator = ''
   usr_msg = "Must choose 1, 2, 3, or 4"
   loop do
@@ -85,30 +87,27 @@ def compute_result(operator, num1, num2, msg)
   compute_hash[operator]
 end
 
+def read_in_numbers
+  num1 = read_number(FIRST_NUMBER_MSG)
+  num2 = read_number(SECOND_NUMBER_MSG)
+  [num1, num2]
+end
+
+def print_result_and_repeat(result)
+  prompt("The result is #{result}")
+  prompt(REPEAT_CALC_MSG)
+  answer = gets.chomp
+  answer.downcase().start_with?('y') ? true : false
+end
+
 if __FILE__ == $PROGRAM_NAME
-  operator_prompt = <<-MSG
-    What operation would you like to perform? (enter a numbers)
-    1) Add
-    2) Subtract
-    3) Multiply
-    4) Divide
-  MSG
-
   prompt("Hi #{name}")
-
   loop do # main loop
-    number1 = read_number(FIRST_NUMBER_MSG)
-    number2 = read_number(SECOND_NUMBER_MSG)
-    prompt(operator_prompt)
-
+    number1, number2 = read_in_numbers
     operator = prompt_for_operation
     result = compute_result(operator, number1, number2, SECOND_NUMBER_MSG)
-
-    prompt("The result is #{result}")
-    prompt(REPEAT_CALC_MSG)
-    answer = gets.chomp
-    break unless answer.downcase().start_with?('y')
+    repeat = print_result_and_repeat(result)
+    break unless repeat
   end # main loop
-
   prompt("Thank you for using the calculator.  Good bye!")
 end
