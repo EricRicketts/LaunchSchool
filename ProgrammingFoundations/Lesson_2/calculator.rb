@@ -1,5 +1,3 @@
-require 'byebug'
-require 'yaml'
 require_relative './constants'
 
 def compute_result(operator, num1, num2, msg)
