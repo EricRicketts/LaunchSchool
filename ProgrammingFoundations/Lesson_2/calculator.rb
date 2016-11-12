@@ -2,19 +2,6 @@ require 'byebug'
 require 'yaml'
 require_relative './constants'
 
-# raw_config = File.read('./config.yml')
-# APP_CONFIG = YAML.load(raw_config)
-
-# FIRST_NUMBER_MSG = APP_CONFIG['OneLineMessages']['FirstNumberMessage']
-# SECOND_NUMBER_MSG = APP_CONFIG['OneLineMessages']['SecondNumberMessage']
-# REPEAT_CALC_MSG = APP_CONFIG['OneLineMessages']['RepeatCalculationMessage']
-# OPERATOR_PROMPT = APP_CONFIG['MultiLineMessages']['OperatorPrompt']
-
-# OPERATOR_HASH = {
-#   '1' => 'Adding', '2' => 'Subtracting',
-#   '3' => 'Multiplying', '4' => 'Dividing'
-# }
-
 def prompt(message)
   puts "=> #{message}"
 end
@@ -33,9 +20,9 @@ def convert_str_to_int_or_float(str)
 end
 
 def name
-  prompt("Welcome to Calculator!  Enter your name: ")
+  prompt(Constants::WELCOME_MSG)
   name = ''
-  error_msg = "Make sure to use a valid name."
+  error_msg = Constants::NAME_ERROR_MSG
   loop do
     name = gets.chomp
     name.empty? ? prompt(error_msg) : break
@@ -45,8 +32,7 @@ end
 
 def format_number(msg)
   number = ''
-  error_msg = "Hmm... that doesn't look like a valid number" \
-  " or you entered zero"
+  error_msg = Constants::NUMBER_ERROR_MSG
   loop do
     prompt(msg)
     number = gets.chomp
@@ -67,17 +53,17 @@ end
 def prompt_for_operation
   prompt(Constants::OPERATOR_PROMPT)
   operator = ''
-  usr_msg = "Must choose 1, 2, 3, or 4"
+  operator_choice = Constants::OPERATOR_CHOICE
   loop do
     operator = gets.chomp
-    %w(1 2 3 4).include?(operator) ? break : prompt(usr_msg)
+    %w(1 2 3 4).include?(operator) ? break : prompt(operator_choice)
   end
   operator
 end
 
 def compute_result(operator, num1, num2, msg)
   while num2.zero? && operator == '4'
-    prompt("Oops!!  Cannot divide by zero, try again ...")
+    prompt(Constants::DIVIDE_BY_ZERO_MSG)
     num2 = read_number(msg)
   end
   compute_hash = {
@@ -106,9 +92,10 @@ if __FILE__ == $PROGRAM_NAME
   loop do # main loop
     number1, number2 = read_in_numbers
     operator = prompt_for_operation
-    result = compute_result(operator, number1, number2, Constants::SECOND_NUMBER_MSG)
+    result = compute_result(operator, number1, \
+                            number2, Constants::SECOND_NUMBER_MSG)
     repeat = print_result_and_repeat(result)
     break unless repeat
   end # main loop
-  prompt("Thank you for using the calculator.  Good bye!")
+  prompt(Constants::GOOD_BYE_MSG)
 end

@@ -1,7 +1,13 @@
 OneLineMessages:
+  WelcomeMessage: "Welcome to Calculator!  Enter your name: "
+  GoodByeMessage: "Thank you for using the calculator.  Good bye!"
+  NameErrorMessage: "Make sure to use a valid name."
+  NumberErrorMessage: "Hmm... that doesn't look like a valid number"
   FirstNumberMessage: "What's the first number?"
   SecondNumberMessage: "What's the second number?"
   RepeatCalculationMessage: "Do you want to perform another calculation?  (Y to calculate again)"
+  OperatorChoiceMessage: "Must choose 1, 2, 3, or 4"
+  DivideByZeroMessage: "Oops!!  Cannot divide by zero, choose another number ..."
 MultiLineMessages:
   OperatorPrompt: |
       What operation would you like to perform? (enter a number)
