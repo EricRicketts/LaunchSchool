@@ -13,6 +13,10 @@ class MortgateCalculatorTest < Minitest::Test
   end
 
   def test_welcome
-    assert_equal welcome_message, "=> Welcome to the Mortgate Calculator"
+    assert_equal welcome_message, "=> Welcome to the Mortgage Calculator"
+  end
+
+  def test_enter_loan_amount_message
+    assert_equal loan_amt_message, "=> What is the loan amount? "
   end
 end
