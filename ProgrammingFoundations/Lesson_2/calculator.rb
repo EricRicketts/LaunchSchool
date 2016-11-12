@@ -1,18 +1,19 @@
 require 'byebug'
 require 'yaml'
+require_relative './constants'
 
-raw_config = File.read('./config.yml')
-APP_CONFIG = YAML.load(raw_config)
+# raw_config = File.read('./config.yml')
+# APP_CONFIG = YAML.load(raw_config)
 
-FIRST_NUMBER_MSG = APP_CONFIG['OneLineMessages']['FirstNumberMessage']
-SECOND_NUMBER_MSG = APP_CONFIG['OneLineMessages']['SecondNumberMessage']
-REPEAT_CALC_MSG = APP_CONFIG['OneLineMessages']['RepeatCalculationMessage']
-OPERATOR_PROMPT = APP_CONFIG['MultiLineMessages']['OperatorPrompt']
+# FIRST_NUMBER_MSG = APP_CONFIG['OneLineMessages']['FirstNumberMessage']
+# SECOND_NUMBER_MSG = APP_CONFIG['OneLineMessages']['SecondNumberMessage']
+# REPEAT_CALC_MSG = APP_CONFIG['OneLineMessages']['RepeatCalculationMessage']
+# OPERATOR_PROMPT = APP_CONFIG['MultiLineMessages']['OperatorPrompt']
 
-OPERATOR_HASH = {
-  '1' => 'Adding', '2' => 'Subtracting',
-  '3' => 'Multiplying', '4' => 'Dividing'
-}
+# OPERATOR_HASH = {
+#   '1' => 'Adding', '2' => 'Subtracting',
+#   '3' => 'Multiplying', '4' => 'Dividing'
+# }
 
 def prompt(message)
   puts "=> #{message}"
@@ -55,7 +56,7 @@ def format_number(msg)
 end
 
 def operation_to_message(operator)
-  OPERATOR_HASH[operator]
+  Constants::OPERATOR_HASH[operator]
 end
 
 def read_number(msg)
@@ -64,7 +65,7 @@ def read_number(msg)
 end
 
 def prompt_for_operation
-  prompt(OPERATOR_PROMPT)
+  prompt(Constants::OPERATOR_PROMPT)
   operator = ''
   usr_msg = "Must choose 1, 2, 3, or 4"
   loop do
@@ -88,14 +89,14 @@ def compute_result(operator, num1, num2, msg)
 end
 
 def read_in_numbers
-  num1 = read_number(FIRST_NUMBER_MSG)
-  num2 = read_number(SECOND_NUMBER_MSG)
+  num1 = read_number(Constants::FIRST_NUMBER_MSG)
+  num2 = read_number(Constants::SECOND_NUMBER_MSG)
   [num1, num2]
 end
 
 def print_result_and_repeat(result)
   prompt("The result is #{result}")
-  prompt(REPEAT_CALC_MSG)
+  prompt(Constants::REPEAT_CALC_MSG)
   answer = gets.chomp
   answer.downcase().start_with?('y') ? true : false
 end
@@ -105,7 +106,7 @@ if __FILE__ == $PROGRAM_NAME
   loop do # main loop
     number1, number2 = read_in_numbers
     operator = prompt_for_operation
-    result = compute_result(operator, number1, number2, SECOND_NUMBER_MSG)
+    result = compute_result(operator, number1, number2, Constants::SECOND_NUMBER_MSG)
     repeat = print_result_and_repeat(result)
     break unless repeat
   end # main loop
