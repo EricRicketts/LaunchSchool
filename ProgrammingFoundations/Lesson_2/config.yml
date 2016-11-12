@@ -5,7 +5,7 @@ OneLineMessages:
   NumberErrorMessage: "Hmm... that doesn't look like a valid number"
   FirstNumberMessage: "What's the first number?"
   SecondNumberMessage: "What's the second number?"
-  RepeatCalculationMessage: "Do you want to perform another calculation?  (Y to calculate again)"
+  RepeatCalculationMessage: "Do you want to perform another calculation?  (Y/y to calculate again)"
   OperatorChoiceMessage: "Must choose 1, 2, 3, or 4"
   DivideByZeroMessage: "Oops!!  Cannot divide by zero, choose another number ..."
 MultiLineMessages:
