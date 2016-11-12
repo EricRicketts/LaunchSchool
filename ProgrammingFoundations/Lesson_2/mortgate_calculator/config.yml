@@ -1,0 +1,3 @@
+  WelcomeMsg: "Welcome to the Mortgage Calculator"
+  LoanAmtMsg: "What is the loan amount? "
+  InvalidNumMsg: "Hmm... that doesn't look like a valid number"

@@ -19,4 +19,23 @@ class MortgateCalculatorTest < Minitest::Test
   def test_enter_loan_amount_message
     assert_equal loan_amt_message, "=> What is the loan amount? "
   end
+
+  def test_valid_numbers
+    valid_numbers = ["3", "   4.5", "8.99   ", "  120  "]
+    valid_numbers.each do |number|
+      assert valid_number?(number)
+    end
+  end
+
+  def test_invalid_numbers
+    invalid_numbers = [" ", "45x", " 10.001 z ", "  xy444", "98..507"]
+    invalid_numbers.each do |number|
+      refute valid_number?(number)
+    end
+  end
+
+  def test_invalid_number_msg
+    msg = "=> Hmm... that doesn't look like a valid number"
+    assert_equal invalid_number_msg, msg
+  end
 end
