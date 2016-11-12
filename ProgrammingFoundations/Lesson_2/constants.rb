@@ -2,7 +2,6 @@ require 'yaml'
 
 # constants for calculator program
 module Constants
-
   raw_config = File.read('./config.yml')
   APP_CONFIG = YAML.load(raw_config)
 
@@ -22,5 +21,4 @@ module Constants
     '1' => 'Adding', '2' => 'Subtracting',
     '3' => 'Multiplying', '4' => 'Dividing'
   }
-
 end

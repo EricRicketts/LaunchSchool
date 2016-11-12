@@ -2,10 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative './constants'
 
-
 # making sure constants module works
 class CalculatorConstantsTest < Minitest::Test
-
   def setup
     @operator_prompt = "What operation would you like to perform? " \
     "(enter a number)\n" \
