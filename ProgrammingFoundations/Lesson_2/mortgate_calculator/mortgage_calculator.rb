@@ -6,18 +6,10 @@ APP_CONFIG = YAML.load(raw_config)
 def convert_input_to_float(stdin: $stdin)
   input = stdin.gets.chomp
   until valid_number?(input)
-    puts invalid_number_msg
+    puts prompt(APP_CONFIG['InvalidNumMsg'])
     input = stdin.gets.chomp
   end
   input.delete(",").to_f
-end
-
-def invalid_number_msg
-  prompt(APP_CONFIG['InvalidNumMsg'])
-end
-
-def loan_amt_message
-  prompt(APP_CONFIG['LoanAmtMsg'])
 end
 
 def monthly_payment(p, j, n)
@@ -33,13 +25,9 @@ def valid_number?(number)
   regex.match(number)
 end
 
-def welcome_message
-  prompt(APP_CONFIG['WelcomeMsg'])
-end
-
 if __FILE__ == $PROGRAM_NAME
-  puts welcome_message
-  puts loan_amt_message
+  puts prompt(APP_CONFIG['WelcomeMsg'])
+  puts prompt(APP_CONFIG['LoanAmtMsg'])
   loan_amount = convert_input_to_float
   puts loan_amount
 end
