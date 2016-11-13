@@ -35,7 +35,7 @@ class MortgateCalculatorTest < Minitest::Test
       "  120  ", "20,000.45", "945.2", "1,000,000.498"
     ]
     valid_numbers.each do |number|
-      assert valid_number?(number)
+      assert valid_loan?(number)
     end
   end
 
@@ -44,7 +44,7 @@ class MortgateCalculatorTest < Minitest::Test
       " ", " 10.001 z ", "98..507", ".01", "100,00"
     ]
     invalid_numbers.each do |number|
-      refute valid_number?(number)
+      refute valid_loan?(number)
     end
   end
 
