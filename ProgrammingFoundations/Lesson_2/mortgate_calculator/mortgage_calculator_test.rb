@@ -17,21 +17,41 @@ class MortgateCalculatorTest < Minitest::Test
   end
 
   def test_enter_loan_amount_message
-    assert_equal loan_amt_message, "=> What is the loan amount? "
+    msg = "=> Enter your loan amount.\n" \
+    "You must use commas for numbers greater than 999.\n" \
+    "Decimals must have at least one digit left of the decimal pont.\n" \
+    "What is your loan amount?"
+    assert_equal loan_amt_message, msg
   end
 
   def test_valid_numbers
-    valid_numbers = ["3", "   4.5", "8.99   ", "  120  "]
+    valid_numbers = [
+      "  120  ",
+      "20,000.45",
+      "945.2",
+      "1,000,000.498"
+    ]
     valid_numbers.each do |number|
       assert valid_number?(number)
     end
   end
 
   def test_invalid_numbers
-    invalid_numbers = [" ", "45x", " 10.001 z ", "  xy444", "98..507"]
+    invalid_numbers = [
+      " ",
+      " 10.001 z ",
+      "98..507",
+      ".01",
+      "100,00"
+    ]
     invalid_numbers.each do |number|
       refute valid_number?(number)
     end
+  end
+
+  def test_convert_to_float
+    input = StringIO.new("1,897,150,034.49\n")
+    assert_equal convert_input_to_float(stdin: input), 1_897_150_034.49
   end
 
   def test_invalid_number_msg

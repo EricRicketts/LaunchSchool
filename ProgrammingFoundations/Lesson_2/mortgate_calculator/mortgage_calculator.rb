@@ -3,6 +3,11 @@ require 'yaml'
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
+def convert_input_to_float(stdin: $stdin)
+  input = stdin.gets.chomp
+  input.delete!(",").to_f
+end
+
 def invalid_number_msg
   prompt(APP_CONFIG['InvalidNumMsg'])
 end
@@ -20,7 +25,7 @@ def prompt(msg)
 end
 
 def valid_number?(number)
-  regex = Regexp.new('\A\s*\d+\.?\d*\s*\z')
+  regex = Regexp.new('\A\s*\d{1,3}(,\d{3})*(\.\d+)?\s*\z')
   regex.match(number)
 end
 
