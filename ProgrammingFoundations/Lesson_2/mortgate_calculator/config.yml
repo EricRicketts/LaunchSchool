@@ -6,6 +6,7 @@
     Enter a number representing the percent interest you desire.
     Conversion to decimal will be done by the program.
     There must be at least one digit to the left of the decimal point.
+    There cannot be more than two digits to the left of the decimal point.
     Zero and negative rates are not allowed.
     What is your interest rate?
   LoanAmtMsg: |
