@@ -1,5 +1,6 @@
   WelcomeMsg: "Welcome to the Mortgage Calculator"
   InvalidLoanMsg: "Hmm... that doesn't look like a valid loan entry"
+  InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
   InterestAmtMsg: |
     Enter your interest amount.
     Enter a number representing the percent interest you desire.

@@ -3,9 +3,6 @@ require 'minitest/pride'
 require 'yaml'
 require_relative './mortgage_calculator'
 
-raw_config = File.read('./config.yml')
-APP_CONFIG = YAML.load(raw_config)
-
 # tests for mortgage calculator program
 class MortgateCalculatorTest < Minitest::Test
   def test_basic_calculation
@@ -57,6 +54,12 @@ class MortgateCalculatorTest < Minitest::Test
     msg = "=> Hmm... that doesn't look like a valid loan entry"
     invalid_number_msg = prompt(APP_CONFIG['InvalidLoanMsg'])
     assert_equal invalid_number_msg, msg
+  end
+
+  def test_invalid_interest_msg
+    msg = "=> Hmm... that doesn't look like a valid interest rate entry"
+    invalid_interest_msg = prompt(APP_CONFIG['InvalidInterestMsg'])
+    assert_equal invalid_interest_msg, msg
   end
 
   def test_valid_interest
