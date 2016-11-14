@@ -30,32 +30,61 @@ class MortgateCalculatorTest < Minitest::Test
     assert_equal loan_amt_message, msg
   end
 
-  def test_valid_numbers
-    valid_numbers = [
+  def test_valid_loans
+    valid_loans = [
       "  120  ", "20,000.45", "945.2", "1,000,000.498"
     ]
-    valid_numbers.each do |number|
+    valid_loans.each do |number|
       assert valid_loan?(number)
     end
   end
 
-  def test_invalid_numbers
-    invalid_numbers = [
+  def test_invalid_loans
+    invalid_loans = [
       " ", " 10.001 z ", "98..507", ".01", "100,00"
     ]
-    invalid_numbers.each do |number|
+    invalid_loans.each do |number|
       refute valid_loan?(number)
     end
   end
 
   def test_convert_to_float
     input = StringIO.new("1,897,150,034.49\n")
-    assert_equal convert_input_to_float(stdin: input), 1_897_150_034.49
+    assert_equal convert_loan_input_to_float(stdin: input), 1_897_150_034.49
   end
 
-  def test_invalid_number_msg
-    msg = "=> Hmm... that doesn't look like a valid number"
-    invalid_number_msg = prompt(APP_CONFIG['InvalidNumMsg'])
+  def test_invalid_loan_msg
+    msg = "=> Hmm... that doesn't look like a valid loan entry"
+    invalid_number_msg = prompt(APP_CONFIG['InvalidLoanMsg'])
     assert_equal invalid_number_msg, msg
+  end
+
+  def test_valid_interest
+    valid_interests = [
+      "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  ", "0", "00.00"
+    ]
+    valid_interests.each do |number|
+      assert valid_interest?(number)
+    end
+  end
+
+  def test_invalid_interest
+    invalid_interests = [
+      "-5", "5.", "5.xy", "xy6.7", ".55"
+    ]
+    invalid_interests.each do |number|
+      refute valid_interest?(number)
+    end
+  end
+
+  def test_interest_msg
+    msg = "=> Enter your interest amount.\n" \
+    "Enter a number representing the percent interest you desire.\n" \
+    "Conversion to decimal will be done by the program.\n" \
+    "There must be at least one digit to the left of the decimal point.\n" \
+    "Zero and negative rates are not allowed.\n" \
+    "What is your interest rate?\n"
+    interest_amt_msg = prompt(APP_CONFIG['InterestAmtMsg'])
+    assert_equal interest_amt_msg, msg
   end
 end

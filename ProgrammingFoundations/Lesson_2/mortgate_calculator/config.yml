@@ -1,5 +1,12 @@
   WelcomeMsg: "Welcome to the Mortgage Calculator"
-  InvalidNumMsg: "Hmm... that doesn't look like a valid number"
+  InvalidLoanMsg: "Hmm... that doesn't look like a valid loan entry"
+  InterestAmtMsg: |
+    Enter your interest amount.
+    Enter a number representing the percent interest you desire.
+    Conversion to decimal will be done by the program.
+    There must be at least one digit to the left of the decimal point.
+    Zero and negative rates are not allowed.
+    What is your interest rate?
   LoanAmtMsg: |
     Enter your loan amount.
     You must use commas for numbers greater than 999.
