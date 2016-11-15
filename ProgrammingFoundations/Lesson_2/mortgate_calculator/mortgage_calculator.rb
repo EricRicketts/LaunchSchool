@@ -23,6 +23,11 @@ def interest_rate_to_number(input, stdin: $stdin)
   input.to_f / 12 / 100
 end
 
+def leave_program?(stdin: $stdin)
+  answer = stdin.gets.chomp
+  answer.strip().downcase().start_with?('y') ? true : false
+end
+
 def loan_amount_to_number(input, stdin: $stdin)
   until valid_loan_amount?(input)
     puts prompt(APP_CONFIG['InvalidLoanMsg'])
@@ -63,17 +68,19 @@ def valid_loan_duration?(months)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  puts prompt(APP_CONFIG['WelcomeMsg'])
-  puts prompt(APP_CONFIG['LoanAmtMsg'])
-  loan_amount = conv_input_to_num
-  puts loan_amount
-  puts prompt(APP_CONFIG['InterestAmtMsg'])
-  interest = conv_input_to_num(input_type: "interest_rate")
-  puts interest
-  puts prompt(APP_CONFIG['LoanDurationMsg'])
-  loan_duration = conv_input_to_num(input_type: "loan_duration")
-  puts loan_duration
-  monthly_payment = calc_payment(loan_amount, interest, loan_duration)
-  puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
+  quit = false
+  until quit
+    puts prompt(APP_CONFIG['WelcomeMsg'])
+    puts prompt(APP_CONFIG['LoanAmtMsg'])
+    loan_amount = conv_input_to_num
+    puts prompt(APP_CONFIG['InterestAmtMsg'])
+    interest = conv_input_to_num(input_type: "interest_rate")
+    puts prompt(APP_CONFIG['LoanDurationMsg'])
+    loan_duration = conv_input_to_num(input_type: "loan_duration")
+    monthly_payment = calc_payment(loan_amount, interest, loan_duration)
+    puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
+    puts prompt(APP_CONFIG['QuitMsg'])
+    quit = leave_program
+  end
 end
 

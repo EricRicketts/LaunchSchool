@@ -29,6 +29,12 @@ class MortgateCalculatorTest < Minitest::Test
     assert_equal quit_msg, msg
   end
 
+  def test_goodbye_message
+    goodbye = prompt(APP_CONFIG['GoodByeMsg'])
+    msg = "=> Thank you for using mortgage calculator.  Good bye!"
+    assert_equal goodbye, msg
+  end
+
   def test_enter_loan_amount_message
     msg = "=> Enter your loan amount.\n" \
     "You must use commas for numbers greater than 999.\n" \
@@ -113,6 +119,24 @@ class MortgateCalculatorTest < Minitest::Test
     ]
     invalid_loan_durations.each do |number|
       refute valid_loan_duration?(number)
+    end
+  end
+
+  def test_leave_program_true
+    input = StringIO.new("  y\nY  \n  yes\n  YES  \n")
+    n = 1
+    while n < 5
+      assert leave_program?(stdin: input)
+      n += 1
+    end
+  end
+
+  def test_leave_program_false
+    input = StringIO.new("  N\n  \n  xyz\n  $&#!!  \n")
+    n = 1
+    while n < 5
+      refute leave_program?(stdin: input)
+      n += 1
     end
   end
 
