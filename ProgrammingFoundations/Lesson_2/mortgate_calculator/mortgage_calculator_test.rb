@@ -88,7 +88,7 @@ class MortgateCalculatorTest < Minitest::Test
 
   def test_valid_interest
     valid_interests = [
-      "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  ", "0", "00.00"
+      "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  "
     ]
     valid_interests.each do |number|
       assert valid_interest_rate?(number)
@@ -97,7 +97,8 @@ class MortgateCalculatorTest < Minitest::Test
 
   def test_invalid_interest
     invalid_interests = [
-      "-5", "5.", "5.xy", "xy6.7", ".55", "101.44"
+      "-5", "5.", "5.xy", "xy6.7", ".55", "101.44", "0", "0.00",
+      "00.0000", "00.", ".00"
     ]
     invalid_interests.each do |number|
       refute valid_interest_rate?(number)

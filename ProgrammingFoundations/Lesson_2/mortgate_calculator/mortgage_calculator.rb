@@ -54,6 +54,7 @@ end
 
 def valid_interest_rate?(interest)
   regex = Regexp.new('\A\s*\d{1,2}(\.\d+)?\s*\z')
+  return false if /\A\s*0{1,2}(\.0+)?\s*\z/ =~ interest
   regex.match(interest)
 end
 
@@ -68,8 +69,8 @@ def valid_loan_duration?(months)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  quit = false
-  until quit
+  continue = true
+  while continue
     puts prompt(APP_CONFIG['WelcomeMsg'])
     puts prompt(APP_CONFIG['LoanAmtMsg'])
     loan_amount = conv_input_to_num
@@ -80,7 +81,8 @@ if __FILE__ == $PROGRAM_NAME
     monthly_payment = calc_payment(loan_amount, interest, loan_duration)
     puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
     puts prompt(APP_CONFIG['QuitMsg'])
-    quit = leave_program
+    continue = leave_program?
   end
+  puts prompt(APP_CONFIG['GoodByeMsg'])
 end
 
