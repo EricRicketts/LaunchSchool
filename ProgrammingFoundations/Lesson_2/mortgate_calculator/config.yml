@@ -16,7 +16,8 @@
   LoanDurationMsg: |
     Enter your loan duration in months.
     The entry must be less than 1,000 and cannot have decimals.
-    Neither are negative numbers or zero.
+    Negative numbers or zero are not allowed.
+    The loan duration cannot start with zero.
     What is the loan duration in months?
   WelcomeMsg: "Welcome to the Mortgage Calculator"
   InvalidLoanMsg: "Hmm... that doesn't look like a valid loan amount entry"

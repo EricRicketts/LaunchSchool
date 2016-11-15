@@ -48,7 +48,7 @@ def valid_loan?(loan)
 end
 
 def valid_loan_duration?(months)
-  regex = Regexp.new('\A\s*\d{1,3}\s*\z')
+  regex = Regexp.new('\A\s*[1-9]\d{0,2}\s*\z')
   regex.match(months)
 end
 
