@@ -43,7 +43,7 @@ class MortgateCalculatorTest < Minitest::Test
 
   def test_loan_duration_msg
     msg = "=> Enter your loan duration in months.\n" \
-    "No decimal numbers are allowed.\n" \
+    "The entry must be less than 1,000 and cannot have decimals.\n" \
     "Neither are negative numbers or zero.\n" \
     "What is the loan duration in months?\n"
     loan_duration_msg = prompt(APP_CONFIG['LoanDurationMsg'])
@@ -83,6 +83,15 @@ class MortgateCalculatorTest < Minitest::Test
     ]
     invalid_interests.each do |number|
       refute valid_interest?(number)
+    end
+  end
+
+  def test_valid_loan_duration
+    valid_loan_durations = [
+      "  45  ", "50", "  34", "89  ", "360"
+    ]
+    valid_loan_durations.each do |number|
+      assert valid_loan_duration?(number)
     end
   end
 

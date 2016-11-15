@@ -47,6 +47,11 @@ def valid_loan?(loan)
   regex.match(loan)
 end
 
+def valid_loan_duration?(months)
+  regex = Regexp.new('\A\s*\d{1,3}\s*\z')
+  regex.match(months)
+end
+
 if __FILE__ == $PROGRAM_NAME
   puts prompt(APP_CONFIG['WelcomeMsg'])
   puts prompt(APP_CONFIG['LoanAmtMsg'])

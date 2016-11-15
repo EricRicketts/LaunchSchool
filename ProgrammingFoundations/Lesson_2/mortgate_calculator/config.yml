@@ -15,7 +15,7 @@
     What is your loan amount?
   LoanDurationMsg: |
     Enter your loan duration in months.
-    No decimal numbers are allowed.
+    The entry must be less than 1,000 and cannot have decimals.
     Neither are negative numbers or zero.
     What is the loan duration in months?
   WelcomeMsg: "Welcome to the Mortgage Calculator"
