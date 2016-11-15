@@ -3,6 +3,7 @@
   InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
   InterestAmtMsg: |
     Enter your interest amount.
+    The number must be an annual interest rate number.
     Enter a number representing the percent interest you desire.
     Conversion to decimal will be done by the program.
     There must be at least one digit to the left of the decimal point.

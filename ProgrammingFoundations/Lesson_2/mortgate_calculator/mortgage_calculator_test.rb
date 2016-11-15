@@ -27,6 +27,25 @@ class MortgateCalculatorTest < Minitest::Test
     assert_equal loan_amt_message, msg
   end
 
+  def test_interest_msg
+    msg = "=> Enter your interest amount.\n" \
+    "The number must be an annual interest rate number.\n" \
+    "Enter a number representing the percent interest you desire.\n" \
+    "Conversion to decimal will be done by the program.\n" \
+    "There must be at least one digit to the left of the decimal point.\n" \
+    "There cannot be more than two digits to the left of the decimal point.\n" \
+    "Zero and negative rates are not allowed.\n" \
+    "What is your interest rate?\n"
+    interest_amt_msg = prompt(APP_CONFIG['InterestAmtMsg'])
+    assert_equal interest_amt_msg, msg
+  end
+
+  # def test_loan_duration_msg
+  #   msg = "=> Enter your loan duration in months.\n" \
+  #   "No decimal numbers are allowed.\n" \
+    
+  # end
+
   def test_valid_loans
     valid_loans = [
       "  120  ", "20,000.45", "945.2", "1,000,000.498"
@@ -54,7 +73,7 @@ class MortgateCalculatorTest < Minitest::Test
   def test_convert_interest_rate_to_float
     input = StringIO.new("6.78\n")
     interest = convert_input_to_number(stdin: input, input_type: "interest")
-    assert_equal interest, 6.78
+    assert_in_delta 0.005650, interest, 0.000001
   end
 
   def test_invalid_loan_msg
@@ -87,15 +106,4 @@ class MortgateCalculatorTest < Minitest::Test
     end
   end
 
-  def test_interest_msg
-    msg = "=> Enter your interest amount.\n" \
-    "Enter a number representing the percent interest you desire.\n" \
-    "Conversion to decimal will be done by the program.\n" \
-    "There must be at least one digit to the left of the decimal point.\n" \
-    "There cannot be more than two digits to the left of the decimal point.\n" \
-    "Zero and negative rates are not allowed.\n" \
-    "What is your interest rate?\n"
-    interest_amt_msg = prompt(APP_CONFIG['InterestAmtMsg'])
-    assert_equal interest_amt_msg, msg
-  end
 end

@@ -18,7 +18,7 @@ def interest_rate_to_number(input, stdin: $stdin)
     puts prompt(APP_CONFIG['InvalidInterestMsg'])
     input = stdin.gets.chomp
   end
-  input.to_f
+  input.to_f / 12 / 100
 end
 
 def loan_to_number(input, stdin: $stdin)
@@ -50,7 +50,10 @@ end
 if __FILE__ == $PROGRAM_NAME
   puts prompt(APP_CONFIG['WelcomeMsg'])
   puts prompt(APP_CONFIG['LoanAmtMsg'])
-  loan_amount = convert_input_to_float
+  loan_amount = convert_input_to_number
   puts loan_amount
+  puts prompt(APP_CONFIG['InterestAmtMsg'])
+  interest = convert_input_to_number(input_type: "interest")
+  puts interest
 end
 
