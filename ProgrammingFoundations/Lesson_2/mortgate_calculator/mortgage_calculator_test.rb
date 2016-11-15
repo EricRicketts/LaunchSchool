@@ -22,7 +22,8 @@ class MortgateCalculatorTest < Minitest::Test
     msg = "=> Enter your loan amount.\n" \
     "You must use commas for numbers greater than 999.\n" \
     "Decimals must have at least one digit left of the decimal pont.\n" \
-    "What is your loan amount?"
+    "Zero and negative numbers are not allowed.\n" \
+    "What is your loan amount?\n"
     loan_amt_message = prompt(APP_CONFIG['LoanAmtMsg'])
     assert_equal loan_amt_message, msg
   end
@@ -40,11 +41,14 @@ class MortgateCalculatorTest < Minitest::Test
     assert_equal interest_amt_msg, msg
   end
 
-  # def test_loan_duration_msg
-  #   msg = "=> Enter your loan duration in months.\n" \
-  #   "No decimal numbers are allowed.\n" \
-    
-  # end
+  def test_loan_duration_msg
+    msg = "=> Enter your loan duration in months.\n" \
+    "No decimal numbers are allowed.\n" \
+    "Neither are negative numbers or zero.\n" \
+    "What is the loan duration in months?\n"
+    loan_duration_msg = prompt(APP_CONFIG['LoanDurationMsg'])
+    assert_equal loan_duration_msg, msg
+  end
 
   def test_valid_loans
     valid_loans = [

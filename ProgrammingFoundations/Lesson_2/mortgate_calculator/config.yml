@@ -1,6 +1,3 @@
-  WelcomeMsg: "Welcome to the Mortgage Calculator"
-  InvalidLoanMsg: "Hmm... that doesn't look like a valid loan entry"
-  InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
   InterestAmtMsg: |
     Enter your interest amount.
     The number must be an annual interest rate number.
@@ -14,4 +11,13 @@
     Enter your loan amount.
     You must use commas for numbers greater than 999.
     Decimals must have at least one digit left of the decimal pont.
+    Zero and negative numbers are not allowed.
     What is your loan amount?
+  LoanDurationMsg: |
+    Enter your loan duration in months.
+    No decimal numbers are allowed.
+    Neither are negative numbers or zero.
+    What is the loan duration in months?
+  WelcomeMsg: "Welcome to the Mortgage Calculator"
+  InvalidLoanMsg: "Hmm... that doesn't look like a valid loan entry"
+  InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
