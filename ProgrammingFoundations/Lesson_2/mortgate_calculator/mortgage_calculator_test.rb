@@ -9,13 +9,24 @@ class MortgateCalculatorTest < Minitest::Test
     loan_amount = 20_000
     monthly_interest = (5.0 / 12) / 100
     duration = 36
-    monthly_payment = monthly_payment(loan_amount, monthly_interest, duration)
+    monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
     assert_in_delta 599.42, monthly_payment, 0.01
   end
 
-  def test_welcome
+  def test_welcome_message
     welcome_message = prompt(APP_CONFIG['WelcomeMsg'])
     assert_equal welcome_message, "=> Welcome to the Mortgage Calculator"
+  end
+
+  def test_results_message
+    results_msg = prompt(APP_CONFIG['ResultMsg'])
+    assert_equal results_msg, "=> Monthly payments are: "
+  end
+
+  def test_quit_message
+    quit_msg = prompt(APP_CONFIG['QuitMsg'])
+    msg = "=> Calculate another monthly payment(Y/y to continue)?"
+    assert_equal quit_msg, msg
   end
 
   def test_enter_loan_amount_message
@@ -56,7 +67,7 @@ class MortgateCalculatorTest < Minitest::Test
       "  120  ", "20,000.45", "945.2", "1,000,000.498"
     ]
     valid_loans.each do |number|
-      assert valid_loan?(number)
+      assert valid_loan_amount?(number)
     end
   end
 
@@ -65,7 +76,7 @@ class MortgateCalculatorTest < Minitest::Test
       " ", " 10.001 z ", "98..507", ".01", "100,00"
     ]
     invalid_loans.each do |number|
-      refute valid_loan?(number)
+      refute valid_loan_amount?(number)
     end
   end
 
@@ -74,7 +85,7 @@ class MortgateCalculatorTest < Minitest::Test
       "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  ", "0", "00.00"
     ]
     valid_interests.each do |number|
-      assert valid_interest?(number)
+      assert valid_interest_rate?(number)
     end
   end
 
@@ -83,7 +94,7 @@ class MortgateCalculatorTest < Minitest::Test
       "-5", "5.", "5.xy", "xy6.7", ".55", "101.44"
     ]
     invalid_interests.each do |number|
-      refute valid_interest?(number)
+      refute valid_interest_rate?(number)
     end
   end
 
@@ -105,16 +116,22 @@ class MortgateCalculatorTest < Minitest::Test
     end
   end
 
-  def test_convert_loan_to_float
+  def test_convert_loan_amount_to_float
     input = StringIO.new("1,897,150,034.49\n")
-    loan = convert_input_to_number(stdin: input, input_type: "loan")
-    assert_equal loan, 1_897_150_034.49
+    loan_amount = conv_input_to_num(stdin: input, input_type: "loan_amount")
+    assert_equal loan_amount, 1_897_150_034.49
   end
 
   def test_convert_interest_rate_to_float
     input = StringIO.new("6.78\n")
-    interest = convert_input_to_number(stdin: input, input_type: "interest")
+    interest = conv_input_to_num(stdin: input, input_type: "interest_rate")
     assert_in_delta 0.005650, interest, 0.000001
+  end
+
+  def test_convert_loan_duration_to_float
+    input = StringIO.new("36\n")
+    duration = conv_input_to_num(stdin: input, input_type: "loan_duration")
+    assert_equal duration, 36
   end
 
   def test_invalid_loan_amount_msg
