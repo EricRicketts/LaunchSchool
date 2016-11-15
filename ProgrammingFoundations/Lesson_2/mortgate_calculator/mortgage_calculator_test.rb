@@ -68,30 +68,6 @@ class MortgateCalculatorTest < Minitest::Test
     end
   end
 
-  def test_convert_loan_to_float
-    input = StringIO.new("1,897,150,034.49\n")
-    loan = convert_input_to_number(stdin: input, input_type: "loan")
-    assert_equal loan, 1_897_150_034.49
-  end
-
-  def test_convert_interest_rate_to_float
-    input = StringIO.new("6.78\n")
-    interest = convert_input_to_number(stdin: input, input_type: "interest")
-    assert_in_delta 0.005650, interest, 0.000001
-  end
-
-  def test_invalid_loan_msg
-    msg = "=> Hmm... that doesn't look like a valid loan entry"
-    invalid_number_msg = prompt(APP_CONFIG['InvalidLoanMsg'])
-    assert_equal invalid_number_msg, msg
-  end
-
-  def test_invalid_interest_msg
-    msg = "=> Hmm... that doesn't look like a valid interest rate entry"
-    invalid_interest_msg = prompt(APP_CONFIG['InvalidInterestMsg'])
-    assert_equal invalid_interest_msg, msg
-  end
-
   def test_valid_interest
     valid_interests = [
       "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  ", "0", "00.00"
@@ -110,4 +86,33 @@ class MortgateCalculatorTest < Minitest::Test
     end
   end
 
+  def test_convert_loan_to_float
+    input = StringIO.new("1,897,150,034.49\n")
+    loan = convert_input_to_number(stdin: input, input_type: "loan")
+    assert_equal loan, 1_897_150_034.49
+  end
+
+  def test_convert_interest_rate_to_float
+    input = StringIO.new("6.78\n")
+    interest = convert_input_to_number(stdin: input, input_type: "interest")
+    assert_in_delta 0.005650, interest, 0.000001
+  end
+
+  def test_invalid_loan_amount_msg
+    msg = "=> Hmm... that doesn't look like a valid loan amount entry"
+    invalid_number_msg = prompt(APP_CONFIG['InvalidLoanMsg'])
+    assert_equal invalid_number_msg, msg
+  end
+
+  def test_invalid_interest_msg
+    msg = "=> Hmm... that doesn't look like a valid interest rate entry"
+    invalid_interest_msg = prompt(APP_CONFIG['InvalidInterestMsg'])
+    assert_equal invalid_interest_msg, msg
+  end
+
+  def test_invalid_loan_duration_msg
+    msg = "=> Hmm... that doesn't look like a valid loan duration entry"
+    invalid_loan_duration_msg = prompt(APP_CONFIG['InvalidLoanDurationMsg'])
+    assert_equal invalid_loan_duration_msg, msg
+  end
 end

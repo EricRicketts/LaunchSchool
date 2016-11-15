@@ -19,5 +19,6 @@
     Neither are negative numbers or zero.
     What is the loan duration in months?
   WelcomeMsg: "Welcome to the Mortgage Calculator"
-  InvalidLoanMsg: "Hmm... that doesn't look like a valid loan entry"
+  InvalidLoanMsg: "Hmm... that doesn't look like a valid loan amount entry"
   InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
+  InvalidLoanDurationMsg: "Hmm... that doesn't look like a valid loan duration entry"
