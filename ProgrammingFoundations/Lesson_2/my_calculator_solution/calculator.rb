@@ -80,11 +80,11 @@ end
 def repeat?
   repeat = gets.chomp.strip().downcase()
   loop do
-    break if repeat.start_with?('y', 'n')
+    break if repeat.eql?('y') || repeat.eql?('n')
     prompt(Constants::WRONG_RESPONSE_MSG)
     repeat = gets.chomp.strip().downcase()
   end
-  repeat.start_with?('y')
+  repeat.eql?('y')
 end
 
 def valid_number?(number)
