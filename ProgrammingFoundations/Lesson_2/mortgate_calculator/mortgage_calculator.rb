@@ -99,11 +99,6 @@ if __FILE__ == $PROGRAM_NAME
     interest = obtain_interest_amt
     duration = obtain_loan_duration
     continue = print_payment_and_repeat_or_not(loan, interest, duration)
-    # monthly_payment = calc_payment(loan_amount, interest_rate, loan_duration)
-    # puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
-    # puts prompt(APP_CONFIG['QuitMsg'])
-    # continue = leave_program?
   end
   puts prompt(APP_CONFIG['GoodByeMsg'])
 end
-

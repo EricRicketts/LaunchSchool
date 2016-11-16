@@ -11,7 +11,7 @@
     Enter your loan amount.
     You must use commas for numbers greater than 999.
     Decimals must have at least one digit left of the decimal pont.
-    Zero and negative numbers are not allowed.
+    Negative numbers are not allowed.
     What is your loan amount?
   LoanDurationMsg: |
     Enter your loan duration in months.

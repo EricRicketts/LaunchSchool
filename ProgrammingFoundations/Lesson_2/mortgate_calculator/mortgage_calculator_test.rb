@@ -3,16 +3,8 @@ require 'minitest/pride'
 require 'yaml'
 require_relative './mortgage_calculator'
 
-# tests for mortgage calculator program
-class MortgateCalculatorTest < Minitest::Test
-  def test_basic_calculation
-    loan_amount = 20_000
-    monthly_interest = (5.0 / 12) / 100
-    duration = 36
-    monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
-    assert_in_delta 599.42, monthly_payment, 0.01
-  end
-
+# tests miscellaneous messages
+class MortgateCalculatorTestMiscellaneous < Minitest::Test
   def test_welcome_message
     msg = "=> Welcome to the Mortgage Calculator.\n" \
     "This will calculate a monthly payment, based on the loan amount,\n" \
@@ -38,11 +30,31 @@ class MortgateCalculatorTest < Minitest::Test
     assert_equal goodbye, msg
   end
 
+  def test_invalid_loan_amount_msg
+    msg = "=> Hmm... that doesn't look like a valid loan amount entry"
+    invalid_number_msg = prompt(APP_CONFIG['InvalidLoanMsg'])
+    assert_equal invalid_number_msg, msg
+  end
+
+  def test_invalid_interest_msg
+    msg = "=> Hmm... that doesn't look like a valid interest rate entry"
+    invalid_interest_msg = prompt(APP_CONFIG['InvalidInterestMsg'])
+    assert_equal invalid_interest_msg, msg
+  end
+
+  def test_invalid_loan_duration_msg
+    msg = "=> Hmm... that doesn't look like a valid loan duration entry"
+    invalid_loan_duration_msg = prompt(APP_CONFIG['InvalidLoanDurationMsg'])
+    assert_equal invalid_loan_duration_msg, msg
+  end
+end
+# check lengthy messages
+class MortgageCalculatorTestBigMessages < Minitest::Test
   def test_enter_loan_amount_message
     msg = "=> Enter your loan amount.\n" \
     "You must use commas for numbers greater than 999.\n" \
     "Decimals must have at least one digit left of the decimal pont.\n" \
-    "Zero and negative numbers are not allowed.\n" \
+    "Negative numbers are not allowed.\n" \
     "What is your loan amount?\n"
     loan_amt_message = prompt(APP_CONFIG['LoanAmtMsg'])
     assert_equal loan_amt_message, msg
@@ -70,7 +82,9 @@ class MortgateCalculatorTest < Minitest::Test
     loan_duration_msg = prompt(APP_CONFIG['LoanDurationMsg'])
     assert_equal loan_duration_msg, msg
   end
-
+end
+# test valid entries
+class MortgageCalculatorTestValidEntries < Minitest::Test
   def test_valid_loans
     valid_loans = [
       "  120  ", "20,000.45", "945.2", "1,000,000.498"
@@ -143,7 +157,9 @@ class MortgateCalculatorTest < Minitest::Test
       n += 1
     end
   end
-
+end
+# test calculations
+class MortgageCalculatorTestCalculations < Minitest::Test
   def test_convert_loan_amount_to_float
     input = StringIO.new("1,897,150,034.49\n")
     loan_amount = conv_input_to_num(stdin: input, input_type: "loan_amount")
@@ -162,21 +178,11 @@ class MortgateCalculatorTest < Minitest::Test
     assert_equal duration, 36
   end
 
-  def test_invalid_loan_amount_msg
-    msg = "=> Hmm... that doesn't look like a valid loan amount entry"
-    invalid_number_msg = prompt(APP_CONFIG['InvalidLoanMsg'])
-    assert_equal invalid_number_msg, msg
-  end
-
-  def test_invalid_interest_msg
-    msg = "=> Hmm... that doesn't look like a valid interest rate entry"
-    invalid_interest_msg = prompt(APP_CONFIG['InvalidInterestMsg'])
-    assert_equal invalid_interest_msg, msg
-  end
-
-  def test_invalid_loan_duration_msg
-    msg = "=> Hmm... that doesn't look like a valid loan duration entry"
-    invalid_loan_duration_msg = prompt(APP_CONFIG['InvalidLoanDurationMsg'])
-    assert_equal invalid_loan_duration_msg, msg
+  def test_basic_calculation
+    loan_amount = 20_000
+    monthly_interest = (5.0 / 12) / 100
+    duration = 36
+    monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
+    assert_in_delta 599.42, monthly_payment, 0.01
   end
 end
