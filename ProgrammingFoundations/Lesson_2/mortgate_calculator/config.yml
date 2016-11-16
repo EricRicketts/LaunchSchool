@@ -19,7 +19,10 @@
     Negative numbers or zero are not allowed.
     The loan duration cannot start with zero.
     What is the loan duration in months?
-  WelcomeMsg: "Welcome to the Mortgage Calculator"
+  WelcomeMsg: |
+    Welcome to the Mortgage Calculator.
+    This will calculate a monthly payment, based on the loan amount,
+    a positive interest rate, and loan duration in months.
   InvalidLoanMsg: "Hmm... that doesn't look like a valid loan amount entry"
   InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
   InvalidLoanDurationMsg: "Hmm... that doesn't look like a valid loan duration entry"

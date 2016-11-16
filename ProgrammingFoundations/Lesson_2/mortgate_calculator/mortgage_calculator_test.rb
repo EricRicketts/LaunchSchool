@@ -14,8 +14,11 @@ class MortgateCalculatorTest < Minitest::Test
   end
 
   def test_welcome_message
+    msg = "=> Welcome to the Mortgage Calculator.\n" \
+    "This will calculate a monthly payment, based on the loan amount,\n" \
+    "a positive interest rate, and loan duration in months.\n"
     welcome_message = prompt(APP_CONFIG['WelcomeMsg'])
-    assert_equal welcome_message, "=> Welcome to the Mortgage Calculator"
+    assert_equal welcome_message, msg
   end
 
   def test_results_message

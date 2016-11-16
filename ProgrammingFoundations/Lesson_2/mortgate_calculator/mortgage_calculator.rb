@@ -3,6 +3,10 @@ require 'yaml'
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
+def calc_payment(p, j, n)
+  p * (j / (1 - (1 + j)**-n))
+end
+
 def conv_input_to_num(stdin: $stdin, input_type: "loan_amount")
   input = stdin.gets.chomp
   case input_type
@@ -44,8 +48,26 @@ def loan_duration_to_number(input, stdin: $stdin)
   input.to_i
 end
 
-def calc_payment(p, j, n)
-  p * (j / (1 - (1 + j)**-n))
+def obtain_interest_amt
+  puts prompt(APP_CONFIG['InterestAmtMsg'])
+  conv_input_to_num(input_type: "interest_rate")
+end
+
+def obtain_loan_amt
+  puts prompt(APP_CONFIG['LoanAmtMsg'])
+  conv_input_to_num
+end
+
+def obtain_loan_duration
+  puts prompt(APP_CONFIG['LoanDurationMsg'])
+  conv_input_to_num(input_type: "loan_duration")
+end
+
+def print_payment_and_repeat_or_not(loan, interest, duration)
+  monthly_payment = calc_payment(loan, interest, duration)
+  puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
+  puts prompt(APP_CONFIG['QuitMsg'])
+  leave_program?
 end
 
 def prompt(msg)
@@ -54,6 +76,7 @@ end
 
 def valid_interest_rate?(interest)
   regex = Regexp.new('\A\s*\d{1,2}(\.\d+)?\s*\z')
+  # check for zero entry
   return false if /\A\s*0{1,2}(\.0+)?\s*\z/ =~ interest
   regex.match(interest)
 end
@@ -69,19 +92,17 @@ def valid_loan_duration?(months)
 end
 
 if __FILE__ == $PROGRAM_NAME
+  puts prompt(APP_CONFIG['WelcomeMsg'])
   continue = true
   while continue
-    puts prompt(APP_CONFIG['WelcomeMsg'])
-    puts prompt(APP_CONFIG['LoanAmtMsg'])
-    loan_amount = conv_input_to_num
-    puts prompt(APP_CONFIG['InterestAmtMsg'])
-    interest = conv_input_to_num(input_type: "interest_rate")
-    puts prompt(APP_CONFIG['LoanDurationMsg'])
-    loan_duration = conv_input_to_num(input_type: "loan_duration")
-    monthly_payment = calc_payment(loan_amount, interest, loan_duration)
-    puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
-    puts prompt(APP_CONFIG['QuitMsg'])
-    continue = leave_program?
+    loan = obtain_loan_amt
+    interest = obtain_interest_amt
+    duration = obtain_loan_duration
+    continue = print_payment_and_repeat_or_not(loan, interest, duration)
+    # monthly_payment = calc_payment(loan_amount, interest_rate, loan_duration)
+    # puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
+    # puts prompt(APP_CONFIG['QuitMsg'])
+    # continue = leave_program?
   end
   puts prompt(APP_CONFIG['GoodByeMsg'])
 end
