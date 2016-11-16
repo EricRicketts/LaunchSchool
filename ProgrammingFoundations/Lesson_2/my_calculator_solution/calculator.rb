@@ -78,8 +78,13 @@ def remove_white_space(str)
 end
 
 def repeat?
-  answer = gets.chomp
-  answer.downcase().start_with?('y') ? true : false
+  repeat = gets.chomp.strip().downcase()
+  loop do
+    break if repeat.start_with?('y', 'n')
+    prompt(Constants::WRONG_RESPONSE_MSG)
+    repeat = gets.chomp.strip().downcase()
+  end
+  repeat.start_with?('y')
 end
 
 def valid_number?(number)

@@ -22,7 +22,7 @@ class CalculatorTest < Minitest::Test
 
   def test_invalid_numbers
     invalid_numbers = [" ", "45x", " 10.001 z ",
-      "  xy444", "98..507", "-+89.4", "++55.7" "--39"]
+      "  xy444", "98..507", "-+89.4", "++55.7", "--39"]
     invalid_numbers.each do |number|
       refute valid_number?(number)
     end
