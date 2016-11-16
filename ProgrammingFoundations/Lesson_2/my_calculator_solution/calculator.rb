@@ -1,8 +1,14 @@
-require_relative './constants'
+require 'yaml'
+raw_config = File.read('./config.yml')
+APP_CONFIG = YAML.load(raw_config)
+OPERATOR_HASH = {
+  '1' => 'Adding', '2' => 'Subtracting',
+  '3' => 'Multiplying', '4' => 'Dividing'
+}
 
 def compute_result(operator, num1, num2, msg)
   while num2.zero? && operator == '4'
-    prompt(Constants::DIVIDE_BY_ZERO_MSG)
+    prompt(APP_CONFIG['DivideByZeroMsg'])
     num2 = read_number(msg)
   end
   compute_hash = {
@@ -19,32 +25,32 @@ end
 
 def format_number(msg)
   number = ''
-  error_msg = Constants::NUMBER_ERROR_MSG
+  error_msg = APP_CONFIG['NumberErrorMsg']
   loop do
     prompt(msg)
     number = gets.chomp
     valid_number?(number) ? break : prompt(error_msg)
   end
-  number = remove_white_space(number)
+  number.strip
 end
 
 def name
-  prompt(Constants::WELCOME_MSG)
+  prompt(APP_CONFIG['WelcomeMsg'])
   name = ''
   loop do
     name = gets.chomp
-    name.empty? || /\s+/ =~ name ? prompt(Constants::NAME_ERROR_MSG) : break
+    name.empty? || /\s+/ =~ name ? prompt(APP_CONFIG['NameErrorMsg']) : break
   end
   name
 end
 
 def operation_to_message(operator)
-  Constants::OPERATOR_HASH[operator]
+  OPERATOR_HASH[operator]
 end
 
 def print_result(result)
   prompt("The result is #{result}")
-  prompt(Constants::REPEAT_CALC_MSG)
+  prompt(APP_CONFIG['RepeatCalculationMsg'])
 end
 
 def prompt(message)
@@ -52,9 +58,9 @@ def prompt(message)
 end
 
 def prompt_for_operation
-  prompt(Constants::OPERATOR_PROMPT)
+  prompt(APP_CONFIG['OperatorPrompt'])
   operator = ''
-  operator_choice = Constants::OPERATOR_CHOICE
+  operator_choice = APP_CONFIG['OperatorChoiceMsg']
   loop do
     operator = gets.chomp
     %w(1 2 3 4).include?(operator) ? break : prompt(operator_choice)
@@ -63,8 +69,8 @@ def prompt_for_operation
 end
 
 def read_in_numbers
-  num1 = read_number(Constants::FIRST_NUMBER_MSG)
-  num2 = read_number(Constants::SECOND_NUMBER_MSG)
+  num1 = read_number(APP_CONFIG['FirstNumberMsg'])
+  num2 = read_number(APP_CONFIG['SecondNumberMsg'])
   [num1, num2]
 end
 
@@ -73,15 +79,11 @@ def read_number(msg)
   convert_str_to_int_or_float(number)
 end
 
-def remove_white_space(str)
-  str.strip
-end
-
 def repeat?
   repeat = gets.chomp.strip().downcase()
   loop do
     break if repeat.eql?('y') || repeat.eql?('n')
-    prompt(Constants::WRONG_RESPONSE_MSG)
+    prompt(APP_CONFIG['IncorrectMsg'])
     repeat = gets.chomp.strip().downcase()
   end
   repeat.eql?('y')
@@ -98,9 +100,9 @@ if __FILE__ == $PROGRAM_NAME
     number1, number2 = read_in_numbers
     operator = prompt_for_operation
     result = compute_result(operator, number1, \
-                            number2, Constants::SECOND_NUMBER_MSG)
+                            number2, APP_CONFIG['SecondNumberMsg'])
     print_result(result)
     break unless repeat?
   end # main loop
-  prompt(Constants::GOOD_BYE_MSG)
+  prompt(APP_CONFIG['GoodByeMsg'])
 end

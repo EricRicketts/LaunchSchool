@@ -1,20 +1,18 @@
-OneLineMessages:
-  WelcomeMessage: "Welcome to Calculator!  Enter your name: "
-  GoodByeMessage: "Thank you for using the calculator.  Good bye!"
-  NameErrorMessage: "Make sure to use a valid name."
-  NumberErrorMessage: "Hmm... that doesn't look like a valid number"
-  FirstNumberMessage: "What's the first number?"
-  SecondNumberMessage: "What's the second number?"
-  OperatorChoiceMessage: "Must choose 1, 2, 3, or 4"
-  DivideByZeroMessage: "Oops!!  Cannot divide by zero, choose another number ..."
-  IncorrectMsg: "Oops!!  I don't understand please input (Y/y) to continue or (N/n) to quit."
-MultiLineMessages:
-  OperatorPrompt: |
-      What operation would you like to perform? (enter a number)
-      1) Add
-      2) Subtract
-      3) Multiply
-      4) Divide
-  RepeatCalculationMessage: |
-      Do you want to perform another calculation?
-      (Y/y to calculate again or N/n to quit)
+WelcomeMsg: "Welcome to Calculator!  Enter your name: "
+GoodByeMsg: "Thank you for using the calculator.  Good bye!"
+NameErrorMsg: "Make sure to use a valid name."
+NumberErrorMsg: "Hmm... that doesn't look like a valid number"
+FirstNumberMsg: "What's the first number?"
+SecondNumberMsg: "What's the second number?"
+OperatorChoiceMsg: "Must choose 1, 2, 3, or 4"
+DivideByZeroMsg: "Oops!!  Cannot divide by zero, choose another number ..."
+IncorrectMsg: "Oops!!  I don't understand please input (Y/y) to continue or (N/n) to quit."
+OperatorPrompt: |
+    What operation would you like to perform? (enter a number)
+    1) Add
+    2) Subtract
+    3) Multiply
+    4) Divide
+RepeatCalculationMsg: |
+    Do you want to perform another calculation?
+    (Y/y to calculate again or N/n to quit)
