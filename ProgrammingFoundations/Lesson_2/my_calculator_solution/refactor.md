@@ -6,3 +6,7 @@
     *  User must now explicitly enter (Y/y) to continue or (N/n) to quit
     *  User cannot have a name consisting only of spaces
 3.  Source Code Notes and Issues
+    *  Eliminated the ```constants.rb``` file
+    *  Eliminated heirarchy in the ```config.yml``` file, the ```OneLineMessages``` and ```MultiLineMessages``` keys are gone
+    *  Removed ```#remove_white_space```
+    *  Removed ```#read_in_numbers```

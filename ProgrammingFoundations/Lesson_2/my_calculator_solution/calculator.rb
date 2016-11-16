@@ -68,12 +68,6 @@ def prompt_for_operation
   operator
 end
 
-def read_in_numbers
-  num1 = read_number(APP_CONFIG['FirstNumberMsg'])
-  num2 = read_number(APP_CONFIG['SecondNumberMsg'])
-  [num1, num2]
-end
-
 def read_number(msg)
   number = format_number(msg)
   convert_str_to_int_or_float(number)
@@ -97,7 +91,8 @@ end
 if __FILE__ == $PROGRAM_NAME
   prompt("Hi #{name}")
   loop do # main loop
-    number1, number2 = read_in_numbers
+    number1 = read_number(APP_CONFIG['FirstNumberMsg'])
+    number2 = read_number(APP_CONFIG['SecondNumberMsg'])
     operator = prompt_for_operation
     result = compute_result(operator, number1, \
                             number2, APP_CONFIG['SecondNumberMsg'])
