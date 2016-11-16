@@ -83,7 +83,7 @@ def repeat?
 end
 
 def valid_number?(number)
-  regex = Regexp.new('\A\s*\d+\.?\d*\s*\z')
+  regex = Regexp.new('\A\s*[-+]?\d+\.?\d*\s*\z')
   regex.match(number)
 end
 

@@ -14,14 +14,15 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_valid_numbers
-    valid_numbers = ["3", "   4.5", "8.99   ", "  120  "]
+    valid_numbers = ["3", "   4.5", "8.99   ", "  120  ", "-1330.567", "+89.4"]
     valid_numbers.each do |number|
       assert valid_number?(number)
     end
   end
 
   def test_invalid_numbers
-    invalid_numbers = [" ", "45x", " 10.001 z ", "  xy444", "98..507"]
+    invalid_numbers = [" ", "45x", " 10.001 z ",
+      "  xy444", "98..507", "-+89.4", "++55.7" "--39"]
     invalid_numbers.each do |number|
       refute valid_number?(number)
     end
