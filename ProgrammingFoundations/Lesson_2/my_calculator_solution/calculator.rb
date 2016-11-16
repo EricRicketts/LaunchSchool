@@ -6,11 +6,7 @@ OPERATOR_HASH = {
   '3' => 'Multiplying', '4' => 'Dividing'
 }
 
-def compute_result(operator, num1, num2, msg)
-  while num2.zero? && operator == '4'
-    prompt(APP_CONFIG['DivideByZeroMsg'])
-    num2 = read_number(msg)
-  end
+def compute_result(operator, num1, num2)
   compute_hash = {
     '1' => (num1 + num2), '2' => (num1 - num2),
     '3' => (num1 * num2), '4' => (num1.to_f / num2.to_f)
@@ -73,6 +69,14 @@ def read_number(msg)
   convert_str_to_int_or_float(number)
 end
 
+def reassign_divide_by_zero(operator, num2, msg)
+  while num2.zero? && operator == '4'
+    prompt(APP_CONFIG['DivideByZeroMsg'])
+    num2 = read_number(msg)
+  end
+  num2
+end
+
 def repeat?
   repeat = gets.chomp.strip().downcase()
   loop do
@@ -94,8 +98,11 @@ if __FILE__ == $PROGRAM_NAME
     number1 = read_number(APP_CONFIG['FirstNumberMsg'])
     number2 = read_number(APP_CONFIG['SecondNumberMsg'])
     operator = prompt_for_operation
-    result = compute_result(operator, number1, \
-                            number2, APP_CONFIG['SecondNumberMsg'])
+    if number2.zero? && operator == '4'
+      msg = APP_CONFIG['SecondNumberMsg']
+      number2 = reassign_divide_by_zero(operator, number2, msg)
+    end
+    result = compute_result(operator, number1, number2)
     print_result(result)
     break unless repeat?
   end # main loop

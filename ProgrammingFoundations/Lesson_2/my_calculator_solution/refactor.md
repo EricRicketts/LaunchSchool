@@ -10,3 +10,15 @@
     *  Eliminated heirarchy in the ```config.yml``` file, the ```OneLineMessages``` and ```MultiLineMessages``` keys are gone
     *  Removed ```#remove_white_space```
     *  Removed ```#read_in_numbers```
+    *  Divide by zero check was pulled out of ```#compute_result``` and put in the main loop
+
+
+### Some Key Concepts From Pete Hanson's Code Review
+
+1.  Avoid Too Much Indirection
+    *  In an effort to keep the methods short, I ended up defining too many methods
+    *  If the statement is intention revealing enough and short, just use it vice wrapping it in a method call
+2.  Make Sure the statements within a method support the idea behind the method name
+    *  I had the reread operation of the second number with the divide operation called in ```#compute_result```
+    *  Pete noted such an operation did not make sense within the scope of ```#compute_result```
+    *  Such a check should be in another method in the main loop
