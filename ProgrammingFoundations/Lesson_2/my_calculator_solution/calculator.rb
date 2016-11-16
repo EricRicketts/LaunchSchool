@@ -19,11 +19,21 @@ def compute_result(operator, num1, num2)
   end
 end
 
-def convert_str_to_int_or_float(str)
+def convert_string_to_integer_or_float(str)
   str.to_i == str.to_f ? str.to_i : str.to_f
 end
 
-def format_number(msg)
+def obtain_name
+  prompt(APP_CONFIG['WelcomeMsg'])
+  name = ''
+  loop do
+    name = gets.chomp
+    name.empty? || /\s+/ =~ name ? prompt(APP_CONFIG['NameErrorMsg']) : break
+  end
+  name
+end
+
+def obtain_valid_number_string(msg)
   number = ''
   error_msg = APP_CONFIG['NumberErrorMsg']
   loop do
@@ -32,16 +42,6 @@ def format_number(msg)
     valid_number?(number) ? break : prompt(error_msg)
   end
   number.strip
-end
-
-def name
-  prompt(APP_CONFIG['WelcomeMsg'])
-  name = ''
-  loop do
-    name = gets.chomp
-    name.empty? || /\s+/ =~ name ? prompt(APP_CONFIG['NameErrorMsg']) : break
-  end
-  name
 end
 
 def operation_to_message(operator)
@@ -70,8 +70,8 @@ def prompt_for_operation
 end
 
 def read_number(msg)
-  number = format_number(msg)
-  convert_str_to_int_or_float(number)
+  number_string = obtain_valid_number_string(msg)
+  convert_string_to_integer_or_float(number_string)
 end
 
 def reassign_divide_by_zero(operator, num2, msg)
@@ -98,7 +98,8 @@ def valid_number?(number)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  prompt("Hi #{name}")
+  user_name = obtain_name
+  prompt("Hi #{user_name}")
   loop do # main loop
     number1 = read_number(APP_CONFIG['FirstNumberMsg'])
     number2 = read_number(APP_CONFIG['SecondNumberMsg'])

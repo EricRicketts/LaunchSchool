@@ -11,6 +11,11 @@
     *  Removed ```#remove_white_space```
     *  Removed ```#read_in_numbers```
     *  Divide by zero check was pulled out of ```#compute_result``` and put in the main loop
+    *  Replaced the hash in ```#compute_result``` with a case statement
+    *  Renamed ```#format_number``` to ```#obtain_valid_number_string```
+    *  Renamed ```#convert_str_to_int_or_float``` to ```convert_string_to_integer_or_float```, eliminate abbreviations in method names
+    *  In ```#read_number``` renamed ```number``` variable to ```number_string``` which is more intention revealing
+    *  Renamed ```#name``` to ```#obtain_name``` and assigned the output of the ```user_name``` variable in the main loop
 
 
 ### Some Key Concepts From Pete Hanson's Code Review
