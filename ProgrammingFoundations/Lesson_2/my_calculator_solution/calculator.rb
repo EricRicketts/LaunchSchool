@@ -33,7 +33,7 @@ def name
   name = ''
   loop do
     name = gets.chomp
-    name.empty? ? prompt(Constants::NAME_ERROR_MSG) : break
+    name.empty? || /\s+/ =~ name ? prompt(Constants::NAME_ERROR_MSG) : break
   end
   name
 end
