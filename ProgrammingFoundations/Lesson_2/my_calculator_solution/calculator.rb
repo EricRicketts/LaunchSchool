@@ -7,12 +7,16 @@ OPERATOR_HASH = {
 }
 
 def compute_result(operator, num1, num2)
-  compute_hash = {
-    '1' => (num1 + num2), '2' => (num1 - num2),
-    '3' => (num1 * num2), '4' => (num1.to_f / num2.to_f)
-  }
-  prompt("#{operation_to_message(operator)} the two numbers...")
-  compute_hash[operator]
+  case operator
+  when '1'
+    num1 + num2
+  when '2'
+    num1 - num2
+  when '3'
+    num1 * num2
+  when '4'
+    num1.to_f / num2.to_f
+  end
 end
 
 def convert_str_to_int_or_float(str)
@@ -44,7 +48,8 @@ def operation_to_message(operator)
   OPERATOR_HASH[operator]
 end
 
-def print_result(result)
+def print_result(result, operator)
+  prompt("#{operation_to_message(operator)} the two numbers...")
   prompt("The result is #{result}")
   prompt(APP_CONFIG['RepeatCalculationMsg'])
 end
@@ -103,7 +108,7 @@ if __FILE__ == $PROGRAM_NAME
       number2 = reassign_divide_by_zero(operator, number2, msg)
     end
     result = compute_result(operator, number1, number2)
-    print_result(result)
+    print_result(result, operator)
     break unless repeat?
   end # main loop
   prompt(APP_CONFIG['GoodByeMsg'])
