@@ -21,37 +21,30 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_invalid_numbers
-    invalid_numbers = [" ", "45x", " 10.001 z ",
-      "  xy444", "98..507", "-+89.4", "++55.7", "--39"]
+    invalid_numbers = [
+      " ", "45x", " 10.001 z ", "  xy444",
+      "98..507", "-+89.4", "++55.7", "--39"
+    ]
     invalid_numbers.each do |number|
       refute valid_number?(number)
     end
   end
 
-  def test_strip_spaces
-    numbers = ["  3.5  ", "  4", "5.55  "]
-    numbers.each do |number|
-      pure_number = remove_white_space(number)
-      refute_match(/\s+/, pure_number)
-    end
-  end
-
   def test_string_to_integer
     number = "4546"
-    assert_equal convert_str_to_int_or_float(number), 4546
+    assert_equal convert_string_to_integer_or_float(number), 4546
   end
 
   def test_string_to_float
     number = "456.789"
-    assert_equal convert_str_to_int_or_float(number), 456.789
+    assert_equal convert_string_to_integer_or_float(number), 456.789
   end
 
   def test_compute_result_add
     operator = '1'
     num1 = 4
     num2 = 5
-    msg = 'xyz'
-    result = compute_result(operator, num1, num2, msg)
+    result = compute_result(operator, num1, num2)
     assert_equal result, 9
   end
 
@@ -59,8 +52,7 @@ class CalculatorTest < Minitest::Test
     operator = '4'
     num1 = 5.0
     num2 = 4.0
-    msg = 'xyz'
-    result = compute_result(operator, num1, num2, msg)
+    result = compute_result(operator, num1, num2)
     assert_equal 1.25, result
   end
 
