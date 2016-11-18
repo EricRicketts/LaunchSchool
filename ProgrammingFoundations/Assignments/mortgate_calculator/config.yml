@@ -9,7 +9,6 @@
     What is your interest rate?
   LoanAmtMsg: |
     Enter your loan amount.
-    You must use commas for numbers greater than 999.
     Decimals must have at least one digit left of the decimal pont.
     Negative numbers are not allowed.
     What is your loan amount?

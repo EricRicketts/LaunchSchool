@@ -51,7 +51,6 @@ end
 class MortgageCalculatorTestBigMessages < Minitest::Test
   def test_enter_loan_amount_message
     msg = "=> Enter your loan amount.\n" \
-    "You must use commas for numbers greater than 999.\n" \
     "Decimals must have at least one digit left of the decimal pont.\n" \
     "Negative numbers are not allowed.\n" \
     "What is your loan amount?\n"

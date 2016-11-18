@@ -82,7 +82,7 @@ end
 # test calculations
 class MortgageCalculatorTestCalculations < Minitest::Test
   def test_convert_loan_amount_to_float
-    input = StringIO.new("1,897,150,034.49\n")
+    input = StringIO.new("1897150034.49\n")
     loan_amount = conv_input_to_num(stdin: input, input_type: "loan_amount")
     assert_equal loan_amount, 1_897_150_034.49
   end
