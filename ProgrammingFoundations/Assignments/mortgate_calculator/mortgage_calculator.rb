@@ -80,14 +80,11 @@ def prompt(msg)
 end
 
 def valid_interest_rate?(interest)
-  regex = Regexp.new('\A\s*\d{1,2}(\.\d+)?\s*\z')
-  # check for zero entry
-  return false if /\A\s*0{1,2}(\.0+)?\s*\z/ =~ interest
+  regex = Regexp.new('\A\s*\d+(\.\d+)?\s*\z')
   regex.match(interest)
 end
 
 def valid_loan_amount?(loan)
-  # regex = Regexp.new('\A\s*\d{1,3}(,\d{3})*(\.\d+)?\s*\z')
   regex = Regexp.new('\A\s*\d+(\.\d+)?\s*\z')
   regex.match(loan)
 end

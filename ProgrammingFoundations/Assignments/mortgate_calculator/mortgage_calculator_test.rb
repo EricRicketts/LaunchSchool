@@ -27,7 +27,7 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
   def test_valid_interest
     valid_interests = [
       "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  ",
-      "8.908"
+      "8.90874", "0", "0.00", "00.000"
     ]
     valid_interests.each do |number|
       assert valid_interest_rate?(number)
@@ -36,7 +36,7 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
 
   def test_invalid_interest
     invalid_interests = [
-      "-5", "5.", "5.xy", "xy6.7", ".55"
+      "-5", "5.", "5.xy", "xy6.7", ".55", "-5.246"
     ]
     invalid_interests.each do |number|
       refute valid_interest_rate?(number)
