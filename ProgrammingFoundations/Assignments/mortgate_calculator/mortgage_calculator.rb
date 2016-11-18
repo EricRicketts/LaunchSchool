@@ -82,7 +82,8 @@ def valid_interest_rate?(interest)
 end
 
 def valid_loan_amount?(loan)
-  regex = Regexp.new('\A\s*\d{1,3}(,\d{3})*(\.\d+)?\s*\z')
+  # regex = Regexp.new('\A\s*\d{1,3}(,\d{3})*(\.\d+)?\s*\z')
+  regex = Regexp.new('\A\s*\d+(\.\d+)?\s*\z')
   regex.match(loan)
 end
 
