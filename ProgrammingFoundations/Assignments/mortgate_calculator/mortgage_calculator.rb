@@ -80,7 +80,7 @@ def prompt(msg)
 end
 
 def valid_interest_rate?(interest)
-  regex = Regexp.new('\A\s*\d+(\.\d+)?\s*\z')
+  regex = Regexp.new('\A\s*\d{1,2}(\.\d+)?\s*\z')
   regex.match(interest)
 end
 

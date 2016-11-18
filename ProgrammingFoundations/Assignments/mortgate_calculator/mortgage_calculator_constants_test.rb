@@ -60,8 +60,7 @@ class MortgageCalculatorTestBigMessages < Minitest::Test
 
   def test_interest_msg
     msg = "=> Enter your annual interest rate.\n" \
-    "There must be at least one digit to the left of the decimal point.\n" \
-    "Negative rates are not allowed.\n" \
+    "Enter a non-negative decimal or whole number between 0 and 99.\n" \
     "What is your annual interest rate?\n"
     interest_amt_msg = prompt(APP_CONFIG['InterestAmtMsg'])
     assert_equal interest_amt_msg, msg

@@ -1,7 +1,6 @@
   InterestAmtMsg: |
     Enter your annual interest rate.
-    There must be at least one digit to the left of the decimal point.
-    Negative rates are not allowed.
+    Enter a non-negative decimal or whole number between 0 and 99.
     What is your annual interest rate?
   LoanAmtMsg: |
     Enter your loan amount.
