@@ -26,7 +26,8 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
 
   def test_valid_interest
     valid_interests = [
-      "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  "
+      "5", "5.0", "5.25", "  6.7", "9.8  ", "  15.4  ",
+      "8.908"
     ]
     valid_interests.each do |number|
       assert valid_interest_rate?(number)
@@ -35,8 +36,7 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
 
   def test_invalid_interest
     invalid_interests = [
-      "-5", "5.", "5.xy", "xy6.7", ".55", "101.44", "0", "0.00",
-      "00.0000", "00.", ".00"
+      "-5", "5.", "5.xy", "xy6.7", ".55"
     ]
     invalid_interests.each do |number|
       refute valid_interest_rate?(number)
@@ -94,9 +94,9 @@ class MortgageCalculatorTestCalculations < Minitest::Test
   end
 
   def test_convert_loan_duration_to_float
-    input = StringIO.new("36\n")
+    input = StringIO.new("10\n")
     duration = conv_input_to_num(stdin: input, input_type: "loan_duration")
-    assert_equal duration, 36
+    assert_in_delta duration, 120.000, 0.001
   end
 
   def test_basic_calculation
@@ -105,5 +105,13 @@ class MortgageCalculatorTestCalculations < Minitest::Test
     duration = 36
     monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
     assert_in_delta 599.42, monthly_payment, 0.01
+  end
+
+  def test_zero_interest_calculation
+    loan_amount = 20_000
+    monthly_interest = 0.00
+    duration = 120.0
+    monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
+    assert_in_delta 166.67, monthly_payment, 0.01
   end
 end

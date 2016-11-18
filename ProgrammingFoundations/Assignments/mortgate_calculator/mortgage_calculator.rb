@@ -1,10 +1,15 @@
 require 'yaml'
+require 'byebug'
 
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
-def calc_payment(p, j, n)
-  p * (j / (1 - (1 + j)**-n))
+def calc_payment(loan, interest, duration)
+  if interest.zero?
+    loan / duration
+  else
+    loan * (interest / (1 - (1 + interest)**-duration))
+  end
 end
 
 def conv_input_to_num(stdin: $stdin, input_type: "loan_amount")
@@ -45,7 +50,7 @@ def loan_duration_to_number(input, stdin: $stdin)
     puts prompt(APP_CONFIG['InvalidLoanDurationMsg'])
     input = stdin.gets.chomp
   end
-  input.to_i
+  input.to_f * 12
 end
 
 def obtain_interest_amt

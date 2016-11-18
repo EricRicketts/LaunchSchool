@@ -59,24 +59,18 @@ class MortgageCalculatorTestBigMessages < Minitest::Test
   end
 
   def test_interest_msg
-    msg = "=> Enter your interest amount.\n" \
-    "The number must be an annual interest rate number.\n" \
-    "Enter a number representing the percent interest you desire.\n" \
-    "Conversion to decimal will be done by the program.\n" \
+    msg = "=> Enter your annual interest rate.\n" \
     "There must be at least one digit to the left of the decimal point.\n" \
-    "There cannot be more than two digits to the left of the decimal point.\n" \
-    "Zero and negative rates are not allowed.\n" \
-    "What is your interest rate?\n"
+    "Negative rates are not allowed.\n" \
+    "What is your annual interest rate?\n"
     interest_amt_msg = prompt(APP_CONFIG['InterestAmtMsg'])
     assert_equal interest_amt_msg, msg
   end
 
   def test_loan_duration_msg
-    msg = "=> Enter your loan duration in months.\n" \
-    "The entry must be less than 1,000 and cannot have decimals.\n" \
-    "Negative numbers or zero are not allowed.\n" \
-    "The loan duration cannot start with zero.\n" \
-    "What is the loan duration in months?\n"
+    msg = "=> Enter your loan duration in years.\n" \
+    "It must be zero or greater.\n" \
+    "What is the loan duration in years?\n"
     loan_duration_msg = prompt(APP_CONFIG['LoanDurationMsg'])
     assert_equal loan_duration_msg, msg
   end

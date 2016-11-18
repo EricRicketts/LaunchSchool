@@ -1,23 +1,17 @@
   InterestAmtMsg: |
-    Enter your interest amount.
-    The number must be an annual interest rate number.
-    Enter a number representing the percent interest you desire.
-    Conversion to decimal will be done by the program.
+    Enter your annual interest rate.
     There must be at least one digit to the left of the decimal point.
-    There cannot be more than two digits to the left of the decimal point.
-    Zero and negative rates are not allowed.
-    What is your interest rate?
+    Negative rates are not allowed.
+    What is your annual interest rate?
   LoanAmtMsg: |
     Enter your loan amount.
     Decimals must have at least one digit left of the decimal pont.
     Negative numbers are not allowed.
     What is your loan amount?
   LoanDurationMsg: |
-    Enter your loan duration in months.
-    The entry must be less than 1,000 and cannot have decimals.
-    Negative numbers or zero are not allowed.
-    The loan duration cannot start with zero.
-    What is the loan duration in months?
+    Enter your loan duration in years.
+    It must be zero or greater.
+    What is the loan duration in years?
   WelcomeMsg: |
     Welcome to the Mortgage Calculator.
     This will calculate a monthly payment, based on the loan amount,
