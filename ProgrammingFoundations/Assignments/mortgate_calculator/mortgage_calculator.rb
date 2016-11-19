@@ -62,7 +62,7 @@ end
 
 def obtain_loan_amt
   puts prompt(APP_CONFIG['LoanAmtMsg'])
-  convert_input_to_number
+  convert_input_to_number(input_type: "loan_amount")
 end
 
 def obtain_loan_duration
@@ -87,18 +87,18 @@ def retrieve_first_letter(stdin: $stdin)
 end
 
 def valid_interest_rate?(interest)
-  regex = Regexp.new('\A\s*\d{1,2}(\.\d+)?\s*\z')
-  regex.match(interest)
+  interest_regex = Regexp.new('\A\s*\d{1,2}(\.\d+)?\s*\z')
+  interest_regex.match(interest)
 end
 
 def valid_loan_amount?(loan)
-  regex = Regexp.new('\A\s*\d+(\.\d+)?\s*\z')
-  regex.match(loan)
+  loan_amount_regex = Regexp.new('\A\s*\d+(\.\d+)?\s*\z')
+  loan_amount_regex.match(loan)
 end
 
-def valid_loan_duration?(months)
-  regex = Regexp.new('\A\s*[1-9]\d{0,2}\s*\z')
-  regex.match(months)
+def valid_loan_duration?(years)
+  years_regex = Regexp.new('\A\s*[1-9]\d{0,2}\s*\z')
+  years_regex.match(years)
 end
 
 if __FILE__ == $PROGRAM_NAME

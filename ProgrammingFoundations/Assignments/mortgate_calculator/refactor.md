@@ -19,6 +19,11 @@
     *  The answer is now rounded to two digits after the decimal point.
     *  The use must now enter distince Y/y to continue the program or N/n to quit.  Though
        any for of _yes_ and _no_ are accepted.
+2.  Source Code Notes and Issues
+    *  Renamed ```#calc_payment``` to ```#calculate_payment```
+    *  Renamed ```#conv_input_to_num``` to ```#convert_input_to_number```
+    *  Replaced ```loan_amount``` default string with an empty string for the input to ```#convert_input_to_number```
+    *  In ```#leave_program?``` method I removed the ternary statment with explicitly returned _true_ or _false_
 
 
 ## Some Key Concepts From Pete Hanson's Code Review
