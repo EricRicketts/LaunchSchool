@@ -15,9 +15,11 @@
     Welcome to the Mortgage Calculator.
     This will calculate a monthly payment, based on the loan amount,
     a positive interest rate, and loan duration in months.
+  QuitMsg: |
+    Calculate another monthly payment?
+    (Y/y to continue or N/n to quit)
   InvalidLoanMsg: "Hmm... that doesn't look like a valid loan amount entry"
   InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
   InvalidLoanDurationMsg: "Hmm... that doesn't look like a valid loan duration entry"
   ResultMsg: "Monthly payments are: "
-  QuitMsg: "Calculate another monthly payment(Y/y to continue)?"
   GoodByeMsg: "Thank you for using mortgage calculator.  Good bye!"

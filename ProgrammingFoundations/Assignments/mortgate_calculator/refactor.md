@@ -16,6 +16,7 @@
        number of years vice the number of months.  Again after looking at a number of
        loan calculation sites, it seems years is the standard default vice months.  There
        is no limit on the number of years for the loan, but it cannot be negative.
+    *  The answer is now rounded to two digits after the decimal point.
 
 
 ## Some Key Concepts From Pete Hanson's Code Review

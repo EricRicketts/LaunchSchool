@@ -19,7 +19,8 @@ class MortgateCalculatorTestMiscellaneous < Minitest::Test
 
   def test_quit_message
     quit_msg = prompt(APP_CONFIG['QuitMsg'])
-    msg = "=> Calculate another monthly payment(Y/y to continue)?"
+    msg = "=> Calculate another monthly payment?\n" \
+    "(Y/y to continue or N/n to quit)\n"
     assert_equal quit_msg, msg
   end
 
