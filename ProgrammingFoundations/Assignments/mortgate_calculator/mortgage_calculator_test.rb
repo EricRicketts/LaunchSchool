@@ -64,19 +64,19 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
   end
 
   def test_leave_program_true
-    input = StringIO.new("  y\nY  \n  yes\n  YES  \n")
+    $stdin = StringIO.new("  y\nY  \n  yes\n  YES  \n")
     n = 1
     while n < 4
-      assert leave_program?(stdin: input)
+      assert leave_program?
       n += 1
     end
   end
 
   def test_leave_program_false
-    input = StringIO.new("  n\nN  \n  no\n  No  \n")
+    $stdin = StringIO.new("  n\nN  \n  no\n  No  \n")
     n = 1
     while n < 5
-      refute leave_program?(stdin: input)
+      refute leave_program?
       n += 1
     end
   end

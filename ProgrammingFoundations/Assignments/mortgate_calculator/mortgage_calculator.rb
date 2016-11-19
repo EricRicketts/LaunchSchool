@@ -30,11 +30,11 @@ def interest_rate_to_number(input)
   input.to_f / 12 / 100
 end
 
-def leave_program?(stdin: $stdin)
-  repeat = retrieve_first_letter(stdin: stdin)
+def leave_program?
+  repeat = retrieve_first_letter
   until repeat.eql?('y') || repeat.eql?('n')
     prompt(APP_CONFIG['InvalidResponseMsg'])
-    repeat = retrieve_first_letter(stdin: stdin)
+    repeat = retrieve_first_letter
   end
   repeat.eql?('y')
 end
@@ -57,17 +57,17 @@ end
 
 def obtain_interest_amt
   puts prompt(APP_CONFIG['InterestAmtMsg'])
-  convert_input_to_number(input_type: "interest_rate")
+  convert_input_to_number("interest_rate")
 end
 
 def obtain_loan_amt
   puts prompt(APP_CONFIG['LoanAmtMsg'])
-  convert_input_to_number(input_type: "loan_amount")
+  convert_input_to_number("loan_amount")
 end
 
 def obtain_loan_duration
   puts prompt(APP_CONFIG['LoanDurationMsg'])
-  convert_input_to_number(input_type: "loan_duration")
+  convert_input_to_number("loan_duration")
 end
 
 def print_payment_and_repeat_or_not(loan, interest, duration)
@@ -81,8 +81,8 @@ def prompt(msg)
   "=> #{msg}"
 end
 
-def retrieve_first_letter(stdin: $stdin)
-  first_letter = stdin.gets.chomp
+def retrieve_first_letter
+  first_letter = gets.chomp
   first_letter.strip.downcase.chars.first
 end
 

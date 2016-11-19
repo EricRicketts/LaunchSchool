@@ -26,6 +26,9 @@
     *  In ```#leave_program?``` method I removed the ternary statment with explicitly returned _true_ or _false_
     *  In ```#valid_interest_rate```, ```#valid_loan_amount```, and ```#valid_loan_duration``` renamed the ```regex```
        variable in each method to something more descriptive.
+    *  Eliminated _stdin_ argument to all methods by discovering a way to simply mock ```$stdin``` during a test case.
 
 
 ## Some Key Concepts From Pete Hanson's Code Review
+1.  "First Principles" always!!  Do not let an attachment to writing tests get in the way of producing cluttered code.
+2   Always concentrate on proper naming of your methods and variables.
