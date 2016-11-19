@@ -95,11 +95,11 @@ class MortgageCalculatorTestCalculations < Minitest::Test
     assert_in_delta 0.005650, intrst, 0.000001
   end
 
-  # def test_convert_loan_duration_to_float
-  #   input = StringIO.new("10\n")
-  #   length = convert_input_to_number(stdin: input, input_type: "loan_duration")
-  #   assert_in_delta length, 120.000, 0.001
-  # end
+  def test_convert_loan_duration_to_float
+    $stdin = StringIO.new("10\n")
+    length = convert_input_to_number("loan_duration")
+    assert_in_delta length, 120.000, 0.001
+  end
 
   def test_basic_calculation
     loan_amount = 20_000
