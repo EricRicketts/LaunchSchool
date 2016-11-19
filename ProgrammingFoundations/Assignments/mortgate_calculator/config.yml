@@ -23,3 +23,4 @@
   InvalidLoanDurationMsg: "Hmm... that doesn't look like a valid loan duration entry"
   ResultMsg: "Monthly payments are: "
   GoodByeMsg: "Thank you for using mortgage calculator.  Good bye!"
+  InvalidResponseMsg: "Oops!!  Please enter Y/y to continue or N/n to quit."

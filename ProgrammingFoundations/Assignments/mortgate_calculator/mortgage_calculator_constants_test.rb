@@ -17,17 +17,16 @@ class MortgateCalculatorTestMiscellaneous < Minitest::Test
     assert_equal results_msg, "=> Monthly payments are: "
   end
 
-  def test_quit_message
-    quit_msg = prompt(APP_CONFIG['QuitMsg'])
-    msg = "=> Calculate another monthly payment?\n" \
-    "(Y/y to continue or N/n to quit)\n"
-    assert_equal quit_msg, msg
-  end
-
   def test_goodbye_message
     goodbye = prompt(APP_CONFIG['GoodByeMsg'])
     msg = "=> Thank you for using mortgage calculator.  Good bye!"
     assert_equal goodbye, msg
+  end
+
+  def test_invalid_continue_or_quit_message
+    invalid_respose = prompt(APP_CONFIG['InvalidResponseMsg'])
+    msg = "=> Oops!!  Please enter Y/y to continue or N/n to quit."
+    assert_equal invalid_respose, msg
   end
 
   def test_invalid_loan_amount_msg
@@ -50,6 +49,13 @@ class MortgateCalculatorTestMiscellaneous < Minitest::Test
 end
 # check lengthy messages
 class MortgageCalculatorTestBigMessages < Minitest::Test
+  def test_quit_message
+    quit_msg = prompt(APP_CONFIG['QuitMsg'])
+    msg = "=> Calculate another monthly payment?\n" \
+    "(Y/y to continue or N/n to quit)\n"
+    assert_equal quit_msg, msg
+  end
+
   def test_enter_loan_amount_message
     msg = "=> Enter your loan amount.\n" \
     "Decimals must have at least one digit left of the decimal pont.\n" \
