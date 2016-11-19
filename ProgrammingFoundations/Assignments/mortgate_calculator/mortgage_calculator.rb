@@ -10,7 +10,7 @@ def calculate_payment(loan, interest, duration)
   monthly_payment.round(2)
 end
 
-def conv_input_to_num(stdin: $stdin, input_type: "loan_amount")
+def convert_input_to_number(stdin: $stdin, input_type: "")
   input = stdin.gets.chomp
   case input_type
   when "loan_amount"
@@ -31,11 +31,10 @@ def interest_rate_to_number(input, stdin: $stdin)
 end
 
 def leave_program?(stdin: $stdin)
-  repeat = stdin.gets.chomp.strip.downcase.chars.first
-  loop do
-    break if repeat.eql?('y') || repeat.eql?('n')
+  repeat = retrieve_first_letter(stdin: stdin)
+  until repeat.eql?('y') || repeat.eql?('n')
     prompt(APP_CONFIG['InvalidResponseMsg'])
-    repeat = stdin.gets.chomp.strip.downcase.chars.first
+    repeat = retrieve_first_letter(stdin: stdin)
   end
   repeat.eql?('y')
 end
@@ -58,17 +57,17 @@ end
 
 def obtain_interest_amt
   puts prompt(APP_CONFIG['InterestAmtMsg'])
-  conv_input_to_num(input_type: "interest_rate")
+  convert_input_to_number(input_type: "interest_rate")
 end
 
 def obtain_loan_amt
   puts prompt(APP_CONFIG['LoanAmtMsg'])
-  conv_input_to_num
+  convert_input_to_number
 end
 
 def obtain_loan_duration
   puts prompt(APP_CONFIG['LoanDurationMsg'])
-  conv_input_to_num(input_type: "loan_duration")
+  convert_input_to_number(input_type: "loan_duration")
 end
 
 def print_payment_and_repeat_or_not(loan, interest, duration)
@@ -80,6 +79,11 @@ end
 
 def prompt(msg)
   "=> #{msg}"
+end
+
+def retrieve_first_letter(stdin: $stdin)
+  answer = stdin.gets.chomp
+  answer.strip.downcase.chars.first
 end
 
 def valid_interest_rate?(interest)
