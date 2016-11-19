@@ -31,8 +31,13 @@ def interest_rate_to_number(input, stdin: $stdin)
 end
 
 def leave_program?(stdin: $stdin)
-  answer = stdin.gets.chomp
-  answer.strip().downcase().start_with?('y') ? true : false
+  repeat = stdin.gets.chomp.strip.downcase.chars.first
+  loop do
+    break if repeat.eql?('y') || repeat.eql?('n')
+    prompt(APP_CONFIG['InvalidResponseMsg'])
+    repeat = stdin.gets.chomp.strip.downcase.chars.first
+  end
+  repeat.eql?('y')
 end
 
 def loan_amount_to_number(input, stdin: $stdin)

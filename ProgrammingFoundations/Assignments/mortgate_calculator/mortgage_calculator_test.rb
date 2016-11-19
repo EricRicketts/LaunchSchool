@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative './mortgage_calculator'
+require 'byebug'
 
 # test valid entries
 class MortgageCalculatorTestValidEntries < Minitest::Test
@@ -65,14 +66,14 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
   def test_leave_program_true
     input = StringIO.new("  y\nY  \n  yes\n  YES  \n")
     n = 1
-    while n < 5
+    while n < 4
       assert leave_program?(stdin: input)
       n += 1
     end
   end
 
   def test_leave_program_false
-    input = StringIO.new("  N\n  \n  xyz\n  $&#!!  \n")
+    input = StringIO.new("  n\nN  \n  no\n  No  \n")
     n = 1
     while n < 5
       refute leave_program?(stdin: input)
