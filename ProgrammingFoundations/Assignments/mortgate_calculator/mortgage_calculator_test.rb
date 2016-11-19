@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative './mortgage_calculator'
-require 'byebug'
 
 # test valid entries
 class MortgageCalculatorTestValidEntries < Minitest::Test

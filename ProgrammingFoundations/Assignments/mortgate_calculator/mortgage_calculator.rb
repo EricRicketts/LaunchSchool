@@ -1,5 +1,4 @@
 require 'yaml'
-require 'byebug'
 
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
