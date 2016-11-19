@@ -4,7 +4,7 @@ require 'byebug'
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
-def calc_payment(loan, interest, duration)
+def calculate_payment(loan, interest, duration)
   normal_payment = loan * (interest / (1 - (1 + interest)**-duration))
   monthly_payment = interest.zero? ? loan / duration : normal_payment
   monthly_payment.round(2)
@@ -72,7 +72,7 @@ def obtain_loan_duration
 end
 
 def print_payment_and_repeat_or_not(loan, interest, duration)
-  monthly_payment = calc_payment(loan, interest, duration)
+  monthly_payment = calculate_payment(loan, interest, duration)
   puts prompt(APP_CONFIG['ResultMsg'] + monthly_payment.to_s)
   puts prompt(APP_CONFIG['QuitMsg'])
   leave_program?

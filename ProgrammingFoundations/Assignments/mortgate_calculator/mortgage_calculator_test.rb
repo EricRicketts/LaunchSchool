@@ -105,7 +105,7 @@ class MortgageCalculatorTestCalculations < Minitest::Test
     loan_amount = 20_000
     monthly_interest = (5.0 / 12) / 100
     duration = 36
-    monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
+    monthly_payment = calculate_payment(loan_amount, monthly_interest, duration)
     assert_in_delta 599.42, monthly_payment, 0.01
   end
 
@@ -113,7 +113,7 @@ class MortgageCalculatorTestCalculations < Minitest::Test
     loan_amount = 20_000
     monthly_interest = 0.00
     duration = 120.0
-    monthly_payment = calc_payment(loan_amount, monthly_interest, duration)
+    monthly_payment = calculate_payment(loan_amount, monthly_interest, duration)
     assert_in_delta 166.67, monthly_payment, 0.01
   end
 end

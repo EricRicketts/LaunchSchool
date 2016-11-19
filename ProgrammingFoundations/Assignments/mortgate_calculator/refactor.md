@@ -17,6 +17,8 @@
        loan calculation sites, it seems years is the standard default vice months.  There
        is no limit on the number of years for the loan, but it cannot be negative.
     *  The answer is now rounded to two digits after the decimal point.
+    *  The use must now enter distince Y/y to continue the program or N/n to quit.  Though
+       any for of _yes_ and _no_ are accepted.
 
 
 ## Some Key Concepts From Pete Hanson's Code Review
