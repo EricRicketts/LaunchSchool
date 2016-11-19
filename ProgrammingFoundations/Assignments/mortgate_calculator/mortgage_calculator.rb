@@ -5,11 +5,9 @@ raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
 def calc_payment(loan, interest, duration)
-  if interest.zero?
-    loan / duration
-  else
-    loan * (interest / (1 - (1 + interest)**-duration))
-  end
+  normal_payment = loan * (interest / (1 - (1 + interest)**-duration))
+  monthly_payment = interest.zero? ? loan / duration : normal_payment
+  monthly_payment.round(2)
 end
 
 def conv_input_to_num(stdin: $stdin, input_type: "loan_amount")

@@ -7,8 +7,15 @@
        rate to two digits to the left of the decimal (at least this was my intent).
        Though I did add a test case verifying three digits to the right of the decimal
        was an accpetible interest rate.  I did some research and triple digit interest
-       rates and not typically offered they only occur as the result of predatory behavior
-       on the part of the lender.
+       rates are not typically offered and they tend to occur as the result of predatory
+       behavior on the part of the lender.
+    *  I updated the code to handle zero interest rates, however, I do not permit negative
+       interest rates, though I do know they may happen ove time, it is far from standard
+       practice right now.
+    *  Thanks for the input on the month limiter, I switched to the user entering the
+       number of years vice the number of months.  Again after looking at a number of
+       loan calculation sites, it seems years is the standard default vice months.  There
+       is no limit on the number of years for the loan, but it cannot be negative.
 
 
 ## Some Key Concepts From Pete Hanson's Code Review
