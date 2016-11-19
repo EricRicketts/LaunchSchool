@@ -27,6 +27,8 @@
     *  In ```#valid_interest_rate```, ```#valid_loan_amount```, and ```#valid_loan_duration``` renamed the ```regex```
        variable in each method to something more descriptive.
     *  Eliminated _stdin_ argument to all methods by discovering a way to simply mock ```$stdin``` during a test case.
+    *  Added check for zero entry on loan duration.
+    *  Moved ```#another_loan_calculation?``` out of ```#print_payment_and_repeat_or_not``` and renamed the later to ```#print_payment```
 
 
 ## Some Key Concepts From Pete Hanson's Code Review

@@ -75,7 +75,7 @@ class MortgageCalculatorTestBigMessages < Minitest::Test
 
   def test_loan_duration_msg
     msg = "=> Enter your loan duration in years.\n" \
-    "It must be zero or greater.\n" \
+    "It must be greater than zero, and decimals are allowed.\n" \
     "What is the loan duration in years?\n"
     loan_duration_msg = prompt(APP_CONFIG['LoanDurationMsg'])
     assert_equal loan_duration_msg, msg

@@ -47,7 +47,8 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
 
   def test_valid_loan_duration
     valid_loan_durations = [
-      "  45  ", "50", "  34", "89  ", "360"
+      "  45  ", "50", "  34", "89  ", "360",
+      "12.5", "0.50"
     ]
     valid_loan_durations.each do |number|
       assert valid_loan_duration?(number)
@@ -56,27 +57,27 @@ class MortgageCalculatorTestValidEntries < Minitest::Test
 
   def test_invalid_loan_duration
     invalid_loan_durations = [
-      " 1000", "45.6  ", "0", "87.", "-98", "055"
+      "87.", "-98", ".55", "  23.xyz"
     ]
     invalid_loan_durations.each do |number|
       refute valid_loan_duration?(number)
     end
   end
 
-  def test_leave_program_true
+  def test_another_loan_calculation_true
     $stdin = StringIO.new("  y\nY  \n  yes\n  YES  \n")
     n = 1
     while n < 4
-      assert leave_program?
+      assert another_loan_calculation?
       n += 1
     end
   end
 
-  def test_leave_program_false
+  def test_another_loan_calculation_false
     $stdin = StringIO.new("  n\nN  \n  no\n  No  \n")
     n = 1
     while n < 5
-      refute leave_program?
+      refute another_loan_calculation?
       n += 1
     end
   end

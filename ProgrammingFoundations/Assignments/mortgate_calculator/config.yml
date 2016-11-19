@@ -9,7 +9,7 @@
     What is your loan amount?
   LoanDurationMsg: |
     Enter your loan duration in years.
-    It must be zero or greater.
+    It must be greater than zero, and decimals are allowed.
     What is the loan duration in years?
   WelcomeMsg: |
     Welcome to the Mortgage Calculator.
