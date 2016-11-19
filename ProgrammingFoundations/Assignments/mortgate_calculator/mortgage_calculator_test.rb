@@ -89,11 +89,11 @@ class MortgageCalculatorTestCalculations < Minitest::Test
     assert_equal loan_amt, 1_897_150_034.49
   end
 
-  # def test_convert_interest_rate_to_float
-  #   input = StringIO.new("6.78\n")
-  #   intrst = convert_input_to_number(stdin: input, input_type: "interest_rate")
-  #   assert_in_delta 0.005650, intrst, 0.000001
-  # end
+  def test_convert_interest_rate_to_float
+    $stdin = StringIO.new("6.78\n")
+    intrst = convert_input_to_number("interest_rate")
+    assert_in_delta 0.005650, intrst, 0.000001
+  end
 
   # def test_convert_loan_duration_to_float
   #   input = StringIO.new("10\n")

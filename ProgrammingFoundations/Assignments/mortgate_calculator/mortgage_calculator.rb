@@ -16,16 +16,16 @@ def convert_input_to_number(input_type)
   when "loan_amount"
     loan_amount_to_number(input)
   when "interest_rate"
-    interest_rate_to_number(input, stdin: $stdin)
+    interest_rate_to_number(input)
   when "loan_duration"
     loan_duration_to_number(input, stdin: $stdin)
   end
 end
 
-def interest_rate_to_number(input, stdin: $stdin)
+def interest_rate_to_number(input)
   until valid_interest_rate?(input)
     puts prompt(APP_CONFIG['InvalidInterestMsg'])
-    input = stdin.gets.chomp
+    input = gets.chomp
   end
   input.to_f / 12 / 100
 end
