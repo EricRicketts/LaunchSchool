@@ -6,7 +6,7 @@ APP_CONFIG = YAML.load(raw_config)
 
 def calculate_payment(loan, interest, duration)
   normal_payment = loan * (interest / (1 - (1 + interest)**-duration))
-  monthly_payment = interest.zero? ? loan / duration : normal_payment
+  monthly_payment = interest.zero? ? (loan / duration) : normal_payment
   monthly_payment.round(2)
 end
 
@@ -33,7 +33,7 @@ end
 def leave_program?
   repeat = retrieve_first_letter
   until repeat.eql?('y') || repeat.eql?('n')
-    prompt(APP_CONFIG['InvalidResponseMsg'])
+    puts prompt(APP_CONFIG['InvalidResponseMsg'])
     repeat = retrieve_first_letter
   end
   repeat.eql?('y')
