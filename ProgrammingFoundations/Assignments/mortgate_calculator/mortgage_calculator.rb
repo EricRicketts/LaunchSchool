@@ -10,11 +10,11 @@ def calculate_payment(loan, interest, duration)
   monthly_payment.round(2)
 end
 
-def convert_input_to_number(stdin: $stdin, input_type: "")
-  input = stdin.gets.chomp
+def convert_input_to_number(input_type)
+  input = gets.chomp
   case input_type
   when "loan_amount"
-    loan_amount_to_number(input, stdin: $stdin)
+    loan_amount_to_number(input)
   when "interest_rate"
     interest_rate_to_number(input, stdin: $stdin)
   when "loan_duration"
@@ -39,12 +39,12 @@ def leave_program?(stdin: $stdin)
   repeat.eql?('y')
 end
 
-def loan_amount_to_number(input, stdin: $stdin)
+def loan_amount_to_number(input)
   until valid_loan_amount?(input)
     puts prompt(APP_CONFIG['InvalidLoanMsg'])
-    input = stdin.gets.chomp
+    input = gets.chomp
   end
-  input.delete(",").to_f
+  input.to_f
 end
 
 def loan_duration_to_number(input, stdin: $stdin)
@@ -82,8 +82,8 @@ def prompt(msg)
 end
 
 def retrieve_first_letter(stdin: $stdin)
-  answer = stdin.gets.chomp
-  answer.strip.downcase.chars.first
+  first_letter = stdin.gets.chomp
+  first_letter.strip.downcase.chars.first
 end
 
 def valid_interest_rate?(interest)

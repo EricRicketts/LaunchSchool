@@ -24,6 +24,8 @@
     *  Renamed ```#conv_input_to_num``` to ```#convert_input_to_number```
     *  Replaced ```loan_amount``` default string with an empty string for the input to ```#convert_input_to_number```
     *  In ```#leave_program?``` method I removed the ternary statment with explicitly returned _true_ or _false_
+    *  In ```#valid_interest_rate```, ```#valid_loan_amount```, and ```#valid_loan_duration``` renamed the ```regex```
+       variable in each method to something more descriptive.
 
 
 ## Some Key Concepts From Pete Hanson's Code Review
