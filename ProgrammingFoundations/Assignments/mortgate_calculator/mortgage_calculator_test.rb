@@ -84,20 +84,20 @@ end
 # test calculations
 class MortgageCalculatorTestCalculations < Minitest::Test
   def test_convert_loan_amount_to_float
-    $stdin = StringIO.new("1897150034.49\n")
-    loan_amt = convert_input_to_number("loan_amount")
+    input = "1897150034.49"
+    loan_amt = loan_amount_to_number(input)
     assert_equal loan_amt, 1_897_150_034.49
   end
 
   def test_convert_interest_rate_to_float
-    $stdin = StringIO.new("6.78\n")
-    intrst = convert_input_to_number("interest_rate")
+    input = "6.78"
+    intrst = interest_rate_to_number(input)
     assert_in_delta 0.005650, intrst, 0.000001
   end
 
   def test_convert_loan_duration_to_float
-    $stdin = StringIO.new("10\n")
-    length = convert_input_to_number("loan_duration")
+    input = "10"
+    length = loan_duration_to_number(input)
     assert_in_delta length, 120.000, 0.001
   end
 

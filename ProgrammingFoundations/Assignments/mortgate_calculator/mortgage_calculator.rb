@@ -18,18 +18,6 @@ def calculate_payment(loan, interest, duration)
   monthly_payment.round(2)
 end
 
-def convert_input_to_number(input_type)
-  input = gets.chomp
-  case input_type
-  when "loan_amount"
-    loan_amount_to_number(input)
-  when "interest_rate"
-    interest_rate_to_number(input)
-  when "loan_duration"
-    loan_duration_to_number(input)
-  end
-end
-
 def interest_rate_to_number(input)
   until valid_interest_rate?(input)
     puts prompt(APP_CONFIG['InvalidInterestMsg'])
@@ -56,17 +44,23 @@ end
 
 def obtain_interest_amt
   puts prompt(APP_CONFIG['InterestAmtMsg'])
-  convert_input_to_number("interest_rate")
+  input = gets.chomp
+  interest_rate_to_number(input)
+  # convert_input_to_number("interest_rate")
 end
 
 def obtain_loan_amt
   puts prompt(APP_CONFIG['LoanAmtMsg'])
-  convert_input_to_number("loan_amount")
+  input = gets.chomp
+  loan_amount_to_number(input)
+  # convert_input_to_number("loan_amount")
 end
 
 def obtain_loan_duration
   puts prompt(APP_CONFIG['LoanDurationMsg'])
-  convert_input_to_number("loan_duration")
+  input = gets.chomp
+  loan_duration_to_number(input)
+  # convert_input_to_number("loan_duration")
 end
 
 def print_payment(loan, interest, duration)
