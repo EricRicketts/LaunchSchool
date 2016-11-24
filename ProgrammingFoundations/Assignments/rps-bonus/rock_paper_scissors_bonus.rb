@@ -19,6 +19,14 @@ WINNING_RELATIONSHIPS = {
   'spock' => SPOCK_WINS_AGAINST
 }
 
+# create an Array method to better name operation
+# on game objects in #win?
+class Array
+  def beats?(element)
+    include?(element)
+  end
+end
+
 def win?(first, second)
-  WINNING_RELATIONSHIPS[first].include?(second)
+  WINNING_RELATIONSHIPS[first].beats?(second)
 end
