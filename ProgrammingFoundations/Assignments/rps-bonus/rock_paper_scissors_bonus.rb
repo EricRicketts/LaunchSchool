@@ -8,7 +8,8 @@ require 'byebug'
 WINNING_RELATIONSHIPS = {
   'rock' => %w(lizard scissors),
   'paper' => %w(rock spock),
-  'scissors' => %w(lizard paper)
+  'scissors' => %w(lizard paper),
+  'lizard' => %w(paper spock)
 }
 
 def win?(first, second)
