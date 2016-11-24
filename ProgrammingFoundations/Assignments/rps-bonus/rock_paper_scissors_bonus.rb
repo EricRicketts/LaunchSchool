@@ -1,0 +1,14 @@
+require 'byebug'
+
+# putting the array values into descriptive constant name like
+# ROCK_WINS_ARRAY = %W(lizard scissors) draws a rubocop error
+# because the implementation of #win? never calls the hash values
+# explicitly
+
+WINNING_RELATIONSHIPS = {
+  'rock' => %w(lizard scissors)
+}
+
+def win?(first, second)
+  WINNING_RELATIONSHIPS[first].include?(second)
+end
