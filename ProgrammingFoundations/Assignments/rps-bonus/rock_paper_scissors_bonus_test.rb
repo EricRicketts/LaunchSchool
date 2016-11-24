@@ -13,4 +13,9 @@ class RockPaperScissorsBonusTest < Minitest::Test
     assert win?("paper", "rock"), "paper covers rock"
     assert win?("paper", "spock"), "paper disproves spock"
   end
+
+  def test_scissors
+    assert win?("scissors", "lizard"), "scissors decapitates lizard"
+    assert win?("scissors", "paper"), "scissors cuts paper"
+  end
 end
