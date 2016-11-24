@@ -5,11 +5,18 @@ require 'byebug'
 # because the implementation of #win? never calls the hash values
 # explicitly
 
+ROCK_WINS_AGAINST = %w(lizard scissors)
+PAPER_WINS_AGAINST = %w(rock spock)
+SCISSORS_WINS_AGAINST = %w(lizard paper)
+LIZARD_WINS_AGAINST = %w(paper spock)
+SPOCK_WINS_AGAINST = %w(rock scissors)
+
 WINNING_RELATIONSHIPS = {
-  'rock' => %w(lizard scissors),
-  'paper' => %w(rock spock),
-  'scissors' => %w(lizard paper),
-  'lizard' => %w(paper spock)
+  'rock' => ROCK_WINS_AGAINST,
+  'paper' => PAPER_WINS_AGAINST,
+  'scissors' => SCISSORS_WINS_AGAINST,
+  'lizard' => LIZARD_WINS_AGAINST,
+  'spock' => SPOCK_WINS_AGAINST
 }
 
 def win?(first, second)
