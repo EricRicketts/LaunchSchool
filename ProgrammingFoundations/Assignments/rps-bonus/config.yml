@@ -1,0 +1,25 @@
+GreetingMsg: |
+  Welcome to Rock, Paper, Scissors, Lizard, and Spock!
+  You opponent will be the computer, the first to five
+  points wins the game, ties do not count.
+  Here are the rules:
+  Scissors cuts Paper
+  Paper covers Rock
+  Rock crushes Lizard
+  Lizard poisons Spock
+  Spock smashes Scissors
+  Scissors decapitates Lizard
+  Lizard eats Paper
+  Paper disproves Spock
+  Spock vaporizes Rock
+RulesMsg: |
+  Here are the rules:
+  Scissors cuts Paper
+  Paper covers Rock
+  Rock crushes Lizard
+  Lizard poisons Spock
+  Spock smashes Scissors
+  Scissors decapitates Lizard
+  Lizard eats Paper
+  Paper disproves Spock
+  Spock vaporizes Rock

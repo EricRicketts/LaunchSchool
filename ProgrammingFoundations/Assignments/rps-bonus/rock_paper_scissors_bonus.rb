@@ -1,9 +1,8 @@
 require 'byebug'
+require 'yaml'
 
-# putting the array values into descriptive constant name like
-# ROCK_WINS_ARRAY = %W(lizard scissors) draws a rubocop error
-# because the implementation of #win? never calls the hash values
-# explicitly
+raw_config = File.read('./config.yml')
+APP_CONFIG = YAML.load(raw_config)
 
 ROCK_WINS_AGAINST = %w(lizard scissors)
 PAPER_WINS_AGAINST = %w(rock spock)
