@@ -22,4 +22,11 @@ class RockPaperScissorsBonusConstantsTest < Minitest::Test
       "points wins the game, ties do not count.\n" + RULES
     assert_equal APP_CONFIG['GreetingMsg'], expected_msg, 'greeting message'
   end
+
+  def test_user_choices
+    expected_msg = "Choose one:\n" \
+    "(R/r) Rock, (P/p) Paper, (Sc/sc) Scissors, " \
+    "(L/l) Lizard, or (Sp/sp) Spock\n"
+    assert_equal APP_CONFIG['ChoiceMsg'], expected_msg, 'choice message'
+  end
 end
