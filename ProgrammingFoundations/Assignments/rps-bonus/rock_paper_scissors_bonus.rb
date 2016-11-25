@@ -30,11 +30,14 @@ class Array
 end
 
 def player_choice
-  prompt(APP_CONFIG['ChoiceMsg'])
+  choice = ''
   loop do
+    puts prompt(APP_CONFIG['ChoiceMsg'])
     choice = gets.chomp
     break if valid_user_response?(choice)
+    puts prompt(APP_CONFIG['RulesMsg'])
   end
+  choice
 end
 
 def prompt(message)
@@ -53,10 +56,11 @@ def win?(first, second)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  choice = ''
-  prompt(APP_CONFIG['GreetingMsg'])
+  puts prompt(APP_CONFIG['GreetingMsg'])
 
   loop do
     choice = player_choice
+    puts choice
+    break
   end
 end

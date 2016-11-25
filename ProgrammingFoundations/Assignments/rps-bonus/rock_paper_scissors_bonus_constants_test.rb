@@ -29,4 +29,10 @@ class RockPaperScissorsBonusConstantsTest < Minitest::Test
     "(L/l) Lizard, or (Sp/sp) Spock\n"
     assert_equal APP_CONFIG['ChoiceMsg'], expected_msg, 'choice message'
   end
+
+  def test_error_message
+    expected_msg =
+      "Hmm... that does not look like a valide response, try again."
+    assert_equal APP_CONFIG['InvalidEntryMsg'], expected_msg, 'invalid message'
+  end
 end
