@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative './rock_paper_scissors_bonus'
+require 'byebug'
 
 # test main logic of rock paper scissors game with bonus features
 class RockPaperScissorsBonusTest < Minitest::Test
@@ -27,5 +28,17 @@ class RockPaperScissorsBonusTest < Minitest::Test
   def test_spock
     assert win?("spock", "rock"), "spock vaporizes rock"
     assert win?("spock", "scissors"), "spock smashes scissors"
+  end
+
+  def test_valid_response_single_letter
+    $stdin = StringIO.new("lizard\n")
+    input = gets.chomp
+    assert valid_user_response?(input), "legitimate single letter input by user"
+  end
+
+  def test_valid_response_two_letters
+    $stdin = StringIO.new("Spock\n")
+    input = gets.chomp
+    assert valid_user_response?(input), "legitimate two letter input by user"
   end
 end
