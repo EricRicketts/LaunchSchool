@@ -41,4 +41,10 @@ class RockPaperScissorsBonusTest < Minitest::Test
     input = gets.chomp
     assert valid_user_response?(input), "legitimate two letter input by user"
   end
+
+  def test_invalid_input
+    $stdin = StringIO.new("Seat\n")
+    input = gets.chomp
+    refute valid_user_response?(input)
+  end
 end
