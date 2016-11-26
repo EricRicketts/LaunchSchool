@@ -12,13 +12,17 @@ class RockPaperScissorsBonusTestObjectRelationships < Minitest::Test
   def test_scissors_vs_paper
     assert_equal win?("scissors", "paper"), PLAYER_WINS, "scissors first"
     assert_equal win?("paper", "scissors"), COMPUTER_WINS, "paper first"
-    assert_equal win?("scissors", "scissors"), TIE, 'scissors tie'
+    assert_equal win?("scissors", "scissors"), TIE, "scissors tie"
   end
 
   def test_paper_vs_rock
     assert_equal win?("paper", "rock"), PLAYER_WINS, "paper first"
     assert_equal win?("rock", "paper"), COMPUTER_WINS, "paper first"
-    assert_equal win?("rock", "rock"), TIE, 'scissors tie'
+    assert_equal win?("rock", "rock"), TIE, "scissors tie"
   end
 
+  def test_rock_vs_lizard
+    assert_equal win?("rock", "lizard"), PLAYER_WINS, "rock first"
+    assert_equal win?("lizard", "rock"), COMPUTER_WINS, "lizard first"
+  end
 end
