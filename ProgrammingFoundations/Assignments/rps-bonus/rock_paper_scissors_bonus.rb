@@ -93,11 +93,10 @@ if __FILE__ == $PROGRAM_NAME
   game_score_hash = { player_score: 0, computer_score: 0 }
   puts prompt(APP_CONFIG['GreetingMsg'])
 
-  loop do
+  until game_over?(game_score_hash)
     user_choice = player_choice
     computer_choice = VALID_GAME_OBJECTS.sample
     display_turn_results(user_choice, computer_choice, game_score_hash)
-    break if game_over?(game_score_hash)
   end
 
   puts display_game_winner(game_score_hash)
