@@ -18,8 +18,15 @@ WINNING_RELATIONSHIPS = {
   'spock' => SPOCK_WINS_AGAINST
 }
 
-VALID_SINGLE_LETTERS = %w(r p l)
-VALID_TWO_LETTERS = %w(sc sp)
+VALID_ENTRIES = %w(r p l sc sp)
+VALID_GAME_OBJECTS = %w(rock paper scissors lizard spock)
+CHOICE_MAPPINGS = {
+  'r' => 'rock',
+  'p' => 'paper',
+  'sc' => 'scissors',
+  'l' => 'lizard',
+  'sp' => 'spock'
+}
 
 # create an Array method to better name operation
 # on game objects in #win?
@@ -29,38 +36,44 @@ class Array
   end
 end
 
+def display_selections(player_choice, computer_choice)
+  prompt("your choice: #{player_choice}\n" +
+    prompt("computer_choice: #{computer_choice}"))
+end
+
 def player_choice
   choice = ''
   loop do
+    puts "\n"
     puts prompt(APP_CONFIG['ChoiceMsg'])
-    choice = gets.chomp
-    break if valid_user_response?(choice)
-    puts prompt(APP_CONFIG['RulesMsg'])
+    choice = gets.chomp.strip.downcase
+    break if VALID_ENTRIES.include?(choice)
+    puts prompt(APP_CONFIG['InvalidResponseMsg'])
   end
-  choice
+  CHOICE_MAPPINGS[choice]
 end
 
 def prompt(message)
   "=> #{message}"
 end
 
-def valid_user_response?(choice)
-  response_one_letter = choice.strip.downcase.chars.first
-  response_two_letters = choice.strip.downcase.chars.slice(0, 2).join
-  VALID_SINGLE_LETTERS.include?(response_one_letter) ||
-    VALID_TWO_LETTERS.include?(response_two_letters)
-end
-
 def win?(first, second)
-  WINNING_RELATIONSHIPS[first].beats?(second)
+  if WINNING_RELATIONSHIPS[first].beats?(second)
+    prompt(APP_CONFIG['PlayerWinsMsg'])
+  elsif WINNING_RELATIONSHIPS[second].beats?(first)
+    prompt(APP_CONFIG['ComputerWinsMsg'])
+  else
+    prompt(APP_CONFIG['TieMsg'])
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
   puts prompt(APP_CONFIG['GreetingMsg'])
-
   loop do
-    choice = player_choice
-    puts choice
+    user_choice = player_choice
+    computer_choice = VALID_GAME_OBJECTS.sample
+    puts display_selections(user_choice, computer_choice)
+    puts win?(user_choice, computer_choice)
     break
   end
 end

@@ -33,6 +33,21 @@ class RockPaperScissorsBonusConstantsTest < Minitest::Test
   def test_error_message
     expected_msg =
       "Hmm... that does not look like a valide response, try again."
-    assert_equal APP_CONFIG['InvalidEntryMsg'], expected_msg, 'invalid message'
+    assert_equal APP_CONFIG['InvalidResponseMsg'], expected_msg, 'invalid msg'
+  end
+
+  def test_player_wins_message
+    expected_msg = "You win!!"
+    assert_equal APP_CONFIG['PlayerWinsMsg'], expected_msg, 'player wins'
+  end
+
+  def test_computer_wins_message
+    expected_msg = "Computer wins!!"
+    assert_equal APP_CONFIG['ComputerWinsMsg'], expected_msg, 'computer wins'
+  end
+
+  def test_tie_message
+    expected_msg = "It is a tie!!"
+    assert_equal APP_CONFIG['TieMsg'], expected_msg, 'tie msg'
   end
 end
