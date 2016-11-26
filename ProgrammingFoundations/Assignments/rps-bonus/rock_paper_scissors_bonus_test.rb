@@ -36,4 +36,9 @@ class RockPaperScissorsBonusTestObjectRelationships < Minitest::Test
     assert_equal win?("spock", "scissors"), PLAYER_WINS, "spock first"
     assert_equal win?("scissors", "spock"), COMPUTER_WINS, "scissors first"
   end
+
+  def test_scissors_vs_lizard
+    assert_equal win?("scissors", "lizard"), PLAYER_WINS, "scissors first"
+    assert_equal win?("lizard", "scissors"), COMPUTER_WINS, "lizard first"
+  end
 end
