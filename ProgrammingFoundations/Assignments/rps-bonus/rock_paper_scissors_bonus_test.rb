@@ -12,58 +12,72 @@ class TestObjectRelationships < Minitest::Test
   end
 
   def test_scissors_vs_paper
-    assert_equal win?("scissors", "paper", @hsh), @player_wins
-    assert_equal win?("paper", "scissors", @hsh), @computer_wins
-    assert_equal win?("scissors", "scissors", @hsh), @tie
+    assert_equal display_turn_winner("scissors", "paper"), @player_wins
+    assert_equal display_turn_winner("paper", "scissors"), @computer_wins
+    assert_equal display_turn_winner("scissors", "scissors"), @tie
   end
 
   def test_paper_vs_rock
-    assert_equal win?("paper", "rock", @hsh), @player_wins
-    assert_equal win?("rock", "paper", @hsh), @computer_wins
-    assert_equal win?("rock", "rock", @hsh), @tie
+    assert_equal display_turn_winner("paper", "rock"), @player_wins
+    assert_equal display_turn_winner("rock", "paper"), @computer_wins
+    assert_equal display_turn_winner("rock", "rock"), @tie
   end
 
   def test_rock_vs_lizard
-    assert_equal win?("rock", "lizard", @hsh), @player_wins
-    assert_equal win?("lizard", "rock", @hsh), @computer_wins
+    assert_equal display_turn_winner("rock", "lizard"), @player_wins
+    assert_equal display_turn_winner("lizard", "rock"), @computer_wins
   end
 
   def test_lizard_vs_spock
-    assert_equal win?("lizard", "spock", @hsh), @player_wins
-    assert_equal win?("spock", "lizard", @hsh), @computer_wins
-    assert_equal win?("lizard", "lizard", @hsh), @tie
+    assert_equal display_turn_winner("lizard", "spock"), @player_wins
+    assert_equal display_turn_winner("spock", "lizard"), @computer_wins
+    assert_equal display_turn_winner("lizard", "lizard"), @tie
   end
 
   def test_spock_vs_scissors
-    assert_equal win?("spock", "scissors", @hsh), @player_wins
-    assert_equal win?("scissors", "spock", @hsh), @computer_wins
+    assert_equal display_turn_winner("spock", "scissors"), @player_wins
+    assert_equal display_turn_winner("scissors", "spock"), @computer_wins
   end
 
   def test_scissors_vs_lizard
-    assert_equal win?("scissors", "lizard", @hsh), @player_wins
-    assert_equal win?("lizard", "scissors", @hsh), @computer_wins
+    assert_equal display_turn_winner("scissors", "lizard"), @player_wins
+    assert_equal display_turn_winner("lizard", "scissors"), @computer_wins
   end
 
   def test_lizard_vs_paper
-    assert_equal win?("lizard", "paper", @hsh), @player_wins
-    assert_equal win?("paper", "lizard", @hsh), @computer_wins
+    assert_equal display_turn_winner("lizard", "paper"), @player_wins
+    assert_equal display_turn_winner("paper", "lizard"), @computer_wins
   end
 
   def test_paper_vs_spock
-    assert_equal win?("paper", "spock", @hsh), @player_wins
-    assert_equal win?("spock", "paper", @hsh), @computer_wins
-    assert_equal win?("paper", "paper", @hsh), @tie
+    assert_equal display_turn_winner("paper", "spock"), @player_wins
+    assert_equal display_turn_winner("spock", "paper"), @computer_wins
+    assert_equal display_turn_winner("paper", "paper"), @tie
   end
 
   def test_spock_vs_rock
-    assert_equal win?("spock", "rock", @hsh), @player_wins
-    assert_equal win?("rock", "spock", @hsh), @computer_wins
-    assert_equal win?("spock", "spock", @hsh), @tie
+    assert_equal display_turn_winner("spock", "rock"), @player_wins
+    assert_equal display_turn_winner("rock", "spock"), @computer_wins
+    assert_equal display_turn_winner("spock", "spock"), @tie
   end
 
   def test_rock_vs_scissors
-    assert_equal win?("rock", "scissors", @hsh), @player_wins
-    assert_equal win?("scissors", "rock", @hsh), @computer_wins
+    assert_equal display_turn_winner("rock", "scissors"), @player_wins
+    assert_equal display_turn_winner("scissors", "rock"), @computer_wins
+  end
+
+  def test_update_game_score_user_wins
+    user_choice = "rock"
+    computer_choice = "scissors"
+    update_game_score(user_choice, computer_choice, @hsh)
+    assert_equal @hsh, { player_score: 1, computer_score: 0 }
+  end
+
+  def test_update_game_score_computer_wins
+    user_choice = "scissors"
+    computer_choice = "rock"
+    update_game_score(user_choice, computer_choice, @hsh)
+    assert_equal @hsh, { player_score: 0, computer_score: 1 }
   end
 end
 

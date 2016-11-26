@@ -54,8 +54,18 @@ end
 
 def display_turn_results(user_choice, computer_choice, game_score_hash)
   puts display_selections(user_choice, computer_choice)
-  puts win?(user_choice, computer_choice, game_score_hash)
+  puts display_turn_winner(user_choice, computer_choice)
   puts display_current_scores(game_score_hash)
+end
+
+def display_turn_winner(first, second)
+  if WINNING_RELATIONSHIPS[first].beats?(second)
+    prompt(APP_CONFIG['PlayerWinsMsg'])
+  elsif WINNING_RELATIONSHIPS[second].beats?(first)
+    prompt(APP_CONFIG['ComputerWinsMsg'])
+  else
+    prompt(APP_CONFIG['TieMsg'])
+  end
 end
 
 def game_over?(game_score_hash)
@@ -77,16 +87,11 @@ def prompt(message)
   "=> #{message}"
 end
 
-def win?(first, second, game_score_hash)
-  if WINNING_RELATIONSHIPS[first].beats?(second)
-    game_score_hash[:player_score] += 1
-    prompt(APP_CONFIG['PlayerWinsMsg'])
-  elsif WINNING_RELATIONSHIPS[second].beats?(first)
-    game_score_hash[:computer_score] += 1
-    prompt(APP_CONFIG['ComputerWinsMsg'])
-  else
-    prompt(APP_CONFIG['TieMsg'])
-  end
+def update_game_score(user_choice, computer_choice, game_score_hash)
+  player_won = WINNING_RELATIONSHIPS[user_choice].beats?(computer_choice)
+  computer_won = WINNING_RELATIONSHIPS[computer_choice].beats?(user_choice)
+  game_score_hash[:player_score] += 1 if player_won
+  game_score_hash[:computer_score] += 1 if computer_won
 end
 
 if __FILE__ == $PROGRAM_NAME
@@ -96,6 +101,7 @@ if __FILE__ == $PROGRAM_NAME
   until game_over?(game_score_hash)
     user_choice = player_choice
     computer_choice = VALID_GAME_OBJECTS.sample
+    update_game_score(user_choice, computer_choice, game_score_hash)
     display_turn_results(user_choice, computer_choice, game_score_hash)
   end
 
