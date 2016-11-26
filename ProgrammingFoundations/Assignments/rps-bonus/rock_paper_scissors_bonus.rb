@@ -38,7 +38,7 @@ end
 
 def display_selections(player_choice, computer_choice)
   prompt("your choice: #{player_choice}\n" +
-    prompt("computer_choice: #{computer_choice}"))
+    prompt("computer choice: #{computer_choice}"))
 end
 
 def player_choice

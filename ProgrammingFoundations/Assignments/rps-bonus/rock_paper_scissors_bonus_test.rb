@@ -4,7 +4,7 @@ require_relative './rock_paper_scissors_bonus'
 require 'byebug'
 
 # test main logic of rock paper scissors game with bonus features
-class RockPaperScissorsBonusTestObjectRelationships < Minitest::Test
+class TestObjectRelationships < Minitest::Test
   PLAYER_WINS = prompt(APP_CONFIG['PlayerWinsMsg'])
   COMPUTER_WINS = prompt(APP_CONFIG['ComputerWinsMsg'])
   TIE = prompt(APP_CONFIG['TieMsg'])
@@ -62,5 +62,13 @@ class RockPaperScissorsBonusTestObjectRelationships < Minitest::Test
   def test_rock_vs_scissors
     assert_equal win?("rock", "scissors"), PLAYER_WINS, "rock first"
     assert_equal win?("scissors", "rock"), COMPUTER_WINS, "scissors first"
+  end
+
+  # test #display_selections and #player_choice
+  class TestPlayerChoiceAndDisplaySelections < Minitest::Test
+    def test_display_selections
+      expected_msg = "=> your choice: rock\n=> computer choice: paper"
+      assert_equal display_selections("rock", "paper"), expected_msg
+    end
   end
 end
