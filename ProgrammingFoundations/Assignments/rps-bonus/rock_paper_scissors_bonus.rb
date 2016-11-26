@@ -41,10 +41,13 @@ def display_selections(player_choice, computer_choice)
     prompt("computer choice: #{computer_choice}"))
 end
 
+def game_over?(game_score_hash)
+  game_score_hash[:player_score] == 5 || game_score_hash[:computer_score] == 5
+end
+
 def player_choice
   choice = ''
   loop do
-    puts "\n"
     puts prompt(APP_CONFIG['ChoiceMsg'])
     choice = gets.chomp.strip.downcase
     break if VALID_ENTRIES.include?(choice)
@@ -57,10 +60,12 @@ def prompt(message)
   "=> #{message}"
 end
 
-def win?(first, second)
+def win?(first, second, game_score_hash)
   if WINNING_RELATIONSHIPS[first].beats?(second)
+    game_score_hash[:player_score] += 1
     prompt(APP_CONFIG['PlayerWinsMsg'])
   elsif WINNING_RELATIONSHIPS[second].beats?(first)
+    game_score_hash[:computer_score] += 1
     prompt(APP_CONFIG['ComputerWinsMsg'])
   else
     prompt(APP_CONFIG['TieMsg'])
