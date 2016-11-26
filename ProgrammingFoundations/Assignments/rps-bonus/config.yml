@@ -20,3 +20,4 @@ InvalidResponseMsg: "Hmm... that does not look like a valide response, try again
 PlayerWinsMsg: "You win!!"
 ComputerWinsMsg: "Computer wins!!"
 TieMsg: "It is a tie!!"
+GoodbyeMsg: "Goodbye, thanks for playing rock, paper, scissors, lizard, spock!!"

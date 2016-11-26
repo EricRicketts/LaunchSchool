@@ -98,4 +98,10 @@ class TestMiscellaneous < Minitest::Test
     }
     refute game_over?(game_score_hash)
   end
+
+  def test_running_totals
+    game_score_hash = { player_score: 3, computer_score: 4 }
+    expected_msg = "=> your score: 3 coputer_score: 4"
+    assert_equal display_current_scores(game_score_hash), expected_msg
+  end
 end

@@ -51,4 +51,10 @@ class RockPaperScissorsBonusConstantsTest < Minitest::Test
     expected_msg = "It is a tie!!"
     assert_equal APP_CONFIG['TieMsg'], expected_msg, 'tie msg'
   end
+
+  def test_goodbye_message
+    expected_msg = "Goodbye, thanks for playing rock, paper, scissors," \
+    " lizard, spock!!"
+    assert_equal APP_CONFIG['GoodbyeMsg'], expected_msg
+  end
 end

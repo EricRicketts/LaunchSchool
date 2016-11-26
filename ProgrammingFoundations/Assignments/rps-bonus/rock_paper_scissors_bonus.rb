@@ -41,6 +41,11 @@ def display_selections(player_choice, computer_choice)
     prompt("computer choice: #{computer_choice}"))
 end
 
+def display_current_scores(game_score_hash)
+  prompt("your score: #{game_score_hash[:player_score]}" \
+    "computer score: #{game_score_hash[:computer_score]}")
+end
+
 def game_over?(game_score_hash)
   game_score_hash[:player_score] == 5 || game_score_hash[:computer_score] == 5
 end
