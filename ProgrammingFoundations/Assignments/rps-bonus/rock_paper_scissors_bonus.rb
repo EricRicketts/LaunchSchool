@@ -1,4 +1,3 @@
-require 'byebug'
 require 'yaml'
 
 raw_config = File.read('./config.yml')
@@ -36,21 +35,27 @@ class Array
   end
 end
 
-def display_selections(player_choice, computer_choice)
-  prompt("your choice: #{player_choice}\n" +
-    prompt("computer choice: #{computer_choice}"))
-end
-
 def display_current_scores(game_score_hash)
   prompt("your score: #{game_score_hash[:player_score]} " \
     "computer score: #{game_score_hash[:computer_score]}")
 end
 
-def display_final_score(game_score_hash)
+def display_game_winner(game_score_hash)
   player_score = game_score_hash[:player_score]
   winner_text =
     player_score == 5 ? "You win the game!!" : "The computer wins the game!!"
-  display_current_scores(game_score_hash) + "\n" + prompt(winner_text)
+  prompt(winner_text)
+end
+
+def display_selections(player_choice, computer_choice)
+  prompt("your choice: #{player_choice}\n" +
+    prompt("computer choice: #{computer_choice}"))
+end
+
+def display_turn_results(user_choice, computer_choice, game_score_hash)
+  puts display_selections(user_choice, computer_choice)
+  puts win?(user_choice, computer_choice, game_score_hash)
+  puts display_current_scores(game_score_hash)
 end
 
 def game_over?(game_score_hash)
@@ -91,11 +96,10 @@ if __FILE__ == $PROGRAM_NAME
   loop do
     user_choice = player_choice
     computer_choice = VALID_GAME_OBJECTS.sample
-    puts display_selections(user_choice, computer_choice)
-    puts win?(user_choice, computer_choice, game_score_hash)
-    puts display_current_scores(game_score_hash)
+    display_turn_results(user_choice, computer_choice, game_score_hash)
     break if game_over?(game_score_hash)
   end
 
+  puts display_game_winner(game_score_hash)
   puts prompt(APP_CONFIG['GoodbyeMsg'])
 end

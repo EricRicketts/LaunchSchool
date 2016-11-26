@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative './rock_paper_scissors_bonus'
-require 'byebug'
 
 # test constants used for the game
 class RockPaperScissorsBonusConstantsTest < Minitest::Test
