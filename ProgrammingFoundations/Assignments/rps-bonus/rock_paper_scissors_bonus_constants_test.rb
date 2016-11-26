@@ -14,7 +14,8 @@ class RockPaperScissorsBonusConstantsTest < Minitest::Test
       "Scissors decapitates Lizard\n" \
       "Lizard eats Paper\n" \
       "Paper disproves Spock\n" \
-      "Spock vaporizes Rock\n"
+      "Spock vaporizes Rock\n" \
+      "Rock crushes Scissors\n"
 
   def test_greeting
     expected_msg = "Welcome to Rock, Paper, Scissors, Lizard, and Spock!\n" \
