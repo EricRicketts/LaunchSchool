@@ -101,7 +101,21 @@ class TestMiscellaneous < Minitest::Test
 
   def test_running_totals
     game_score_hash = { player_score: 3, computer_score: 4 }
-    expected_msg = "=> your score: 3 coputer_score: 4"
+    expected_msg = "=> your score: 3 computer score: 4"
     assert_equal display_current_scores(game_score_hash), expected_msg
+  end
+
+  def test_display_final_score_user_wins
+    game_score_hash = { player_score: 5, computer_score: 3 }
+    expected_msg = "=> your score: 5 computer score: 3\n" \
+      "=> You win the game!!"
+    assert_equal display_final_score(game_score_hash), expected_msg
+  end
+
+  def test_display_final_score_computer_wins
+    game_score_hash = { player_score: 2, computer_score: 5 }
+    expected_msg = "=> your score: 2 computer score: 5\n" \
+      "=> The computer wins the game!!"
+    assert_equal display_final_score(game_score_hash), expected_msg
   end
 end
