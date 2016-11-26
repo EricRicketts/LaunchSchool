@@ -27,14 +27,6 @@ CHOICE_MAPPINGS = {
   'sp' => 'spock'
 }
 
-# create an Array method to better name operation
-# on game objects in #win?
-class Array
-  def beats?(element)
-    include?(element)
-  end
-end
-
 def display_current_scores(game_score_hash)
   prompt("your score: #{game_score_hash[:player_score]} " \
     "computer score: #{game_score_hash[:computer_score]}")
@@ -59,9 +51,9 @@ def display_turn_results(user_choice, computer_choice, game_score_hash)
 end
 
 def display_turn_winner(first, second)
-  if WINNING_RELATIONSHIPS[first].beats?(second)
+  if WINNING_RELATIONSHIPS[first].include?(second)
     prompt(APP_CONFIG['PlayerWinsMsg'])
-  elsif WINNING_RELATIONSHIPS[second].beats?(first)
+  elsif WINNING_RELATIONSHIPS[second].include?(first)
     prompt(APP_CONFIG['ComputerWinsMsg'])
   else
     prompt(APP_CONFIG['TieMsg'])
@@ -88,8 +80,8 @@ def prompt(message)
 end
 
 def update_game_score(user_choice, computer_choice, game_score_hash)
-  player_won = WINNING_RELATIONSHIPS[user_choice].beats?(computer_choice)
-  computer_won = WINNING_RELATIONSHIPS[computer_choice].beats?(user_choice)
+  player_won = WINNING_RELATIONSHIPS[user_choice].include?(computer_choice)
+  computer_won = WINNING_RELATIONSHIPS[computer_choice].include?(user_choice)
   game_score_hash[:player_score] += 1 if player_won
   game_score_hash[:computer_score] += 1 if computer_won
 end

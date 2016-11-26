@@ -14,13 +14,11 @@ class TestObjectRelationships < Minitest::Test
   def test_scissors_vs_paper
     assert_equal display_turn_winner("scissors", "paper"), @player_wins
     assert_equal display_turn_winner("paper", "scissors"), @computer_wins
-    assert_equal display_turn_winner("scissors", "scissors"), @tie
   end
 
   def test_paper_vs_rock
     assert_equal display_turn_winner("paper", "rock"), @player_wins
     assert_equal display_turn_winner("rock", "paper"), @computer_wins
-    assert_equal display_turn_winner("rock", "rock"), @tie
   end
 
   def test_rock_vs_lizard
@@ -31,7 +29,6 @@ class TestObjectRelationships < Minitest::Test
   def test_lizard_vs_spock
     assert_equal display_turn_winner("lizard", "spock"), @player_wins
     assert_equal display_turn_winner("spock", "lizard"), @computer_wins
-    assert_equal display_turn_winner("lizard", "lizard"), @tie
   end
 
   def test_spock_vs_scissors
@@ -52,18 +49,24 @@ class TestObjectRelationships < Minitest::Test
   def test_paper_vs_spock
     assert_equal display_turn_winner("paper", "spock"), @player_wins
     assert_equal display_turn_winner("spock", "paper"), @computer_wins
-    assert_equal display_turn_winner("paper", "paper"), @tie
   end
 
   def test_spock_vs_rock
     assert_equal display_turn_winner("spock", "rock"), @player_wins
     assert_equal display_turn_winner("rock", "spock"), @computer_wins
-    assert_equal display_turn_winner("spock", "spock"), @tie
   end
 
   def test_rock_vs_scissors
     assert_equal display_turn_winner("rock", "scissors"), @player_wins
     assert_equal display_turn_winner("scissors", "rock"), @computer_wins
+  end
+
+  def test_ties
+    assert_equal display_turn_winner("rock", "rock"), @tie
+    assert_equal display_turn_winner("paper", "paper"), @tie
+    assert_equal display_turn_winner("scissors", "scissors"), @tie
+    assert_equal display_turn_winner("lizard", "lizard"), @tie
+    assert_equal display_turn_winner("spock", "spock"), @tie
   end
 
   def test_update_game_score_user_wins
@@ -83,6 +86,12 @@ end
 
 # test #display_selections and #player_choice
 class TestMiscellaneous < Minitest::Test
+  def test_config_file
+    temp_file = File.read('./config.yml')
+    yaml_conversion = YAML.load(temp_file)
+    assert_equal yaml_conversion, APP_CONFIG
+  end
+
   def test_display_selections
     expected_msg = "=> your choice: rock\n=> computer choice: paper"
     assert_equal display_selections("rock", "paper"), expected_msg
