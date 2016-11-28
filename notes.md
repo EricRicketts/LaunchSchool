@@ -89,3 +89,6 @@ names = ['kim', 'joe', 'sam']
 names.each { |_| puts "got a name!" }
 ```
 
+## Notes for Easy One Exercises
+1.  ```Kernel#puts``` calls #to_s on the arguments, while ```Kernel#p``` calls inspect on the arguments
+
