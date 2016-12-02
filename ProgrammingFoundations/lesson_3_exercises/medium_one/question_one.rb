@@ -8,23 +8,24 @@ The Flintstones Rock!
   The Flintstones Rock!
 =end
 class QuestionOne < Minitest::Test
+  def setup
+    @base_string = "The Flintstones Rock!"
+    @expected = "\s" * 0 + "#{@base_string}" + "\n" +
+                "\s" * 1 + "#{@base_string}" + "\n" +
+                "\s" * 2 + "#{@base_string}" + "\n" +
+                "\s" * 3 + "#{@base_string}" + "\n" +
+                "\s" * 4 + "#{@base_string}" + "\n" +
+                "\s" * 5 + "#{@base_string}" + "\n" +
+                "\s" * 6 + "#{@base_string}" + "\n" +
+                "\s" * 7 + "#{@base_string}" + "\n" +
+                "\s" * 8 + "#{@base_string}" + "\n" +
+                "\s" * 9 + "#{@base_string}" + "\n"
+  end
+
   def test_indentations
-    base_string = "The Flintstones Rock!"
-    expected = "\s" * 0 + "#{base_string}" + "\n" +
-               "\s" * 1 + "#{base_string}" + "\n" +
-               "\s" * 2 + "#{base_string}" + "\n" +
-               "\s" * 3 + "#{base_string}" + "\n" +
-               "\s" * 4 + "#{base_string}" + "\n" +
-               "\s" * 5 + "#{base_string}" + "\n" +
-               "\s" * 6 + "#{base_string}" + "\n" +
-               "\s" * 7 + "#{base_string}" + "\n" +
-               "\s" * 8 + "#{base_string}" + "\n" +
-               "\s" * 9 + "#{base_string}" + "\n"
-    # 10.times { |n| puts base_string.rjust(base_string.length + n) }
     output = capture_io do
-      10.times { |n| puts base_string.rjust(base_string.length + n) }
+      10.times { |n| puts @base_string.rjust(@base_string.length + n) }
     end
-    output.pop
-    assert_equal expected, output[0]
+    assert_equal @expected, output[0]
   end
 end
