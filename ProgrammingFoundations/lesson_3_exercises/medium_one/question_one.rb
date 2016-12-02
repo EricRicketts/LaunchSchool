@@ -28,4 +28,16 @@ class QuestionOne < Minitest::Test
     end
     assert_equal @expected, output[0]
   end
+
+  def test_launch_school_solution
+    output = capture_io do
+      10.times { |n| puts (" " * n) + @base_string }
+    end
+    assert_equal @expected, output[0]
+  end
+
+  def test_use_inject
+    final_string = 10.times.inject("") { |memo, n|  memo <<  (" " * n) + @base_string + "\n" }
+    assert_equal @expected, final_string
+  end
 end
