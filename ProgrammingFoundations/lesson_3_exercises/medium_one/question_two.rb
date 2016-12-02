@@ -28,4 +28,14 @@ class QuestionTwo < Minitest::Test
     @statement.gsub!(/\s+/,"").chars {|char| hash[char] = @statement.count(char)}
     assert_equal @expected, hash
   end
+
+  def test_launch_school_solution
+    result = {}
+    letters = ('A'..'Z').to_a + ('a'..'z').to_a
+    letters.each do |letter|
+      letter_frequency = @statement.scan(letter).count
+      result[letter] = letter_frequency if letter_frequency > 0
+    end
+    assert_equal @expected, result
+  end
 end
