@@ -30,8 +30,8 @@ class QuestionFour < Minitest::Test
 
   def test_reverse_string_launch_school
     string = "Humpty Dumpty sat on a wall."
-    expected = "wall a on sat Dumpty Humpty"
+    expected = "wall a on sat Dumpty Humpty."
 
-    assert_equal expected, string.split(/\W/).reverse.join(" ")
+    assert_equal expected, string.split(/\W/).reverse.join(" ") + '.'
   end
 end
