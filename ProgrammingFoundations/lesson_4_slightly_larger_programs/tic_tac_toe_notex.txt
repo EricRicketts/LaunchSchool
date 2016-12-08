@@ -1,0 +1,4 @@
+for the O in the game use utf-8 "\u25ef"
+for the X in the game use uft-8 "\u2573"
+consider using unicode characters for box drawing utf-8 "\u2500" to "\u257f"
+double lines examples "\u2550" and "\u2557"
