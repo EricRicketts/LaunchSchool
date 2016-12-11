@@ -19,6 +19,15 @@ module Board
   EIGHT = "\u0038".freeze
   NINE =  "\u0039".freeze
 
+  def show_middle_board_row_with_numbers_in_each_square
+    "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n" + \
+    "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
+    "\u2551" + "\u0020" * 3 + "\u0034" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0035" + \
+    "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0036" + "\u0020" * 3 + "\u2551" + "\n" + \
+    "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
+    "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n"
+  end
+
   def show_top_board_row_with_numbers_in_each_square
     show_very_top_row + \
       show_row_with_spaces + \
