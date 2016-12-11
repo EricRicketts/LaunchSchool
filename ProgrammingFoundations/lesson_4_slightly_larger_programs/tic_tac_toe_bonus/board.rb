@@ -24,11 +24,10 @@ module Board
 
   def show_middle_board_row_with_numbers_in_each_square
     show_middle_row_join + \
-    show_row_with_spaces + \
-    "\u2551" + "\u0020" * 3 + "\u0034" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0035" + \
-    "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0036" + "\u0020" * 3 + "\u2551" + "\n" + \
-    show_row_with_spaces + \
-    show_middle_row_join
+      show_row_with_spaces + \
+      show_middle_row_with_numbers + \
+      show_row_with_spaces + \
+      show_middle_row_join
   end
 
   def show_top_board_row_with_numbers_in_each_square
@@ -55,6 +54,12 @@ module Board
     LEFT_VERTICAL_JOIN + horizontal_lines(7) + FOUR_WAY_JOIN + \
       horizontal_lines(7) + FOUR_WAY_JOIN + horizontal_lines(7) + \
       RIGHT_VERTICAL_JOIN + RETURN
+  end
+
+  def show_middle_row_with_numbers
+    VERTICAL_LINE + spaces(3) + FOUR + spaces(3) + VERTICAL_LINE + \
+      spaces(3) + FIVE + spaces(3) + VERTICAL_LINE + spaces(3) + \
+      SIX + spaces(3) + VERTICAL_LINE + RETURN
   end
 
   def show_top_row_with_numbers
