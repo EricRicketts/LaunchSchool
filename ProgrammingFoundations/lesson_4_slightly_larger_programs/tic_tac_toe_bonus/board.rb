@@ -6,6 +6,9 @@ module Board
   VERTICAL_LINE = "\u2551".freeze
 
   TOP_JOIN = "\u2566".freeze
+  BOTTOM_JOIN = "\u2569".freeze
+  BOTTOM_LEFT_CORNER = "\u255a".freeze
+  BOTTOM_RIGHT_CORNER = "\u255d".freeze
   UPPER_LEFT_CORNER = "\u2554".freeze
   UPPER_RIGHT_CORNER = "\u2557".freeze
   LEFT_VERTICAL_JOIN = "\u2560".freeze
@@ -30,8 +33,8 @@ module Board
   end
 
   def show_bottom_row_with_numbers
-   "\u2551" + "\u0020" * 3 + "\u0037" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0038" + \
-    "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0039" + "\u0020" * 3 + "\u2551" + "\n"
+    VERTICAL_LINE + spaces(3) + SEVEN + spaces(3) + VERTICAL_LINE + spaces(3) + EIGHT + \
+      spaces(3) + VERTICAL_LINE + spaces(3) + NINE + spaces(3) + VERTICAL_LINE + RETURN
   end
 
   def show_middle_board_row_with_numbers_in_each_square
@@ -82,7 +85,9 @@ module Board
   end
 
   def show_very_bottom_row
-    "\u255a" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u255d" + "\n"
+    BOTTOM_LEFT_CORNER + horizontal_lines(7) + BOTTOM_JOIN + \
+      horizontal_lines(7) + BOTTOM_JOIN + horizontal_lines(7) + \
+      BOTTOM_RIGHT_CORNER + RETURN
   end
 
   def show_very_top_row
