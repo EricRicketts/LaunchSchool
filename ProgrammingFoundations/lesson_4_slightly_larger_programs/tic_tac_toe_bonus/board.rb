@@ -22,6 +22,18 @@ module Board
   EIGHT = "\u0038".freeze
   NINE =  "\u0039".freeze
 
+  def show_bottom_board_row_with_numbers_in_each_square
+    show_row_with_spaces + \
+      show_bottom_row_with_numbers + \
+      show_row_with_spaces + \
+      show_very_bottom_row
+  end
+
+  def show_bottom_row_with_numbers
+   "\u2551" + "\u0020" * 3 + "\u0037" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0038" + \
+    "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0039" + "\u0020" * 3 + "\u2551" + "\n"
+  end
+
   def show_middle_board_row_with_numbers_in_each_square
     show_middle_row_join + \
       show_row_with_spaces + \
@@ -45,10 +57,6 @@ module Board
     SPACE * number
   end
 
-  def show_very_top_row
-    UPPER_LEFT_CORNER + horizontal_lines(7) + TOP_JOIN + horizontal_lines(7) + \
-      TOP_JOIN + horizontal_lines(7) + UPPER_RIGHT_CORNER + RETURN
-  end
 
   def show_middle_row_join
     LEFT_VERTICAL_JOIN + horizontal_lines(7) + FOUR_WAY_JOIN + \
@@ -71,6 +79,15 @@ module Board
   def show_row_with_spaces
     VERTICAL_LINE + spaces(7) + VERTICAL_LINE + spaces(7) + \
       VERTICAL_LINE + spaces(7) + VERTICAL_LINE + RETURN
+  end
+
+  def show_very_bottom_row
+    "\u255a" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u255d" + "\n"
+  end
+
+  def show_very_top_row
+    UPPER_LEFT_CORNER + horizontal_lines(7) + TOP_JOIN + horizontal_lines(7) + \
+      TOP_JOIN + horizontal_lines(7) + UPPER_RIGHT_CORNER + RETURN
   end
 
 end
