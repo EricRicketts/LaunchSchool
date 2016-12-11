@@ -20,7 +20,8 @@ module Board
   NINE =  "\u0039".freeze
 
   def show_middle_board_row_with_numbers_in_each_square
-    "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n" + \
+    show_top_of_middle_row + \
+    # "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n" + \
     "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
     "\u2551" + "\u0020" * 3 + "\u0034" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0035" + \
     "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0036" + "\u0020" * 3 + "\u2551" + "\n" + \
@@ -46,6 +47,10 @@ module Board
   def show_very_top_row
     UPPER_LEFT_CORNER + horizontal_lines(7) + TOP_JOIN + horizontal_lines(7) + \
       TOP_JOIN + horizontal_lines(7) + UPPER_RIGHT_CORNER + RETURN
+  end
+
+  def show_top_of_middle_row
+    "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n"
   end
 
   def show_top_row_with_numbers
