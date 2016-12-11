@@ -8,6 +8,9 @@ module Board
   TOP_JOIN = "\u2566".freeze
   UPPER_LEFT_CORNER = "\u2554".freeze
   UPPER_RIGHT_CORNER = "\u2557".freeze
+  LEFT_VERTICAL_JOIN = "\u2560".freeze
+  RIGHT_VERTICAL_JOIN = "\u2563".freeze
+  FOUR_WAY_JOIN = "\u256c".freeze
 
   ONE =   "\u0031".freeze
   TWO =   "\u0032".freeze
@@ -20,8 +23,7 @@ module Board
   NINE =  "\u0039".freeze
 
   def show_middle_board_row_with_numbers_in_each_square
-    show_top_of_middle_row + \
-    # "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n" + \
+    show_middle_row_join + \
     "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
     "\u2551" + "\u0020" * 3 + "\u0034" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0035" + \
     "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0036" + "\u0020" * 3 + "\u2551" + "\n" + \
@@ -49,8 +51,10 @@ module Board
       TOP_JOIN + horizontal_lines(7) + UPPER_RIGHT_CORNER + RETURN
   end
 
-  def show_top_of_middle_row
-    "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n"
+  def show_middle_row_join
+    LEFT_VERTICAL_JOIN + horizontal_lines(7) + FOUR_WAY_JOIN + \
+      horizontal_lines(7) + FOUR_WAY_JOIN + horizontal_lines(7) + \
+      RIGHT_VERTICAL_JOIN + RETURN
   end
 
   def show_top_row_with_numbers
