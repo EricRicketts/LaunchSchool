@@ -6,18 +6,22 @@ class BoardTest < Minitest::Test
   def setup
     @object = Object.new
     @object.extend(Board)
+    @expected_top_row =
+      "\u2554" + "\u2550" * 7 + "\u2566" + "\u2550" * 7 \
+      + "\u2566" + "\u2550" * 7 + "\u2557" + "\n" \
+      + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 \
+      + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" \
+      + "\u2551" + "\u0020" * 3 + "\u0031" + "\u0020" * 3 \
+      + "\u2551" + "\u0020" * 3 + "\u0032" + "\u0020" * 3 \
+      + "\u2551" + "\u0020" * 3 + "\u0033" + "\u0020" * 3 \
+      + "\u2551" + "\n" + "\u2551" + "\u0020" * 7 + "\u2551" \
+      + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n"
+
   end
 
   def test_top_row_with_numbers
-    expected_top_row =
-      "\u2554" + "\u2550" * 7 + "\u2566" + "\u2550" * 7 + "\u2566" + "\u2550" * 7 + "\u2557" + "\n" + \
-      "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
-      "\u2551" + "\u0020" * 3 + "\u0031" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + \
-      "\u0032" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0033" + "\u0020" * 3 + "\u2551" + "\n" + \
-      "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n"
-
     actual_top_row = @object.show_entire_top_board_row
-    assert_equal expected_top_row, actual_top_row
+    assert_equal @expected_top_row, actual_top_row
   end
 
   def test_middle_row_with_numbers
