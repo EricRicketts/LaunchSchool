@@ -25,7 +25,7 @@ module Board
   EIGHT = "\u0038".freeze
   NINE =  "\u0039".freeze
 
-  def show_bottom_board_row_with_numbers_in_each_square
+  def show_entire_bottom_board_row
     show_row_with_spaces + \
       show_bottom_row_with_numbers + \
       show_row_with_spaces + \
@@ -37,7 +37,7 @@ module Board
       spaces(3) + VERTICAL_LINE + spaces(3) + NINE + spaces(3) + VERTICAL_LINE + RETURN
   end
 
-  def show_middle_board_row_with_numbers_in_each_square
+  def show_entire_middle_board_row
     show_middle_row_join + \
       show_row_with_spaces + \
       show_middle_row_with_numbers + \

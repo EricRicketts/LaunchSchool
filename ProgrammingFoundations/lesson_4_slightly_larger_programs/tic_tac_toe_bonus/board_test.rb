@@ -29,7 +29,7 @@ class BoardTest < Minitest::Test
       "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
       "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 + "\u2563" + "\n"
 
-    actual_middle_row = @object.show_middle_board_row_with_numbers_in_each_square
+    actual_middle_row = @object.show_entire_middle_board_row
     assert_equal expected_middle_row, actual_middle_row
   end
 
@@ -41,7 +41,7 @@ class BoardTest < Minitest::Test
       "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
       "\u255a" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u255d" + "\n"
 
-    actual_bottom_row = @object.show_bottom_board_row_with_numbers_in_each_square
+    actual_bottom_row = @object.show_entire_bottom_board_row
     assert_equal expected_bottom_row, actual_bottom_row
   end
 end
