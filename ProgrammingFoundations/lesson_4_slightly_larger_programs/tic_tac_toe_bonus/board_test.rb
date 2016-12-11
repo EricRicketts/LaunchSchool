@@ -29,6 +29,14 @@ class BoardTest < Minitest::Test
       + "\u2560" + "\u2550" * 7 + "\u256c" + "\u2550" * 7 \
       + "\u256c" + "\u2550" * 7 + "\u2563" + "\n"
 
+    @expected_bottom_row =
+      "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" \
+      + "\u0020" * 7 + "\u2551" + "\n" + "\u2551" + "\u0020" * 3 + "\u0037" \
+      + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0038" + "\u0020" * 3 \
+      + "\u2551" + "\u0020" * 3 + "\u0039" + "\u0020" * 3 + "\u2551" + "\n" \
+      + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" \
+      + "\u0020" * 7 + "\u2551" + "\n" + "\u255a" + "\u2550" * 7 \
+      + "\u2569" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u255d" + "\n"
   end
 
   def test_top_row_with_numbers
@@ -42,14 +50,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_bottom_row_with_numbers
-    expected_bottom_row =
-      "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
-      "\u2551" + "\u0020" * 3 + "\u0037" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0038" + \
-      "\u0020" * 3 + "\u2551" + "\u0020" * 3 + "\u0039" + "\u0020" * 3 + "\u2551" + "\n" + \
-      "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" + "\n" + \
-      "\u255a" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u255d" + "\n"
-
     actual_bottom_row = @object.show_entire_bottom_board_row
-    assert_equal expected_bottom_row, actual_bottom_row
+    assert_equal @expected_bottom_row, actual_bottom_row
   end
 end
