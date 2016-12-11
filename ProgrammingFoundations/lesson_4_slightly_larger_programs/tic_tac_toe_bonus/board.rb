@@ -45,7 +45,7 @@ module Board
       show_middle_row_join
   end
 
-  def show_top_board_row_with_numbers_in_each_square
+  def show_entire_top_board_row
     show_very_top_row + \
       show_row_with_spaces + \
       show_top_row_with_numbers + \
