@@ -37,6 +37,15 @@ class BoardTest < Minitest::Test
       + "\u2551" + "\u0020" * 7 + "\u2551" + "\u0020" * 7 + "\u2551" \
       + "\u0020" * 7 + "\u2551" + "\n" + "\u255a" + "\u2550" * 7 \
       + "\u2569" + "\u2550" * 7 + "\u2569" + "\u2550" * 7 + "\u255d" + "\n"
+
+    @large_x = "\u2573"
+    @large_o = "\u25ef"
+
+    @default_labled_row =
+      "\u2551" + "\u0020" * 3 + "\u0020" + "\u0020" * 3 \
+      + "\u2551" + "\u0020" * 3 + "\u0020" + "\u0020" * 3 \
+      + "\u2551" + "\u0020" * 3 + "\u0020" + "\u0020" * 3 \
+      + "\u2551" + "\n"
   end
 
   def test_top_row_with_numbers
@@ -58,5 +67,10 @@ class BoardTest < Minitest::Test
                                                       square_eight: "8", \
                                                       square_nine: "9")
     assert_equal @expected_bottom_row, actual_bottom_row
+  end
+
+  def test_modify_row
+    actual_labeled_row = @object.show_labeled_row("\u0020", "\u0020", "\u0020")
+    assert_equal @default_labled_row, actual_labeled_row
   end
 end
