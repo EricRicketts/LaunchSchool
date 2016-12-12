@@ -40,19 +40,23 @@ class BoardTest < Minitest::Test
   end
 
   def test_top_row_with_numbers
-    actual_top_row = @object.show_entire_top_board_row(square_one: "1", \
-                                                       square_two: "2", \
-                                                       square_three: "3")
+    actual_top_row = @object.show_top_board_row(square_one: "1", \
+                                                square_two: "2", \
+                                                square_three: "3")
     assert_equal @expected_top_row, actual_top_row
   end
 
   def test_middle_row_with_numbers
-    actual_middle_row = @object.show_entire_middle_board_row
+    actual_middle_row = @object.show_middle_board_row(square_four: "4", \
+                                                      square_five: "5", \
+                                                      square_six: "6")
     assert_equal @expected_middle_row, actual_middle_row
   end
 
   def test_bottom_row_with_numbers
-    actual_bottom_row = @object.show_entire_bottom_board_row
+    actual_bottom_row = @object.show_bottom_board_row(square_seven: "7", \
+                                                      square_eight: "8", \
+                                                      square_nine: "9")
     assert_equal @expected_bottom_row, actual_bottom_row
   end
 end
