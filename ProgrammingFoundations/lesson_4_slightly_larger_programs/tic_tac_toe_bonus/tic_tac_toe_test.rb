@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative './tic_tac_toe'
 
-class TicTacToeTest < Minitest::Test
+class InitialSetupAndInstructions < Minitest::Test
   def setup
     @instructions = "=> You will choose whether to be X's or O's." + "\n" \
       + "You will move first, followed by the computer.  The board" + "\n" \
@@ -28,4 +28,35 @@ class TicTacToeTest < Minitest::Test
     symbol_prompt = "=> Do you want to be X's or O's?"
     assert_equal symbol_prompt, ask_for_symbol_prompt
   end
-end
+end # class InitialSetupAndInstructions
+
+class GameLogic < Minitest::Test
+  def setup
+    @board = Array.new(3){ Array.new(3, "") }
+  end
+
+  def test_write_to_a_square
+    mark_board_at_square(@board, 1, "X")
+    mark_board_at_square(@board, 9, "O")
+    expected_board = [["X", "", ""], ["", "", ""], ["", "", "O"]]
+    assert_equal expected_board, @board
+  end
+
+  def test_score_current_row
+    board = [["", "", ""], ["X", "X", "O"],[ "O", "O", "O"]]
+    assert_equal 0, score_current_row(board, 2)
+    assert_equal -1, score_current_row(board, 4)
+    assert_equal 3, score_current_row(board, 9)
+  end
+
+  def test_score_current_column
+    board = [
+      ["X", "O", ""],
+      ["O", "X", "X"],
+      ["O", "", "X"]
+    ]
+    assert_equal 1, score_current_column(board, 4)
+    assert_equal 0, score_current_column(board, 2)
+    assert_equal -2, score_current_column(board, 9)
+  end
+end # class GameLogic
