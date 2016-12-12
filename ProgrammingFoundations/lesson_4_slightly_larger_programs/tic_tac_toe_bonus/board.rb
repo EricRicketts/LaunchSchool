@@ -52,6 +52,15 @@ module Board
       right_symbol + SPACE * 3 + VERTICAL_LINE + RETURN
   end
 
+  def show_numbered_board
+    show_top_board_row(square_one: "1", square_two: "2",
+                       square_three: "3") + \
+      show_middle_board_row(square_four: "4", square_five: "5",
+                            square_six: "6") + \
+      show_bottom_board_row(square_seven: "7", square_eight: "8",
+                            square_nine: "9")
+  end
+
   def show_row_with_spaces
     VERTICAL_LINE + SPACE * 7 + VERTICAL_LINE + SPACE * 7 + \
       VERTICAL_LINE + SPACE * 7 + VERTICAL_LINE + RETURN
