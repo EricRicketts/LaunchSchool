@@ -2,3 +2,22 @@ for the O in the game use utf-8 "\u25ef"
 for the X in the game use uft-8 "\u2573"
 consider using unicode characters for box drawing utf-8 "\u2500" to "\u257f"
 double lines examples "\u2550" and "\u2557"
+
+game flow:
+ 1. Introduce the user to the game
+    a.  opening, "welcome to tic tac toe"
+    b.  "you will be playing the computer"
+    c.  "choose to be x or o"
+    d.  show the board with numbers in each square
+    e.  inform the user to choose a square by entering a number
+    f.  inform the user he will go first
+    g.  after the user picks to be "X" or "O" start the game by showing a blank board
+ 2. User selects square
+    a.  Make sure the square is not already selected
+    b.  check for winner or tie
+    c.  If no winner or tie, display the board
+ 3. Computer selects square
+    a.  Randomly from list of available squares
+    b.  check for winner or tie
+    c.  If no winner or tie, display the board
+4.  Repeat steps 2 and 3
