@@ -7,6 +7,10 @@ def prompt(message)
   "=> #{message}"
 end
 
+def ask_for_symbol_prompt
+  prompt(APP_CONFIG['PromptForSymbol'])
+end
+
 def show_initial_greeting
   prompt(APP_CONFIG['InitialGreeting'])
 end

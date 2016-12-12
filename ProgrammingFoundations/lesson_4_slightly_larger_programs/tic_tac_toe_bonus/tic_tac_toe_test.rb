@@ -15,11 +15,17 @@ class TicTacToeTest < Minitest::Test
   end
 
   def test_greeting
-    greeting = "=> Welcome to Tic Tac Toe!!\nYou will be playing the computer.\n"
+    greeting = "=> Welcome to Tic Tac Toe!!" + "\n" \
+      "You will be playing the computer.\n"
     assert_equal greeting, show_initial_greeting
   end
 
   def test_instructions
     assert_equal @instructions, show_instructions
+  end
+
+  def test_user_symbol_prompt
+    symbol_prompt = "=> Do you want to be X's or O's?"
+    assert_equal symbol_prompt, ask_for_symbol_prompt
   end
 end
