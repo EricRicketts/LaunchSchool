@@ -40,7 +40,9 @@ class BoardTest < Minitest::Test
   end
 
   def test_top_row_with_numbers
-    actual_top_row = @object.show_entire_top_board_row
+    actual_top_row = @object.show_entire_top_board_row(square_one: "1", \
+                                                       square_two: "2", \
+                                                       square_three: "3")
     assert_equal @expected_top_row, actual_top_row
   end
 

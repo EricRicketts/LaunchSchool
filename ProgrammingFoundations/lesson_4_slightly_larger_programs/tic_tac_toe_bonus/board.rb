@@ -45,10 +45,12 @@ module Board
       show_middle_row_join
   end
 
-  def show_entire_top_board_row
+  def show_entire_top_board_row(square_one: SPACE, square_two: SPACE, \
+                                square_three: SPACE)
     show_very_top_row + \
       show_row_with_spaces + \
-      show_top_row_with_numbers + \
+      show_labeled_row(square_one, square_two, square_three) + \
+      # show_top_row_with_numbers + \
       show_row_with_spaces
   end
 
@@ -71,6 +73,12 @@ module Board
     VERTICAL_LINE + spaces(3) + FOUR + spaces(3) + VERTICAL_LINE + \
       spaces(3) + FIVE + spaces(3) + VERTICAL_LINE + spaces(3) + \
       SIX + spaces(3) + VERTICAL_LINE + RETURN
+  end
+
+  def show_labeled_row(left_symbol, middle_symbol, right_symbol)
+    VERTICAL_LINE + spaces(3) + left_symbol + spaces(3) + VERTICAL_LINE + \
+      spaces(3) + middle_symbol + spaces(3) + VERTICAL_LINE + spaces(3) + \
+      right_symbol + spaces(3) + VERTICAL_LINE + RETURN
   end
 
   def show_top_row_with_numbers
