@@ -25,7 +25,7 @@ class InitialSetupAndInstructions < Minitest::Test
   end
 
   def test_user_symbol_prompt
-    symbol_prompt = "=> Do you want to be X's or O's?"
+    symbol_prompt = "=> Do you want to be X's or O's?(enter only X/x or O/o)"
     assert_equal symbol_prompt, ask_for_symbol_prompt
   end
 end # class InitialSetupAndInstructions

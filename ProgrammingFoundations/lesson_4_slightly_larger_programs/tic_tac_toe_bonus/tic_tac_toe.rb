@@ -15,6 +15,12 @@ def ask_for_symbol_prompt
   prompt(APP_CONFIG['PromptForSymbol'])
 end
 
+def assign_symbols
+  player = obtain_player_symbol
+  computer = obtain_computer_symbol(player)
+  [player, computer]
+end
+
 def decrement(value)
   value - 1
 end
@@ -93,7 +99,6 @@ end
 
 if +__FILE__ == $PROGRAM_NAME
   initialize_game
-  player = obtain_player_symbol
-  computer = obtain_computer_symbol(player)
+  player, computer = assign_symbols
   puts "player is #{player}, computer is #{computer}"
 end
