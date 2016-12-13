@@ -59,4 +59,14 @@ class GameLogic < Minitest::Test
     assert_equal 0, score_current_column(board, 2)
     assert_equal -2, score_current_column(board, 9)
   end
+
+  def test_score_diagonals
+    board = [
+      ["X", "O", "X"],
+      ["",  "O", "O"],
+      ["O", "X", "X"]
+    ]
+    assert_equal -1, score_diagonal(board, 1)
+    assert_equal 1, score_anti_diagonal(board, 7)
+  end
 end # class GameLogic
