@@ -31,6 +31,19 @@ def mark_board_at_square(board, square, symbol)
   board[row][col] = symbol
 end
 
+def obtain_computer_symbol(player)
+  player == "X" ? "O" : "X"
+end
+
+def obtain_player_symbol
+  player = gets.chomp.strip.upcase
+  until valid_symbol_entry(player)
+    puts APP_CONFIG['IncorrectSymbolEntry']
+    player = gets.chomp.strip.upcase
+  end
+  player
+end
+
 def prompt(message)
   "=> #{message}"
 end
@@ -72,8 +85,15 @@ def show_instructions
   prompt(APP_CONFIG['Instructions'])
 end
 
+def valid_symbol_entry(symbol)
+  symbol.length == 1 && (symbol == "X" || symbol == "O")
+end
+
 # main program
 
 if +__FILE__ == $PROGRAM_NAME
   initialize_game
+  player = obtain_player_symbol
+  computer = obtain_computer_symbol(player)
+  puts "player is #{player}, computer is #{computer}"
 end
