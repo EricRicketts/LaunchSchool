@@ -6,6 +6,7 @@ raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
 SYMBOL_VALUES = { "X" => -1, "O" => 1 }.freeze
+SYMBOL_CONVERSION_HASH = { "X" => Board::LARGE_X, "O" => Board::LARGE_O }.freeze
 DIAGONAL_SQUARES = [0, 4, 8].freeze
 DIAGONAL = [[0, 0], [1, 1], [2, 2]].freeze
 ANTI_DIAGONAL_SQUARES = [2, 4, 6].freeze
@@ -33,19 +34,33 @@ def initialize_game
 end
 
 def collect_unoccupied_squares(board)
-  blank_squares = []
-  board.each.with_index do |row, row_index|
-    row.each.with_index do |cell, index|
-      blank_squares.push(3*row_index + index) if cell.empty?
-    end
+  flattened_board = board.flatten
+  flattened_board.each_index.select { |index| flattened_board[index].empty? }
+end
+
+def convert_symbol(symbol)
+  if symbol.eql?("X") || symbol.eql?("O")
+    SYMBOL_CONVERSION_HASH[symbol]
+  else
+    Board::SPACE
   end
-  blank_squares
+end
+
+def convert_symbols_in_board(board)
+  board.map { |row| row.map { |symbol| convert_symbol(symbol) } }
 end
 
 def make_moves(board, player, computer)
   puts prompt(APP_CONFIG['PlayerMovePrompt'])
-  square = gets.chomp.strip.to_i
-  mark_board_at_square(board, square, player)
+  player_choice = gets.chomp.strip.to_i
+  mark_board_at_square(board, player_choice, player)
+  unoccupied_squares = collect_unoccupied_squares(board)
+  computer_choice = unoccupied_squares.sample
+  mark_board_at_square(board, computer_choice, computer)
+  puts board.inspect
+  board_with_updated_symbols = convert_symbols_in_board(board)
+  top_row, middle_row, bottom_row = board_with_updated_symbols
+  puts Board.update_board(top_row, middle_row, bottom_row)
 end
 
 def mark_board_at_square(board, square, symbol)
@@ -123,7 +138,7 @@ end
 # main program
 
 if __FILE__ == $PROGRAM_NAME
-  board = Array.new(3){ Array.new(3, "") }
+  board = Array.new(3) { Array.new(3, "") }
   initialize_game
   player, computer = assign_symbols
   puts show_symbol_assignment(player, computer)

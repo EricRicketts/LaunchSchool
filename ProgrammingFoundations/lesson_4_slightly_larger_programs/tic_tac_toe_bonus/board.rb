@@ -1,5 +1,7 @@
 module Board
   SPACE = "\u0020".freeze
+  LARGE_O = "\u25ef".freeze
+  LARGE_X = "\u2573".freeze
   RETURN = "\n".freeze
 
   HORIZONTAL_LINE = "\u2550".freeze
@@ -83,4 +85,16 @@ module Board
       TOP_JOIN + HORIZONTAL_LINE * 7 + UPPER_RIGHT_CORNER + RETURN
   end
 
+  def update_board(top_row, middle_row, bottom_row)
+    show_top_board_row(square_one: top_row[0],
+                       square_two: top_row[1],
+                       square_three: top_row[2]) + \
+      show_middle_board_row(square_four: middle_row[0],
+                            square_five: middle_row[1],
+                            square_six: middle_row[2]) + \
+      show_bottom_board_row(square_seven: bottom_row[0],
+                            square_eight: bottom_row[1],
+                            square_nine: bottom_row[2])
+
+  end
 end

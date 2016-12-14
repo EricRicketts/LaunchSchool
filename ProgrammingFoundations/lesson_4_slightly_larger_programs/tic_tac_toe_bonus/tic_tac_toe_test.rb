@@ -88,4 +88,10 @@ class GameLogic < Minitest::Test
     ]
     assert_equal [1, 3, 6, 8], collect_unoccupied_squares(board)
   end
+
+  def test_convert_symbols
+    assert_equal "\u2573", convert_symbol("X")
+    assert_equal "\u25ef", convert_symbol("O")
+    assert_equal "\u0020", convert_symbol("")
+  end
 end # class GameLogic
