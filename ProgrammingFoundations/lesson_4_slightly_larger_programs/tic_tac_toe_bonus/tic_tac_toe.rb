@@ -32,6 +32,22 @@ def initialize_game
   puts ask_for_symbol_prompt
 end
 
+def collect_unoccupied_squares(board)
+  blank_squares = []
+  board.each.with_index do |row, row_index|
+    row.each.with_index do |cell, index|
+      blank_squares.push(3*row_index + index) if cell.empty?
+    end
+  end
+  blank_squares
+end
+
+def make_moves(board, player, computer)
+  puts prompt(APP_CONFIG['PlayerMovePrompt'])
+  square = gets.chomp.strip.to_i
+  mark_board_at_square(board, square, player)
+end
+
 def mark_board_at_square(board, square, symbol)
   row, col = decrement(square).divmod(3)
   board[row][col] = symbol
@@ -48,6 +64,11 @@ def obtain_player_symbol
     player = gets.chomp.strip.upcase
   end
   player
+end
+
+def occupied_square?(board, square)
+  row, column = decrement(square).divmod(3)
+  !board[row][column].empty?
 end
 
 def prompt(message)
@@ -91,14 +112,21 @@ def show_instructions
   prompt(APP_CONFIG['Instructions'])
 end
 
+def show_symbol_assignment(player, computer)
+  prompt("You are #{player}, the computer is #{computer}")
+end
+
 def valid_symbol_entry(symbol)
   symbol.length == 1 && (symbol == "X" || symbol == "O")
 end
 
 # main program
 
-if +__FILE__ == $PROGRAM_NAME
+if __FILE__ == $PROGRAM_NAME
+  board = Array.new(3){ Array.new(3, "") }
   initialize_game
   player, computer = assign_symbols
-  puts "player is #{player}, computer is #{computer}"
+  puts show_symbol_assignment(player, computer)
+  puts show_starting_board
+  make_moves(board, player, computer)
 end

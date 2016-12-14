@@ -66,6 +66,12 @@ module Board
       VERTICAL_LINE + SPACE * 7 + VERTICAL_LINE + RETURN
   end
 
+  def show_starting_board
+    show_top_board_row + \
+      show_middle_board_row + \
+      show_bottom_board_row
+  end
+
   def show_very_bottom_row
     BOTTOM_LEFT_CORNER + HORIZONTAL_LINE * 7 + BOTTOM_JOIN + \
       HORIZONTAL_LINE * 7 + BOTTOM_JOIN + HORIZONTAL_LINE * 7 + \

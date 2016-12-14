@@ -69,4 +69,23 @@ class GameLogic < Minitest::Test
     assert_equal -1, score_diagonal(board, 1)
     assert_equal 1, score_anti_diagonal(board, 7)
   end
+
+  def test_occupied_squares
+    board = [
+      ["X", "O", "X"],
+      ["",  "O", "O"],
+      ["",  "X", "X"]
+    ]
+    assert occupied_square?(board, 3)
+    refute occupied_square?(board, 7)
+  end
+
+  def test_get_unoccupied_squares
+    board = [
+      ["X",  "", "X"],
+      ["",  "O", "O"],
+      ["",  "X", ""]
+    ]
+    assert_equal [1, 3, 6, 8], collect_unoccupied_squares(board)
+  end
 end # class GameLogic
