@@ -5,6 +5,7 @@ include Board
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
+WINNING_VALUES = [-3, 3].freeze
 SYMBOL_VALUES = { "X" => -1, "O" => 1 }.freeze
 SYMBOL_CONVERSION_HASH = { "X" => Board::LARGE_X, "O" => Board::LARGE_O }.freeze
 DIAGONAL_SQUARES = [0, 4, 8].freeze
@@ -51,16 +52,27 @@ def convert_symbols_in_board(board)
 end
 
 def make_moves(board, player, computer)
-  puts prompt(APP_CONFIG['PlayerMovePrompt'])
-  player_choice = gets.chomp.strip.to_i
-  mark_board_at_square(board, player_choice, player)
-  unoccupied_squares = collect_unoccupied_squares(board)
-  computer_choice = unoccupied_squares.sample
-  mark_board_at_square(board, computer_choice, computer)
-  puts board.inspect
-  board_with_updated_symbols = convert_symbols_in_board(board)
-  top_row, middle_row, bottom_row = board_with_updated_symbols
-  puts Board.update_board(top_row, middle_row, bottom_row)
+  player_choice = 20
+  loop do
+    loop do
+      puts prompt(APP_CONFIG['PlayerMovePrompt'])
+      player_choice = gets.chomp.strip.to_i
+      break if player_choice_valid?(player_choice, board)
+      puts prompt(APP_CONFIG['InvalidSquareSelection'])
+    end
+    mark_board_at_square(board, player_choice, player)
+    board_with_updated_symbols = convert_symbols_in_board(board)
+    top_row, middle_row, bottom_row = board_with_updated_symbols
+    puts Board.update_board(top_row, middle_row, bottom_row)
+    break if winner_or_tie?(board, player_choice)
+    unoccupied_squares = collect_unoccupied_squares(board)
+    computer_choice = unoccupied_squares.sample
+    mark_board_at_square(board, computer_choice, computer)
+    board_with_updated_symbols = convert_symbols_in_board(board)
+    top_row, middle_row, bottom_row = board_with_updated_symbols
+    puts Board.update_board(top_row, middle_row, bottom_row)
+    break if winner_or_tie?(board, computer_choice)
+  end
 end
 
 def mark_board_at_square(board, square, symbol)
@@ -84,6 +96,11 @@ end
 def occupied_square?(board, square)
   row, column = decrement(square).divmod(3)
   !board[row][column].empty?
+end
+
+def player_choice_valid?(player_choice, board)
+  open_squares = collect_unoccupied_squares(board)
+  open_squares.include?(decrement(player_choice))
 end
 
 def prompt(message)
@@ -131,8 +148,20 @@ def show_symbol_assignment(player, computer)
   prompt("You are #{player}, the computer is #{computer}")
 end
 
+def tie?(board)
+  board.flatten.none?(&:empty?)
+end
+
 def valid_symbol_entry(symbol)
   symbol.length == 1 && (symbol == "X" || symbol == "O")
+end
+
+def winner_or_tie?(board, square)
+  WINNING_VALUES.include?(score_current_row(board, square)) ||
+    WINNING_VALUES.include?(score_current_column(board, square)) ||
+    WINNING_VALUES.include?(score_diagonal(board, square)) ||
+    WINNING_VALUES.include?(score_anti_diagonal(board, square)) ||
+    tie?(board)
 end
 
 # main program
