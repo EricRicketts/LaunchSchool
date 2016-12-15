@@ -95,13 +95,46 @@ class GameLogic < Minitest::Test
     assert_equal "\u0020", convert_symbol("")
   end
 
-  def test_display_winning_row
+  def test_display_winning_row_player
     board = [
       ["X", "O", "O"],
       ["X", "X", "X"],
       ["O", "X", "O"]
     ]
     player, computer = ["X", "O"]
+    expected = "You win!!"
+    assert_equal expected, display_game_results(board, player, computer)
+  end
+
+  def test_display_winning_row_computer
+    board = [
+      ["X", "X", "O"],
+      ["X", "O", "X"],
+      ["O", "O", "O"]
+    ]
+    player, computer = ["X", "O"]
+    expected = "Computer wins!!"
+    assert_equal expected, display_game_results(board, player, computer)
+  end
+
+  def test_display_winning_column_computer
+    board = [
+      ["X", "O", "X"],
+      ["X", "O", "X"],
+      ["O", "X", "X"]
+    ]
+    player, computer = ["O", "X"]
+    expected = "Computer wins!!"
+    assert_equal expected, display_game_results(board, player, computer)
+  end
+
+  def test_display_winning_column_player
+    board = [
+      ["X", "O", "O"],
+      ["X", "O", "X"],
+      ["O", "O", "X"]
+    ]
+    player, computer = ["O", "X"]
     expected = "You win!!"
     assert_equal expected, display_game_results(board, player, computer)
   end

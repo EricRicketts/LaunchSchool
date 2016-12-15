@@ -58,6 +58,13 @@ def display_game_results(board, player, computer)
   if row_win
     return row_win.first.eql?(player) ? "You win!!" : "Computer wins!!"
   end
+  column_win =
+    board.transpose
+         .find { |row| row.chunk(&:itself).any? { |_, a| a.size == 3 } }
+  if column_win
+    return column_win.first.eql?(player) ? "You win!!" : "Computer wins!!"
+  end
+
 end
 
 def make_moves(board, player, computer)
