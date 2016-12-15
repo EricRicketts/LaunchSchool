@@ -37,6 +37,7 @@ end
 def collect_unoccupied_squares(board)
   flattened_board = board.flatten
   flattened_board.each_index.select { |index| flattened_board[index].empty? }
+                 .map { |empty_index| empty_index + 1 }
 end
 
 def convert_symbol(symbol)
@@ -48,7 +49,15 @@ def convert_symbol(symbol)
 end
 
 def convert_symbols_in_board(board)
-  board.map { |row| row.map { |symbol| convert_symbol(symbol) } }
+  display_board = board
+  display_board.map { |row| row.map { |symbol| convert_symbol(symbol) } }
+end
+
+def display_game_results(board, player, computer)
+  row_win = board.find { |row| row.chunk(&:itself).any? { |_, a| a.size == 3 } }
+  if row_win
+    return row_win.first.eql?(player) ? "You win!!" : "Computer wins!!"
+  end
 end
 
 def make_moves(board, player, computer)
@@ -61,6 +70,7 @@ def make_moves(board, player, computer)
       puts prompt(APP_CONFIG['InvalidSquareSelection'])
     end
     mark_board_at_square(board, player_choice, player)
+    # byebug
     board_with_updated_symbols = convert_symbols_in_board(board)
     top_row, middle_row, bottom_row = board_with_updated_symbols
     puts Board.update_board(top_row, middle_row, bottom_row)
@@ -68,6 +78,7 @@ def make_moves(board, player, computer)
     unoccupied_squares = collect_unoccupied_squares(board)
     computer_choice = unoccupied_squares.sample
     mark_board_at_square(board, computer_choice, computer)
+    # byebug
     board_with_updated_symbols = convert_symbols_in_board(board)
     top_row, middle_row, bottom_row = board_with_updated_symbols
     puts Board.update_board(top_row, middle_row, bottom_row)
@@ -100,7 +111,7 @@ end
 
 def player_choice_valid?(player_choice, board)
   open_squares = collect_unoccupied_squares(board)
-  open_squares.include?(decrement(player_choice))
+  open_squares.include?(player_choice)
 end
 
 def prompt(message)
@@ -173,4 +184,5 @@ if __FILE__ == $PROGRAM_NAME
   puts show_symbol_assignment(player, computer)
   puts show_starting_board
   make_moves(board, player, computer)
+  display_game_results(board, player, computer)
 end

@@ -86,7 +86,7 @@ class GameLogic < Minitest::Test
       ["",  "O", "O"],
       ["",  "X", ""]
     ]
-    assert_equal [1, 3, 6, 8], collect_unoccupied_squares(board)
+    assert_equal [2, 4, 7, 9], collect_unoccupied_squares(board)
   end
 
   def test_convert_symbols
@@ -94,4 +94,16 @@ class GameLogic < Minitest::Test
     assert_equal "\u25ef", convert_symbol("O")
     assert_equal "\u0020", convert_symbol("")
   end
+
+  def test_display_winning_row
+    board = [
+      ["X", "O", "O"],
+      ["X", "X", "X"],
+      ["O", "X", "O"]
+    ]
+    player, computer = ["X", "O"]
+    expected = "You win!!"
+    assert_equal expected, display_game_results(board, player, computer)
+  end
+
 end # class GameLogic
