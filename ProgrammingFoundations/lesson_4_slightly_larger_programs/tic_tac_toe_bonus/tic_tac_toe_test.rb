@@ -35,6 +35,17 @@ class GameLogic < Minitest::Test
     @board = Array.new(3){ Array.new(3, "") }
   end
 
+  def test_non_integer_input
+    board = [
+      ["X", "O", "O"],
+      ["O", "X", "O"],
+      ["X", "", ""]
+    ]
+    $stdin = StringIO.new("  4.5  \n")
+    player_choice = gets.chomp.strip
+    refute player_choice_valid?(player_choice, board)
+  end
+
   def test_write_to_a_square
     mark_board_at_square(@board, 1, "X")
     mark_board_at_square(@board, 9, "O")

@@ -5,6 +5,7 @@ include Board
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
+ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
 WINNING_VALUES = [-3, 3].freeze
 SYMBOL_VALUES = { "X" => -1, "O" => 1 }.freeze
 SYMBOL_CONVERSION_HASH = { "X" => Board::LARGE_X, "O" => Board::LARGE_O }.freeze
@@ -75,12 +76,12 @@ def display_game_results(board, player)
   "A tie!!"
 end
 
-def make_moves(board, player, computer)
+def play_game(board, player, computer)
   player_choice = 20
   loop do
     loop do
       puts prompt(APP_CONFIG['PlayerMovePrompt'])
-      player_choice = gets.chomp.strip.to_i
+      player_choice = gets.chomp.strip
       break if player_choice_valid?(player_choice, board)
       puts prompt(APP_CONFIG['InvalidSquareSelection'])
     end
@@ -125,8 +126,10 @@ def occupied_square?(board, square)
 end
 
 def player_choice_valid?(player_choice, board)
+  integer_square = player_choice.to_i
   open_squares = collect_unoccupied_squares(board)
-  open_squares.include?(player_choice)
+  ALLOWABLE_SQUARE_SELECTIONS.include?(player_choice) &&
+    open_squares.include?(integer_square)
 end
 
 def prompt(message)
@@ -198,6 +201,6 @@ if __FILE__ == $PROGRAM_NAME
   player, computer = assign_symbols
   puts show_symbol_assignment(player, computer)
   puts show_starting_board
-  make_moves(board, player, computer)
-  display_game_results(board, player, computer)
+  play_game(board, player, computer)
+  puts display_game_results(board, player)
 end
