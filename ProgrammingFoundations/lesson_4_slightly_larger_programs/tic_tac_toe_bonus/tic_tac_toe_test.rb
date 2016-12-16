@@ -101,9 +101,9 @@ class GameLogic < Minitest::Test
       ["X", "X", "X"],
       ["O", "X", "O"]
     ]
-    player, computer = ["X", "O"]
+    player = "X"
     expected = "You win!!"
-    assert_equal expected, display_game_results(board, player, computer)
+    assert_equal expected, display_game_results(board, player)
   end
 
   def test_display_winning_row_computer
@@ -112,9 +112,9 @@ class GameLogic < Minitest::Test
       ["X", "O", "X"],
       ["O", "O", "O"]
     ]
-    player, computer = ["X", "O"]
+    player = "X"
     expected = "Computer wins!!"
-    assert_equal expected, display_game_results(board, player, computer)
+    assert_equal expected, display_game_results(board, player)
   end
 
   def test_display_winning_column_computer
@@ -123,9 +123,9 @@ class GameLogic < Minitest::Test
       ["X", "O", "X"],
       ["O", "X", "X"]
     ]
-    player, computer = ["O", "X"]
+    player = "O"
     expected = "Computer wins!!"
-    assert_equal expected, display_game_results(board, player, computer)
+    assert_equal expected, display_game_results(board, player)
   end
 
   def test_display_winning_column_player
@@ -134,9 +134,9 @@ class GameLogic < Minitest::Test
       ["X", "O", "X"],
       ["O", "O", "X"]
     ]
-    player, computer = ["O", "X"]
+    player = "O"
     expected = "You win!!"
-    assert_equal expected, display_game_results(board, player, computer)
+    assert_equal expected, display_game_results(board, player)
   end
 
 end # class GameLogic

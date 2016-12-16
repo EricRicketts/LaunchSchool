@@ -53,7 +53,7 @@ def convert_symbols_in_board(board)
   display_board.map { |row| row.map { |symbol| convert_symbol(symbol) } }
 end
 
-def display_game_results(board, player, computer)
+def display_game_results(board, player)
   row_win = board.find { |row| row.chunk(&:itself).any? { |_, a| a.size == 3 } }
   if row_win
     return row_win.first.eql?(player) ? "You win!!" : "Computer wins!!"
