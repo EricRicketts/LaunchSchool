@@ -57,6 +57,17 @@ class GameLogic < Minitest::Test
     refute player_choice_valid?(player_choice, board)
   end
 
+  def test_square_occupied_input_not_allowed
+    board = [
+      ["X", "O", "O"],
+      ["O", "X", "O"],
+      ["X", "", ""]
+    ]
+    $stdin = StringIO.new("  9  \n")
+    player_choice = gets.chomp.strip
+    assert player_choice_valid?(player_choice, board)
+  end
+
   def test_write_to_a_square
     mark_board_at_square(@board, 1, "X")
     mark_board_at_square(@board, 9, "O")
