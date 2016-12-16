@@ -160,4 +160,15 @@ class GameLogic < Minitest::Test
     expected = "Computer wins!!"
     assert_equal expected, display_game_results(board, player)
   end
+
+  def test_for_a_tie
+    board = [
+      ["O", "X", "O"],
+      ["X", "X", "O"],
+      ["O", "O", "X"]
+    ]
+    player = "X"
+    expected = "A tie!!"
+    assert_equal expected, display_game_results(board, player)
+  end
 end # class GameLogic

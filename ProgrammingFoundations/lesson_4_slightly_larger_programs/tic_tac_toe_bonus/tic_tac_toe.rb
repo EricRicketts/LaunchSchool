@@ -72,6 +72,7 @@ def display_game_results(board, player)
   if anti_diagonal_win
     return board[0][2].eql?(player) ? "You win!!" : "Computer wins!!"
   end
+  "A tie!!"
 end
 
 def make_moves(board, player, computer)
