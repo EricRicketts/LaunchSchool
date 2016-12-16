@@ -130,8 +130,8 @@ class GameLogic < Minitest::Test
 
   def test_display_winning_column_player
     board = [
-      ["X", "O", "O"],
       ["X", "O", "X"],
+      ["X", "O", "O"],
       ["O", "O", "X"]
     ]
     player = "O"
@@ -139,4 +139,25 @@ class GameLogic < Minitest::Test
     assert_equal expected, display_game_results(board, player)
   end
 
+  def test_display_winning_diagonal_player
+    board = [
+      ["X", "O", "O"],
+      ["X", "X", "O"],
+      ["O", "O", "X"]
+    ]
+    player = "X"
+    expected = "You win!!"
+    assert_equal expected, display_game_results(board, player)
+  end
+
+  def test_display_winning_anti_diagonal_computer
+    board = [
+      ["X", "X", "O"],
+      ["X", "O", "O"],
+      ["O", "O", "X"]
+    ]
+    player = "X"
+    expected = "Computer wins!!"
+    assert_equal expected, display_game_results(board, player)
+  end
 end # class GameLogic

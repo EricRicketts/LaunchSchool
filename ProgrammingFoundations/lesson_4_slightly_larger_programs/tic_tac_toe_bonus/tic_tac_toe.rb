@@ -64,7 +64,14 @@ def display_game_results(board, player)
   if column_win
     return column_win.first.eql?(player) ? "You win!!" : "Computer wins!!"
   end
-
+  diagonal_win = (board[0][0] == board[1][1]) && (board[0][0] == board[2][2])
+  if diagonal_win
+    return board[0][0].eql?(player) ? "You win!!" : "Computer wins!!"
+  end
+  anti_diagonal_win = (board[0][2] == board[1][1]) && (board[0][2] == board[2][0])
+  if anti_diagonal_win
+    return board[0][2].eql?(player) ? "You win!!" : "Computer wins!!"
+  end
 end
 
 def make_moves(board, player, computer)
