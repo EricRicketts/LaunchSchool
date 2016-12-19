@@ -85,19 +85,14 @@ def play_game(board, player, computer)
       break if player_choice_valid?(player_choice, board)
       puts prompt(APP_CONFIG['InvalidSquareSelection'])
     end
-    mark_board_at_square(board, player_choice, player)
-    # byebug
-    board_with_updated_symbols = convert_symbols_in_board(board)
-    top_row, middle_row, bottom_row = board_with_updated_symbols
-    puts Board.update_board(top_row, middle_row, bottom_row)
-    break if winner_or_tie?(board, player_choice)
+
+    player_square = player_choice.to_i
+    update_screen_view(board, player_square, player)
+    break if winner_or_tie?(board, player_square)
+
     unoccupied_squares = collect_unoccupied_squares(board)
     computer_choice = unoccupied_squares.sample
-    mark_board_at_square(board, computer_choice, computer)
-    # byebug
-    board_with_updated_symbols = convert_symbols_in_board(board)
-    top_row, middle_row, bottom_row = board_with_updated_symbols
-    puts Board.update_board(top_row, middle_row, bottom_row)
+    update_screen_view(board, computer_choice, computer)
     break if winner_or_tie?(board, computer_choice)
   end
 end
@@ -179,6 +174,13 @@ end
 
 def tie?(board)
   board.flatten.none?(&:empty?)
+end
+
+def update_screen_view(board, square_number, symbol)
+  mark_board_at_square(board, square_number, symbol)
+  board_with_updated_symbols = convert_symbols_in_board(board)
+  top_row, middle_row, bottom_row = board_with_updated_symbols
+  puts Board.update_board(top_row, middle_row, bottom_row)
 end
 
 def valid_symbol_entry(symbol)
