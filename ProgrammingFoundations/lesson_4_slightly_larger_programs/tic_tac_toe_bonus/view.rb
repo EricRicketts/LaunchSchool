@@ -1,4 +1,4 @@
-module Board
+module View
   SPACE = "\u0020".freeze
   LARGE_O = "\u25ef".freeze
   LARGE_X = "\u2573".freeze
@@ -17,16 +17,16 @@ module Board
   RIGHT_VERTICAL_JOIN = "\u2563".freeze
   FOUR_WAY_JOIN = "\u256c".freeze
 
-  def show_bottom_board_row(square_seven: SPACE, square_eight: SPACE, \
-                            square_nine: SPACE)
+  def show_bottom_view_row(square_seven: SPACE, square_eight: SPACE, \
+                           square_nine: SPACE)
     show_row_with_spaces + \
       show_labeled_row(square_seven, square_eight, square_nine) + \
       show_row_with_spaces + \
       show_very_bottom_row
   end
 
-  def show_middle_board_row(square_four: SPACE, square_five: SPACE, \
-                            square_six: SPACE)
+  def show_middle_view_row(square_four: SPACE, square_five: SPACE, \
+                           square_six: SPACE)
     show_middle_row_join + \
       show_row_with_spaces + \
       show_labeled_row(square_four, square_five, square_six) + \
@@ -34,8 +34,8 @@ module Board
       show_middle_row_join
   end
 
-  def show_top_board_row(square_one: SPACE, square_two: SPACE, \
-                         square_three: SPACE)
+  def show_top_view_row(square_one: SPACE, square_two: SPACE, \
+                        square_three: SPACE)
     show_very_top_row + \
       show_row_with_spaces + \
       show_labeled_row(square_one, square_two, square_three) + \
@@ -48,30 +48,17 @@ module Board
       RIGHT_VERTICAL_JOIN + RETURN
   end
 
+  # rubocop:disable Metrics/AbcSize
   def show_labeled_row(left_symbol, middle_symbol, right_symbol)
     VERTICAL_LINE + SPACE * 3 + left_symbol + SPACE * 3 + VERTICAL_LINE + \
       SPACE * 3 + middle_symbol + SPACE * 3 + VERTICAL_LINE + SPACE * 3 + \
       right_symbol + SPACE * 3 + VERTICAL_LINE + RETURN
   end
-
-  def show_numbered_board
-    show_top_board_row(square_one: "1", square_two: "2",
-                       square_three: "3") + \
-      show_middle_board_row(square_four: "4", square_five: "5",
-                            square_six: "6") + \
-      show_bottom_board_row(square_seven: "7", square_eight: "8",
-                            square_nine: "9")
-  end
+  # rubocop:enable Metrics/AbcSize
 
   def show_row_with_spaces
     VERTICAL_LINE + SPACE * 7 + VERTICAL_LINE + SPACE * 7 + \
       VERTICAL_LINE + SPACE * 7 + VERTICAL_LINE + RETURN
-  end
-
-  def show_starting_board
-    show_top_board_row + \
-      show_middle_board_row + \
-      show_bottom_board_row
   end
 
   def show_very_bottom_row
@@ -85,16 +72,15 @@ module Board
       TOP_JOIN + HORIZONTAL_LINE * 7 + UPPER_RIGHT_CORNER + RETURN
   end
 
-  def update_board(top_row, middle_row, bottom_row)
-    show_top_board_row(square_one: top_row[0],
-                       square_two: top_row[1],
-                       square_three: top_row[2]) + \
-      show_middle_board_row(square_four: middle_row[0],
-                            square_five: middle_row[1],
-                            square_six: middle_row[2]) + \
-      show_bottom_board_row(square_seven: bottom_row[0],
-                            square_eight: bottom_row[1],
-                            square_nine: bottom_row[2])
-
+  def update_view(board)
+    show_top_view_row(square_one: board[0],
+                      square_two: board[1],
+                      square_three: board[2]) + \
+      show_middle_view_row(square_four: board[3],
+                           square_five: board[4],
+                           square_six: board[5]) + \
+      show_bottom_view_row(square_seven: board[6],
+                           square_eight: board[7],
+                           square_nine: board[8])
   end
 end

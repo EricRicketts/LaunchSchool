@@ -1,14 +1,14 @@
 require 'byebug'
 require 'yaml'
-require_relative './board'
-include Board
+require_relative './view'
+include View
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
 ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
 WINNING_VALUES = [-3, 3].freeze
 SYMBOL_VALUES = { "X" => -1, "O" => 1 }.freeze
-SYMBOL_CONVERSION_HASH = { "X" => Board::LARGE_X, "O" => Board::LARGE_O }.freeze
+SYMBOL_CONVERSION_HASH = { "X" => View::LARGE_X, "O" => View::LARGE_O }.freeze
 DIAGONAL_SQUARES = [0, 4, 8].freeze
 DIAGONAL = [[0, 0], [1, 1], [2, 2]].freeze
 ANTI_DIAGONAL_SQUARES = [2, 4, 6].freeze
@@ -31,7 +31,7 @@ end
 def initialize_game
   puts show_initial_greeting + "\n"
   puts show_instructions + "\n"
-  puts Board.show_numbered_board + "\n"
+  puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
   puts ask_for_symbol_prompt
 end
 
@@ -200,9 +200,9 @@ end
 if __FILE__ == $PROGRAM_NAME
   board = Array.new(3) { Array.new(3, "") }
   initialize_game
-  player, computer = assign_symbols
-  puts show_symbol_assignment(player, computer)
-  puts show_starting_board
-  play_game(board, player, computer)
-  puts display_game_results(board, player)
+  # player, computer = assign_symbols
+  # puts show_symbol_assignment(player, computer)
+  # puts show_starting_board
+  # play_game(board, player, computer)
+  # puts display_game_results(board, player)
 end
