@@ -11,6 +11,13 @@ def ask_for_symbol_prompt
   prompt(APP_CONFIG['PromptForSymbol'])
 end
 
+def collect_unoccupied_squares(board)
+  flattened_board = board.flatten
+  flattened_board.each_index
+                 .select { |index| flattened_board[index].eql?(View::SPACE) }
+                 .map { |empty_index| empty_index + 1 }
+end
+
 def initialize_game
   puts show_initial_greeting + "\n"
   puts show_instructions + "\n"

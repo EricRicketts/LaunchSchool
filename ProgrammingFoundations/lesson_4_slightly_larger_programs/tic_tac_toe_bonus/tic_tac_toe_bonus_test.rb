@@ -12,3 +12,11 @@ class TestDisplayStatements < Minitest::Test
     assert_equal "1, 2, and 3", joinor([1, 2, 3], ', ', 'and')
   end
 end # TestDisplayStatements
+
+class TestValidMoves < Minitest::Test
+  def test_all_squares_valid
+    board = Array.new(3) { Array.new(3, "\u0020") }
+    open_squares = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert_equal open_squares, collect_unoccupied_squares(board)
+  end
+end # TestValidMoves
