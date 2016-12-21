@@ -33,6 +33,10 @@ def joinor(squares, delimiter=', ', conjunction='or')
   squares.join(delimiter).sub(delimiter + last_square, end_string)
 end
 
+def make_a_move(board, player)
+  
+end
+
 def prompt(message)
   "=> #{message}"
 end
@@ -43,6 +47,13 @@ end
 
 def show_instructions
   prompt(APP_CONFIG['Instructions'])
+end
+
+def valid_square_selection?(board)
+  square = gets.chomp.strip
+  integer_square = square.to_i
+  ALLOWABLE_SQUARE_SELECTIONS.include?(square) &&
+    collect_unoccupied_squares(board).include?(integer_square)
 end
 
 if __FILE__ == $PROGRAM_NAME

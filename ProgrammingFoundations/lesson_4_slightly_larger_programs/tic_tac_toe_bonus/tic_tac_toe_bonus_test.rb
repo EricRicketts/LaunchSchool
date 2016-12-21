@@ -14,17 +14,37 @@ class TestDisplayStatements < Minitest::Test
 end # TestDisplayStatements
 
 class TestValidMoves < Minitest::Test
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+  end
+
   def test_completely_empty_board_has_all_squares_unoccupied
-    board = Array.new(3) { Array.new(3, "\u0020") }
     open_squares = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    assert_equal open_squares, collect_unoccupied_squares(board)
+    assert_equal open_squares, collect_unoccupied_squares(@board)
   end
 
   def test_partially_filled_board_has_occupied_squares
-    board = Array.new(3) { Array.new(3, "\u0020") }
-    board[0][0] = board[2][2] = "O"
-    board[1][1] = "X"
+    @board[0][0] = @board[2][2] = "O"
+    @board[1][1] = "X"
     open_squares = [2, 3, 4, 6, 7, 8]
-    assert_equal open_squares, collect_unoccupied_squares(board)
+    assert_equal open_squares, collect_unoccupied_squares(@board)
+  end
+
+  def test_player_makes_an_invalid_command_line_entry
+    $stdin = StringIO.new(" 4.5 ")
+    refute valid_square_selection?(@board)
+  end
+
+  def test_player_selects_an_occupied_square
+    @board[0][0] = "X"
+    $stdin = StringIO.new("1")
+    refute valid_square_selection?(@board)
+  end
+
+  def test_valid_player_square_selection
+    @board[0][0] = @board[0][2] = "X"
+    @board[1][1] = "O"
+    $stdin = StringIO.new("  4  ")
+    assert valid_square_selection?(@board)
   end
 end # TestValidMoves
