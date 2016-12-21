@@ -18,6 +18,14 @@ def initialize_game
   puts ask_for_symbol_prompt
 end
 
+def joinor(squares, delimiter=', ', conjunction='or')
+  last_square = squares.last.to_s
+  delimiter_included = delimiter + conjunction + View::SPACE + last_square
+  delimiter_not_included = View::SPACE + conjunction + View::SPACE + last_square
+  end_string = squares.size > 2 ? delimiter_included : delimiter_not_included
+  squares.join(delimiter).sub(delimiter + last_square, end_string)
+end
+
 def prompt(message)
   "=> #{message}"
 end
