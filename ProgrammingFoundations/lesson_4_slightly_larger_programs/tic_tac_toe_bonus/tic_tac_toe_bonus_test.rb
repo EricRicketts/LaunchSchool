@@ -14,9 +14,17 @@ class TestDisplayStatements < Minitest::Test
 end # TestDisplayStatements
 
 class TestValidMoves < Minitest::Test
-  def test_all_squares_valid
+  def test_completely_empty_board_has_all_squares_unoccupied
     board = Array.new(3) { Array.new(3, "\u0020") }
     open_squares = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert_equal open_squares, collect_unoccupied_squares(board)
+  end
+
+  def test_partially_filled_board_has_occupied_squares
+    board = Array.new(3) { Array.new(3, "\u0020") }
+    board[0][0] = board[2][2] = "O"
+    board[1][1] = "X"
+    open_squares = [2, 3, 4, 6, 7, 8]
     assert_equal open_squares, collect_unoccupied_squares(board)
   end
 end # TestValidMoves
