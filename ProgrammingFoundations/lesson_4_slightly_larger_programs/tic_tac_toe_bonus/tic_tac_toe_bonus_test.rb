@@ -53,10 +53,29 @@ class TestValidMoves < Minitest::Test
 end # TestValidMoves
 
 class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
-  def test_symbol_assignment
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+  end
+
+  def test_symbol_assignment_player_is_x
     $stdin = StringIO.new("  x")
     player, computer = assign_symbols
     assert_equal "X", player
     assert_equal "O", computer
   end
-end # TestSymbolAssignment
+
+  def test_symbol_assignment_player_is_o
+    $stdin = StringIO.new("  o")
+    player, computer = assign_symbols
+    assert_equal "O", player
+    assert_equal "X", computer
+  end
+
+  def test_mark_board_at_square
+    board = [["O", " ", " "], [" ", "X", " "], [" ", " ", "O"]]
+    mark_board_at_square(@board, 1, "O")
+    mark_board_at_square(@board, 5, "X")
+    mark_board_at_square(@board, 9, "O")
+    assert_equal board, @board
+  end
+end # TestSymbolAssignmentAndDisplayConversion
