@@ -12,5 +12,5 @@
     representing an unoccupied square.
   PromptForSymbol: "Do you want to be X's or O's?(enter only X/x or O/o)"
   IncorrectSymbolEntry: "Hmm ... that does not look like a correct entry, enter only X/x or O/o"
-  PlayerMovePrompt: "Select an unoccupied square for your move (only whole numbers allowed): "
+  PlayerMovePrompt: "Select an unoccupied square for your move, only whole numbers are allowed to be entered."
   InvalidSquareSelection: "Hmm ... that does not seem to be an available square or a whole number, try again."

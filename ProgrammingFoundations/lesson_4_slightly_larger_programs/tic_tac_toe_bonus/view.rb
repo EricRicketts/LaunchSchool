@@ -1,3 +1,4 @@
+require 'byebug'
 module View
   SPACE = "\u0020".freeze
   LARGE_O = "\u25ef".freeze

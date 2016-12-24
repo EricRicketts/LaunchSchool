@@ -31,20 +31,32 @@ class TestValidMoves < Minitest::Test
   end
 
   def test_player_makes_an_invalid_command_line_entry
-    $stdin = StringIO.new(" 4.5 ")
-    refute valid_square_selection?(@board)
+    valid_squares = collect_unoccupied_squares(@board)
+    square = "4.5"
+    refute valid_square_selection?(square, valid_squares)
   end
 
   def test_player_selects_an_occupied_square
     @board[0][0] = "X"
-    $stdin = StringIO.new("1")
-    refute valid_square_selection?(@board)
+    valid_squares = collect_unoccupied_squares(@board)
+    square = "1"
+    refute valid_square_selection?(square, valid_squares)
   end
 
   def test_valid_player_square_selection
     @board[0][0] = @board[0][2] = "X"
     @board[1][1] = "O"
-    $stdin = StringIO.new("  4  ")
-    assert valid_square_selection?(@board)
+    valid_squares = collect_unoccupied_squares(@board)
+    square = "4"
+    assert valid_square_selection?(square, valid_squares)
   end
 end # TestValidMoves
+
+class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
+  def test_symbol_assignment
+    $stdin = StringIO.new("  x")
+    player, computer = assign_symbols
+    assert_equal "X", player
+    assert_equal "O", computer
+  end
+end # TestSymbolAssignment
