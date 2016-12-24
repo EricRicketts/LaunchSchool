@@ -86,4 +86,16 @@ class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
     default_symbol = convert_symbol("")
     assert_equal expected_symbols, [symbol_for_x, symbol_for_o, default_symbol]
   end
+
+  def test_convert_a_board
+    @board[0][0] = @board[0][2] = "X"
+    @board[1][1] = "O"
+    @board[2][0] = @board[2][2] = "O"
+    expected_board = [
+      "\u2573", "\u0020", "\u2573",
+      "\u0020", "\u25ef", "\u0020",
+      "\u25ef", "\u0020", "\u25ef"
+    ]
+    assert_equal expected_board, convert_board(@board)
+  end
 end # TestSymbolAssignmentAndDisplayConversion

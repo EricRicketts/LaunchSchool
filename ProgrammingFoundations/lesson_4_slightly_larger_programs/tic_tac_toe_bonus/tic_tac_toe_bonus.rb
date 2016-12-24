@@ -26,6 +26,11 @@ def collect_unoccupied_squares(board)
                  .map { |empty_index| empty_index + 1 }
 end
 
+def convert_board(board)
+  flattened_board = board.flatten
+  flattened_board.map { |symbol| convert_symbol(symbol) }
+end
+
 def convert_symbol(symbol)
   return SYMBOL_CONVERSION[symbol] if symbol.eql?("X") || symbol.eql?("O")
   View::SPACE
@@ -65,9 +70,8 @@ def play_the_game(player, computer, board)
     break if valid_square_selection?(square, valid_squares)
     puts prompt(APP_CONFIG['InvalidSquareSelection'])
   end
-  integer_square = square.to_i
-  mark_board_at_square(board, integer_square, player)
-  puts View.update_view(board.flatten) + "\n"
+  mark_board_at_square(board, square.to_i, player)
+  puts View.update_view(convert_board(board)) + "\n"
 end
 
 def obtain_computer_symbol(player)
