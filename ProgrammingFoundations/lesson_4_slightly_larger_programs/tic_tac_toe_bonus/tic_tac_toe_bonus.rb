@@ -6,6 +6,7 @@ raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
 ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
+SYMBOL_CONVERSION = { "X" => View::LARGE_X, "O" => View::LARGE_O }.freeze
 
 def ask_for_symbol_prompt
   prompt(APP_CONFIG['PromptForSymbol'])
@@ -23,6 +24,11 @@ def collect_unoccupied_squares(board)
   flattened_board.each_index
                  .select { |index| flattened_board[index].eql?(View::SPACE) }
                  .map { |empty_index| empty_index + 1 }
+end
+
+def convert_symbol(symbol)
+  return SYMBOL_CONVERSION[symbol] if symbol.eql?("X") || symbol.eql?("O")
+  View::SPACE
 end
 
 def decrement(num)

@@ -78,4 +78,12 @@ class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
     mark_board_at_square(@board, 9, "O")
     assert_equal board, @board
   end
+
+  def test_convert_symbols
+    expected_symbols = ["\u2573", "\u25ef", "\u0020"]
+    symbol_for_x = convert_symbol("X")
+    symbol_for_o = convert_symbol("O")
+    default_symbol = convert_symbol("")
+    assert_equal expected_symbols, [symbol_for_x, symbol_for_o, default_symbol]
+  end
 end # TestSymbolAssignmentAndDisplayConversion
