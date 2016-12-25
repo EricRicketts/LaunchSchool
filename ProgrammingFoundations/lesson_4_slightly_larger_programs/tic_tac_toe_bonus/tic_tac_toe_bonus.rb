@@ -40,6 +40,11 @@ def decrement(num)
   num - 1
 end
 
+def detect_column_winner(board, selected_square, player)
+  transposed_board = board.transpose
+  detect_row_winner(transposed_board, selected_square, player)
+end
+
 def detect_row_winner(board, selected_square, player)
   row = decrement(selected_square).div(3)
   winner = board[row].all? { |square| square.eql?(player) }
