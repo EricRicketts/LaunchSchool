@@ -45,10 +45,34 @@ def detect_column_winner(board, selected_square, player)
   detect_row_winner(transposed_board, selected_square, player)
 end
 
+def detect_diagonal_winner(board, selected_square, player)
+  row_size = board.first.size
+  diagonal_square_numbers = generate_diagonal_square_numbers(board)
+  return nil unless diagonal_square_numbers.include?(selected_square)
+
+  decremented_square_numbers =
+    diagonal_square_numbers.map { |square_number| decrement(square_number) }
+  diagonal_squares =
+    decremented_square_numbers.map { |square| square.divmod(row_size) }
+  winner = diagonal_squares.all? do |square|
+    board[square.first][square.last].eql?(player)
+  end
+
+  winner ? player : nil
+end
+
 def detect_row_winner(board, selected_square, player)
-  row = decrement(selected_square).div(3)
+  row_size = board.first.size
+  row = decrement(selected_square).div(row_size)
   winner = board[row].all? { |square| square.eql?(player) }
   winner ? player : nil
+end
+
+def generate_diagonal_square_numbers(board)
+  row_size = board.first.size
+  (2..row_size).to_a.inject([1]) do |diagonal_numbers|
+    diagonal_numbers << diagonal_numbers.last + row_size + 1
+  end
 end
 
 def show_game_instructions
