@@ -99,3 +99,16 @@ class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
     assert_equal expected_board, convert_board(@board)
   end
 end # TestSymbolAssignmentAndDisplayConversion
+
+class TestGameWinning < Minitest::Test
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+  end
+
+  def test_win_on_a_row
+    @board[1][0] = @board[1][1] = @board[1][2] = "X"
+    player = "X"
+    selected_square = 6
+    assert_equal "X", detect_row_winner(@board, selected_square, player)
+  end
+end # TestGameWinning

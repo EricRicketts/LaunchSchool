@@ -40,6 +40,12 @@ def decrement(num)
   num - 1
 end
 
+def detect_row_winner(board, selected_square, player)
+  row = decrement(selected_square).div(3)
+  winner = board[row].all? { |square| square.eql?(player) }
+  winner ? player : nil
+end
+
 def show_game_instructions
   puts show_initial_greeting + "\n"
   puts show_instructions + "\n"
