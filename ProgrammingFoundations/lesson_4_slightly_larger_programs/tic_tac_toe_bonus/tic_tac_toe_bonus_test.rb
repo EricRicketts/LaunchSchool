@@ -168,4 +168,17 @@ class TestGameWinning < Minitest::Test
     selected_square = 5
     assert_nil detect_diagonal_winner(@board, selected_square, player)
   end
+
+  def test_generate_valid_anti_diagonal_squares_tic_tac_toe
+    expected_squares = [3, 5, 7]
+    actual_squares = generate_anti_diagonal_square_numbers(@board)
+    assert_equal expected_squares, actual_squares
+  end
+
+  def test_generate_valid_anti_diagonal_squares_larger_tic_tac_toe
+    large_board = Array.new(5) { Array.new(5, "\u0020") }
+    expected_squares = [5, 9, 13, 17, 21]
+    actual_squares = generate_anti_diagonal_square_numbers(large_board)
+    assert_equal expected_squares, actual_squares
+  end
 end # TestGameWinning

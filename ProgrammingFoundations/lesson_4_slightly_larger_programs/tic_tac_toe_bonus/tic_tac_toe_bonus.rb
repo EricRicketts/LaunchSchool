@@ -68,6 +68,13 @@ def detect_row_winner(board, selected_square, player)
   winner ? player : nil
 end
 
+def generate_anti_diagonal_square_numbers(board)
+  row_size = board.first.size
+  (2..row_size).to_a.inject([row_size]) do |anti_diagonal_numbers|
+    anti_diagonal_numbers << anti_diagonal_numbers.last + row_size - 1
+  end
+end
+
 def generate_diagonal_square_numbers(board)
   row_size = board.first.size
   (2..row_size).to_a.inject([1]) do |diagonal_numbers|
