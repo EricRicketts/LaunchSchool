@@ -45,14 +45,8 @@ def detect_anti_diagonal_winner(board, selected_square, player)
   anti_diagonal_square_numbers = generate_anti_diagonal_square_numbers(board)
   return nil unless anti_diagonal_square_numbers.include?(selected_square)
 
-  decremented_square_numbers =
-    anti_diagonal_square_numbers.map { |square_num| decrement(square_num) }
-  anti_diagonal_squares =
-    decremented_square_numbers.map { |square| square.divmod(row_size) }
-  winner = anti_diagonal_squares.all? do |square|
-    board[square.first][square.last].eql?(player)
-  end
-
+  winner = generate_and_check_either_diagonal(anti_diagonal_square_numbers,
+                                              board, row_size, player)
   winner ? player : nil
 end
 
@@ -66,14 +60,8 @@ def detect_diagonal_winner(board, selected_square, player)
   diagonal_square_numbers = generate_diagonal_square_numbers(board)
   return nil unless diagonal_square_numbers.include?(selected_square)
 
-  decremented_square_numbers =
-    diagonal_square_numbers.map { |square_num| decrement(square_num) }
-  diagonal_squares =
-    decremented_square_numbers.map { |square| square.divmod(row_size) }
-  winner = diagonal_squares.all? do |square|
-    board[square.first][square.last].eql?(player)
-  end
-
+  winner = generate_and_check_either_diagonal(diagonal_square_numbers,
+                                              board, row_size, player)
   winner ? player : nil
 end
 
@@ -82,6 +70,16 @@ def detect_row_winner(board, selected_square, player)
   row = decrement(selected_square).div(row_size)
   winner = board[row].all? { |square| square.eql?(player) }
   winner ? player : nil
+end
+
+def generate_and_check_either_diagonal(square_numbers, board, row_size, player)
+  decremented_square_numbers =
+    square_numbers.map { |square_number| decrement(square_number) }
+  either_diagonal_squares =
+    decremented_square_numbers.map { |square| square.divmod(row_size) }
+  either_diagonal_squares.all? do |square|
+    board[square.first][square.last].eql?(player)
+  end
 end
 
 def generate_anti_diagonal_square_numbers(board)

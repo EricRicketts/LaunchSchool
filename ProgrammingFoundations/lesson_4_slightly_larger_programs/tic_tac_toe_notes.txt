@@ -36,3 +36,9 @@ Tic Tac Toe
 8.  Play again?
 9.  If yes, go to #1
 10. Good-bye!!
+
+
+1.  Make notes to the reviewer
+    a.  all boards will be assumed to be symmetrical
+    b.  in the object oriented project I will be adding a 5x5 board, so
+        I am setting up reuse through some of these methods
