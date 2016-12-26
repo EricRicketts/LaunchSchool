@@ -190,4 +190,20 @@ class TestGameWinning < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_no_square_on_an_anti_diagonal
+    @board[0][2] = @board[2][0] = "X"
+    @board[1][1] = "O"
+    player = "X"
+    selected_square = 8
+    assert_nil detect_anti_diagonal_winner(@board, selected_square, player)
+  end
+
+  def test_no_win_on_an_anti_diagonal
+    @board[0][2] = @board[2][0] = "X"
+    @board[1][1] = "O"
+    player = "O"
+    selected_square = 5
+    assert_nil detect_anti_diagonal_winner(@board, selected_square, player)
+  end
+
 end # TestGameWinning
