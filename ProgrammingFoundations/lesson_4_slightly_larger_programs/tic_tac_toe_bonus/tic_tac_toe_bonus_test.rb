@@ -181,4 +181,13 @@ class TestGameWinning < Minitest::Test
     actual_squares = generate_anti_diagonal_square_numbers(large_board)
     assert_equal expected_squares, actual_squares
   end
+
+  def test_win_on_an_anti_diagonal
+    @board[0][2] = @board[1][1] = @board[2][0] = "O"
+    player = expected = "O"
+    selected_square = 7
+    actual = detect_anti_diagonal_winner(@board, selected_square, player)
+    assert_equal expected, actual
+  end
+
 end # TestGameWinning

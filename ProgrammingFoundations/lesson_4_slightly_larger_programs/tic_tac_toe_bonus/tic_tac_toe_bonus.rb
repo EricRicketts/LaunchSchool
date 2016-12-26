@@ -40,6 +40,22 @@ def decrement(num)
   num - 1
 end
 
+def detect_anti_diagonal_winner(board, selected_square, player)
+  row_size = board.first.size
+  anti_diagonal_square_numbers = generate_anti_diagonal_square_numbers(board)
+  return nil unless anti_diagonal_square_numbers.include?(selected_square)
+
+  decremented_square_numbers =
+    anti_diagonal_square_numbers.map { |square_num| decrement(square_num) }
+  anti_diagonal_squares =
+    decremented_square_numbers.map { |square| square.divmod(row_size) }
+  winner = anti_diagonal_squares.all? do |square|
+    board[square.first][square.last].eql?(player)
+  end
+
+  winner ? player : nil
+end
+
 def detect_column_winner(board, selected_square, player)
   transposed_board = board.transpose
   detect_row_winner(transposed_board, selected_square, player)
@@ -51,7 +67,7 @@ def detect_diagonal_winner(board, selected_square, player)
   return nil unless diagonal_square_numbers.include?(selected_square)
 
   decremented_square_numbers =
-    diagonal_square_numbers.map { |square_number| decrement(square_number) }
+    diagonal_square_numbers.map { |square_num| decrement(square_num) }
   diagonal_squares =
     decremented_square_numbers.map { |square| square.divmod(row_size) }
   winner = diagonal_squares.all? do |square|
