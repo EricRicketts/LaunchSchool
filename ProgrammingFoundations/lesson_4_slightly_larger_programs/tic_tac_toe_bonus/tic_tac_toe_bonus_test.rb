@@ -206,4 +206,21 @@ class TestGameWinning < Minitest::Test
     assert_nil detect_anti_diagonal_winner(@board, selected_square, player)
   end
 
+  def test_game_winner
+    @board[0][0] = @board[0][1] = @board[2][0] = @board[2][2] = "O"
+    @board[0][2] = @board[2][1] = "X"
+    @board[1][0] = @board[1][1] = @board[1][2] = "X"
+    player = "X"
+    selected_square = 6
+    assert winner_or_tie?(@board, selected_square, player)
+  end
+
+  def test_tie_game
+    @board[0][0] = @board[0][2] = @board[1][0] = @board[1][1] = "0"
+    @board[2][1] = "O"
+    @board[0][1] = @board[1][2] = @board[2][0] = @board[2][2] = "X"
+    player = "O"
+    selected_square = 5
+    assert winner_or_tie?(@board, selected_square, player)
+  end
 end # TestGameWinning

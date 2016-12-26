@@ -161,6 +161,11 @@ def show_instructions
   prompt(APP_CONFIG['Instructions'])
 end
 
+def tie?(board)
+  flattened_board = board.flatten
+  flattened_board.none? { |square| square.eql?(View::SPACE) }
+end
+
 def valid_square_selection?(square, valid_squares)
   ALLOWABLE_SQUARE_SELECTIONS.include?(square) &&
     valid_squares.include?(square.to_i)
@@ -168,6 +173,14 @@ end
 
 def valid_symbol_entry(symbol)
   symbol.length == 1 && (symbol == "X" || symbol == "O")
+end
+
+def winner_or_tie?(board, selected_square, player)
+  !!detect_row_winner(board, selected_square, player) ||
+    !!detect_column_winner(board, selected_square, player) ||
+    !!detect_diagonal_winner(board, selected_square, player) ||
+    !!detect_anti_diagonal_winner(board, selected_square, player) ||
+    tie?(board)
 end
 
 if __FILE__ == $PROGRAM_NAME
