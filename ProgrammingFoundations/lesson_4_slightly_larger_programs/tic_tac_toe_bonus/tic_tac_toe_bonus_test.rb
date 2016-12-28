@@ -55,20 +55,21 @@ end # TestValidMoves
 class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
   def setup
     @board = Array.new(3) { Array.new(3, "\u0020") }
+    @player_symbols = { "player" => nil, "computer" => nil }
   end
 
   def test_symbol_assignment_player_is_x
     $stdin = StringIO.new("  x")
-    player, computer = assign_symbols
-    assert_equal "X", player
-    assert_equal "O", computer
+    assign_symbols(@player_symbols)
+    assert_equal "X", @player_symbols["player"]
+    assert_equal "O", @player_symbols["computer"]
   end
 
   def test_symbol_assignment_player_is_o
     $stdin = StringIO.new("  o")
-    player, computer = assign_symbols
-    assert_equal "O", player
-    assert_equal "X", computer
+    assign_symbols(@player_symbols)
+    assert_equal "O", @player_symbols["player"]
+    assert_equal "X", @player_symbols["computer"]
   end
 
   def test_mark_board_at_square
@@ -224,3 +225,15 @@ class TestGameWinning < Minitest::Test
     assert winner_or_tie?(@board, selected_square, player)
   end
 end # TestGameWinning
+
+class TestAlternatingThePlayer < Minitest::Test
+  def test_alternate_player_to_computer
+    current_player = "player"
+    assert_equal "computer", alternate_player(current_player)
+  end
+
+  def test_alternate_player_to_player
+    current_player = "computer"
+    assert_equal "player", alternate_player(current_player)
+  end
+end # TestAlternatingThePlayer

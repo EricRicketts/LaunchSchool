@@ -8,15 +8,18 @@ APP_CONFIG = YAML.load(raw_config)
 ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
 SYMBOL_CONVERSION = { "X" => View::LARGE_X, "O" => View::LARGE_O }.freeze
 
+def alternate_player(current_player)
+  current_player == "computer" ? "player" : "computer"
+end
+
 def ask_for_symbol_prompt
   prompt(APP_CONFIG['PromptForSymbol'])
 end
 
-def assign_symbols
+def assign_symbols(player_symbols)
   ask_for_symbol_prompt
-  player = obtain_player_symbol
-  computer = obtain_computer_symbol(player)
-  [player, computer]
+  player_symbols["player"] = obtain_player_symbol
+  player_symbols["computer"] = obtain_computer_symbol(player_symbols["player"])
 end
 
 def collect_unoccupied_squares(board)
