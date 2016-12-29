@@ -99,13 +99,6 @@ def generate_diagonal_square_numbers(board)
   end
 end
 
-def show_game_instructions
-  puts show_initial_greeting + "\n"
-  puts show_instructions + "\n"
-  puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
-  puts ask_for_symbol_prompt
-end
-
 def joinor(squares, delimiter=', ', conjunction='or')
   last_square = squares.last.to_s
   delimiter_included = delimiter + conjunction + View::SPACE + last_square
@@ -119,18 +112,12 @@ def mark_board_at_square(board, square, symbol)
   board[row][col] = symbol
 end
 
-def play_the_game(player, computer, board)
-  square = ''
-  puts prompt(APP_CONFIG['PlayerMovePrompt'])
+def play_the_game(player_symbols, current_player, board)
   loop do
-    valid_squares = collect_unoccupied_squares(board)
-    puts prompt("available squares are: " + joinor(valid_squares))
-    square = gets.chomp.strip
-    break if valid_square_selection?(square, valid_squares)
-    puts prompt(APP_CONFIG['InvalidSquareSelection'])
+    selected_square = select_a_square(board, current_player)
+    mark_board_at_square(board, current_player)
+    puts View.update_view(convert_board(board)) + "\n"
   end
-  mark_board_at_square(board, square.to_i, player)
-  puts View.update_view(convert_board(board)) + "\n"
 end
 
 def obtain_computer_symbol(player)
@@ -146,22 +133,46 @@ def obtain_player_symbol
   player
 end
 
+def player_selects_a_square(board)
+  square = ''
+  loop do
+    valid_squares = collect_unoccupied_squares(board)
+    puts prompt("available squares are: " + joinor(valid_squares))
+    square = gets.chomp.strip
+    break if valid_square_selection?(square, valid_squares)
+    puts prompt(APP_CONFIG['InvalidSquareSelection'])
+  end
+  square.to_i
+end
+
 def prompt(message)
   "=> #{message}"
 end
 
-def show_initial_game_state(player, computer, board)
+def select_a_square(board, current_player)
+  if current_player.eql?("player")
+    player_selects_a_square(board)
+  else
+    unoccupied_squares = collect_unoccupied_squares(board)
+    unoccupied_squares.sample
+  end
+end
+
+def show_game_instructions
+  puts APP_CONFIG['InitialGreeting'] + "\n"
+  puts APP_CONFIG['Instructions'] + "\n"
+  puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
+  puts ask_for_symbol_prompt
+end
+
+def show_initial_game_state(player_symbols, board)
+  system "clear"
   flattened_board = board.flatten
-  puts prompt("You are #{player}, the computer is #{computer}") + "\n\n"
+  symbol_assignment_string = "You are #{player_symbols['player']}, " \
+  "the computer is #{player_symbols['computer']}"
+
+  puts symbol_assignment_string + "\n\n"
   puts View.update_view(flattened_board)
-end
-
-def show_initial_greeting
-  prompt(APP_CONFIG['InitialGreeting'])
-end
-
-def show_instructions
-  prompt(APP_CONFIG['Instructions'])
 end
 
 def tie?(board)
@@ -188,8 +199,12 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   board = Array.new(3) { Array.new(3, View::SPACE) }
+  player_symbols = { "player" => nil, "computer" => nil }
+
   show_game_instructions
-  player, computer = assign_symbols
-  show_initial_game_state(player, computer, board)
-  play_the_game(player, computer, board)
+  assign_symbols(player_symbols)
+  current_player = "player"
+  show_initial_game_state(player_symbols, board)
+
+  play_the_game(player_symbols, current_player, board)
 end

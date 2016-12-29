@@ -3,13 +3,15 @@
     You will be playing the computer.
   Instructions: |
     You will choose whether to be X's or O's.
-    You will move first, followed by the computer.  The board
-    will be updated and shown after each move.  Three of a
-    kind in a row: horizontal, vertical, or diagonal wins the
-    game.  If all the squares are occupied with no three of a
-    kind in a row, then the game is a tie.  A board with
-    numbered squares is shown below.  To move enter a number
-    representing an unoccupied square.
+    You will move first, followed by the computer.
+    The board will be updated and shown after each move.
+
+    Three of a kind in a row: horizontal, vertical, or
+    diagonal wins the game.  If all the squares are
+    occupied with no three of a kind in a row, then the game is a tie.
+
+    A board with numbered squares is shown below.
+    To move enter a number representing an unoccupied square.
   PromptForSymbol: "Do you want to be X's or O's?(enter only X/x or O/o)"
   IncorrectSymbolEntry: "Hmm ... that does not look like a correct entry, enter only X/x or O/o"
   PlayerMovePrompt: "Select an unoccupied square for your move, only whole numbers are allowed to be entered."

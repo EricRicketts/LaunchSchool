@@ -237,3 +237,29 @@ class TestAlternatingThePlayer < Minitest::Test
     assert_equal "player", alternate_player(current_player)
   end
 end # TestAlternatingThePlayer
+
+class TestMakeMoves < Minitest::Test
+  def setup
+    @player_symbols = { "player" => "X", "computer" => "O" }
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+  end
+
+  def test_select_a_square_player
+    expected_square = 5
+    expected_prompt = '=> available squares are: 1, 2, 3, 4, 5, 6, 7, 8, or 9'
+    $stdin = StringIO.new("  5  \n")
+    current_player = "player"
+    actual_prompt = capture_io do
+      assert_equal expected_square, select_a_square(@board, current_player)
+    end
+    assert_equal expected_prompt, actual_prompt.first.chomp
+  end
+
+  def test_select_a_square_computer
+    current_player = "computer"
+    @board[0][0] = @board[0][2] = @board[1][0] = @board[1][1] = "0"
+    @board[0][1] = @board[1][2] = @board[2][0] = @board[2][2] = "X"
+    expected_square = 8
+    assert_equal expected_square, select_a_square(@board, current_player)
+  end
+end # TestMakeMoves
