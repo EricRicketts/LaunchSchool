@@ -213,7 +213,7 @@ class TestGameWinning < Minitest::Test
     @board[1][0] = @board[1][1] = @board[1][2] = "X"
     player = "X"
     selected_square = 6
-    assert winner_or_tie?(@board, selected_square, player)
+    assert win_or_tie?(@board, selected_square, player)
   end
 
   def test_tie_game
@@ -222,7 +222,7 @@ class TestGameWinning < Minitest::Test
     @board[0][1] = @board[1][2] = @board[2][0] = @board[2][2] = "X"
     player = "O"
     selected_square = 5
-    assert winner_or_tie?(@board, selected_square, player)
+    assert win_or_tie?(@board, selected_square, player)
   end
 end # TestGameWinning
 

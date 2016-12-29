@@ -54,8 +54,10 @@ def detect_anti_diagonal_winner(board, selected_square, player)
 end
 
 def detect_column_winner(board, selected_square, player)
-  transposed_board = board.transpose
-  detect_row_winner(transposed_board, selected_square, player)
+  column = decrement(selected_square) % 3
+  column_values = board[0..2].map { |row| row[column] }
+  winner = column_values.all? { |square| square.eql?(player) }
+  winner ? player : nil
 end
 
 def detect_diagonal_winner(board, selected_square, player)
@@ -112,11 +114,15 @@ def mark_board_at_square(board, square, symbol)
   board[row][col] = symbol
 end
 
-def play_the_game(player_symbols, current_player, board)
+def play_the_game(board, current_player, player_symbols)
   loop do
     selected_square = select_a_square(board, current_player)
-    mark_board_at_square(board, current_player)
+    mark_board_at_square(board, selected_square, player_symbols[current_player])
+    system "clear"
     puts View.update_view(convert_board(board)) + "\n"
+    # byebug
+    break if win_or_tie?(board, selected_square, player_symbols[current_player])
+    current_player = alternate_player(current_player)
   end
 end
 
@@ -189,7 +195,7 @@ def valid_symbol_entry(symbol)
   symbol.length == 1 && (symbol == "X" || symbol == "O")
 end
 
-def winner_or_tie?(board, selected_square, player)
+def win_or_tie?(board, selected_square, player)
   !!detect_row_winner(board, selected_square, player) ||
     !!detect_column_winner(board, selected_square, player) ||
     !!detect_diagonal_winner(board, selected_square, player) ||
@@ -206,5 +212,5 @@ if __FILE__ == $PROGRAM_NAME
   current_player = "player"
   show_initial_game_state(player_symbols, board)
 
-  play_the_game(player_symbols, current_player, board)
+  play_the_game(board, current_player, player_symbols)
 end
