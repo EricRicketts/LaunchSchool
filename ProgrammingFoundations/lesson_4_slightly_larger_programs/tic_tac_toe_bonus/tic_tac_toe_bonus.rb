@@ -52,14 +52,6 @@ def declare_winner_and_update_tally(board, selected_square,
   ]
   increment_tally_and_output_winner_string(possible_winning_plays,
                                            player_symbols, tally)
-  # if possible_winning_plays.all?(&:nil?)
-  #   "It is a tie!!"
-  # else
-  #   winning_symbol = possible_winning_plays.compact.first
-  #   winner = player_symbols.key(winning_symbol)
-  #   tally[winner] += 1
-  #   winner.eql?("player") ? "You win!!" : "Computer wins!!"
-  # end
 end
 
 def decrement(num)
@@ -127,11 +119,13 @@ end
 def increment_tally_and_output_winner_string(possible_winning_plays,
                                              player_symbols, tally)
   tie = possible_winning_plays.all?(&:nil?)
-  tie_string = "It is a tie!!"
-  winner_string = winner_string_and_tally_update(possible_winning_plays,
-                                                 player_symbols, tally)
 
-  tie ? tie_string : winner_string
+  if tie
+    "It is a tie!!"
+  else
+    winner_string_and_tally_update(possible_winning_plays,
+                                   player_symbols, tally)
+  end
 end
 
 def joinor(squares, delimiter=', ', conjunction='or')
