@@ -263,3 +263,26 @@ class TestMakeMoves < Minitest::Test
     assert_equal expected_square, select_a_square(@board, current_player)
   end
 end # TestMakeMoves
+
+class TestDisplayWinnerOrTie < Minitest::Test
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+    @player_symbols = { "player" => "X", "computer" => "O" }
+    @current_player = "player"
+    @selected_square = 0
+    @tally = { "player" => 0, "computer" => 0 }
+  end
+
+  def test_player_win_on_row
+    @selected_square = 6
+    expected_tally = { "player" => 1, "computer" => 0 }
+    @board[1][0] = @board[1][1] = @board[1][2] = "X"
+    @board[0][0] = @board[0][1] = "O"
+    actual_output = declare_winner_and_update_tally(@board, @selected_square,
+                                                    @player_symbols,
+                                                    @current_player, @tally)
+    assert_equal "You win!!", actual_output
+    assert_equal expected_tally, @tally
+  end
+end # TestDisplayWinnerOrTie
+

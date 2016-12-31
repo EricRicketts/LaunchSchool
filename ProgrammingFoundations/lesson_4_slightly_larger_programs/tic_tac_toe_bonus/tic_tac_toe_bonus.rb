@@ -39,6 +39,27 @@ def convert_symbol(symbol)
   View::SPACE
 end
 
+def declare_winner_and_update_tally(board, selected_square,
+                                    player_symbols, current_player, tally)
+  possible_winning_plays = [
+    detect_row_winner(board, selected_square, player_symbols[current_player]),
+    detect_column_winner(board, selected_square,
+                         player_symbols[current_player]),
+    detect_diagonal_winner(board, selected_square,
+                           player_symbols[current_player]),
+    detect_anti_diagonal_winner(board, selected_square,
+                                player_symbols[current_player])
+  ]
+  if possible_winning_plays.all?(&:nil?)
+    "It is a tie!!"
+  else
+    winning_symbol = possible_winning_plays.compact.first
+    winner = player_symbols.key(winning_symbol)
+    tally[winner] += 1
+    winner.eql?("player") ? "You win!!" : "Computer wins!!"
+  end
+end
+
 def decrement(num)
   num - 1
 end
@@ -114,18 +135,6 @@ def mark_board_at_square(board, square, symbol)
   board[row][col] = symbol
 end
 
-def play_the_game(board, current_player, player_symbols)
-  loop do
-    selected_square = select_a_square(board, current_player)
-    mark_board_at_square(board, selected_square, player_symbols[current_player])
-    system "clear"
-    puts View.update_view(convert_board(board)) + "\n"
-    # byebug
-    break if win_or_tie?(board, selected_square, player_symbols[current_player])
-    current_player = alternate_player(current_player)
-  end
-end
-
 def obtain_computer_symbol(player)
   player == "X" ? "O" : "X"
 end
@@ -149,6 +158,18 @@ def player_selects_a_square(board)
     puts prompt(APP_CONFIG['InvalidSquareSelection'])
   end
   square.to_i
+end
+
+def play_the_game(board, current_player, player_symbols)
+  selected_square = nil
+  loop do
+    selected_square = select_a_square(board, current_player)
+    mark_board_at_square(board, selected_square, player_symbols[current_player])
+    system "clear"
+    puts View.update_view(convert_board(board)) + "\n"
+    break if win_or_tie?(board, selected_square, player_symbols[current_player])
+    current_player = alternate_player(current_player)
+  end
 end
 
 def prompt(message)
