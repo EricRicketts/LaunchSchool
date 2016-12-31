@@ -50,14 +50,16 @@ def declare_winner_and_update_tally(board, selected_square,
     detect_anti_diagonal_winner(board, selected_square,
                                 player_symbols[current_player])
   ]
-  if possible_winning_plays.all?(&:nil?)
-    "It is a tie!!"
-  else
-    winning_symbol = possible_winning_plays.compact.first
-    winner = player_symbols.key(winning_symbol)
-    tally[winner] += 1
-    winner.eql?("player") ? "You win!!" : "Computer wins!!"
-  end
+  increment_tally_and_output_winner_string(possible_winning_plays,
+                                           player_symbols, tally)
+  # if possible_winning_plays.all?(&:nil?)
+  #   "It is a tie!!"
+  # else
+  #   winning_symbol = possible_winning_plays.compact.first
+  #   winner = player_symbols.key(winning_symbol)
+  #   tally[winner] += 1
+  #   winner.eql?("player") ? "You win!!" : "Computer wins!!"
+  # end
 end
 
 def decrement(num)
@@ -119,6 +121,18 @@ def generate_diagonal_square_numbers(board)
   row_size = board.first.size
   (2..row_size).to_a.inject([1]) do |diagonal_numbers|
     diagonal_numbers << diagonal_numbers.last + row_size + 1
+  end
+end
+
+def increment_tally_and_output_winner_string(possible_winning_plays,
+                                             player_symbols, tally)
+  if possible_winning_plays.all?(&:nil?)
+    "It is a tie!!"
+  else
+    winning_symbol = possible_winning_plays.compact.first
+    winner = player_symbols.key(winning_symbol)
+    tally[winner] += 1
+    winner.eql?("player") ? "You win!!" : "Computer wins!!"
   end
 end
 
