@@ -166,7 +166,7 @@ def player_selects_a_square(board)
   square.to_i
 end
 
-def play_the_game(board, current_player, player_symbols)
+def play_the_game(board, current_player, player_symbols, tally)
   selected_square = nil
   loop do
     selected_square = select_a_square(board, current_player)
@@ -176,6 +176,9 @@ def play_the_game(board, current_player, player_symbols)
     break if win_or_tie?(board, selected_square, player_symbols[current_player])
     current_player = alternate_player(current_player)
   end
+  puts declare_winner_and_update_tally(board, selected_square,
+                                       player_symbols, current_player, tally)
+  puts show_game_tally(tally)
 end
 
 def prompt(message)
@@ -196,6 +199,10 @@ def show_game_instructions
   puts APP_CONFIG['Instructions'] + "\n"
   puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
   puts ask_for_symbol_prompt
+end
+
+def show_game_tally(tally)
+  "current score: you => #{tally["player"]}, computer => #{tally["computer"]}"
 end
 
 def show_initial_game_state(player_symbols, board)
@@ -241,11 +248,12 @@ end
 if __FILE__ == $PROGRAM_NAME
   board = Array.new(3) { Array.new(3, View::SPACE) }
   player_symbols = { "player" => nil, "computer" => nil }
+  tally = { "player" => 0, "computer" => 0 }
 
   show_game_instructions
   assign_symbols(player_symbols)
   current_player = "player"
   show_initial_game_state(player_symbols, board)
 
-  play_the_game(board, current_player, player_symbols)
+  play_the_game(board, current_player, player_symbols, tally)
 end
