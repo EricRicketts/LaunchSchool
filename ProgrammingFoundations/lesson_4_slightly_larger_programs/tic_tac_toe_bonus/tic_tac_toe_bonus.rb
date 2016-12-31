@@ -126,14 +126,12 @@ end
 
 def increment_tally_and_output_winner_string(possible_winning_plays,
                                              player_symbols, tally)
-  if possible_winning_plays.all?(&:nil?)
-    "It is a tie!!"
-  else
-    winning_symbol = possible_winning_plays.compact.first
-    winner = player_symbols.key(winning_symbol)
-    tally[winner] += 1
-    winner.eql?("player") ? "You win!!" : "Computer wins!!"
-  end
+  tie = possible_winning_plays.all?(&:nil?)
+  tie_string = "It is a tie!!"
+  winner_string = winner_string_and_tally_update(possible_winning_plays,
+                                                 player_symbols, tally)
+
+  tie ? tie_string : winner_string
 end
 
 def joinor(squares, delimiter=', ', conjunction='or')
@@ -236,6 +234,14 @@ def win_or_tie?(board, selected_square, player)
     !!detect_diagonal_winner(board, selected_square, player) ||
     !!detect_anti_diagonal_winner(board, selected_square, player) ||
     tie?(board)
+end
+
+def winner_string_and_tally_update(possible_winning_plays,
+                                   player_symbols, tally)
+  winning_symbol = possible_winning_plays.compact.first
+  winner = player_symbols.key(winning_symbol)
+  tally[winner] += 1
+  winner.eql?("player") ? "You win!!" : "Computer wins!!"
 end
 
 if __FILE__ == $PROGRAM_NAME
