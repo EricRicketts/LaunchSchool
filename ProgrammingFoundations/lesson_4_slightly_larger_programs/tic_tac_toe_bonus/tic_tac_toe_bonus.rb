@@ -210,6 +210,12 @@ def select_a_square(board, current_player)
   end
 end
 
+def show_final_tally_message(tally)
+  if tally["player"] == 5
+    "You won the game!!\nGood-bye!!"
+  end
+end
+
 def show_game_instructions
   puts APP_CONFIG['InitialGreeting'] + "\n"
   puts APP_CONFIG['Instructions'] + "\n"
