@@ -367,10 +367,20 @@ class TestFirstToFive < Minitest::Test
 end # TestFirstToFive
 
 class TestContinueGameQuery < Minitest::Test
+
   def test_ask_to_play_again
     $stdin = StringIO.new("y\n")
     prompts = capture_io do
       assert play_again?
+    end
+    expected = "=> Do you want to play again? (enter only Y/y or N/n): "
+    assert_equal expected, prompts.first.chomp
+  end
+
+  def test_quit_the_game
+    $stdin = StringIO.new("N\n")
+    prompts = capture_io do
+      refute play_again?
     end
     expected = "=> Do you want to play again? (enter only Y/y or N/n): "
     assert_equal expected, prompts.first.chomp
