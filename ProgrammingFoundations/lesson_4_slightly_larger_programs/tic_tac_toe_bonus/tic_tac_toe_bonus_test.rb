@@ -345,3 +345,25 @@ class TestDisplayWinnerOrTie < Minitest::Test
   end
 end # TestDisplayWinnerOrTie
 
+class FirstToFive < Minitest::Test
+  def setup
+    @setup = { "player" => 0, "computer" => 0 }
+  end
+
+  def test_player_first_to_five
+    @tally = { "player" => 5, "computer" => 3 }
+    assert_equal "player", first_to_five?(@tally)
+  end
+
+  def test_computer_first_to_five
+    @tally = { "player" => 4, "computer" => 5 }
+    assert_equal "computer", first_to_five?(@tally)
+  end
+
+  def test_neither_to_five
+    @tally = { "player" => 4, "computer" => 3 }
+    assert_nil first_to_five?(@tally)
+  end
+
+end # FirstToFive
+

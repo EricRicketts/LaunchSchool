@@ -92,6 +92,12 @@ def detect_row_winner(board, selected_square, player)
   winner ? player : nil
 end
 
+def first_to_five?(tally)
+  return "player" if tally["player"] == 5
+  return "computer" if tally["computer"] == 5
+  nil
+end
+
 def generate_and_check_either_diagonal(square_numbers, board, row_size, player)
   decremented_square_numbers =
     square_numbers.map { |square_number| decrement(square_number) }
