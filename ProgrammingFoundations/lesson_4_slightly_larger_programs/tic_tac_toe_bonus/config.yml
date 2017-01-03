@@ -16,3 +16,5 @@
   IncorrectSymbolEntry: "Hmm ... that does not look like a correct entry, enter only X/x or O/o"
   PlayerMovePrompt: "Select an unoccupied square for your move, only whole numbers are allowed to be entered."
   InvalidSquareSelection: "Hmm ... that does not seem to be an available square or a whole number, try again."
+  AskForAnotherGame: "Do you want to play again? (enter only Y/y or N/n): "
+  InvalidContinueGameQuery: "Hmm ... that does not look like a correct response, enter only Y/y or N/n: "

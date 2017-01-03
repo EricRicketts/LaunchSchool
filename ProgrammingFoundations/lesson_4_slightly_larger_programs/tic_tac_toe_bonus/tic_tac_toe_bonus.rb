@@ -92,7 +92,7 @@ def detect_row_winner(board, selected_square, player)
   winner ? player : nil
 end
 
-def first_to_five?(tally)
+def first_to_five(tally)
   return "player" if tally["player"] == 5
   return "computer" if tally["computer"] == 5
   nil
@@ -158,6 +158,16 @@ def obtain_player_symbol
     player = gets.chomp.strip.upcase
   end
   player
+end
+
+def play_again?
+  puts prompt(APP_CONFIG['AskForAnotherGame'])
+  answer = gets.chomp.strip.upcase
+  unless answer.eql?("Y") || answer.eql?("N")
+    puts prompt(APP_CONFIG['InvalidContinueGameQuery'])
+    answer = gets.chomp.strip.upcase
+  end
+  answer.eql?("Y")
 end
 
 def player_selects_a_square(board)

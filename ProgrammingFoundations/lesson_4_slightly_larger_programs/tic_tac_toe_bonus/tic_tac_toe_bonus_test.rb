@@ -345,25 +345,35 @@ class TestDisplayWinnerOrTie < Minitest::Test
   end
 end # TestDisplayWinnerOrTie
 
-class FirstToFive < Minitest::Test
+class TestFirstToFive < Minitest::Test
   def setup
     @setup = { "player" => 0, "computer" => 0 }
   end
 
   def test_player_first_to_five
     @tally = { "player" => 5, "computer" => 3 }
-    assert_equal "player", first_to_five?(@tally)
+    assert_equal "player", first_to_five(@tally)
   end
 
   def test_computer_first_to_five
     @tally = { "player" => 4, "computer" => 5 }
-    assert_equal "computer", first_to_five?(@tally)
+    assert_equal "computer", first_to_five(@tally)
   end
 
   def test_neither_to_five
     @tally = { "player" => 4, "computer" => 3 }
-    assert_nil first_to_five?(@tally)
+    assert_nil first_to_five(@tally)
   end
+end # TestFirstToFive
 
-end # FirstToFive
+class TestContinueGameQuery < Minitest::Test
+  def test_ask_to_play_again
+    $stdin = StringIO.new("y\n")
+    prompts = capture_io do
+      assert play_again?
+    end
+    expected = "=> Do you want to play again? (enter only Y/y or N/n): "
+    assert_equal expected, prompts.first.chomp
+  end
+end # TestContinueGameQuery
 
