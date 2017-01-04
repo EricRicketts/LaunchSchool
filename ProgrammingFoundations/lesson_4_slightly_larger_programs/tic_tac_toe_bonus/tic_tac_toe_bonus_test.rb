@@ -369,6 +369,12 @@ class TestFirstToFiveAndFinalTally < Minitest::Test
     expected = "You won the game!!\nGood-bye!!"
     assert_equal expected, show_final_tally_message(@tally)
   end
+
+  def test_final_tally_computer_wins
+    @tally["computer"] = 5
+    expected = "The computer won the game!!\nGood-bye!!"
+    assert_equal expected, show_final_tally_message(@tally)
+  end
 end # TestFirstToFiveAndFinalTally
 
 class TestContinueGameQuery < Minitest::Test
