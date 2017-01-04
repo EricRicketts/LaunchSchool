@@ -195,6 +195,10 @@ def prompt(message)
   "=> #{message}"
 end
 
+def reset_board
+  Array.new(3) { Array.new(3, View::SPACE) }
+end
+
 def select_a_square(board, current_player)
   if current_player.eql?("player")
     player_selects_a_square(board)
@@ -282,6 +286,7 @@ if __FILE__ == $PROGRAM_NAME
   loop do
     play_the_game(board, current_player, player_symbols, tally)
     break if do_not_play_again? || there_is_a_winner?(tally)
+    board = reset_board
   end
 
   show_final_tally_message(tally)
