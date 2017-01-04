@@ -92,6 +92,16 @@ def detect_row_winner(board, selected_square, player)
   winner ? player : nil
 end
 
+def do_not_play_again?
+  puts prompt(APP_CONFIG['AskForAnotherGame'])
+  answer = gets.chomp.strip.upcase
+  unless answer.eql?("Y") || answer.eql?("N")
+    puts prompt(APP_CONFIG['InvalidContinueGameQuery'])
+    answer = gets.chomp.strip.upcase
+  end
+  answer.eql?("N")
+end
+
 def generate_and_check_either_diagonal(square_numbers, board, row_size, player)
   decremented_square_numbers =
     square_numbers.map { |square_number| decrement(square_number) }
@@ -156,16 +166,6 @@ def obtain_player_symbol
     player = gets.chomp.strip.upcase
   end
   player
-end
-
-def play_again?
-  puts prompt(APP_CONFIG['AskForAnotherGame'])
-  answer = gets.chomp.strip.upcase
-  unless answer.eql?("Y") || answer.eql?("N")
-    puts prompt(APP_CONFIG['InvalidContinueGameQuery'])
-    answer = gets.chomp.strip.upcase
-  end
-  answer.eql?("Y")
 end
 
 def player_selects_a_square(board)
@@ -279,7 +279,10 @@ if __FILE__ == $PROGRAM_NAME
   current_player = "player"
   show_initial_game_state(player_symbols, board)
 
-  while play_again? && neither_player_at_five_wins?(tally)
+  loop do
     play_the_game(board, current_player, player_symbols, tally)
+    break if do_not_play_again? || there_is_a_winner(tally)
   end
+
+  show_final_tally_message(tally)
 end
