@@ -215,6 +215,8 @@ def show_final_tally_message(tally)
     "You won the game!!\nGood-bye!!"
   elsif tally["computer"] == 5
     "The computer won the game!!\nGood-bye!!"
+  else
+    "No winner.\nGood-bye!!"
   end
 end
 
