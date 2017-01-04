@@ -151,10 +151,6 @@ def mark_board_at_square(board, square, symbol)
   board[row][col] = symbol
 end
 
-def neither_player_at_five_wins?(tally)
-  tally["player"] != 5 && tally["computer"] != 5
-end
-
 def obtain_computer_symbol(player)
   player == "X" ? "O" : "X"
 end
@@ -239,6 +235,10 @@ def show_initial_game_state(player_symbols, board)
   puts View.update_view(flattened_board)
 end
 
+def there_is_a_winner?(tally)
+  tally["player"] == 5 || tally["computer"] == 5
+end
+
 def tie?(board)
   flattened_board = board.flatten
   flattened_board.none? { |square| square.eql?(View::SPACE) }
@@ -281,7 +281,7 @@ if __FILE__ == $PROGRAM_NAME
 
   loop do
     play_the_game(board, current_player, player_symbols, tally)
-    break if do_not_play_again? || there_is_a_winner(tally)
+    break if do_not_play_again? || there_is_a_winner?(tally)
   end
 
   show_final_tally_message(tally)

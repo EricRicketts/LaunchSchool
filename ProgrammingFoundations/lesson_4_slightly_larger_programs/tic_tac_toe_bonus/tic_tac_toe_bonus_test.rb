@@ -352,16 +352,16 @@ class TestFirstToFiveAndFinalTally < Minitest::Test
 
   def test_player_first_to_five
     @tally["player"] = 5
-    refute neither_player_at_five_wins?(@tally)
+    assert there_is_a_winner?(@tally)
   end
 
   def test_computer_first_to_five
     @tally["computer"] = 5
-    refute neither_player_at_five_wins?(@tally)
+    assert there_is_a_winner?(@tally)
   end
 
   def test_neither_to_five
-    assert neither_player_at_five_wins?(@tally)
+    refute there_is_a_winner?(@tally)
   end
 
   def test_final_tally_player_wins
