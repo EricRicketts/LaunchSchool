@@ -212,11 +212,11 @@ end
 
 def show_final_tally_message(tally)
   if tally["player"] == 5
-    "You won the game!!\nGood-bye!!"
+    APP_CONFIG['FinalMessagePlayerWins']
   elsif tally["computer"] == 5
-    "The computer won the game!!\nGood-bye!!"
+    APP_CONFIG['FinalMessageComputerWins']
   else
-    "No winner.\nGood-bye!!"
+    APP_CONFIG['FinalMessageNoWinner']
   end
 end
 

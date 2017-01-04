@@ -18,3 +18,6 @@
   InvalidSquareSelection: "Hmm ... that does not seem to be an available square or a whole number, try again."
   AskForAnotherGame: "Do you want to play again? (enter only Y/y or N/n): "
   InvalidContinueGameQuery: "Hmm ... that does not look like a correct response, enter only Y/y or N/n: "
+  FinalMessagePlayerWins: "You won the game!!\nGood-bye!!"
+  FinalMessageComputerWins: "The computer won the game!!\nGood-bye!!"
+  FinalMessageNoWinner: "No winner.\nGood-bye!!"
