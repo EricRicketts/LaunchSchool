@@ -285,9 +285,12 @@ if __FILE__ == $PROGRAM_NAME
 
   loop do
     play_the_game(board, current_player, player_symbols, tally)
-    break if do_not_play_again? || there_is_a_winner?(tally)
+    break if there_is_a_winner?(tally)
+    break if do_not_play_again?
     board = reset_board
+    system "clear"
+    puts View.update_view(convert_board(board)) + "\n"
   end
 
-  show_final_tally_message(tally)
+  puts show_final_tally_message(tally)
 end
