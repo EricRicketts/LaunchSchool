@@ -181,8 +181,7 @@ def play_the_game(board, current_player, player_symbols, tally)
   loop do
     selected_square = select_a_square(board, current_player)
     mark_board_at_square(board, selected_square, player_symbols[current_player])
-    system "clear"
-    puts View.update_view(convert_board(board)) + "\n"
+    update_and_present_view(convert_board(board))
     break if win_or_tie?(board, selected_square, player_symbols[current_player])
     current_player = alternate_player(current_player)
   end
@@ -254,6 +253,11 @@ def tie?(board)
   flattened_board.none? { |square| square.eql?(View::SPACE) }
 end
 
+def update_and_present_view(board)
+  system "clear"
+  puts View.update_view(board)
+end
+
 def valid_square_selection?(square, valid_squares)
   ALLOWABLE_SQUARE_SELECTIONS.include?(square) &&
     valid_squares.include?(square.to_i)
@@ -292,8 +296,7 @@ if __FILE__ == $PROGRAM_NAME
     break if there_is_a_winner?(tally)
     break if do_not_play_again?
     board = reset_board
-    system "clear"
-    puts View.update_view(convert_board(board)) + "\n"
+    update_and_present_view(convert_board(board))
   end
 
   puts show_final_tally_message(tally)
