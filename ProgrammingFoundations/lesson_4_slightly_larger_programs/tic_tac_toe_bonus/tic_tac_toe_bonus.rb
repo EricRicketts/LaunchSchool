@@ -239,6 +239,12 @@ def show_initial_game_state(player_symbols, board)
   puts View.update_view(flattened_board)
 end
 
+def show_instructions_and_initialize_game(board, player_symbols)
+  show_game_instructions
+  assign_symbols(player_symbols)
+  show_initial_game_state(player_symbols, board)
+end
+
 def there_is_a_winner?(tally)
   tally["player"] == 5 || tally["computer"] == 5
 end
@@ -277,11 +283,9 @@ if __FILE__ == $PROGRAM_NAME
   board = Array.new(3) { Array.new(3, View::SPACE) }
   player_symbols = { "player" => nil, "computer" => nil }
   tally = { "player" => 0, "computer" => 0 }
-
-  show_game_instructions
-  assign_symbols(player_symbols)
   current_player = "player"
-  show_initial_game_state(player_symbols, board)
+
+  show_instructions_and_initialize_game(board, player_symbols)
 
   loop do
     play_the_game(board, current_player, player_symbols, tally)
