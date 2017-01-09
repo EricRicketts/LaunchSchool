@@ -19,7 +19,7 @@ end
 # end
 
 def assign_symbols(player_symbols)
-  GamePrompts.ask_for_symbol_prompt
+  GamePrompts.ask_for_symbol
   player_symbols["player"] = obtain_player_symbol
   player_symbols["computer"] = obtain_computer_symbol(player_symbols["player"])
 end
@@ -95,10 +95,11 @@ def detect_row_winner(board, selected_square, player)
 end
 
 def do_not_play_again?
-  puts prompt(APP_CONFIG['AskForAnotherGame'])
+  puts GamePrompts.ask_for_another_game
   answer = gets.chomp.strip.upcase
   unless answer.eql?("Y") || answer.eql?("N")
-    puts prompt(APP_CONFIG['InvalidContinueGameQuery'])
+    # puts prompt(APP_CONFIG['InvalidContinueGameQuery'])
+    puts GamePrompts.invalid_continue_game_response
     answer = gets.chomp.strip.upcase
   end
   answer.eql?("N")
@@ -233,7 +234,7 @@ def show_game_instructions
   puts APP_CONFIG['InitialGreeting'] + "\n"
   puts APP_CONFIG['Instructions'] + "\n"
   puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
-  puts GamePrompts.ask_for_symbol_prompt
+  puts GamePrompts.ask_for_symbol
 end
 
 def show_game_tally(tally)
