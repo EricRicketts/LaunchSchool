@@ -1,7 +1,9 @@
 require 'byebug'
 require 'yaml'
 require_relative './view'
+require_relative './game_prompts'
 include View
+include GamePrompts
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
@@ -12,12 +14,12 @@ def alternate_player(current_player)
   current_player == "computer" ? "player" : "computer"
 end
 
-def ask_for_symbol_prompt
-  prompt(APP_CONFIG['PromptForSymbol'])
-end
+# def ask_for_symbol_prompt
+#   prompt(APP_CONFIG['PromptForSymbol'])
+# end
 
 def assign_symbols(player_symbols)
-  ask_for_symbol_prompt
+  GamePrompts.ask_for_symbol_prompt
   player_symbols["player"] = obtain_player_symbol
   player_symbols["computer"] = obtain_computer_symbol(player_symbols["player"])
 end
@@ -231,7 +233,7 @@ def show_game_instructions
   puts APP_CONFIG['InitialGreeting'] + "\n"
   puts APP_CONFIG['Instructions'] + "\n"
   puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
-  puts ask_for_symbol_prompt
+  puts GamePrompts.ask_for_symbol_prompt
 end
 
 def show_game_tally(tally)
