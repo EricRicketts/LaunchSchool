@@ -176,7 +176,7 @@ def player_selects_a_square(board)
   square.to_i
 end
 
-def play_the_game(board, current_player, player_symbols, tally)
+def play_a_single_game(board, current_player, player_symbols, tally)
   selected_square = nil
   loop do
     selected_square = select_a_square(board, current_player)
@@ -188,6 +188,16 @@ def play_the_game(board, current_player, player_symbols, tally)
   puts declare_winner_and_update_tally(board, selected_square,
                                        player_symbols, current_player, tally)
   puts show_game_tally(tally)
+end
+
+def play_the_game(board, current_player, player_symbols, tally)
+  loop do
+    play_a_single_game(board, current_player, player_symbols, tally)
+    break if there_is_a_winner?(tally)
+    break if do_not_play_again?
+    board = reset_board
+    update_and_present_view(convert_board(board))
+  end
 end
 
 def prompt(message)
@@ -290,14 +300,6 @@ if __FILE__ == $PROGRAM_NAME
   current_player = "player"
 
   show_instructions_and_initialize_game(board, player_symbols)
-
-  loop do
-    play_the_game(board, current_player, player_symbols, tally)
-    break if there_is_a_winner?(tally)
-    break if do_not_play_again?
-    board = reset_board
-    update_and_present_view(convert_board(board))
-  end
-
+  play_the_game(board, current_player, player_symbols, tally)
   puts show_final_tally_message(tally)
 end
