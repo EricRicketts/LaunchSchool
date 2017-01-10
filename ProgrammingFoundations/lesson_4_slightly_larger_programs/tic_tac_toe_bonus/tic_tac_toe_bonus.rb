@@ -14,10 +14,6 @@ def alternate_player(current_player)
   current_player == "computer" ? "player" : "computer"
 end
 
-# def ask_for_symbol_prompt
-#   prompt(APP_CONFIG['PromptForSymbol'])
-# end
-
 def assign_symbols(player_symbols)
   GamePrompts.ask_for_symbol
   player_symbols["player"] = obtain_player_symbol
@@ -98,7 +94,6 @@ def do_not_play_again?
   puts GamePrompts.ask_for_another_game
   answer = gets.chomp.strip.upcase
   unless answer.eql?("Y") || answer.eql?("N")
-    # puts prompt(APP_CONFIG['InvalidContinueGameQuery'])
     puts GamePrompts.invalid_continue_game_response
     answer = gets.chomp.strip.upcase
   end
@@ -161,7 +156,7 @@ end
 def obtain_player_symbol
   player = gets.chomp.strip.upcase
   until valid_symbol_entry(player)
-    puts APP_CONFIG['IncorrectSymbolEntry']
+    puts GamePrompts.invalid_symbol_entry
     player = gets.chomp.strip.upcase
   end
   player
@@ -174,7 +169,7 @@ def player_selects_a_square(board)
     puts prompt("available squares are: " + joinor(valid_squares))
     square = gets.chomp.strip
     break if valid_square_selection?(square, valid_squares)
-    puts prompt(APP_CONFIG['InvalidSquareSelection'])
+    puts GamePrompts.invalid_square_selection
   end
   square.to_i
 end
@@ -222,17 +217,17 @@ end
 
 def show_final_tally_message(tally)
   if tally["player"] == 5
-    APP_CONFIG['FinalMessagePlayerWins']
+    GamePrompts.player_wins_message
   elsif tally["computer"] == 5
-    APP_CONFIG['FinalMessageComputerWins']
+    GamePrompts.computer_wins_message
   else
-    APP_CONFIG['FinalMessageNoWinner']
+    GamePrompts.no_winner_message
   end
 end
 
 def show_game_instructions
-  puts APP_CONFIG['InitialGreeting'] + "\n"
-  puts APP_CONFIG['Instructions'] + "\n"
+  puts GamePrompts.initial_greeting
+  puts GamePrompts.game_instructions
   puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
   puts GamePrompts.ask_for_symbol
 end
