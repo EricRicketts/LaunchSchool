@@ -2,8 +2,10 @@ require 'byebug'
 require 'yaml'
 require_relative './view'
 require_relative './game_text'
+require_relative './game_rules'
 include View
 include GameText
+include GameRules
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
@@ -40,7 +42,8 @@ end
 def declare_winner_and_update_tally(board, selected_square,
                                     player_symbols, current_player, tally)
   possible_winning_plays = [
-    detect_row_winner(board, selected_square, player_symbols[current_player]),
+    GameRules.detect_row_winner(
+      board, selected_square, player_symbols[current_player]),
     detect_column_winner(board, selected_square,
                          player_symbols[current_player]),
     detect_diagonal_winner(board, selected_square,
@@ -83,12 +86,12 @@ def detect_diagonal_winner(board, selected_square, player)
   winner ? player : nil
 end
 
-def detect_row_winner(board, selected_square, player)
-  row_size = board.first.size
-  row = decrement(selected_square).div(row_size)
-  winner = board[row].all? { |square| square.eql?(player) }
-  winner ? player : nil
-end
+# def GameRules.detect_row_winner(board, selected_square, player)
+#   row_size = board.first.size
+#   row = decrement(selected_square).div(row_size)
+#   winner = board[row].all? { |square| square.eql?(player) }
+#   winner ? player : nil
+# end
 
 def do_not_play_again?
   puts GameText.ask_for_another_game
@@ -269,7 +272,7 @@ def valid_symbol_entry(symbol)
 end
 
 def win_or_tie?(board, selected_square, player)
-  !!detect_row_winner(board, selected_square, player) ||
+  !!GameRules.detect_row_winner(board, selected_square, player) ||
     !!detect_column_winner(board, selected_square, player) ||
     !!detect_diagonal_winner(board, selected_square, player) ||
     !!detect_anti_diagonal_winner(board, selected_square, player) ||
