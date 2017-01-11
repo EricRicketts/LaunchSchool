@@ -1,9 +1,9 @@
 require 'byebug'
 require 'yaml'
 require_relative './view'
-require_relative './game_prompts'
+require_relative './game_text'
 include View
-include GamePrompts
+include GameText
 raw_config = File.read('./config.yml')
 APP_CONFIG = YAML.load(raw_config)
 
@@ -15,7 +15,7 @@ def alternate_player(current_player)
 end
 
 def assign_symbols(player_symbols)
-  GamePrompts.ask_for_symbol
+  GameText.ask_for_symbol
   player_symbols["player"] = obtain_player_symbol
   player_symbols["computer"] = obtain_computer_symbol(player_symbols["player"])
 end
@@ -91,10 +91,10 @@ def detect_row_winner(board, selected_square, player)
 end
 
 def do_not_play_again?
-  puts GamePrompts.ask_for_another_game
+  puts GameText.ask_for_another_game
   answer = gets.chomp.strip.upcase
   unless answer.eql?("Y") || answer.eql?("N")
-    puts GamePrompts.invalid_continue_game_response
+    puts GameText.invalid_continue_game_response
     answer = gets.chomp.strip.upcase
   end
   answer.eql?("N")
@@ -129,7 +129,7 @@ def increment_tally_and_output_winner_string(possible_winning_plays,
   tie = possible_winning_plays.all?(&:nil?)
 
   if tie
-    "It is a tie!!"
+    GameText.declare_tie
   else
     winner_string_and_tally_update(possible_winning_plays,
                                    player_symbols, tally)
@@ -156,7 +156,7 @@ end
 def obtain_player_symbol
   player = gets.chomp.strip.upcase
   until valid_symbol_entry(player)
-    puts GamePrompts.invalid_symbol_entry
+    puts GameText.invalid_symbol_entry
     player = gets.chomp.strip.upcase
   end
   player
@@ -166,10 +166,10 @@ def player_selects_a_square(board)
   square = ''
   loop do
     valid_squares = collect_unoccupied_squares(board)
-    puts prompt("available squares are: " + joinor(valid_squares))
+    puts GameText.available_squares(joinor(valid_squares))
     square = gets.chomp.strip
     break if valid_square_selection?(square, valid_squares)
-    puts GamePrompts.invalid_square_selection
+    puts GameText.invalid_square_selection
   end
   square.to_i
 end
@@ -185,7 +185,7 @@ def play_a_single_game(board, current_player, player_symbols, tally)
   end
   puts declare_winner_and_update_tally(board, selected_square,
                                        player_symbols, current_player, tally)
-  puts show_game_tally(tally)
+  puts GameText.show_game_tally(tally)
 end
 
 def play_the_game(board, current_player, player_symbols, tally)
@@ -196,10 +196,6 @@ def play_the_game(board, current_player, player_symbols, tally)
     board = reset_board
     update_and_present_view(convert_board(board))
   end
-end
-
-def prompt(message)
-  "=> #{message}"
 end
 
 def reset_board
@@ -217,30 +213,27 @@ end
 
 def show_final_tally_message(tally)
   if tally["player"] == 5
-    GamePrompts.player_wins_message
+    GameText.player_wins_game
   elsif tally["computer"] == 5
-    GamePrompts.computer_wins_message
+    GameText.computer_wins_game
   else
-    GamePrompts.no_winner_message
+    GameText.no_winner_message
   end
 end
 
 def show_game_instructions
-  puts GamePrompts.initial_greeting
-  puts GamePrompts.game_instructions
+  puts GameText.initial_greeting
+  puts GameText.game_instructions
   puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
-  puts GamePrompts.ask_for_symbol
-end
-
-def show_game_tally(tally)
-  "current score: you => #{tally["player"]}, computer => #{tally["computer"]}"
+  puts GameText.ask_for_symbol
 end
 
 def show_initial_game_state(player_symbols, board)
   system "clear"
   flattened_board = board.flatten
-  symbol_assignment_string = "You are #{player_symbols['player']}, " \
-  "the computer is #{player_symbols['computer']}"
+
+  symbol_assignment_string =
+    GameText.declare_assigned_symbols(player_symbols)
 
   puts symbol_assignment_string + "\n\n"
   puts View.update_view(flattened_board)
@@ -288,7 +281,8 @@ def winner_string_and_tally_update(possible_winning_plays,
   winning_symbol = possible_winning_plays.compact.first
   winner = player_symbols.key(winning_symbol)
   tally[winner] += 1
-  winner.eql?("player") ? "You win!!" : "Computer wins!!"
+  # winner.eql?("player") ? "You win!!" : "Computer wins!!"
+  winner.eql?("player") ? GameText.player_wins : GameText.computer_wins
 end
 
 if __FILE__ == $PROGRAM_NAME

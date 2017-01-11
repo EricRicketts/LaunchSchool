@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './game_prompts'
-include GamePrompts
+require_relative './game_text'
+include GameText
 
-class OneLinePrompts < Minitest::Test
+class OneLineTexts < Minitest::Test
   def test_symbol_prompt
     expected = "=> Do you want to be X's or O's?(enter only X/x or O/o)"
     assert_equal expected, ask_for_symbol
@@ -19,4 +19,4 @@ class OneLinePrompts < Minitest::Test
     "enter only Y/y or N/n: "
     assert_equal expected, invalid_continue_game_response
   end
-end # OneLinePrompts
+end # OneLineTexts
