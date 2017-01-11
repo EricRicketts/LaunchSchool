@@ -73,4 +73,4 @@ module GameText
     "current score: you => #{tally["player"]}, computer => #{tally["computer"]}"
   end
 
-end
+end # module GameText

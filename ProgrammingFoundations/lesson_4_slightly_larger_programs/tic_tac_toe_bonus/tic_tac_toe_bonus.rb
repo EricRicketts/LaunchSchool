@@ -281,7 +281,6 @@ def winner_string_and_tally_update(possible_winning_plays,
   winning_symbol = possible_winning_plays.compact.first
   winner = player_symbols.key(winning_symbol)
   tally[winner] += 1
-  # winner.eql?("player") ? "You win!!" : "Computer wins!!"
   winner.eql?("player") ? GameText.player_wins : GameText.computer_wins
 end
 
