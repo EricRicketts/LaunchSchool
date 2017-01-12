@@ -73,6 +73,11 @@ module View
       TOP_JOIN + HORIZONTAL_LINE * 7 + UPPER_RIGHT_CORNER + RETURN
   end
 
+  def update_and_present_view(board)
+    system "clear"
+    puts update_view(board)
+  end
+
   def update_view(board)
     show_top_view_row(square_one: board[0],
                       square_two: board[1],

@@ -123,7 +123,7 @@ def play_a_single_game(board, current_player, player_symbols, tally)
     selected_square = select_a_square(board, current_player)
     mark_board_at_square(board, selected_square,
                          player_symbols[current_player])
-    update_and_present_view(convert_board(board))
+    View.update_and_present_view(convert_board(board))
     break if GameRules.win_or_tie?(board, selected_square,
                                    player_symbols[current_player])
     current_player = alternate_player(current_player)
@@ -139,7 +139,7 @@ def play_the_game(board, current_player, player_symbols, tally)
     break if there_is_a_winner?(tally)
     break if do_not_play_again?
     board = reset_board
-    update_and_present_view(convert_board(board))
+    View.update_and_present_view(convert_board(board))
   end
 end
 
@@ -192,11 +192,6 @@ end
 
 def there_is_a_winner?(tally)
   tally["player"] == 5 || tally["computer"] == 5
-end
-
-def update_and_present_view(board)
-  system "clear"
-  puts View.update_view(board)
 end
 
 def valid_square_selection?(square, valid_squares)
