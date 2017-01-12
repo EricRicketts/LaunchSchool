@@ -3,11 +3,12 @@ require 'yaml'
 require_relative './view'
 require_relative './game_text'
 require_relative './game_rules'
+require_relative './game_movement'
 include View
 include GameText
 include GameRules
+include GameMovement
 
-ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
 SYMBOL_CONVERSION = { "X" => View::LARGE_X, "O" => View::LARGE_O }.freeze
 
 def alternate_player(current_player)
@@ -18,13 +19,6 @@ def assign_symbols(player_symbols)
   GameText.ask_for_symbol
   player_symbols["player"] = obtain_player_symbol
   player_symbols["computer"] = obtain_computer_symbol(player_symbols["player"])
-end
-
-def collect_unoccupied_squares(board)
-  flattened_board = board.flatten
-  flattened_board.each_index
-                 .select { |index| flattened_board[index].eql?(View::SPACE) }
-                 .map { |empty_index| empty_index + 1 }
 end
 
 def convert_board(board)
@@ -51,10 +45,6 @@ def declare_winner_and_update_tally(board, selected_square,
   ]
   increment_tally_and_output_winner_string(possible_winning_plays,
                                            player_symbols, tally)
-end
-
-def decrement(num)
-  num - 1
 end
 
 def do_not_play_again?
@@ -108,10 +98,10 @@ end
 def player_selects_a_square(board)
   square = ''
   loop do
-    valid_squares = collect_unoccupied_squares(board)
+    valid_squares = GameMovement.collect_unoccupied_squares(board)
     puts GameText.available_squares(joinor(valid_squares))
     square = gets.chomp.strip
-    break if valid_square_selection?(square, valid_squares)
+    break if GameMovement.valid_square_selection?(square, valid_squares)
     puts GameText.invalid_square_selection
   end
   square.to_i
@@ -151,7 +141,7 @@ def select_a_square(board, current_player)
   if current_player.eql?("player")
     player_selects_a_square(board)
   else
-    unoccupied_squares = collect_unoccupied_squares(board)
+    unoccupied_squares = GameMovement.collect_unoccupied_squares(board)
     unoccupied_squares.sample
   end
 end
@@ -192,11 +182,6 @@ end
 
 def there_is_a_winner?(tally)
   tally["player"] == 5 || tally["computer"] == 5
-end
-
-def valid_square_selection?(square, valid_squares)
-  ALLOWABLE_SQUARE_SELECTIONS.include?(square) &&
-    valid_squares.include?(square.to_i)
 end
 
 def valid_symbol_entry(symbol)
