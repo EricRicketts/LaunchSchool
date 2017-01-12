@@ -3,7 +3,7 @@ require 'minitest/pride'
 require_relative './game_rules'
 include GameRules
 
-class TestThreeInARowWins < Minitest::Test
+class TestRowOrColumnWin < Minitest::Test
   def setup
     @board = Array.new(3) { Array.new(3, "\u0020") }
   end
@@ -36,6 +36,12 @@ class TestThreeInARowWins < Minitest::Test
     player = "X"
     selected_square = 9
     assert_nil detect_column_winner(@board, selected_square, player)
+  end
+end # TestRowOrColumnWin
+
+class TestWinOnDiagonals < Minitest::Test
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
   end
 
   def test_generate_valid_diagonal_squares_tic_tac_toe
@@ -108,4 +114,28 @@ class TestThreeInARowWins < Minitest::Test
     selected_square = 5
     assert_nil detect_anti_diagonal_winner(@board, selected_square, player)
   end
-end # TestThreeInARowWins
+end # TestWinOnDiagonals
+
+class TestTie < Minitest::Test
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+  end
+
+  def test_game_winner
+    @board[0][0] = @board[0][1] = @board[2][0] = @board[2][2] = "O"
+    @board[0][2] = @board[2][1] = "X"
+    @board[1][0] = @board[1][1] = @board[1][2] = "X"
+    player = "X"
+    selected_square = 6
+    assert win_or_tie?(@board, selected_square, player)
+  end
+
+  def test_tie_game
+    @board[0][0] = @board[0][2] = @board[1][0] = @board[1][1] = "0"
+    @board[2][1] = "O"
+    @board[0][1] = @board[1][2] = @board[2][0] = @board[2][2] = "X"
+    player = "O"
+    selected_square = 5
+    assert win_or_tie?(@board, selected_square, player)
+  end
+end # TestTie

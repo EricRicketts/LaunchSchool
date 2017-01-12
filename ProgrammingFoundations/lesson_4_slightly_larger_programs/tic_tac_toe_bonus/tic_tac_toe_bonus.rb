@@ -6,8 +6,6 @@ require_relative './game_rules'
 include View
 include GameText
 include GameRules
-raw_config = File.read('./config.yml')
-APP_CONFIG = YAML.load(raw_config)
 
 ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
 SYMBOL_CONVERSION = { "X" => View::LARGE_X, "O" => View::LARGE_O }.freeze
@@ -123,9 +121,11 @@ def play_a_single_game(board, current_player, player_symbols, tally)
   selected_square = nil
   loop do
     selected_square = select_a_square(board, current_player)
-    mark_board_at_square(board, selected_square, player_symbols[current_player])
+    mark_board_at_square(board, selected_square,
+                         player_symbols[current_player])
     update_and_present_view(convert_board(board))
-    break if win_or_tie?(board, selected_square, player_symbols[current_player])
+    break if GameRules.win_or_tie?(board, selected_square,
+                                   player_symbols[current_player])
     current_player = alternate_player(current_player)
   end
   puts declare_winner_and_update_tally(board, selected_square,
@@ -194,11 +194,6 @@ def there_is_a_winner?(tally)
   tally["player"] == 5 || tally["computer"] == 5
 end
 
-def tie?(board)
-  flattened_board = board.flatten
-  flattened_board.none? { |square| square.eql?(View::SPACE) }
-end
-
 def update_and_present_view(board)
   system "clear"
   puts View.update_view(board)
@@ -211,14 +206,6 @@ end
 
 def valid_symbol_entry(symbol)
   symbol.length == 1 && (symbol == "X" || symbol == "O")
-end
-
-def win_or_tie?(board, selected_square, player)
-  !!GameRules.detect_row_winner(board, selected_square, player) ||
-    !!GameRules.detect_column_winner(board, selected_square, player) ||
-    !!GameRules.detect_diagonal_winner(board, selected_square, player) ||
-    !!GameRules.detect_anti_diagonal_winner(board, selected_square, player) ||
-    tie?(board)
 end
 
 def winner_string_and_tally_update(possible_winning_plays,

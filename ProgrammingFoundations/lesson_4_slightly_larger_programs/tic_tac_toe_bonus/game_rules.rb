@@ -1,4 +1,7 @@
+require_relative './view'
+
 module GameRules
+include View
 
 def decrement(num)
   num - 1
@@ -60,6 +63,19 @@ def generate_diagonal_square_numbers(board)
   (2..row_size).to_a.inject([1]) do |diagonal_numbers|
     diagonal_numbers << diagonal_numbers.last + row_size + 1
   end
+end
+
+def tie?(board)
+  flattened_board = board.flatten
+  flattened_board.none? { |square| square.eql?(View::SPACE) }
+end
+
+def win_or_tie?(board, selected_square, player)
+  !!detect_row_winner(board, selected_square, player) ||
+    !!detect_column_winner(board, selected_square, player) ||
+    !!detect_diagonal_winner(board, selected_square, player) ||
+    !!detect_anti_diagonal_winner(board, selected_square, player) ||
+    tie?(board)
 end
 
 end # module GameRules
