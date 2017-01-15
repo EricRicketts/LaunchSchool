@@ -68,14 +68,6 @@ def increment_tally_and_output_winner_string(possible_winning_plays,
   end
 end
 
-def joinor(squares, delimiter=', ', conjunction='or')
-  last_square = squares.last.to_s
-  delimiter_included = delimiter + conjunction + GameView::SPACE + last_square
-  delimiter_not_included = GameView::SPACE + conjunction + GameView::SPACE + last_square
-  end_string = squares.size > 2 ? delimiter_included : delimiter_not_included
-  squares.join(delimiter).sub(delimiter + last_square, end_string)
-end
-
 def obtain_computer_symbol(player)
   player == "X" ? "O" : "X"
 end
@@ -93,7 +85,8 @@ def player_selects_a_square(board)
   square = ''
   loop do
     valid_squares = GameMovement.collect_unoccupied_squares(board)
-    puts GameText.available_squares(joinor(valid_squares))
+    open_squares = GameText.joinor(valid_squares)
+    puts GameText.available_squares(open_squares)
     square = gets.chomp.strip
     break if GameMovement.valid_square_selection?(square, valid_squares)
     puts GameText.invalid_square_selection

@@ -1,6 +1,8 @@
 require 'yaml'
+require './game_view'
 
 module GameText
+  include GameView
   raw_config = File.read('./config.yml')
   APP_CONFIG = YAML.load(raw_config)
 
@@ -51,6 +53,14 @@ module GameText
 
   def invalid_symbol_entry
     prompt(APP_CONFIG['IncorrectSymbolEntry'])
+  end
+
+  def joinor(squares, delimiter=', ', conjunction='or')
+    last_square = squares.last.to_s
+    delimiter_included = delimiter + conjunction + GameView::SPACE + last_square
+    delimiter_not_included = GameView::SPACE + conjunction + GameView::SPACE + last_square
+    end_string = squares.size > 2 ? delimiter_included : delimiter_not_included
+    squares.join(delimiter).sub(delimiter + last_square, end_string)
   end
 
   def no_winner_message
