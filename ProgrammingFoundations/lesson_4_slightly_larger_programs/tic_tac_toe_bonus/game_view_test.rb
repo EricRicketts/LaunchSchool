@@ -19,3 +19,4 @@ class BoardTest < Minitest::Test
     assert_equal @expected_labeled_row, actual_labeled_row
   end
 end
+
