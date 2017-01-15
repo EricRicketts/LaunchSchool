@@ -1,7 +1,7 @@
-require_relative './view'
+require_relative './game_view'
 
 module GameRules
-include View
+include GameView
 
 def decrement(num)
   num - 1
@@ -67,7 +67,7 @@ end
 
 def tie?(board)
   flattened_board = board.flatten
-  flattened_board.none? { |square| square.eql?(View::SPACE) }
+  flattened_board.none? { |square| square.eql?(GameView::SPACE) }
 end
 
 def win_or_tie?(board, selected_square, player)

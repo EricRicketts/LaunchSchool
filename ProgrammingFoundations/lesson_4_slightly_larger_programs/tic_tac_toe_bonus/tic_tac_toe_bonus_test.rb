@@ -33,14 +33,6 @@ class TestSymbolAssignmentAndDisplayConversion < MiniTest::Test
     assert_equal "X", @player_symbols["computer"]
   end
 
-  def test_mark_board_at_square
-    board = [["O", " ", " "], [" ", "X", " "], [" ", " ", "O"]]
-    mark_board_at_square(@board, 1, "O")
-    mark_board_at_square(@board, 5, "X")
-    mark_board_at_square(@board, 9, "O")
-    assert_equal board, @board
-  end
-
   def test_convert_symbols
     expected_symbols = ["\u2573", "\u25ef", "\u0020"]
     symbol_for_x = convert_symbol("X")

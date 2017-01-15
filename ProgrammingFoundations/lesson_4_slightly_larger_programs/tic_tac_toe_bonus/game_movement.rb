@@ -1,14 +1,14 @@
-require_relative './view'
+require_relative './game_view'
 
 module GameMovement
-  include View
+  include GameView
 
   ALLOWABLE_SQUARE_SELECTIONS = ("1".."9").to_a.freeze
 
   def collect_unoccupied_squares(board)
     flattened_board = board.flatten
     flattened_board.each_index
-                   .select { |index| flattened_board[index].eql?(View::SPACE) }
+                   .select { |index| flattened_board[index].eql?(GameView::SPACE) }
                    .map { |empty_index| empty_index + 1 }
   end
 

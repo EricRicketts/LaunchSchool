@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './view'
+require_relative './game_view'
 
 class BoardTest < Minitest::Test
   # rubocop:disable Metrics/AbcSize
   def setup
     @object = Object.new
-    @object.extend(View)
+    @object.extend(GameView)
     @expected_labeled_row =
       "\u2551" + "\u0020" * 3 + "\u25ef" + "\u0020" * 3 + "\u2551" + \
       "\u0020" * 3 + "\u2573" + "\u0020" * 3 + "\u2551" + "\u0020" * 3 + \

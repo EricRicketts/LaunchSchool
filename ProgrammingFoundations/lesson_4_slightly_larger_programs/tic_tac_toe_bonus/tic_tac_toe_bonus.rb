@@ -1,15 +1,14 @@
 require 'byebug'
-require 'yaml'
-require_relative './view'
+require_relative './game_view'
 require_relative './game_text'
 require_relative './game_rules'
 require_relative './game_movement'
-include View
+include GameView
 include GameText
 include GameRules
 include GameMovement
 
-SYMBOL_CONVERSION = { "X" => View::LARGE_X, "O" => View::LARGE_O }.freeze
+SYMBOL_CONVERSION = { "X" => GameView::LARGE_X, "O" => GameView::LARGE_O }.freeze
 
 def alternate_player(current_player)
   current_player == "computer" ? "player" : "computer"
@@ -28,7 +27,7 @@ end
 
 def convert_symbol(symbol)
   return SYMBOL_CONVERSION[symbol] if symbol.eql?("X") || symbol.eql?("O")
-  View::SPACE
+  GameView::SPACE
 end
 
 def declare_winner_and_update_tally(board, selected_square,
@@ -71,16 +70,11 @@ end
 
 def joinor(squares, delimiter=', ', conjunction='or')
   last_square = squares.last.to_s
-  delimiter_included = delimiter + conjunction + View::SPACE + last_square
-  delimiter_not_included = View::SPACE + conjunction + View::SPACE + last_square
+  delimiter_included = delimiter + conjunction + GameView::SPACE + last_square
+  delimiter_not_included = GameView::SPACE + conjunction + GameView::SPACE + last_square
   end_string = squares.size > 2 ? delimiter_included : delimiter_not_included
   squares.join(delimiter).sub(delimiter + last_square, end_string)
 end
-
-# def mark_board_at_square(board, square, symbol)
-#   row, col = decrement(square).divmod(3)
-#   board[row][col] = symbol
-# end
 
 def obtain_computer_symbol(player)
   player == "X" ? "O" : "X"
@@ -113,7 +107,7 @@ def play_a_single_game(board, current_player, player_symbols, tally)
     selected_square = select_a_square(board, current_player)
     GameMovement.mark_board_at_square(board, selected_square,
                                       player_symbols[current_player])
-    View.update_and_present_view(convert_board(board))
+    GameView.update_and_present_view(convert_board(board))
     break if GameRules.win_or_tie?(board, selected_square,
                                    player_symbols[current_player])
     current_player = alternate_player(current_player)
@@ -129,12 +123,12 @@ def play_the_game(board, current_player, player_symbols, tally)
     break if there_is_a_winner?(tally)
     break if do_not_play_again?
     board = reset_board
-    View.update_and_present_view(convert_board(board))
+    GameView.update_and_present_view(convert_board(board))
   end
 end
 
 def reset_board
-  Array.new(3) { Array.new(3, View::SPACE) }
+  Array.new(3) { Array.new(3, GameView::SPACE) }
 end
 
 def select_a_square(board, current_player)
@@ -159,7 +153,7 @@ end
 def show_game_instructions
   puts GameText.initial_greeting
   puts GameText.game_instructions
-  puts View.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
+  puts GameView.update_view(ALLOWABLE_SQUARE_SELECTIONS) + "\n"
   puts GameText.ask_for_symbol
 end
 
@@ -171,7 +165,7 @@ def show_initial_game_state(player_symbols, board)
     GameText.declare_assigned_symbols(player_symbols)
 
   puts symbol_assignment_string + "\n\n"
-  puts View.update_view(flattened_board)
+  puts GameView.update_view(flattened_board)
 end
 
 def show_instructions_and_initialize_game(board, player_symbols)
@@ -197,7 +191,7 @@ def winner_string_and_tally_update(possible_winning_plays,
 end
 
 if __FILE__ == $PROGRAM_NAME
-  board = Array.new(3) { Array.new(3, View::SPACE) }
+  board = Array.new(3) { Array.new(3, GameView::SPACE) }
   player_symbols = { "player" => nil, "computer" => nil }
   tally = { "player" => 0, "computer" => 0 }
   current_player = "player"
