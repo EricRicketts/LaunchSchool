@@ -41,3 +41,18 @@ class TestValidMoves < Minitest::Test
     assert valid_square_selection?(square, valid_squares)
   end
 end # TestValidMoves
+
+class TestMarkABoardSquare < Minitest::Test
+  def setup
+    @board = Array.new(3) { Array.new(3, "\u0020") }
+  end
+
+  def test_mark_board_at_square
+    board = [["O", " ", " "], [" ", "X", " "], [" ", " ", "O"]]
+    mark_board_at_square(@board, 1, "O")
+    mark_board_at_square(@board, 5, "X")
+    mark_board_at_square(@board, 9, "O")
+    assert_equal board, @board
+  end
+
+end

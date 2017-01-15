@@ -12,6 +12,10 @@ module GameMovement
                    .map { |empty_index| empty_index + 1 }
   end
 
+  def decrement(num)
+    num - 1
+  end
+
   def mark_board_at_square(board, square, symbol)
     row, col = decrement(square).divmod(3)
     board[row][col] = symbol
