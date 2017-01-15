@@ -12,6 +12,11 @@ module GameMovement
                    .map { |empty_index| empty_index + 1 }
   end
 
+  def mark_board_at_square(board, square, symbol)
+    row, col = decrement(square).divmod(3)
+    board[row][col] = symbol
+  end
+
   def valid_square_selection?(square, valid_squares)
   ALLOWABLE_SQUARE_SELECTIONS.include?(square) &&
     valid_squares.include?(square.to_i)

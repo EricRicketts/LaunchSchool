@@ -77,10 +77,10 @@ def joinor(squares, delimiter=', ', conjunction='or')
   squares.join(delimiter).sub(delimiter + last_square, end_string)
 end
 
-def mark_board_at_square(board, square, symbol)
-  row, col = decrement(square).divmod(3)
-  board[row][col] = symbol
-end
+# def mark_board_at_square(board, square, symbol)
+#   row, col = decrement(square).divmod(3)
+#   board[row][col] = symbol
+# end
 
 def obtain_computer_symbol(player)
   player == "X" ? "O" : "X"
@@ -111,8 +111,8 @@ def play_a_single_game(board, current_player, player_symbols, tally)
   selected_square = nil
   loop do
     selected_square = select_a_square(board, current_player)
-    mark_board_at_square(board, selected_square,
-                         player_symbols[current_player])
+    GameMovement.mark_board_at_square(board, selected_square,
+                                      player_symbols[current_player])
     View.update_and_present_view(convert_board(board))
     break if GameRules.win_or_tie?(board, selected_square,
                                    player_symbols[current_player])
