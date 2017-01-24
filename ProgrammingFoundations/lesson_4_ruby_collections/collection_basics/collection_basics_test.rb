@@ -52,3 +52,83 @@ class CollectionBasicsTest < Minitest::Test
     assert_equal ['apple', 'carrot'], @hsh.values
   end
 end # CollectionBasicsTest
+
+class InvalidIndicesAndKeys < Minitest::Test
+  def setup
+    @ary = %w(a b c d e)
+    @str = 'abcde'
+    @hsh = { a: 1, 'b' => 'two', c: nil }
+  end
+
+  def test_invalid_indices
+    assert_nil @ary[5]
+    assert_nil @str[5]
+  end
+
+  def test_array_fetch
+    assert_raises(IndexError) { @ary.fetch(5) }
+  end
+
+  def test_negative_indices
+    assert_equal 'd', @ary[-2]
+  end
+
+  def test_out_of_bounds_negative_indices
+    str = 'ghijk'
+    arr = ['g', 'h', 'i', 'j', 'k']
+    assert_nil str[-6]
+    assert_nil arr[-6]
+    assert_raises(IndexError) { arr.fetch(-6) }
+  end
+
+  def test_invalid_hash_keys
+    assert_nil @hsh[:c]
+    assert_nil @hsh[:d]
+    assert_raises(KeyError) { @hsh.fetch(:d) }
+  end
+end # InvalidIndicesAndKeys
+
+class Conversions < Minitest::Test
+  def setup
+    @str = 'How do you get to Carnegie Hall?'
+    @ary = %w(How do you get to Carnegie Hall?)
+  end
+
+  def test_good_join
+    assert_equal @str, @ary.join(" ")
+    assert_equal @str, @ary.inject('') { |memo, word| memo << "#{word} " }.chop
+  end
+
+  def test_array_to_hash
+    hsh = { name: 'Joe', age: 10, favorite_color: 'blue' }
+    ary = arr = [[:name, 'Joe'], [:age, 10], [:favorite_color, 'blue']]
+    assert_equal hsh, arr.to_h
+  end
+end # Conversions
+
+class Assignments < Minitest::Test
+  def setup
+    @str = "joe's favorite color is blue."
+    @ary = [1, 2, 3, 4, 5]
+    @hsh = { apple: 'Produce', carrot: 'Produce', pear: 'Produce', broccoli: 'Produce' }
+  end
+
+  def test_capitalize_each_word
+    expected = "Joe's Favorite Color Is Blue."
+    assert_equal expected, @str.split.map { |word| word.capitalize }.join(" ")
+  end
+
+  def test_increment_each_array_element
+    expected = [2, 3, 4, 5, 6]
+    assert_equal expected, @ary.map { |number| number += 1 }
+  end
+
+  def test_modify_hash
+    expected = { apple: 'Fruit', carrot: 'Vegetable', pear: 'Fruit', broccoli: 'Vegetable' }
+    fruit = @hsh.keys.select { |produce| produce == :apple || produce == :pear }
+    vegetables = @hsh.keys.select { |produce| produce == :carrot || produce == :broccoli }
+    fruit.each { |produce| @hsh[produce] = 'Fruit' }
+    vegetables.each { |produce| @hsh[produce] = 'Vegetable' }
+    assert_equal expected, @hsh
+  end
+end # Assignments
