@@ -59,29 +59,20 @@ class CenturyTest < Minitest::Test
     century, years_in_century = year.divmod(100)
     century += 1 if years_in_century >= 1
     case century
-    when (0..20) then lower_century(century)
-    else upper_century(century)    
-    end    
-  end
-
-  def lower_century(century)
-    case century
-    when 1 then century.to_s + "st"
-    when 2 then century.to_s + "nd"
-    when 3 then century.to_s + "rd"
-    else century.to_s + "th"
+    when (11..13) then century.to_s + "th"
+    else add_endings(century)  
     end
   end
 
-  def upper_century(century)
+  def add_endings(century)
     last_century_digit = century % 10
     case last_century_digit
     when 1 then century.to_s + "st"
     when 2 then century.to_s + "nd"
     when 3 then century.to_s + "rd"
-    else century.to_s + "th"  
+    else century.to_s + "th"
     end      
-  end  
+  end
 
   def test_first_century
     years = [1, 51, 100]
