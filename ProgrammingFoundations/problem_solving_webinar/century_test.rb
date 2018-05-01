@@ -83,5 +83,29 @@ class CenturyTest < Minitest::Test
   def test_last_in_first_century
     assert_equal('1st', century(100))
   end
-  
+
+  def test_second_century
+    assert_equal('2nd', century(101))      
+  end
+
+  def test_in_second_century
+    assert_equal('2nd', century(175))      
+  end
+
+  def test_last_in_second_century
+    assert_equal('2nd', century(200))      
+  end
+
+  def test_third_century
+    assert_equal('3rd', century(201))      
+  end
+
+  def test_in_third_century
+    assert_equal('3rd', century(215))      
+  end
+
+  def test_last_in_third_century
+    assert_equal('3rd', century(300))      
+  end
+
 end
