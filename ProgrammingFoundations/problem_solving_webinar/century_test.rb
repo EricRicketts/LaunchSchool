@@ -65,11 +65,10 @@ class CenturyTest < Minitest::Test
   end
 
   def add_endings(century)
+    unique_endings = {1 => 'st', 2 => 'nd', 3 => 'rd'}
     last_century_digit = century % 10
     case last_century_digit
-    when 1 then century.to_s + "st"
-    when 2 then century.to_s + "nd"
-    when 3 then century.to_s + "rd"
+    when (1..3) then century.to_s + unique_endings[last_century_digit]
     else century.to_s + "th"
     end      
   end
