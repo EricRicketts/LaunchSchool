@@ -59,7 +59,8 @@ class CenturyTest < Minitest::Test
     century, years_in_century = year.divmod(100)
     century += 1 if years_in_century >= 1
     case century
-    when (0..20) then lower_century(century)    
+    when (0..20) then lower_century(century)
+    else upper_century(century)    
     end    
   end
 
@@ -68,44 +69,48 @@ class CenturyTest < Minitest::Test
     when 1 then century.to_s + "st"
     when 2 then century.to_s + "nd"
     when 3 then century.to_s + "rd"
-    when (4..20) then century.to_s + "th"
+    else century.to_s + "th"
     end
+  end
+
+  def upper_century(century)
+    last_century_digit = century % 10
+    case last_century_digit
+    when 1 then century.to_s + "st"
+    when 2 then century.to_s + "nd"
+    when 3 then century.to_s + "rd"
+    else century.to_s + "th"  
+    end      
   end  
 
   def test_first_century
-    assert_equal('1st', century(1))
-  end
-
-  def test_in_first_century
-    assert_equal('1st', century(51))
-  end
-
-  def test_last_in_first_century
-    assert_equal('1st', century(100))
+    years = [1, 51, 100]
+    assert(years.all? {|year| century(year) == '1st'})
   end
 
   def test_second_century
-    assert_equal('2nd', century(101))      
-  end
-
-  def test_in_second_century
-    assert_equal('2nd', century(175))      
-  end
-
-  def test_last_in_second_century
-    assert_equal('2nd', century(200))      
+    years = [101, 175, 200]
+    assert(years.all? {|year| century(year) == '2nd'})      
   end
 
   def test_third_century
-    assert_equal('3rd', century(201))      
+    years = [201, 215, 300]
+    assert(years.all? {|year| century(year) == '3rd'})      
   end
 
-  def test_in_third_century
-    assert_equal('3rd', century(215))      
+  def test_11_12_13_centuries
+    expected = ['11th', '12th', '13th']
+    assert_equal(expected, [century(1052), century(1152), century(1252)])
   end
 
-  def test_last_in_third_century
-    assert_equal('3rd', century(300))      
+  def test_21st_22nd_23rd_centuries
+    expected = %W(21st 22nd 23rd)
+    assert_equal(expected, [century(2012), century(2112), century(2250)])
+  end
+
+  def test_larger_centuries
+    expected = %W(223rd 226th)
+    assert_equal(expected, [century(22222), century(22512)])
   end
 
 end
