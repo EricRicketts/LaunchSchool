@@ -65,12 +65,12 @@ class HollowDiamondTest < Minitest::Test
     lead_space_ary = init_lead_spaces.downto(0).to_a + 1.upto(init_lead_spaces).to_a
     inter_space_ary = (1..(odd_num - 2)).step(2).to_a + (1..(odd_num - 4)).step(2).to_a.reverse
     inter_space_ary.unshift(0).push(0)
+
     stars_ary.each.with_index.inject('') do |pattern, (num_stars, index)|
-      if num_stars == 1
-        pattern += "\s"*lead_space_ary[index] + "*" + "\n"
-      else
-        pattern += "\s"*lead_space_ary[index] + "*" + "\s"*inter_space_ary[index] + "*" + "\n"
-      end
+      pattern_prefix = "\s"*lead_space_ary[index] + "*"
+      # () needed below because without them Ruby thinks pattern_prefix + num_stars no implicit
+      # conversion of integer into a string
+      pattern += pattern_prefix + (num_stars == 1 ? "\n" : "\s"*inter_space_ary[index] + "*" + "\n")
     end
   end
 
