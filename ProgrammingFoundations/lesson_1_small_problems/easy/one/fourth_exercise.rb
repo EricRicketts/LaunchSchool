@@ -5,6 +5,8 @@ require 'byebug'
 class FourthExercise < Minitest::Test
 
 =begin
+How Many?
+
 Write a method that counts the number of occurrences of each element in a given array.
 
 vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck', 'motorcycle', 'motorcycle', 'car', 'truck']
@@ -30,9 +32,7 @@ Algorithm:
 =end
 
   def count_occurrences(ary)
-    hsh = Hash.new(0)
-    ary.each {|word| hsh[word] += 1}
-    hsh
+    ary.each_with_object(Hash.new(0)) {|word, hsh| hsh[word] += 1}
   end
 
 
@@ -40,7 +40,7 @@ Algorithm:
     expected = { 'car' => 4, 'truck' => 3, 'SUV' => 1, 'motorcycle' => 2}
     vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck', 'motorcycle',
       'motorcycle', 'car', 'truck']
-    assert_equal(expected, count_occurrences(vehicles))    
+    assert_equal(expected, count_occurrences(vehicles)) 
   end
 
 end
