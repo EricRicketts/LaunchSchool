@@ -22,17 +22,19 @@ round(2) after looking at the solution
 
 =end
 
+  SQ_M_TO_SQ_FT = 10.7639
+
   def area_of_room
     puts "Enter the length of the room in meters:"
     length = gets.chomp.to_f
     puts "Enter the width of the room in meters:"      
     width = gets.chomp.to_f
 
-    area_in_sq_m = (length * width).round(2)
-    area_in_sq_ft = (area_in_sq_m * 10.7639).round(2)
+    area_in_sq_m = (length * width)
+    area_in_sq_ft = (area_in_sq_m * SQ_M_TO_SQ_FT)
  
-    puts "The are of the room is #{area_in_sq_m} square meters " +
-    "(#{area_in_sq_ft} square feet)."
+    puts "The are of the room is #{area_in_sq_m.round(2)} square meters " +
+    "(#{area_in_sq_ft.round(2)} square feet)."
   end
 
   area_of_room 
