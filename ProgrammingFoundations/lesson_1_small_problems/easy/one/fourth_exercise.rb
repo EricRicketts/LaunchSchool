@@ -35,12 +35,25 @@ Algorithm:
     ary.each_with_object(Hash.new(0)) {|word, hsh| hsh[word] += 1}
   end
 
+  def count_occurrences_v2(ary)
+    count_hsh = {}
+    uniq_ary = ary.uniq
+    uniq_ary.each {|word| count_hsh[word] = ary.count(word)} 
+    count_hsh 
+  end
 
   def test_count_words
     expected = { 'car' => 4, 'truck' => 3, 'SUV' => 1, 'motorcycle' => 2}
     vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck', 'motorcycle',
       'motorcycle', 'car', 'truck']
     assert_equal(expected, count_occurrences(vehicles)) 
+  end
+
+  def test_count_words_v2
+    expected = { 'car' => 4, 'truck' => 3, 'SUV' => 1, 'motorcycle' => 2}
+    vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck', 'motorcycle',
+      'motorcycle', 'car', 'truck']
+    assert_equal(expected, count_occurrences_v2(vehicles)) 
   end
 
 end

@@ -36,6 +36,15 @@ Algorithm
     sentence.split(/\s+/).map {|word| word.length >= 5 ? word.reverse : word}.join(" ")
   end
 
+  def reverse_words_v2(sentence)
+    words = []
+
+    sentence.split(/\s+/).each do |word|
+      words << (word.length >= 5 ? word.reverse : word)
+    end
+    words.join(" ")
+  end
+
   def test_one
     assert_equal('lanoisseforP', reverse_words('Professional'))    
   end
@@ -46,6 +55,18 @@ Algorithm
   
   def test_three
     assert_equal('hcnuaL loohcS', reverse_words('Launch School'))    
+  end
+  
+  def test_four
+    assert_equal('lanoisseforP', reverse_words_v2('Professional'))    
+  end
+  
+  def test_five
+    assert_equal('Walk dnuora the kcolb', reverse_words_v2('Walk around the block'))    
+  end
+  
+  def test_six
+    assert_equal('hcnuaL loohcS', reverse_words_v2('Launch School'))    
   end
   
 end
