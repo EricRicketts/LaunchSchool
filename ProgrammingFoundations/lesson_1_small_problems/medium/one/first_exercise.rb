@@ -1,0 +1,79 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'byebug'
+
+=begin
+Rotation (Part 1)
+
+Write a method that rotates an array by moving the first element to the end of the array.
+The original array should not be modified.
+
+Do not use the method Array#rotate or Array#rotate! for your implementation.
+
+Example:
+
+rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
+rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+rotate_array(['a']) == ['a']
+
+x = [1, 2, 3, 4]
+rotate_array(x) == [2, 3, 4, 1]   # => true
+x == [1, 2, 3, 4]                 # => true
+
+Input: an array of elements could be strings or numbers
+Output: rotated array where the first element of the array
+goes to the last element of the array and all other element shift left
+Key point: original array is left untouched, return a new array
+
+Algoritm:
+  - say we have a five element array
+  - [1, 2, 3, 4, 5] indices are [0, 1, 2, 3, 4]
+  - new array [2, 3, 4, 5, 1]
+  - indices change
+    - 1 : rot_ary[0] => ary[1]
+    - 2 : rot_ary[1] => ary[2]
+    - 3 : rot_ary[2] => ary[3]
+    - 4 : rot_ary[3] => ary[4]
+    - 5 : rot_ary[4] => ary[0]
+    - so add 1 to index and take that value
+    - if index = 4 then take 0 index from original array
+
+  - another way
+    - (index + 1) % 5 or (index + 1) % array_length
+    - why does this work?  Because there are 5 elements in the array
+    but we need to handles not indices 1..5 but 0..4 so (x + y)
+=end
+
+class FirstExercise < Minitest::Test
+
+  def rotate_array(ary)
+    ary_size = ary.size
+    last_idx = ary_size - 1
+    new_ary = []
+    0.upto(ary_size - 1) do |idx|
+      shifted_idx = (idx + 1) % ary_size
+      new_ary[idx] = ary[shifted_idx]
+    end
+    new_ary
+  end
+
+  def test_one
+    assert_equal([3, 5, 2, 9, 1, 7], rotate_array([7, 3, 5, 2, 9, 1]))
+  end
+  
+  def test_two
+    assert_equal(['b', 'c', 'a'], rotate_array(['a', 'b', 'c']))
+  end
+  
+  def test_three
+    assert_equal(['a'], rotate_array(['a']))
+  end
+  
+  def test_four
+    x = (1..4).to_a
+    y = rotate_array(x)
+    assert_equal([1, 2, 3, 4], x)
+  end
+  
+end
+
