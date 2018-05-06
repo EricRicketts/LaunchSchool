@@ -80,3 +80,51 @@ class FirstExercise < Minitest::Test
   
 end
 
+class FirstExerciseInstructorSolution < Minitest::Test
+
+=begin
+this only comes from working a lot of problems and reading
+other solutions.  I had though of slicing but only in context
+of doing a loop.  This is so much better.  I might have had a
+better chance of seeing such a soluiton if I had made more
+carfule obsevations, see below
+take the original array:
+[1, 2, 3, 4, 5] rotated array:
+[2, 3, 4, 5, 1]
+
+0  1  2  3  4 => index
+______________
+1  2  3  4  5 => original
+2  3  4  5  1 => rotated
+
+we can see that the new array
+is the same as the old array but we
+start the new array index 0 at index 1
+of the current array and then just add
+the first element to the back of the array
+=end
+
+  def rotate_array(ary)
+    ary[1..-1] + ary[0]
+  end
+
+  def test_one
+    assert_equal([3, 5, 2, 9, 1, 7], rotate_array([7, 3, 5, 2, 9, 1]))
+  end
+  
+  def test_two
+    assert_equal(['b', 'c', 'a'], rotate_array(['a', 'b', 'c']))
+  end
+  
+  def test_three
+    assert_equal(['a'], rotate_array(['a']))
+  end
+  
+  def test_four
+    x = (1..4).to_a
+    y = rotate_array(x)
+    assert_equal([1, 2, 3, 4], x)
+  end
+  
+end
+
