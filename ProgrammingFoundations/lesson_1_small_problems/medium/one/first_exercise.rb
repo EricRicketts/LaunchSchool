@@ -41,7 +41,10 @@ Algoritm:
   - another way
     - (index + 1) % 5 or (index + 1) % array_length
     - why does this work?  Because there are 5 elements in the array
-    but we need to handles not indices 1..5 but 0..4 so (x + y)
+    but we need to handle not indices 1..5 but 0..4 so (x + y) where
+    0 <= x <= 4 and y is 1.  Thus x + y <= 5.  This works because if we
+    are at index 4 of the original array, the new array needs index 0
+    and (4 + 1) % 5 = 0
 =end
 
 class FirstExercise < Minitest::Test
