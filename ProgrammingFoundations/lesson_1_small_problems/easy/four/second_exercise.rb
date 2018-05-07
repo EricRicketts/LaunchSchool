@@ -103,6 +103,13 @@ end
 
 class SecondExerciseAnother < Minitest::Test
 
+=begin
+I like Kramer's solution, I forgot to generalize
+anytime the century remainder is in the teens or
+begins with 1, then the ending is always 'th'
+the (year + 99) / 100 might be a bit tricky 
+to understand
+=end
   def century(year)
     hundreds = ( (year + 99) / 100 ).to_s
     if hundreds[-2] == '1'
