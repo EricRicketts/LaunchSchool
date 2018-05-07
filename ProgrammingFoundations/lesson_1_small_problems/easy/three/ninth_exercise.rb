@@ -60,6 +60,10 @@ end
 class NinthExerciseLS < Minitest::Test
 
   def real_palindrome?(str)
+    # this is the LS solution, makes very good use
+    # of the #delete operation in the String class
+    # this instance method is worth reviewing.
+    # another way to do this is str.downcase.gsub(/[^a-z0-9]/, '')
     alpha_num_str = str.downcase.delete('^a-z0-9')
     alpha_num_str == alpha_num_str.reverse
   end
