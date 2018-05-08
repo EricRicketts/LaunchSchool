@@ -5,6 +5,8 @@ require 'byebug'
 class EighthExercise < Minitest::Test
 
 =begin
+Convert A String To A Signed Number
+
 In the previous exercise, you developed a method that converts simple numeric strings to Integers.
 In this exercise, you're going to extend that method to work with signed numbers.
 
