@@ -82,3 +82,50 @@ Algorithm:
   end
   
 end
+
+class SecondExerciseLS < Minitest::Test
+
+=begin
+I like this solution better because of the use
+of constants and because no conversion was needed
+between integer and string by using the #format method
+=end
+  MINUTES_PER_HOUR = 60
+  HOURS_PER_DAY = 24
+  MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
+
+  def time_of_day(delta_minutes)
+    delta_minutes =  delta_minutes % MINUTES_PER_DAY
+    hours, minutes = delta_minutes.divmod(MINUTES_PER_HOUR)
+    format('%02d:%02d', hours, minutes)
+  end
+
+  def test_one
+    assert_equal("00:00", time_of_day(0))
+  end
+  
+  def test_two
+    assert_equal("23:57", time_of_day(-3))
+  end
+  
+  def test_three
+    assert_equal("00:35", time_of_day(35))
+  end
+  
+  def test_four
+    assert_equal("00:03", time_of_day(-1437))
+  end
+  
+  def test_five
+    assert_equal("02:00", time_of_day(3000))
+  end
+  
+  def test_six
+    assert_equal("13:20", time_of_day(800))
+  end
+  
+  def test_seven
+    assert_equal("01:29", time_of_day(-4231))
+  end  
+  
+end
