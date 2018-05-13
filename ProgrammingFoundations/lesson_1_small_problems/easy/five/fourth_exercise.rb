@@ -72,6 +72,15 @@ swapping first and last character in the string but that does
 modify the string because it works just like modifying an array
 in this case.  You MUST return word at the end of the #map otherwise
 the answer will be a string with a space in between each character
+
+lets take an example, say we have the string x = 'abc def ghi'
+if we run x.split.map {|word| word[0], word[-1] = word[-1], word[0]}.join(' ')
+output is: "c a f d i g", why?  This is because the swap above returns an
+array of two characters whether the swap object is a string or an array, 
+so in 'abc' the return is ['c', 'a'] for 'def' the return is ['f', 'd'] and
+finally for 'ghi' the return is ['i', 'g'].  So if we join all of these
+arrays with a space we get 'c a f d i g'.  Note that #join flattens an
+array before the join
 =end
   def swap(sentence)
     sentence.split(/\s+/).map do |word| 
