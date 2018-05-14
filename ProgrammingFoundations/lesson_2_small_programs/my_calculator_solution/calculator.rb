@@ -38,7 +38,7 @@ def obtain_valid_number_string(msg)
   error_msg = APP_CONFIG['NumberErrorMsg']
   loop do
     prompt(msg)
-    number = gets.chomp
+    number = gets.chomp.strip
     valid_number?(number) ? break : prompt(error_msg)
   end
   number.strip
@@ -93,8 +93,8 @@ def repeat?
 end
 
 def valid_number?(number)
-  regex = Regexp.new('\A\s*[-+]?\d+\.?\d*\s*\z')
-  regex.match(number)
+  regex = Regexp.new('\A[-+]?\d*\.?\d*\z')
+  regex.match?(number)
 end
 
 if __FILE__ == $PROGRAM_NAME

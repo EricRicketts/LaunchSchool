@@ -10,13 +10,13 @@ Kernel.puts("What operation would you like to perform? 1) add 2) subtract 3) mul
 operator = Kernel.gets().chomp()
 
 result = if operator == '1'
-            number1.to_i + number2.to_i
+            number1.to_i() + number2.to_i()
           elsif operator == '2'
-            number1.to_i - number2.to_i
+            number1.to_i() - number2.to_i()
           elsif operator == '3'
-            number1.to_i * number2.to_i  
+            number1.to_i() * number2.to_i()  
           else
-            number1.to_f / number2.to_f
+            number1.to_f() / number2.to_f()
           end
 
 Kernel.puts("The result is #{result}")

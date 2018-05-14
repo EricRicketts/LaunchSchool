@@ -3,10 +3,12 @@ require 'minitest/pride'
 require 'stringio'
 require_relative './ui'
 require_relative './calculator'
+require 'byebug'
 
 # Test for my own refactoring of the calculator program
 class CalculatorTest < Minitest::Test
   def test_prompt
+    # skip
     out = capture_io do
       prompt("Hello, Jimmy")
     end
@@ -14,15 +16,17 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_valid_numbers
-    valid_numbers = ["3", "   4.5", "8.99   ", "  120  ", "-1330.567", "+89.4"]
+    # skip
+    valid_numbers = ["3", "4.5", "8.99", "120", "-1330.567", "+89.4", ".11"]
     valid_numbers.each do |number|
       assert valid_number?(number)
     end
   end
 
   def test_invalid_numbers
+    # skip
     invalid_numbers = [
-      " ", "45x", " 10.001 z ", "  xy444",
+      "45x", " 10.001 z ", "  xy444",
       "98..507", "-+89.4", "++55.7", "--39"
     ]
     invalid_numbers.each do |number|
@@ -31,16 +35,19 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_string_to_integer
+    # skip
     number = "4546"
     assert_equal convert_string_to_integer_or_float(number), 4546
   end
 
   def test_string_to_float
+    # skip
     number = "456.789"
     assert_equal convert_string_to_integer_or_float(number), 456.789
   end
 
   def test_compute_result_add
+    # skip
     operator = '1'
     num1 = 4
     num2 = 5
@@ -49,6 +56,7 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_compute_result_divide
+    # skip
     operator = '4'
     num1 = 5.0
     num2 = 4.0
@@ -57,6 +65,7 @@ class CalculatorTest < Minitest::Test
   end
 
   def test_operator_selection
+    # skip
     assert operation_to_message('1') == 'Adding'
     assert operation_to_message('2') == 'Subtracting'
     assert operation_to_message('3') == 'Multiplying'
