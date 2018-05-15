@@ -1,13 +1,11 @@
 ary = []
-arr = []
-count = 0
+count = 10
 
-loop do
-  count += 1
-  ary.push(count)
-  break puts "I am done counting to 10" if count >= 10
+arr = (1..10).to_a
+ary = []
+
+for n in (1..10)
+  ary.push(n)
 end
 
-
 p ary.inspect
-p arr.inspect
