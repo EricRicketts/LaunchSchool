@@ -127,9 +127,102 @@ def substring_test(str1, str2)
   false
 end
 
+AL:
+  - first generate a series of substrings from the original string
+  - realize a substring has to be at least 2 characters
+  - example for 'something' substrings are:
+    - something
+    - omethign
+    - mething
+    - ething
+    - thing
+    - hing
+    - ing
+    - ng
+
+    - next loop through each of the above substrings and create another set of substrings
+      - something
+        - so
+        - som
+        - some
+        - somet
+        - someth
+        - somethi
+        - somethin
+        - something
+
+=end
+
+=begin
+other solutions:
+
+# def substring_test(str1, str2)
+#   str1.chars.each_index do |i|
+#     (i + 1).upto(str1.length) do |n|
+#       return true if str2.downcase.include?(str1[i..n].downcase) && str1[i..n].length > 1
+#     end
+#   end
+#   false
+# end
+
+def substring_test(string1, string2)
+  array1 = []
+  array2 = []
+  start_counter = 0
+  range_size = 2
+
+  loop do
+    loop do
+      array1 << string1.downcase.slice(start_counter, range_size)
+      start_counter += 1
+      break if start_counter >= string1.length - 1
+    end
+    start_counter = 0
+    range_size += 1
+    break if range_size >= string1.length
+  end
+  
+
+  start_counter = 0
+  range_size = 2
+  loop do
+    loop do
+      array2 << string2.downcase.slice(start_counter, range_size)
+      start_counter += 1
+      break if start_counter >= string2.length - 1
+    end
+    start_counter = 0
+    range_size += 1
+    break if range_size >= string2.length
+  end
+
+  array1.uniq!
+  array2.uniq!
+
+  answer1 = array1.map do |element|
+    if array2.include?(element)
+      true
+    end
+  end
+
+  answer2 = array2.map do |element|
+    if array1.include?(element)
+      true
+    end
+  end
+
+  if string1.empty? || string2.empty?
+    return false
+  else
+    answer1.include?(true) || answer2.include?(true)
+  end
+
+end
+
 =end
 
   def substring(str)
+    byebug
     str_down = str.downcase
     ary, arr = [], []
     0.upto(str_down.length - 2) do |index|
@@ -151,6 +244,7 @@ end
   end
 
   def test_one
+    skip
     refute(substring_test('Something', 'Fun'))  
   end
   
@@ -159,34 +253,42 @@ end
   end
   
   def test_three
+    skip
     refute(substring_test('Something', ''))  
   end
   
   def test_four
+    skip
     refute(substring_test('', 'Something'))  
   end
     
   def test_four
+    skip
     refute(substring_test('', ''))  
   end
 
   def test_five
+    skip
     assert(substring_test('BANANA', 'banana'))
   end
 
   def test_six
+    skip
     refute(substring_test('test', 'lllt'))
   end
 
   def test_seven
+    skip
     refute(substring_test('', ''))
   end
 
   def test_eight
+    skip
     assert(substring_test('1234567', '541265'))
   end
 
   def test_nine
+    skip
     assert(substring_test('supercalifragilisticexpialidocious', 'SoundOfItIsAtrociou'))
   end
     
