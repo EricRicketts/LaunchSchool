@@ -44,3 +44,32 @@ class FirstExerciseLS < Minitest::Test
   end
   
 end
+
+class FirstExerciseManual < Minitest::Test
+
+=begin
+  - key points arrays are non-empty & they have the same number
+  of elements
+
+  AL:
+    - first array leads in the pairing, the second array follows
+    - loop to last index
+      - ary.push(arr1[idx], arr2[idx])
+=end
+
+  def interleave(arr1, arr2)
+    ary = []
+    last_index = arr1.length - 1
+    0.upto(last_index) do |idx|
+      ary.push(arr1[idx], arr2[idx])
+    end
+    ary
+  end
+
+  def test_1
+    expected = [1, 'a', 2, 'b', 3, 'c']
+    arr1, arr2 = (1..3).to_a, ('a'..'c').to_a
+    assert_equal(expected, interleave(arr1, arr2))
+  end  
+  
+end
