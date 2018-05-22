@@ -1,11 +1,9 @@
 ary = []
+arr = []
 count = 10
+x = 3
 
-arr = (1..10).to_a
-ary = []
-
-for n in (1..10)
-  ary.push(n)
-end
+if x == 3 then puts "x is 3" end
 
 p ary.inspect
+p arr.inspect

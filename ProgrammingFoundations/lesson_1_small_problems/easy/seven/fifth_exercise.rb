@@ -149,7 +149,7 @@ character
     
 end
 
-class FifthExerciseLSAltSol < Minitest::Test
+class FifthExerciseFurtherExploration < Minitest::Test
 
 =begin
 Further Exploration
