@@ -87,7 +87,11 @@ end
 # test #display_selections and #player_choice
 class TestMiscellaneous < Minitest::Test
   def test_config_file
-    temp_file = File.read('./config.yml')
+    file_dir = "/Documents/LaunchSchool/ProgrammingFoundations/lesson_2_small_programs/rps-bonus/"
+    yaml_file = 'config.yml'
+    path_to_yaml_file = Dir.home + file_dir + yaml_file
+
+    temp_file = File.read(path_to_yaml_file)
     yaml_conversion = YAML.load(temp_file)
     assert_equal yaml_conversion, APP_CONFIG
   end

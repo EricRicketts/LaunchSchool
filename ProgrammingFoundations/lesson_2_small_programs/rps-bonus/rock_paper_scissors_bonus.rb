@@ -1,7 +1,12 @@
 require 'yaml'
 
-raw_config = File.read('./config.yml')
-APP_CONFIG = YAML.load(raw_config)
+file_dir = "/Documents/LaunchSchool/ProgrammingFoundations/" \
+  "lesson_2_small_programs/rps-bonus/"
+yaml_file = 'config.yml'
+path_to_yaml_file = Dir.home + file_dir + yaml_file
+
+raw_config = File.read(path_to_yaml_file)
+APP_CONFIG = YAML.safe_load(raw_config)
 
 ROCK_WINS_AGAINST = %w(lizard scissors)
 PAPER_WINS_AGAINST = %w(rock spock)
@@ -86,7 +91,7 @@ def update_game_score(user_choice, computer_choice, game_score_hash)
   game_score_hash[:computer_score] += 1 if computer_won
 end
 
-if __FILE__ == $PROGRAM_NAME
+if $PROGRAM_NAME == __FILE__
   game_score_hash = { player_score: 0, computer_score: 0 }
   puts prompt(APP_CONFIG['GreetingMsg'])
 
