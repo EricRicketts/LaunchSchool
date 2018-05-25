@@ -1,15 +1,5 @@
 VALID_CHOICES = %w(rock paper scissors)
 
-def prompt(message)
-  Kernel.puts("=> #{message}")
-end
-
-def win?(first, second)
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'paper' && second == 'rock') ||
-    (first == 'scissors' && second == 'paper')
-end
-
 def display_results(player, computer)
   if win?(player, computer)
     prompt("You won!")
@@ -18,6 +8,16 @@ def display_results(player, computer)
   else
     prompt("It's a tie!")
   end
+end
+
+def prompt(message)
+  Kernel.puts("=> #{message}")
+end
+
+def win?(first, second)
+  (first == 'rock' && second == 'scissors') ||
+    (first == 'paper' && second == 'rock') ||
+    (first == 'scissors' && second == 'paper')
 end
 
 loop do
