@@ -23,16 +23,25 @@
 #   return false
 # end
 
+=begin
 
-# Write function scramble(str1,str2) that returns true if a portion of str1 characters can be rearranged to match str2, otherwise returns false.
-## Only lower case letters will be used (a-z). No punctuation or digits will be included.
+Write function scramble(str1,str2) that returns true if a portion of str1
+characters can be rearranged to match str2, otherwise returns false.
+Only lower case letters will be used (a-z). No punctuation or digits will be included.
 
-# scramble('rkqodlw','world') == true
-# scramble('cedewaraaossoqqyt','codewars') == true
-# scramble('katas','steak') == false
-# scramble('scriptjava','javascript') == true
-# scramble('scriptingjava','javascript') == true
+scramble('rkqodlw','world') == true
+scramble('cedewaraaossoqqyt','codewars') == true
+scramble('katas','steak') == false
+scramble('scriptjava','javascript') == true
+scramble('scriptingjava','javascripts') == false
 
+AL:
+  - so string 2 has to appear in string 1 as a substring
+  - for each letter in string 2, remove the letter from string 1
+  - use this letter to build a new string
+  - when this new string == string 2 return true
+  - if the loop exits with no match return false
+=end
 
 =begin
 Given a string, find the number character that is repeated most times and return it's numeric value.
@@ -104,7 +113,13 @@ end
 class Session7TestSecondProblem < Minitest::Test
 
   def scramble(str1, str2)
-    str2.chars.all? {|char| str1.include?(char)}
+    str1_array = str1.chars
+    substring = str2.chars.inject('') do |string, letter|
+        idx = str1_array.index(letter)
+        string += str1_array.delete_at(idx) if str1_array.include?(letter)
+        string
+    end
+    substring == str2
   end
 
   def test_1
@@ -129,7 +144,17 @@ class Session7TestSecondProblem < Minitest::Test
 
   def test_5
     # skip
-    assert(scramble('scriptingjava','javascript'))
+    refute(scramble('scriptingjava','javascripts'))
+  end
+
+  def test_6
+    # skip
+    refute(scramble('abceflxyztghlte','telltale'))
+  end
+
+  def test_7
+    # skip
+    assert(scramble('abcleflxyztghlte','telltale'))
   end
 
 end
