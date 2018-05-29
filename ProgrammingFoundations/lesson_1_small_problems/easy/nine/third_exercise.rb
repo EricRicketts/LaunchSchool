@@ -36,3 +36,27 @@ class ThirdExercise < Minitest::Test
   end
   
 end
+
+class ThirdExerciseLS < Minitest::Test
+  # LS is more straight forward and probably more
+  # readable
+  def negative(num)
+    num > 0 ? -num : num
+  end
+
+  def test_0
+    # skip
+    assert_equal(-5, negative(5))
+  end
+  
+  def test_1
+    # skip
+    assert_equal(-3, negative(-3))
+  end
+  
+  def test_2
+    # skip
+    assert_equal(0, negative(0))
+  end
+  
+end
