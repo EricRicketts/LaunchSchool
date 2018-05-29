@@ -14,11 +14,13 @@ center_of('Launchschool') == 'hs'
 center_of('x') == 'x'
 
 AL:
-  - loop and start at the front and at the back of the string
-    - if string idx + 1 && string last - 1 are two characters
-    then exit with that string
-    else if string idx + 1 and string last -1 are the same
-    then exit with that char 
+  - if the string length is odd
+    - then idx = string length/2
+    - then just take str[idx]
+  - if string length is even
+    - then idx overshoots by one character
+    - so go back a character and slice from
+    the back index and call for 2 characters 
 =end
 
 require 'minitest/autorun'
@@ -27,10 +29,11 @@ require 'byebug'
 
 class TenthExerciseManual < Minitest::Test
 
+  # this was the same algorith LS used
   def center_of(str)
-    pos_idx = 0
-    neg_idx = -1
-    
+    str_lnth = str.size
+    center_idx = str_lnth / 2
+    str_lnth.odd? ? str[center_idx] : str[center_idx-1, 2]
   end
 
   def test_1
@@ -39,27 +42,27 @@ class TenthExerciseManual < Minitest::Test
   end
   
   def test_2
-    skip
+    # skip
     assert_equal(' ', center_of('Launch School'))
   end
   
   def test_3
-    skip
+    # skip
     assert_equal('un', center_of('Launch'))
   end
   
   def test_4
-    skip
+    # skip
     assert_equal('hs', center_of('Launchschool'))
   end
   
   def test_5
-    skip
+    # skip
     assert_equal('x', center_of('x'))
   end
   
   def test_6
-    skip
+    # skip
     assert_equal('xs', center_of('xs'))
   end
   
