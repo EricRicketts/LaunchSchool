@@ -53,7 +53,7 @@ class FirstExercise < Minitest::Test
     ary_size = ary.size
     last_idx = ary_size - 1
     new_ary = []
-    0.upto(ary_size - 1) do |idx|
+    0.upto(last_idx) do |idx|
       shifted_idx = (idx + 1) % ary_size
       new_ary[idx] = ary[shifted_idx]
     end

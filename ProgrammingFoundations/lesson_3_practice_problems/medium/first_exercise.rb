@@ -233,7 +233,9 @@ puts "My array looks like this now: #{my_array}"
 
 =begin
 Based on the code following the method definition, it looks like the user desires a side effect on each of the incoming string
-and array.
+and array.  I say this because the puts method has the string "My string looks like this now".
+
+It turns out my solution is full of flaws not only should be generally avoid side effects but it only returns the modified array
 =end
 
 def tricky_method(a_string_param, an_array_param)
@@ -247,5 +249,156 @@ tricky_method(my_string, my_array)
 
 puts "My string looks like this now: #{my_string}"
 puts "My array looks like this now: #{my_array}"
+
+=begin
+Below is the LS solution, no side effects, returns both the string and the array the original values are unmodified
+unless used in an assignment statement as they are below.
+=end
+
+def not_so_tricky_method(a_string_param, an_array_param)
+  a_string_param += "rutabaga"
+  an_array_param += ["rutabaga"]
+
+  return a_string_param, an_array_param
+end
+
+my_string = "pumpkins"
+my_array = ["pumpkins"]
+my_string, my_array = not_so_tricky_method(my_string, my_array)
+
+puts "My string looks like this now: #{my_string}"
+puts "My array looks like this now: #{my_array}"
+
+
+### Question 7 ###
+
+
+# What is the output of the code below?
+
+answer = 42
+
+def mess_with_it(some_number)
+  some_number += 8
+end
+
+new_answer = mess_with_it(answer)
+
+p answer - 8
+
+=begin
+the output is going to be 42 - 8 = 34
+
+within #mess_with_it a new object is created and returned
+with the assignment statement.  new_answer will be given the
+value of 50, but this method will not affect the answer variable
+=end
+
+
+### Question 8 ###
+
+# One day Spot was playing with the Munster family's home computer and he wrote a small program to mess with their demographic data:
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+def mess_with_demographics(demo_hash)
+  demo_hash.values.each do |family_member|
+    family_member["age"] += 42
+    family_member["gender"] = "other"
+  end
+end
+
+# After writing this method, he typed the following...and before Grandpa could stop him, he hit the Enter key with his tail:
+
+mess_with_demographics(munsters)
+
+# Did the family's data get ransacked? Why or why not?
+
+=begin
+Yes, the data did get modified, now all of the ages are increased by 42 and all gender data is now "other".
+This is much like modifying individual elements of an array, the object id of the entire hash did not change
+however, the individual values of each of the keys did change, because new objects were assigned to the 
+existing keys in the method.  Note the keys did not change they remain the names of the family memmbers, but
+the values for each key, which are themselves hashes were given new data via assignment in the method.
+=end
+
+
+### Question 9 ###
+
+# Method calls can take expressions as arguments. Suppose we define a function called rps as follows,
+# which follows the classic rules of rock-paper-scissors game, but with a slight twist that it declares
+# whatever hand was used in the tie as the result of that tie.
+
+def rps(fist1, fist2)
+  # so this first condition handles 1) "rock", "paper" 2) "rock", "scissors" 3) "rock", "rock"
+  if fist1 == "rock"
+    (fist2 == "paper") ? "paper" : "rock"
+  # this condition handles 1) "paper", "scissors" 2) "paper", "rock" 3) "paper", "paper"
+  elsif fist1 == "paper" 
+    (fist2 == "scissors") ? "scissors" : "paper"
+  else
+  # this condition handles 1) "scissors", "rock" 2) "scissors", "paper" 3) "scissors", "scissors"
+    (fist2 == "rock") ? "rock" : "scissors"
+  end
+end
+
+# What is the result of the following call?
+
+puts rps(rps(rps("rock", "paper"), rps("rock", "scissors")), "rock")
+
+=begin
+working from the inside out:
+rps("rock", "scissors") = "rock"
+
+now we have:
+rps(rps(rps("rock", "paper"), "rock"), "rock")
+
+now rps("rock", "paper") = "paper"
+
+now we have:
+rps(rps("paper", "rock"), "rock")
+
+rps("paper", "rock") = "paper"
+
+finally
+rps("paper", "rock") = "paper", this is correct!!
+=end
+
+
+### Question 10 ###
+
+# Consider these two simple methods:
+
+def foo(param = "no")
+  "yes"
+end
+
+def bar(param = "no")
+  param == "no" ? "yes" : "no"
+end
+
+# What would be the return value of the following method invocation?
+
+bar(foo)
+
+=begin
+to begin with foo will always return "yes"
+
+so we now have bar("yes")
+
+so the ternary in bar:
+param == "no" ? "yes" : "no"
+
+will evaluate to "no", this is what should be return value => "no"
+=end
+
+
+
+
 
 
