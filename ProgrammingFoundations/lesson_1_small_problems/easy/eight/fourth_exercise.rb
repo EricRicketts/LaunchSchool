@@ -66,7 +66,7 @@ end
   
 end
 
-class FourthExerciseAltSol < Minitest::Test
+class FourthExerciseAlternateSolution < Minitest::Test
 
   def substrings(str)
     str.chars.each_index.map do |idx|
@@ -89,7 +89,7 @@ class FourthExerciseAltSol < Minitest::Test
   
 end
 
-class FourthExerciseAltSol2 < Minitest::Test
+class FourthExerciseAlternateSolution2 < Minitest::Test
 
   def substrings(str)
     str.chars.each_index.map { |idx| str[idx..-1].chars.each_index.map { |i| str[idx..-1][0..i] } }.flatten

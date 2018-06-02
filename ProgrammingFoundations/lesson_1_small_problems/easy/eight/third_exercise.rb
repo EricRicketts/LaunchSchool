@@ -6,7 +6,8 @@ The return value should be arranged in order from shortest to longest substring.
 
 Examples:
 
-substrings_at_start('abc') == Write a method that returns a list of all substrings of a string that start at the beginning of the original string. The return value should be arranged in order from shortest to longest substring.
+substrings_at_start('abc') == Write a method that returns a list of all substrings of a string that
+start at the beginning of the original string. The return value should be arranged in order from shortest to longest substring.
 
 Examples:
 
@@ -66,7 +67,7 @@ the LS solution
   
 end
 
-class ThirdExerciseAltSol < Minitest::Test
+class ThirdExerciseAlternateSolution < Minitest::Test
 =begin
 my original code was
 str.chars.map.with_index {|char, idx| str[0..idx]}

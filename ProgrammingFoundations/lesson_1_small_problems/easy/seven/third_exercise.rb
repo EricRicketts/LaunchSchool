@@ -163,6 +163,7 @@ class ThirdExerciseSecondNoCapMethod < Minitest::Test
 
   def word_cap(str)
     # fix this in the future to handle the quotes
+    # str.scan(/\b(?<![[:punct:]])([[:alpha:]])([[:alnum:]]*)\b/)
     str.gsub(/([[:lower:]])([[:alnum:]]*)/) { $1.upcase + $2.downcase }    
   end
 

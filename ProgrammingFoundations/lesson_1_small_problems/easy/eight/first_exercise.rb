@@ -59,7 +59,7 @@ class FirstExercise < Minitest::Test
   
 end
 
-class FirstExerciseAltSol < Minitest::Test
+class FirstExerciseAlternateSolution < Minitest::Test
 
   def sum_of_sums(array)
     array.each.with_index.inject(0) {|sum, (e, idx)| sum += array[0..idx].sum }
