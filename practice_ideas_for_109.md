@@ -59,3 +59,6 @@ end
 p B.new.test
 ```
 
+### Revew Problems
+1.  Small Problems, Easy Set Seven, Exercise 6, Staggered Caps (Part 2), Code up Further Exploration
+

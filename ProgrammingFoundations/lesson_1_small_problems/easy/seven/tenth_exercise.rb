@@ -42,7 +42,7 @@ class TenthExercise < Minitest::Test
   
 end
 
-class TenthExerciseAltSol < Minitest::Test
+class TenthExerciseAlternateSolution < Minitest::Test
 
   def penultimate(str)
     str.match(/(\w+)(\s+\w+[[:punct:]]?\z)/)[1]
@@ -71,7 +71,7 @@ penultimate('') = ''
 penultimate('word') = 'word'
 penultimate('last word') = 'last'
 penultimate('The last word.') = 'last'
-penultimate('The very last word.') = 'very'
+penultimate('The very last word.') = 'very last'
 penultimate('The very final last word.') = 'final'
 =end
 
@@ -79,7 +79,7 @@ penultimate('The very final last word.') = 'final'
     return '' if str.empty?
     str_ary = str.split
     idx = (str_ary.length / 2.0).ceil - 1
-    str_ary[idx]
+    str_ary.length.odd? ? str_ary[idx] : str_ary[idx..idx+1].join(" ") 
   end
 
   def test_1
@@ -98,7 +98,7 @@ penultimate('The very final last word.') = 'final'
   
   def test_3
     # skip
-    expected = 'last'
+    expected = 'last word'
     result = penultimate('last word')
     assert_equal(expected, result)
   end
@@ -112,7 +112,7 @@ penultimate('The very final last word.') = 'final'
   
   def test_5
     # skip
-    expected = 'very'
+    expected = 'very last'
     result = penultimate('The very last word.')
     assert_equal(expected, result)
   end

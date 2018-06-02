@@ -46,7 +46,7 @@ class NinthExercise < Minitest::Test
   
 end
 
-class NinthExerciseAltSol < Minitest::Test
+class NinthExerciseAlternateSolution < Minitest::Test
 
   def multiply_all_pairs(arr1, arr2)
     arr1.map do |e1|

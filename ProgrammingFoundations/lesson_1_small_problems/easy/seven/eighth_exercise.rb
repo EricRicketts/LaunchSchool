@@ -29,7 +29,7 @@ class EighthExercise < Minitest::Test
   
 end
 
-class EighthExerciseAltSol < Minitest::Test
+class EighthExerciseAlternateSolution < Minitest::Test
 
   def multiply_list(arr1, arr2)
     last_index = arr1.length - 1
