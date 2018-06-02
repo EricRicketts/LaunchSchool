@@ -162,9 +162,7 @@ end
 class ThirdExerciseSecondNoCapMethod < Minitest::Test
 
   def word_cap(str)
-    # fix this in the future to handle the quotes
-    # str.scan(/\b(?<![[:punct:]])([[:alpha:]])([[:alnum:]]*)\b/)
-    str.gsub(/([[:lower:]])([[:alnum:]]*)/) { $1.upcase + $2.downcase }    
+    str.gsub(/\b(?<![[:punct:]])([[:alpha:]])([[:alnum:]]*)\b/) {$1.upcase + $2.downcase}
   end
 
   def test_1
@@ -182,7 +180,7 @@ class ThirdExerciseSecondNoCapMethod < Minitest::Test
   end
   
   def test_3
-    skip
+    # skip
     expected = 'This Is A "quoted" Word'
     result = word_cap('this is a "quoted" word')
     assert_equal(expected, result)
