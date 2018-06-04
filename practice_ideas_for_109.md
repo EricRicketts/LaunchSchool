@@ -28,6 +28,9 @@ and the desired substring length
 8.  Arrays
   1.  Write a method that removes duplicate values from an array, the array elements can be any
   object.  Do this manually.
+  2.  Read about Arrays and understand all the ways one can initialize an array.
+9.  Hashes
+  1.  Read about Hashes and understand all the ways one can initialize a hash.
 
 ### Code Reading Ideas
 1.  Go through Lesson 3 and do all the code reading problems again
@@ -69,14 +72,20 @@ end
 p B.new.test
 ```
 
-### Revew Problems
-1.  Small Problems, Easy Set Seven, Exercise 6, Staggered Caps (Part 2), Further Exploration
-2.  Small Problems, Easy Set Seven, Exercise 9, Multiply All Pairs
-3.  Small Problems, Easy Set Eight, Exercise 8, Double Char (Part 2)
-4.  Small Problems, Easy Set Eight, Exercise 10, Get The Middle Character
-5.  Small Problems, Easy Set Nine, Exercise 2, Double Doubles
-6.  Small Problems, Easy Set Nine, Exercise 8, Sequence Count
-7.  Small Problems, Easy Set Six, Exercise 1, Cute Angles, Further Exploration
-8.  Small Problems, Easy Set Six, Exercise 5, Reversed Arrays (Part 2)
-9.  Note completed going through Easy Set Six through Nine
+### Revew Problems - Easy
+1.  Small Problems, Easy Set Four, Exercise 2, What Century is That?
+2.  Small Problems, Easy Set Four, Exercise 3, Leap Years (Part 1)
+3.  Small Problems, Easy Set Four, Exercise 8, Convert A String To A Signed Number
+4.  Small Problems, Easy Set Four, Exercise 10, Convert A Signed Number To A String
+5.  Small Problems, Easy Set Five, Exercise 2, After Midnight (Part 1), Further Exploration
+6.  Small Problems, Easy Set Five, Exercise 3, After Midnight (Part 2), Further Exploration
+7.  Small Problems, Easy Set Five, Exercise 9, ddaaiillyy ddoouubbllee do both regular problem and Further Exploration
+8.  Small Problems, Easy Set Six, Exercise 1, Cute Angles, Further Exploration
+9.  Small Problems, Easy Set Six, Exercise 5, Reversed Arrays (Part 2)
+10. Small Problems, Easy Set Seven, Exercise 6, Staggered Caps (Part 2), Further Exploration
+11. Small Problems, Easy Set Seven, Exercise 9, Multiply All Pairs
+12. Small Problems, Easy Set Eight, Exercise 8, Double Char (Part 2)
+13. Small Problems, Easy Set Eight, Exercise 10, Get The Middle Character
+14. Small Problems, Easy Set Nine, Exercise 2, Double Doubles
+15. Small Problems, Easy Set Nine, Exercise 8, Sequence Count
 

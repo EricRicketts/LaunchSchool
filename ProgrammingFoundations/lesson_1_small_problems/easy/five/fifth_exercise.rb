@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'byebug'
+require 'pry-byebug'
 
 =begin
 Clean Up The Words
@@ -47,4 +47,25 @@ class FifthExerciseLS < Minitest::Test
     assert_equal(' what s my line ', cleanup("---what's my +*& line?"))
   end
     
+end
+
+class FifthExerciseFurtherExploration < Minitest::Test
+
+  def cleanup(str)
+    str_ary = str.split
+    str_ary.map do |word|
+      char_ary = word.chars
+      new_word = []
+      char_ary.each.with_index do |char, idx|
+        new_char = char.match?(/[[:alpha:]]/) ? char : ' '
+        new_word.push(new_char)
+      end
+      new_word.join
+    end.join(' ').squeeze
+  end
+
+  def test_1
+    assert_equal(' what s my line ', cleanup("---what's my +*& line?"))    
+  end
+  
 end

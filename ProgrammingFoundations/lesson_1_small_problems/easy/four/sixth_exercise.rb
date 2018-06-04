@@ -26,6 +26,7 @@ Algorithm:
 
 =end
 
+  # my solution was the same as the LS solution
   def running_total(arr)
     sum = 0
     arr.map {|n| sum += n}
@@ -49,11 +50,40 @@ Algorithm:
   
 end
 
-class SixthExerciseInject < Minitest::Test
+class SixthExerciseFurtherExploration < Minitest::Test
 
   def running_total(arr)
     sum = 0
     arr.inject([]) {|sum_ary, n| sum_ary.push(sum += n) }
+  end
+
+  def test_one
+    assert_equal([2, 7, 20], running_total([2, 5, 13]))
+  end
+  
+  def test_two
+    assert_equal([14, 25, 32, 47, 67], running_total([14, 11, 7, 15, 20]))
+  end
+  
+  def test_three
+    assert_equal([3], running_total([3]))
+  end
+  
+  def test_four
+    assert_equal([], running_total([]))
+  end  
+  
+end
+
+class SixthExerciseManual < Minitest::Test
+
+  def running_total(arr)
+    running_total_arr = []
+    sum = 0
+    arr.each do |num|
+      running_total_arr.push(sum += num)
+    end
+    running_total_arr 
   end
 
   def test_one

@@ -57,7 +57,7 @@ class NinthExercise < Minitest::Test
   
 end
 
-class NinthExerciseVersionTwo < Minitest::Test
+class NinthExerciseAlternateSolution < Minitest::Test
 
   def crunch(str)
     str_ary = str.split
