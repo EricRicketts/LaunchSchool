@@ -7,17 +7,27 @@
 the minimum length of each substring, default to 1 character
 4.  Write a method which produces the substrings for a given string and the user can specify
 the substring length
-5.  Primes
+5.  Write a method which produces the substrings for a given string and the user can specify
+where to begin the substrings (by a postion in the string with 1 being the first character)
+and the desired substring length
+6.  Primes
 	1.  Write a method which generates the first n primes
 	2.  Write a method which generates all of the primes up to a certain number
 	3.  Write a method which checks to see if a number is a prime number
 	4.  Write a method which performs the prime factorization of a number, but
 	stores the factorization in the format [prime_number, number_of_appearances],
 	so the prime factorization of 12 = 2*2*3 or [[2, 2], [3, 1]]
-6.  Numbers
+7.  Numbers
 	1.  Write a method which produces the Greatest Common Divisor between two numbers
 	2.  Write a method which produces the Least Common Multiple between two numbers
 	3.  Write a method which produces the nth Fibonacci number, do not do it with recursion
+  4.  Write a method which produces the first Fibonacci number by length, Small Problems, Easy
+  Set Six, Exercise 3.
+  5.  Write a method which produces all the Fibonacci numbers by a given length, that is their
+  index.  At the users option return the actual numbers in an array.
+8.  Arrays
+  1.  Write a method that removes duplicate values from an array, the array elements can be any
+  object.  Do this manually.
 
 ### Code Reading Ideas
 1.  Go through Lesson 3 and do all the code reading problems again
@@ -60,5 +70,13 @@ p B.new.test
 ```
 
 ### Revew Problems
-1.  Small Problems, Easy Set Seven, Exercise 6, Staggered Caps (Part 2), Code up Further Exploration
+1.  Small Problems, Easy Set Seven, Exercise 6, Staggered Caps (Part 2), Further Exploration
+2.  Small Problems, Easy Set Seven, Exercise 9, Multiply All Pairs
+3.  Small Problems, Easy Set Eight, Exercise 8, Double Char (Part 2)
+4.  Small Problems, Easy Set Eight, Exercise 10, Get The Middle Character
+5.  Small Problems, Easy Set Nine, Exercise 2, Double Doubles
+6.  Small Problems, Easy Set Nine, Exercise 8, Sequence Count
+7.  Small Problems, Easy Set Six, Exercise 1, Cute Angles, Further Exploration
+8.  Small Problems, Easy Set Six, Exercise 5, Reversed Arrays (Part 2)
+9.  Note completed going through Easy Set Six through Nine
 
