@@ -26,12 +26,16 @@ and the desired substring length
   Set Six, Exercise 3.
   5.  Write a method which produces all the Fibonacci numbers by a given length, that is their
   index.  At the users option return the actual numbers in an array.
+  6.  Understand in detail how integer division and integer modulus works for both positive and
+  negative numbers.
 8.  Arrays
   1.  Write a method that removes duplicate values from an array, the array elements can be any
   object.  Do this manually.
   2.  Read about Arrays and understand all the ways one can initialize an array.
 9.  Hashes
   1.  Read about Hashes and understand all the ways one can initialize a hash.
+10.  Strings
+  1.  Study and undersand how to use #format
 
 ### Code Reading Ideas
 1.  Go through Lesson 3 and do all the code reading problems again
