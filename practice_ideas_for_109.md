@@ -22,6 +22,7 @@ and the desired substring length
 	2.  Write a method which produces the Least Common Multiple between two numbers
 	3.  Write a method which produces the nth Fibonacci number, do not do it with recursion
   4.  Write a method which produces the first Fibonacci number by length, Small Problems, Easy
+  5.  Write a method which picks off the digits of a number and puts them into an array
   Set Six, Exercise 3.
   5.  Write a method which produces all the Fibonacci numbers by a given length, that is their
   index.  At the users option return the actual numbers in an array.
