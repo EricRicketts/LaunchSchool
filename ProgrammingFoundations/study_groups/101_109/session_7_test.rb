@@ -234,7 +234,11 @@ class Session7TestSecondProblem < Minitest::Test
 end
 
 class Session7TestThirdProblem < Minitest::Test
-
+=begin
+in terms of finding the the first occurring max value there is a simpler
+way to do it.  first_word = '' if current word value > max value, then
+current word is the max word.  You avoid all of the sorting this way
+=end
   def re_letter(string)
     return nil if string.empty? || string.chars.none? {|char| char.match?(/[[:digit:]]/)}
     hsh = Hash.new {|hash, key| hash[key] = [0, 0]}
@@ -257,7 +261,7 @@ class Session7TestThirdProblem < Minitest::Test
 
   def test_1
     # skip
-    assert_nil(re_letter('There isn\' any number here!'))
+    assert_nil(re_letter('There isn\'t any number here!'))
   end
 
   def test_2
