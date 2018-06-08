@@ -1,3 +1,7 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'pry-byebug'
+
 # Given a string of words, you need to find the highest scoring word.
 
 # Each letter of a word scores points according to it's position in the alphabet: a = 1, b = 2, c = 3 etc.
@@ -21,11 +25,9 @@
   - create an array of words by splitting the string
   - initialize a hash to 0
   - iterate this array of words
-    - take each word break down into chars
-    - iterate that word into a number by using the hash to get a value for each letter and then sum the result
-      - put the value of the digits and the word into the hash
-  - then get the max string value by selection
-  - once I do this, I return the first one
+    - for each word do the following
+    - if the word length is greater then the max length
+      then that word is the new max word and the word length is the max word length
 =end
 
 
@@ -36,10 +38,49 @@
 # p high('take me to semynak') == 'semynak'
 # p high('aa b') == 'aa'
 
+class Session11Test < Minitest::Test
 
-=begin
-high('abcde') = 0
-high('abcdeaa') = 1
-high('abcdeaB') = 2
-high('')
-=end
+  LETTER_VALUES = ('a'..'z').zip(1..26).to_h
+
+  def high(str)
+    max_value = 0
+    largest_word = ''
+    str.split.each do |word|
+      word_value = word.chars.map {|char| LETTER_VALUES[char]}.sum
+      if word_value > max_value
+        max_value = word_value
+        largest_word = word
+      end
+    end
+    largest_word
+  end
+
+  def test_0
+    # skip
+    expected = 'taxi'
+    result = high('man i need a taxi up to ubud')
+    assert_equal(expected, result)
+  end
+  
+  def test_1
+    # skip
+    expected = 'volcano'
+    result = high('what time are we climbing up the volcano')
+    assert_equal(expected, result)
+  end
+  
+  def test_2
+    # skip
+    expected = 'semynak'
+    result = high('take me to semynak')
+    assert_equal(expected, result)
+  end
+  
+  def test_3
+    # skip
+    expected = 'aa'
+    result = high('aa b')
+    assert_equal(expected, result)
+  end
+  
+end

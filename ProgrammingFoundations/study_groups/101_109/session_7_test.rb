@@ -68,7 +68,7 @@ p re_letter('444352893599119') == 9
 
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'byebug'
+require 'pry-byebug'
 
 class Session7TestFirstProblem < Minitest::Test
 
@@ -332,6 +332,98 @@ AL:
     highest_count = counted_chars.map {|ary| ary.last}.max
     selected_highs = counted_chars.select {|ary| ary.last == highest_count}
     selected_highs.first.first.to_i
+  end
+
+  def test_0
+    # skip
+    assert_equal(4, re_letter('12433355214434'))
+  end
+
+  def test_1
+    # skip
+    assert_nil(re_letter('There isn\' any number here!'))
+  end
+
+  def test_2
+    # skip
+    assert_nil(re_letter('%^&*()!'))
+  end
+
+  def test_3
+    # skip
+    assert_equal(1, re_letter('111222333'))
+  end
+ 
+  def test_4
+    # skip
+    assert_equal(4, re_letter('1234335521444'))
+  end
+ 
+  def test_5
+    # skip
+    assert_nil(re_letter(''))
+  end
+ 
+  def test_6
+    # skip
+    assert_equal(3, re_letter('011-555-333-23'))
+  end
+ 
+  def test_7
+    # skip
+    assert_equal(1, re_letter('1'))
+  end
+ 
+  def test_8
+    # skip
+    assert_equal(9, re_letter('444352893599119'))
+  end
+ 
+  def test_9
+    # skip
+    assert_equal(4, re_letter('3524894359914194'))
+  end
+ 
+end
+
+class Session7TestThirdProblemSecondAlternateSolution < Minitest::Test
+=begin
+
+Given a string, find the number character that is repeated most times and return it's numeric value.
+If multiple characters are repeated the same time, return first one.
+If there are no numeric characters in a string return nil.
+
+AL:
+  - init max_count to 0
+  - init most_feq_num = ''
+  - init hash to 0
+  - convert the str to an array of chars
+  - for each char
+    - check if it is a digit
+      - if a digit then hash[digit] = str.count(digit)
+  - iterate through the hash
+    - if hash value > max_count
+      max_count = hash_value
+      most_freq_num = key
+=end
+
+  def re_letter(string)
+    return nil if string.empty? || string.chars.none? {|char| char.match?(/[[:digit:]]/)}
+    max_count = 0
+    most_freq_num = ''
+    hsh = Hash.new(0)
+    string.chars.each do |char|
+      if char.match?(/[[:digit:]]/)
+        hsh[char] = string.count(char)
+      end
+    end
+    hsh.each do |key, value|
+      if value > max_count
+        most_freq_num = key
+        max_count = value
+      end
+    end
+    most_freq_num.to_i
   end
 
   def test_0
