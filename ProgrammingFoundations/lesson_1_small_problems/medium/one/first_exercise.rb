@@ -135,7 +135,7 @@ class FirstExerciseFurtherExploration < Minitest::Test
     @arr = [0, 1, 2, 3, 4, 5, 6]
   end
 
-  def rotate(arr, iterations: 1, direction: "left")
+  def rotate_array(arr, iterations: 1, direction: "left")
     direction = "right" unless direction == "left"
     iterations = -1*iterations if direction == "right"
     size = arr.size
@@ -152,21 +152,21 @@ class FirstExerciseFurtherExploration < Minitest::Test
   def test_1_rotation_left
     # skip
     expected = [1, 2, 3, 4, 5, 6, 0]
-    result = rotate(@arr)
+    result = rotate_array(@arr)
     assert_equal(expected, result)
   end
 
   def test_1_rotation_right
     # skip
     expected = [6, 0, 1, 2, 3, 4, 5]
-    result = rotate(@arr, direction: "right")
+    result = rotate_array(@arr, direction: "right")
     assert_equal(expected, result)
   end
   
   def test_3_rotations_left
     # skip
     expected = [3, 4, 5, 6, 0, 1, 2]
-    result = rotate(@arr, iterations: 3)
+    result = rotate_array(@arr, iterations: 3)
     assert_equal(expected, result)
   end
 
@@ -174,7 +174,7 @@ class FirstExerciseFurtherExploration < Minitest::Test
     # skip
     expected = [0, 1, 2, 3, 4, 5, 6]
     expected = [3, 4, 5, 6, 0, 1, 2]
-    result = rotate(@arr, iterations: 4, direction: "right")
+    result = rotate_array(@arr, iterations: 4, direction: "right")
     assert_equal(expected, result)
   end
   
