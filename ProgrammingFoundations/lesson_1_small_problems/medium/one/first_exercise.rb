@@ -180,3 +180,48 @@ class FirstExerciseFurtherExploration < Minitest::Test
   
 end
 
+class FirstExerciseFurtherExploration < Minitest::Test
+
+  def setup
+    @arr = [0, 1, 2, 3, 4, 5, 6]
+  end
+
+  def rotate_array(arr, iterations: 1, direction: "left")
+    if direction != "left"
+      (arr[-iterations..-1] + arr[0..(-iterations-1)]).flatten
+    else
+      (arr[iterations..-1] + arr[0..(iterations-1)]).flatten
+    end
+  end
+
+  def test_1_rotation_left
+    # skip
+    expected = [1, 2, 3, 4, 5, 6, 0]
+    result = rotate_array(@arr)
+    assert_equal(expected, result)
+  end
+
+  def test_1_rotation_right
+    # skip
+    expected = [6, 0, 1, 2, 3, 4, 5]
+    result = rotate_array(@arr, direction: "right")
+    assert_equal(expected, result)
+  end
+  
+  def test_3_rotations_left
+    # skip
+    expected = [3, 4, 5, 6, 0, 1, 2]
+    result = rotate_array(@arr, iterations: 3)
+    assert_equal(expected, result)
+  end
+
+  def test_4_rotations_right
+    # skip
+    expected = [0, 1, 2, 3, 4, 5, 6]
+    expected = [3, 4, 5, 6, 0, 1, 2]
+    result = rotate_array(@arr, iterations: 4, direction: "right")
+    assert_equal(expected, result)
+  end
+  
+end
+

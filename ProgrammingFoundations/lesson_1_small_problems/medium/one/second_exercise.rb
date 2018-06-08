@@ -42,8 +42,8 @@ class SecondExercise < Minitest::Test
     rotated_arr    
   end
 
-  def rotate_rightmost_digits(arr, num_of_digits)
-    arr = arr.to_s.chars
+  def rotate_rightmost_digits(num, num_of_digits)
+    arr = num.to_s.chars
     dividing_idx = arr.size - num_of_digits
     untouched, slice = arr.partition.with_index {|_, idx| idx < dividing_idx}
     rotated_slice = rotate_array(slice)
