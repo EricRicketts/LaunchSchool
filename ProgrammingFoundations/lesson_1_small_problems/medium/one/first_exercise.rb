@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'byebug'
+require 'pry-byebug'
 
 =begin
 Rotation (Part 1)
@@ -105,7 +105,7 @@ the first element to the back of the array
 =end
 
   def rotate_array(ary)
-    ary[1..-1] + ary[0]
+    ary[1..-1] + [ary[0]]
   end
 
   def test_one
@@ -124,6 +124,58 @@ the first element to the back of the array
     x = (1..4).to_a
     y = rotate_array(x)
     assert_equal([1, 2, 3, 4], x)
+  end
+  
+end
+
+
+class FirstExerciseFurtherExploration < Minitest::Test
+
+  def setup
+    @arr = [0, 1, 2, 3, 4, 5, 6]
+  end
+
+  def rotate(arr, iterations: 1, direction: "left")
+    direction = "right" unless direction == "left"
+    iterations = -1*iterations if direction == "right"
+    size = arr.size
+    last_idx = size - 1
+    rotated_arr = []
+
+    arr.each_index do |idx|
+      new_idx = (idx + iterations) % size
+      rotated_arr.push(arr[new_idx])
+    end
+    rotated_arr    
+  end
+
+  def test_1_rotation_left
+    # skip
+    expected = [1, 2, 3, 4, 5, 6, 0]
+    result = rotate(@arr)
+    assert_equal(expected, result)
+  end
+
+  def test_1_rotation_right
+    # skip
+    expected = [6, 0, 1, 2, 3, 4, 5]
+    result = rotate(@arr, direction: "right")
+    assert_equal(expected, result)
+  end
+  
+  def test_3_rotations_left
+    # skip
+    expected = [3, 4, 5, 6, 0, 1, 2]
+    result = rotate(@arr, iterations: 3)
+    assert_equal(expected, result)
+  end
+
+  def test_4_rotations_right
+    # skip
+    expected = [0, 1, 2, 3, 4, 5, 6]
+    expected = [3, 4, 5, 6, 0, 1, 2]
+    result = rotate(@arr, iterations: 4, direction: "right")
+    assert_equal(expected, result)
   end
   
 end
