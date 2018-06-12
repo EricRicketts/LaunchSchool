@@ -24,6 +24,8 @@ class CollectionBasicsTest < Minitest::Test
 
   def test_string_exercise
     assert_equal 'grass', @str1.slice(4, 5)
+    assert_equal 'grass', @str1.slice(4..8)
+    assert_equal 'grass', @str1.slice(4...9)
   end
 
   def test_array_slice
@@ -50,6 +52,8 @@ class CollectionBasicsTest < Minitest::Test
   def test_keys_and_values_hash_methods
     assert_equal [:fruit, :vegetable], @hsh.keys
     assert_equal ['apple', 'carrot'], @hsh.values
+    assert_equal :fruit, @hsh.keys[0]
+    assert_equal 'carrot', @hsh.values[1]
   end
 end # CollectionBasicsTest
 
@@ -96,12 +100,14 @@ class Conversions < Minitest::Test
 
   def test_good_join
     assert_equal @str, @ary.join(" ")
+    assert_equal @str, @str.split.join(" ")
+    assert_equal @str, @str.split(/\b/).join
     assert_equal @str, @ary.inject('') { |memo, word| memo << "#{word} " }.chop
   end
 
   def test_array_to_hash
     hsh = { name: 'Joe', age: 10, favorite_color: 'blue' }
-    ary = arr = [[:name, 'Joe'], [:age, 10], [:favorite_color, 'blue']]
+    arr = [[:name, 'Joe'], [:age, 10], [:favorite_color, 'blue']]
     assert_equal hsh, arr.to_h
   end
 end # Conversions
@@ -116,6 +122,7 @@ class Assignments < Minitest::Test
   def test_capitalize_each_word
     expected = "Joe's Favorite Color Is Blue."
     assert_equal expected, @str.split.map { |word| word.capitalize }.join(" ")
+    assert_equal expected, @str.gsub(/\b(?<![[:punct:]])([[:alpha:]])/) {$1.upcase}
   end
 
   def test_increment_each_array_element
