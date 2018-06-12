@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'byebug'
+require 'pry-byebug'
 =begin
   1.  Write a program that takes a group of integers from 1 to a 1000 at the most and counts the number of odd numbers that are not prime
   2.  solve(['abode', 'ABc', 'xyzD']) => [4, 3, 1] Consider the word 'abode'.  We can see that 'a' is in position 1 and that 'b' is in
@@ -96,6 +96,29 @@ Algorithm
       ary_of_chars.select.with_index do |char, index|
         index == alphabet.index(char)
       end.count
+    end
+  end
+
+  def test_first_solve
+    assert_equal([4, 3, 1], solve(%W(abode ABc xyzD)))
+  end
+
+  def test_second_solve
+    assert_equal([2, 3], solve(%W(zbfd facjhfxyzj)))
+  end
+  
+end
+
+class Session1TestCountLettersPosSecond < Minitest::Test
+
+  LETTER_POSTIONS = ('a'..'z').zip(0..25).to_h
+
+  def solve(arr)
+    arr.map do |word|
+      word.chars.each.with_index.inject(0) do |sum, (char, idx)|
+        sum += 1 if idx == LETTER_POSTIONS[char.downcase]
+        sum
+      end
     end
   end
 
