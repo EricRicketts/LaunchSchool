@@ -81,10 +81,9 @@ class SeventhExerciseAlternateSolutionOne < Minitest::Test
     }.freeze
 
   def word_to_digit(words)
-    DIGIT_HASH.keys.each do |word|
-      words.gsub!(/\b#{word}\b/, DIGIT_HASH[word])
-    end
-    words
+    words.split(/\b/).map do |word|
+      DIGIT_HASH.keys.include?(word.downcase) ? DIGIT_HASH[word.downcase] : word
+    end.join
   end
 
   def test_0
