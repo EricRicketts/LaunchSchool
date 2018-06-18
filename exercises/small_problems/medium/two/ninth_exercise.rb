@@ -119,3 +119,185 @@ AL:
   end
   
 end
+
+class NinthExerciseAlternateSolution < Minitest::Test
+
+  def bubble_sort!(arr)
+    no_swaps = false
+
+    until no_swaps
+      swap_count = 0
+      last_index = arr.size - 1
+      arr.each.with_index do |num, idx|
+        unless idx + 1 > last_index
+          if num > arr[idx + 1]
+            arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]
+            swap_count += 1  
+          end
+        end
+      end
+      no_swaps = true if swap_count.zero?
+    end
+    arr
+  end
+
+  def test_0
+    # skip
+    arr = [5, 3]
+    expected = [3, 5]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_1
+    # skip
+    arr = [6, 2, 7, 1, 4]
+    expected = [1, 2, 4, 6, 7]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_2
+    # skip
+    arr = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+    expected = %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+end
+
+class NinthExerciseAlternateSolutionTwo < Minitest::Test
+
+  def bubble_sort!(arr)
+    no_swaps = false
+    until no_swaps
+      swap_count = 0 
+      arr.each_cons(2).with_index do |pair, idx|
+        if pair.first > pair.last
+          arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]
+          swap_count += 1
+        end
+      end
+      no_swaps = true if swap_count.zero?
+    end
+    arr
+  end
+
+  def test_0
+    # skip
+    arr = [5, 3]
+    expected = [3, 5]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_1
+    # skip
+    arr = [6, 2, 7, 1, 4]
+    expected = [1, 2, 4, 6, 7]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_2
+    # skip
+    arr = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+    expected = %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+end
+
+class NinthExerciseLS < Minitest::Test
+=begin
+there is no getting past the necessity for two loops with the outer loop
+being a loop where an exit condition must be generated.  The LS solution
+was very good in that it did not need a guard condition on the index.  Also
+I like the way the conditional was run within the body of the inner loop.
+LS also did not use a swap_count, it turns out this is an extra variable
+that is not needed, once a swap is made then just set the boolean flag.
+I have a final variation below which makes use of some of the LS ideas.
+=end
+
+  def bubble_sort!(array)
+    loop do
+      swapped = false
+      1.upto(array.size - 1) do |index|
+        next if array[index - 1] <= array[index]
+        array[index - 1], array[index] = array[index], array[index - 1]
+        swapped = true
+      end
+
+      break unless swapped
+    end
+    nil
+  end
+
+  def test_0
+    # skip
+    arr = [5, 3]
+    expected = [3, 5]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_1
+    # skip
+    arr = [6, 2, 7, 1, 4]
+    expected = [1, 2, 4, 6, 7]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_2
+    # skip
+    arr = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+    expected = %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+end
+
+class NinthExerciseAlternateSolutionTwoUsingLSIdeas < Minitest::Test
+
+  def bubble_sort!(arr)
+    loop do
+      swaps = false
+      arr.each_cons(2).with_index do |pair, idx|
+        next if pair.first <= pair.last
+          arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]
+          swaps = true  
+      end
+      break unless swaps
+    end
+    arr
+  end
+
+  def test_0
+    # skip
+    arr = [5, 3]
+    expected = [3, 5]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_1
+    # skip
+    arr = [6, 2, 7, 1, 4]
+    expected = [1, 2, 4, 6, 7]
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+  def test_2
+    # skip
+    arr = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+    expected = %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+    bubble_sort!(arr)
+    assert_equal(expected, arr)
+  end
+  
+end
