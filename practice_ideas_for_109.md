@@ -32,10 +32,17 @@ and the desired substring length
   1.  Write a method that removes duplicate values from an array, the array elements can be any
   object.  Do this manually.
   2.  Read about Arrays and understand all the ways one can initialize an array.
+  3.  Make up some problems where you move through hierarchical arrays.
 9.  Hashes
   1.  Read about Hashes and understand all the ways one can initialize a hash.
+  2.  Make up some problems where you move through hierarchical hashes
 10.  Strings
   1.  Study and undersand how to use #format
+11.  Data Structures
+  1.  Make up some problems where you move through hierarchical mixed data structures of arrays
+  and hashes
+  2.  In particular go back through the problems in assignment 5, Lesson 5: Advanced Ruby Collections
+  for 101: Programming Foundations
 
 ### Code Reading Ideas
 1.  Go through Lesson 3 and do all the code reading problems again
