@@ -1,5 +1,4 @@
 module GameView
-
   SPACE = "\u0020".freeze
   LARGE_O = "\u25ef".freeze
   LARGE_X = "\u2573".freeze

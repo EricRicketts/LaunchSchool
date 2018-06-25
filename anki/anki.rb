@@ -1,5 +1,4 @@
 ary = []
-arr = []
 count = 0
 
 loop do

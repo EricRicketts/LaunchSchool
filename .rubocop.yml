@@ -1,3 +1,5 @@
+# .rubocop.yml for 101 Lessons 6 (24 Aug 2017)
+
 AllCops:
   # Display cop names
   DisplayCopNames: true
@@ -12,7 +14,7 @@ AllCops:
   StyleGuideBaseURL: https://github.com/bbatsov/ruby-style-guide
   # What version of the Ruby interpreter is the inspected code intended to
   # run on? (If there is more than one, set this to the lowest version.)
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.3
 
 Style/BlockComments:
   Description: 'Do not use block comments.'
@@ -87,7 +89,7 @@ Style/InlineComment:
 
 Style/MethodCallWithoutArgsParentheses:
   Description: Do not use parentheses for method calls with no arguments.
-  Enabled: false
+  Enabled: true
 
 Style/ModuleFunction:
   Description: Checks for usage of `extend self` in modules.
@@ -125,9 +127,7 @@ Style/OneLineConditional:
   Description: Favor the ternary operator(?:) over if/then/else/end constructs.
   Enabled: false
 
-Naming/BinaryOperatorParameterName:
-  Description: When defining binary operators, name the argument other.
-  Enabled: false
+
 
 Style/ParenthesesAroundCondition:
   Description: >-
@@ -138,7 +138,18 @@ Style/ParenthesesAroundCondition:
 
 Style/PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
-  Enabled: false
+  Enabled: true
+  PreferredDelimiters:
+    '%':  ()
+    '%i': '[]'
+    '%I': '[]'
+    '%q': ()
+    '%Q': ()
+    '%r': '{}'
+    '%s': ()
+    '%w': '[]'
+    '%W': '[]'
+    '%x': ()
 
 Style/PerlBackrefs:
   Description: Avoid Perl-style regex back references.
@@ -230,6 +241,10 @@ Lint/LiteralInInterpolation:
   Description: 'Avoid interpolating literals in strings'
   AutoCorrect: false
   Enabled: true
+
+Naming/BinaryOperatorParameterName:
+  Description: When defining binary operators, name the argument other.
+  Enabled: false
 
 ##################### Performance ##################################
 

@@ -519,22 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "ProgrammingFoundations/Lesson_2/casual_pseudo_code_lesson_2.md",
-			"settings":
-			{
-				"buffer_size": 894,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ProgrammingFoundations/Lesson_2/formal_pseudo_code_lesson_2.md",
-			"settings":
-			{
-				"buffer_size": 1134,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -585,12 +569,12 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/EricRicketts/Documents/LaunchSchool",
-		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations",
-		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2"
+		"/Users/ericricketts/Documents/LaunchSchool"
 	],
 	"file_history":
 	[
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/casual_pseudo_code_lesson_2.md",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/formal_pseudo_code_lesson_2.md",
 		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/instructor_solution_calculator.rb",
 		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/calculator.rb",
 		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/calculator_test.rb",
@@ -716,13 +700,11 @@
 		"/Users/EricRicketts/Documents/exercism/ruby/pangram/pangram_test.rb",
 		"/Users/EricRicketts/Documents/exercism/ruby/pangram/README.md",
 		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/index.html",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/assets/stylesheets/main.css",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/assets/stylesheets/main.css",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/index.html"
+		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/assets/stylesheets/main.css"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -830,75 +812,14 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "ProgrammingFoundations/Lesson_2/casual_pseudo_code_lesson_2.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 894,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								894,
-								894
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "ProgrammingFoundations/Lesson_2/formal_pseudo_code_lesson_2.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1134,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1109,
-								1109
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -927,6 +848,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -939,7 +864,7 @@
 	"project": "launch-school.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1361,7 +1286,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 236.0,
+	"side_bar_width": 302.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

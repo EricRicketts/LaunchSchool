@@ -43,6 +43,9 @@ and the desired substring length
   and hashes
   2.  In particular go back through the problems in assignment 5, Lesson 5: Advanced Ruby Collections
   for 101: Programming Foundations
+  3.  Write the code to convert the current data structure to the desired data structure for question 8
+  of the Lesson 5 (Advanced Ruby Collections) Quiz 
+  4.  Be able to step through and explain the code for Lesson 5 (Advanced Ruby Collections) Quiz Questions 8-10
 
 ### Code Reading Ideas
 1.  Go through Lesson 3 and do all the code reading problems again
