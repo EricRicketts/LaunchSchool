@@ -1,22 +1,30 @@
+require 'pry-byebug'
 module Dealable
   def create_cards
     faces = ('2'..'10').to_a + ["J", "Q", "K", "A"]
-    suites = ["C", "D", "H", "S"]
-    suites.map do |suite|
-      faces.map do |face|
-        face + suite
-      end
-    end
+    suits = ["C", "D", "H", "S"]
+    suits.product(faces).map { |suit, face| face + suit }
   end
 
   def create_deck
+    deck_hash = {}
     cards = create_cards
     values = (2..10).to_a + [10, 10, 10, 1]
-    cards_and_values = cards.zip(Array.new(4, values))
-    deck_array = cards_and_values.map do |card_ary, value_ary|
-      card_ary.zip(value_ary).to_h
+    num_values = values.size
+    cards.each.with_index do |card, idx|
+      deck_hash[card] = values[idx % num_values]
     end
+    deck_hash
 
-    deck_array.inject({}) { |hsh, suite| hsh.merge(suite) }
+  end
+
+  def deal_card(deck)
+    card, value = deck.first
+    deck.delete(card)
+    [card, value]
+  end
+
+  def shuffle_deck(deck)
+    deck.to_a.shuffle.to_h
   end
 end
