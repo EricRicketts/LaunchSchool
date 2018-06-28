@@ -9,7 +9,7 @@ module Dealable
   def create_deck
     deck_hash = {}
     cards = create_cards
-    values = (2..10).to_a + [10, 10, 10, 1]
+    values = (2..10).to_a + [10, 10, 10, 11]
     num_values = values.size
     cards.each.with_index do |card, idx|
       deck_hash[card] = values[idx % num_values]
@@ -21,7 +21,7 @@ module Dealable
   def deal_card(deck)
     card, value = deck.first
     deck.delete(card)
-    [card, value]
+    {card => value}
   end
 
   def shuffle_deck(deck)

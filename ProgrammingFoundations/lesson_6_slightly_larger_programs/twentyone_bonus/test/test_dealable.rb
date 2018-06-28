@@ -4,7 +4,7 @@ require 'pry-byebug'
 
 require_relative '../app/dealable.rb'
 
-class TestCardDeck < Minitest::Test
+class TestDealable < Minitest::Test
   include Dealable
 
   def setup
@@ -16,7 +16,7 @@ class TestCardDeck < Minitest::Test
   end
 
   def test_random_cards
-    assert(2 == @deck["2C"] && 10 == @deck["JD"] && 1 == @deck["AS"] && 7 == @deck["7H"])
+    assert(2 == @deck["2C"] && 10 == @deck["JD"] && 11 == @deck["AS"] && 7 == @deck["7H"])
   end
 
   def test_shuffle_deck
@@ -29,8 +29,8 @@ class TestCardDeck < Minitest::Test
   end
 
   def test_deal_card
-    card, value = deal_card(@deck)
-    assert(card == "2C" && value == 2 && @deck.size == 51)
+    cards = deal_card(@deck)
+    assert(cards == {"2C" => 2} && @deck.size == 51)
   end
 
 end

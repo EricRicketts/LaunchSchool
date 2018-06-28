@@ -1,4 +1,4 @@
-module ViewableCards
+module Viewable
   HORIZONTAL_LINE = "\u2550".freeze
   VERTICAL_LINE = "\u2551".freeze
   TOP_LEFT = "\u2554".freeze
