@@ -18,6 +18,7 @@ module Scoreable
   end
 
   def update_tally(player_score, player_tally, dealer_score, dealer_tally)
+    score_str = "Player score: #{player_score}, Dealer score: #{dealer_score}."
     case
     when busted?(player_score)
       dealer_tally[:dealer] += 1
@@ -27,12 +28,12 @@ module Scoreable
       "Dealer busts!!  Player wins!!"
     when player_score > dealer_score
       player_tally[:player] += 1
-      "Player score: #{player_score}, Dealer score: #{dealer_score}." +
-      "  Player wins!!"
+      score_str + "  Player wins!!"
     when dealer_score > player_score
       dealer_tally[:dealer] += 1
-      "Dealer score: #{dealer_score}, Player score: #{player_score}." +
-      "  Dealer wins!!"
+      score_str + "  Dealer wins!!"
+    else
+      score_str + "  A tie!!"
     end
   end
 end

@@ -109,9 +109,20 @@ class TestScoreable < Minitest::Test
     dealer_score = 18
     player_score = 17
     result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    expected = "Dealer score: 18, Player score: 17.  Dealer wins!!"
+    expected = "Player score: 17, Dealer score: 18.  Dealer wins!!"
     assert_equal(expected, result)
     assert({ dealer: 1 } == dealer_tally && { player: 0 } == player_tally)
+  end
+
+  def test_tie
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    dealer_score = 18
+    player_score = 18
+    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
+    expected = "Player score: 18, Dealer score: 18.  A tie!!"
+    assert_equal(expected, result)
+    assert({ dealer: 0 } == dealer_tally && { player: 0 } == player_tally)
   end
 
 end
