@@ -22,6 +22,13 @@ module Scoreable
     when busted?(player_score)
       dealer_tally[:dealer] += 1
       "Player busts!!  Dealer wins!!"
+    when busted?(dealer_score)
+      player_tally[:player] += 1
+      "Dealer busts!!  Player wins!!"
+    when player_score > dealer_score
+      player_tally[:player] += 1
+      "Player score: #{player_score}, Dealer score: #{dealer_score}." +
+      "  Player wins!!"
     end
   end
 end
