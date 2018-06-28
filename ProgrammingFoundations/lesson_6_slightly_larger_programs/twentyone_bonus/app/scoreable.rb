@@ -17,7 +17,7 @@ module Scoreable
     sum
   end
 
-  def display_results(round_results, player_score, dealer_score)
+  def display_round_results(round_results, player_score, dealer_score)
     score_str = "Player score: #{player_score}, Dealer score: #{dealer_score}."
     hsh = {
       player_busts: "Player busts!!  Dealer wins!!",
@@ -29,13 +29,30 @@ module Scoreable
     hsh[round_results]
   end
 
-  def return_winner(player_score, dealer_score)
+  def display_winner(winner)
+    case winner
+    when :player_wins
+      "Player wins the game!!"
+    when :dealer_wins
+      "Dealer wins the game!!"
+    end
+  end
+
+  def return_round_results(player_score, dealer_score)
     case
     when busted?(player_score) then :player_busts
     when busted?(dealer_score) then :dealer_busts
     when player_score > dealer_score then :player
     when dealer_score > player_score then :dealer
     else :tie
+    end
+  end
+
+  def return_winner(player_tally, dealer_tally)
+    case
+    when player_tally[:player] == 5 then :player_wins
+    when dealer_tally[:dealer] == 5 then :dealer_wins
+    else :no_winner
     end
   end
 

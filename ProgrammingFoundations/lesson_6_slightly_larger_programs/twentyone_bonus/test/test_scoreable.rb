@@ -75,35 +75,35 @@ class TestScoreable < Minitest::Test
   def test_winner_player_bust
     player_score = 24
     dealer_score = 16
-    result = return_winner(player_score, dealer_score)
+    result = return_round_results(player_score, dealer_score)
     assert_equal(:player_busts, result)
   end
 
   def test_winner_dealer_bust
     player_score = 16
     dealer_score = 24
-    result = return_winner(player_score, dealer_score)
+    result = return_round_results(player_score, dealer_score)
     assert_equal(:dealer_busts, result)
   end
 
   def test_winner_player_beats_dealer
     player_score = 18
     dealer_score = 17
-    result = return_winner(player_score, dealer_score)
+    result = return_round_results(player_score, dealer_score)
     assert_equal(:player, result)
   end
 
   def test_winner_dealer_beats_player
     dealer_score = 18
     player_score = 17
-    result = return_winner(player_score, dealer_score)
+    result = return_round_results(player_score, dealer_score)
     assert_equal(:dealer, result)
   end
 
   def test_winner_tie
     dealer_score = 18
     player_score = 18
-    result = return_winner(player_score, dealer_score)
+    result = return_round_results(player_score, dealer_score)
     assert_equal(:tie, result)
   end
 
@@ -144,7 +144,7 @@ class TestScoreable < Minitest::Test
     player_score = 24
     dealer_score = 17
     expected = "Player busts!!  Dealer wins!!"
-    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+    assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
   end
 
   def test_display_dealer_bust
@@ -152,7 +152,7 @@ class TestScoreable < Minitest::Test
     player_score = 17
     dealer_score = 24
     expected = "Dealer busts!!  Player wins!!"
-    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+    assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
   end
 
   def test_display_player_wins
@@ -160,7 +160,7 @@ class TestScoreable < Minitest::Test
     player_score = 20
     dealer_score = 17
     expected = "Player score: 20, Dealer score: 17.  Player wins!!"
-    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+    assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
   end
 
   def test_display_dealer_wins
@@ -168,7 +168,7 @@ class TestScoreable < Minitest::Test
     player_score = 17
     dealer_score = 20
     expected = "Player score: 17, Dealer score: 20.  Dealer wins!!"
-    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+    assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
   end
 
   def test_display_tie
@@ -176,7 +176,33 @@ class TestScoreable < Minitest::Test
     player_score = 20
     dealer_score = 20
     expected = "Player score: 20, Dealer score: 20.  A tie!!"
-    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+    assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
+  end
+
+  def test_select_winner_no_results
+    player_tally = { player: 4 }
+    dealer_tally = { dealer: 4 }
+    assert_equal(:no_winner, return_winner(player_tally, dealer_tally))
+  end
+
+  def test_select_winner_player
+    player_tally = { player: 5 }
+    dealer_tally = { dealer: 4 }
+    assert_equal(:player_wins, return_winner(player_tally, dealer_tally))
+  end
+
+  def test_select_winner_dealer
+    player_tally = { player: 4 }
+    dealer_tally = { dealer: 5 }
+    assert_equal(:dealer_wins, return_winner(player_tally, dealer_tally))
+  end
+
+  def test_display_winner_player
+    assert_equal("Player wins the game!!", display_winner(:player_wins))
+  end
+
+  def test_display_dealer_winner
+    assert_equal("Dealer wins the game!!", display_winner(:dealer_wins))
   end
 
 end
