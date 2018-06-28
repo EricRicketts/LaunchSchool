@@ -29,6 +29,10 @@ module Scoreable
       player_tally[:player] += 1
       "Player score: #{player_score}, Dealer score: #{dealer_score}." +
       "  Player wins!!"
+    when dealer_score > player_score
+      dealer_tally[:dealer] += 1
+      "Dealer score: #{dealer_score}, Player score: #{player_score}." +
+      "  Dealer wins!!"
     end
   end
 end

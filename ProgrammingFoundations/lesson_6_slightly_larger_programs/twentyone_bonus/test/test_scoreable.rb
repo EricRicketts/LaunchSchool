@@ -103,4 +103,15 @@ class TestScoreable < Minitest::Test
     assert({ dealer: 0 } == dealer_tally && { player: 1 } == player_tally)
   end
 
+  def test_update_tally_dealer_beats_player
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    dealer_score = 18
+    player_score = 17
+    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
+    expected = "Dealer score: 18, Player score: 17.  Dealer wins!!"
+    assert_equal(expected, result)
+    assert({ dealer: 1 } == dealer_tally && { player: 0 } == player_tally)
+  end
+
 end
