@@ -1,5 +1,9 @@
 module Scoreable
 
+  def busted?(score)
+    score > 21
+  end
+
   def total(cards)
     sum = cards.values.sum
     aces = cards.select { |card, _| card[0] == "A" }
@@ -13,8 +17,11 @@ module Scoreable
     sum
   end
 
-  def busted?(score)
-    score > 21
+  def update_tally(player_score, player_tally, dealer_score, dealer_tally)
+    case
+    when busted?(player_score)
+      dealer_tally[:dealer] += 1
+      "Player busts!!  Dealer wins!!"
+    end
   end
-
 end

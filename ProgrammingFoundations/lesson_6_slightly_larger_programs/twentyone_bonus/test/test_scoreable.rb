@@ -72,4 +72,14 @@ class TestScoreable < Minitest::Test
     assert(busted?(score) && 24 == score && {"JS" => 10, "5D" => 5, "AH" => 1, "8D" => 8} == cards)
   end
 
+  def test_update_score_player_bust
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    player_score = 24
+    dealer_score = 16
+    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
+    assert_equal("Player busts!!  Dealer wins!!", result)
+    assert({ dealer: 1 } == dealer_tally && { player: 0 } == player_tally)
+  end
+
 end
