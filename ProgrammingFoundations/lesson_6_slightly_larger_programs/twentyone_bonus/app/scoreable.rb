@@ -17,23 +17,30 @@ module Scoreable
     sum
   end
 
-  def update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    score_str = "Player score: #{player_score}, Dealer score: #{dealer_score}."
+  def return_winner(player_score, dealer_score)
+    # score_str = "Player score: #{player_score}, Dealer score: #{dealer_score}."
+    # case
+    # when busted?(player_score)
+    #   dealer_tally[:dealer] += 1
+    #   "Player busts!!  Dealer wins!!"
+    # when busted?(dealer_score)
+    #   player_tally[:player] += 1
+    #   "Dealer busts!!  Player wins!!"
+    # when player_score > dealer_score
+    #   player_tally[:player] += 1
+    #   score_str + "  Player wins!!"
+    # when dealer_score > player_score
+    #   dealer_tally[:dealer] += 1
+    #   score_str + "  Dealer wins!!"
+    # else
+    #   score_str + "  A tie!!"
+    # end
     case
-    when busted?(player_score)
-      dealer_tally[:dealer] += 1
-      "Player busts!!  Dealer wins!!"
-    when busted?(dealer_score)
-      player_tally[:player] += 1
-      "Dealer busts!!  Player wins!!"
-    when player_score > dealer_score
-      player_tally[:player] += 1
-      score_str + "  Player wins!!"
-    when dealer_score > player_score
-      dealer_tally[:dealer] += 1
-      score_str + "  Dealer wins!!"
-    else
-      score_str + "  A tie!!"
+    when busted?(player_score) then :player_busts
+    when busted?(dealer_score) then :dealer_busts
+    when player_score > dealer_score then :player
+    when dealer_score > player_score then :dealer
+    else :tie
     end
   end
 end

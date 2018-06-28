@@ -72,57 +72,39 @@ class TestScoreable < Minitest::Test
     assert(busted?(score) && 24 == score && {"JS" => 10, "5D" => 5, "AH" => 1, "8D" => 8} == cards)
   end
 
-  def test_update_tally_player_bust
-    player_tally = { player: 0 }
-    dealer_tally = { dealer: 0 }
+  def test_winner_player_bust
     player_score = 24
     dealer_score = 16
-    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    assert_equal("Player busts!!  Dealer wins!!", result)
-    assert({ dealer: 1 } == dealer_tally && { player: 0 } == player_tally)
+    result = return_winner(player_score, dealer_score)
+    assert_equal(:player_busts, result)
   end
 
-  def test_update_tally_dealer_bust
-    player_tally = { player: 0 }
-    dealer_tally = { dealer: 0 }
+  def test_winner_dealer_bust
     player_score = 16
     dealer_score = 24
-    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    assert_equal("Dealer busts!!  Player wins!!", result)
-    assert({ dealer: 0 } == dealer_tally && { player: 1 } == player_tally)
+    result = return_winner(player_score, dealer_score)
+    assert_equal(:dealer_busts, result)
   end
 
-  def test_update_tally_player_beats_dealer
-    player_tally = { player: 0 }
-    dealer_tally = { dealer: 0 }
+  def test_winner_player_beats_dealer
     player_score = 18
     dealer_score = 17
-    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    expected = "Player score: 18, Dealer score: 17.  Player wins!!"
-    assert_equal(expected, result)
-    assert({ dealer: 0 } == dealer_tally && { player: 1 } == player_tally)
+    result = return_winner(player_score, dealer_score)
+    assert_equal(:player, result)
   end
 
-  def test_update_tally_dealer_beats_player
-    player_tally = { player: 0 }
-    dealer_tally = { dealer: 0 }
+  def test_winner_dealer_beats_player
     dealer_score = 18
     player_score = 17
-    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    expected = "Player score: 17, Dealer score: 18.  Dealer wins!!"
-    assert_equal(expected, result)
-    assert({ dealer: 1 } == dealer_tally && { player: 0 } == player_tally)
+    result = return_winner(player_score, dealer_score)
+    assert_equal(:dealer, result)
   end
 
-  def test_tie
-    player_tally = { player: 0 }
-    dealer_tally = { dealer: 0 }
+  def test_winner_tie
     dealer_score = 18
     player_score = 18
-    result = update_tally(player_score, player_tally, dealer_score, dealer_tally)
-    expected = "Player score: 18, Dealer score: 18.  A tie!!"
-    assert_equal(expected, result)
-    assert({ dealer: 0 } == dealer_tally && { player: 0 } == player_tally)
+    result = return_winner(player_score, dealer_score)
+    assert_equal(:tie, result)
   end
 
 end
