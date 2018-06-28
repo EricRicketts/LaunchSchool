@@ -107,4 +107,76 @@ class TestScoreable < Minitest::Test
     assert_equal(:tie, result)
   end
 
+  def test_update_tally_player_bust
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    round_result = :player_busts
+    update_tally(round_result, player_tally, dealer_tally)
+    assert({ player: 0 } == player_tally && { dealer: 1 } == dealer_tally)
+  end
+
+  def test_update_tally_dealer_bust
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    round_result = :dealer_busts
+    update_tally(round_result, player_tally, dealer_tally)
+    assert({ player: 1 } == player_tally && { dealer: 0 } == dealer_tally)
+  end
+
+  def test_update_tally_player_wins
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    round_result = :player
+    update_tally(round_result, player_tally, dealer_tally)
+    assert({ player: 1 } == player_tally && { dealer: 0 } == dealer_tally)
+  end
+
+  def test_update_tally_dealer_wins
+    player_tally = { player: 0 }
+    dealer_tally = { dealer: 0 }
+    round_result = :dealer
+    update_tally(round_result, player_tally, dealer_tally)
+    assert({ player: 0 } == player_tally && { dealer: 1 } == dealer_tally)
+  end
+
+  def test_display_player_bust
+    round_result = :player_busts
+    player_score = 24
+    dealer_score = 17
+    expected = "Player busts!!  Dealer wins!!"
+    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+  end
+
+  def test_display_dealer_bust
+    round_result = :dealer_busts
+    player_score = 17
+    dealer_score = 24
+    expected = "Dealer busts!!  Player wins!!"
+    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+  end
+
+  def test_display_player_wins
+    round_result = :player
+    player_score = 20
+    dealer_score = 17
+    expected = "Player score: 20, Dealer score: 17.  Player wins!!"
+    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+  end
+
+  def test_display_dealer_wins
+    round_result = :dealer
+    player_score = 17
+    dealer_score = 20
+    expected = "Player score: 17, Dealer score: 20.  Dealer wins!!"
+    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+  end
+
+  def test_display_tie
+    round_result = :tie
+    player_score = 20
+    dealer_score = 20
+    expected = "Player score: 20, Dealer score: 20.  A tie!!"
+    assert_equal(expected, display_results(round_result, player_score, dealer_score))
+  end
+
 end
