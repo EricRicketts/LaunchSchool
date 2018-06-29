@@ -16,11 +16,11 @@ module Viewable
   CLUB = "\u2667".freeze
 
   SUITE_HASH = {
-    "C" => CLUB, "D" => DIAMOND, "H" => HEART, "S" => SPADE, ' ' => ' '
+    "C" => CLUB, "D" => DIAMOND, "H" => HEART, "S" => SPADE, "\s" => SPACE
   }.freeze
 
   def blank_card
-    make_card(' ', ' ')
+    make_card("\s", "\s")
   end
 
   def compose_bottom(face, width_with_face)
@@ -78,3 +78,18 @@ module Viewable
     end
   end
 end
+
+# include Viewable
+# card1 = make_card("2", "D")
+# card2 = blank_card
+# card3 = make_card("10", "C")
+# card4 = make_card("10", "H")
+# card5 = blank_card
+# card6 = make_card("A", "C")
+# card7 = make_card("2", "C")
+# card8 = blank_card
+# card9 = make_card("10", "D")
+# card10 = make_card("10", "S")
+# card11 = blank_card
+# card12 = make_card("3", "S")
+# display_cards([card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12])
