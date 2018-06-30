@@ -18,6 +18,7 @@
  		1. Display dealer and player cards
  		2. Along with a message indicating player stays 
 	4. Check the bust flag, if busted exit the player turn loop
+	and move to the next round of play
 4. Dealer turn: hit or stay
 	1. Draw a third card and then display all cards   
 	2. Strict rule repeat hit until total >= 17

@@ -3,25 +3,40 @@ require_relative './playable.rb'
 
 include Playable
 
-loop do
+welcome
 
-  puts welcome
+loop do # game loop
 
-  deck, player_hand, player_tally, dealer_hand, dealer_tally = initialize_game
+  deck, player_hand, player_tally, dealer_hand, dealer_tally, *rest = init_game
+  player_score, dealer_score, player_bust, dealer_bust = *rest
   present_hands_one_dealer_card_hidden(player_hand, dealer_hand)
-  player_score, dealer_score = total(player_hand), total(dealer_hand)
-  player_busts, dealer_busts = false, false
 
-  loop do
+  loop do # player loop
+
     response = prompt_player
+
     if response == :hit
-      player_hand.merge!(deal_card(deck))
-      player_score = total(player_hand)
-      player_busts = busted?(player_score)
+      player_score, player_bust = do_player_hit(deck, player_hand)
       present_hands_one_dealer_card_hidden(player_hand, dealer_hand)
-      display_player_busts_message if player_busts
+      do_bust(:player_busts, player_tally, dealer_tally) if player_bust
     end
-    break if response == :stay || player_busts
+
+    display_stay_message(player_score) if response == :stay
+    break if response == :stay || player_bust
+
+  end
+
+    next if player_bust
+
+  loop do # dealer loop
+
+    present_hands(player_hand, dealer_hand)
+    dealer_score, dealer_bust, dealer_stay = do_dealer_hit(deck, dealer_hand)
+    puts prompt("Dealer hits!!") if !dealer_stay
+    do_bust(:dealer_busts, player_tally, dealer_tally) if dealer_bust
+
+    break if dealer_stay || dealer_bust
+
   end
 
   break
