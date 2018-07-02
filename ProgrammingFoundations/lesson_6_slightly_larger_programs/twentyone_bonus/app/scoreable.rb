@@ -17,6 +17,15 @@ module Scoreable
     sum
   end
 
+  def display_current_tally(game_tally)
+    player_tally = game_tally[:player]
+    dealer_tally = game_tally[:dealer]
+
+    str = "=> Current game score:\n" +
+      "=> Player: #{player_tally} Dealer: #{dealer_tally}\n"
+    puts str
+  end
+
   def display_round_results(round_results, player_score, dealer_score)
     score_str = "Player score: #{player_score}, Dealer score: #{dealer_score}."
     hsh = {
@@ -32,34 +41,33 @@ module Scoreable
   def display_winner(winner)
     case winner
     when :player_wins
-      "Player wins the game!!"
+      puts "=> Player wins the game!!"
     when :dealer_wins
-      "Dealer wins the game!!"
+      puts "=> Dealer wins the game!!"
     end
   end
 
-  def return_round_results(player_score, dealer_score)
+  def return_round_results_no_bust(player_score, dealer_score)
     case
-    when busted?(player_score) then :player_busts
-    when busted?(dealer_score) then :dealer_busts
     when player_score > dealer_score then :player
     when dealer_score > player_score then :dealer
     else :tie
     end
   end
 
-  def return_winner(player_tally, dealer_tally)
+  def return_winner(game_tally)
     case
-    when player_tally[:player] == 5 then :player_wins
-    when dealer_tally[:dealer] == 5 then :dealer_wins
+    when game_tally[:player] == 5 then :player_wins
+    when game_tally[:dealer] == 5 then :dealer_wins
     else :no_winner
     end
   end
 
-  def update_tally(round_result, player_tally, dealer_tally)
+  def update_tally(round_result, game_tally)
     case round_result
-    when :dealer_busts, :player then player_tally[:player] += 1
-    when :player_busts, :dealer then dealer_tally[:dealer] += 1
+    when :dealer_busts, :player then game_tally[:player] += 1
+    when :player_busts, :dealer then game_tally[:dealer] += 1
+    else game_tally
     end
   end
 end

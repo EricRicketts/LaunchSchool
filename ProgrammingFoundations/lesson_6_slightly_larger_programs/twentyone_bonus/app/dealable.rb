@@ -15,7 +15,6 @@ module Dealable
       deck_hash[card] = values[idx % num_values]
     end
     deck_hash
-
   end
 
   def deal_card(deck)
