@@ -18,6 +18,22 @@ class TestPlayable < Minitest::Test
     assert(player_score <= 21 && dealer_score <= 21 && !player_bust && !dealer_bust)
   end
 
+  def test_deck_empty_player_wins
+    game_tally = { player: 4, dealer: 3 }
+    result = "=> Deck is empty!!  Current game score: Player 4, Dealer 3.  Player wins!!\n"
+    assert_output(result) { declare_winner_deck_empty(game_tally) }
+  end
 
+  def test_deck_empty_dealer_wins
+    game_tally = { player: 3, dealer: 4 }
+    result = "=> Deck is empty!!  Current game score: Player 3, Dealer 4.  Dealer wins!!\n"
+    assert_output(result) { declare_winner_deck_empty(game_tally) }
+  end
+
+  def test_deck_empty_tie
+    game_tally = { player: 4, dealer: 4 }
+    result = "=> Deck is empty!!  Current game score: Player 4, Dealer 4.  A tie!!\n"
+    assert_output(result) { declare_winner_deck_empty(game_tally) }
+  end
 
 end

@@ -7,6 +7,23 @@ module Playable
   include Viewable
   include Scoreable
 
+  def declare_winner_deck_empty(game_tally)
+    player_tally = game_tally[:player]
+    dealer_tally = game_tally[:dealer]
+    str = "Deck is empty!!  Current game score: Player #{player_tally}, " +
+      "Dealer #{dealer_tally}.  "
+    if player_tally > dealer_tally
+      str += "Player wins!!"
+      puts prompt(str)
+    elsif dealer_tally > player_tally
+      str += "Dealer wins!!"
+      puts prompt(str)
+    else
+      str += "A tie!!"
+      puts prompt(str)
+    end
+  end
+
   def display_initial_dealer_hand(dealer_hand)
     dealer_cards = make_dealer_cards_with_one_hidden(dealer_hand)
     puts prompt("Dealer hand:")

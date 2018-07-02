@@ -19,6 +19,7 @@ loop do # game loop
       dealer_hand.merge!(deal_card(deck))
   end
 
+  puts "Deck size: #{deck.size}"
   player_score, dealer_score = total(player_hand), total(dealer_hand)
   player_bust, dealer_bust = false, false
 
