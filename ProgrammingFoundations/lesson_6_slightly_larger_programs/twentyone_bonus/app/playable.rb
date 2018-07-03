@@ -7,6 +7,9 @@ module Playable
   include Viewable
   include Scoreable
 
+  def initialize_hands
+    [{}, {}]
+  end
   # def declare_winner_deck_empty(game_tally)
   #   player_tally = game_tally[:player]
   #   dealer_tally = game_tally[:dealer]
@@ -219,11 +222,11 @@ module Playable
 
   def welcome
     str1 = "Welcome To The Game Of Twenty One!!"
-    str2 = "Each game consists of 5 rounds between the dealer and the player"
-    str3 = "First to 5 wins the game!!"
+    str2 = "Each game consists of 5 rounds between the dealer and the player."
+    str3 = "First to 5 wins the game."
     str4 = "Let's start!!"
     ary = [str1, str2, str3, str4]
-    ary.each { |str| prompt(str) }
+    ary.each { |str| puts prompt(str) }
   end
 
 end

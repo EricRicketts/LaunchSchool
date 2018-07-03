@@ -4,9 +4,18 @@ require_relative './playable.rb'
 include Playable
 
 welcome
+
 loop do # game loop
 
   deck = initialize_deck
+  player_hand, dealer_hand = initialize_hands
+  game_tally = initialize_game_tally
+
+  loop do # round loop
+
+  end # round loop
+
+  break
 end # game loop
 
 # loop do # game loop

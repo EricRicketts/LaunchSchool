@@ -129,6 +129,10 @@ class TestScoreableUpdateTallyAndGetWinner < Minitest::Test
     @game_tally = { player: 0, dealer: 0 }
   end
 
+  def test_init_tally
+    assert_equal(@game_tally, initialize_game_tally)
+  end
+
   def test_update_tally_player_bust
     round_result = :player_busts
     update_tally(round_result, @game_tally)

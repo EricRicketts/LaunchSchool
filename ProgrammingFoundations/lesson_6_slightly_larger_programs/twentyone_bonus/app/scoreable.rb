@@ -4,6 +4,9 @@ module Scoreable
     score > 21
   end
 
+  def initialize_game_tally
+    { player: 0, dealer: 0 }
+  end
 
   # def display_current_tally(game_tally)
   #   player_tally = game_tally[:player]
