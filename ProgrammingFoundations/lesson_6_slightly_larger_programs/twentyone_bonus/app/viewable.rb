@@ -62,6 +62,11 @@ module Viewable
     print_rows_of_strings(rows_of_strings)
   end
 
+  def display_one_score(player, score)
+    str = player + " score is: " + "#{score}"
+    puts prompt(str)
+  end
+
   def make_card(face, suite)
     width_with_face = INTERIOR_WIDTH - face.size
 
@@ -77,6 +82,11 @@ module Viewable
       print "\n"
     end
   end
+
+  def prompt(str)
+    "=> " + str
+  end
+
 end
 
 # include Viewable

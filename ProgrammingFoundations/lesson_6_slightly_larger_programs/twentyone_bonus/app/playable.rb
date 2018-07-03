@@ -1,6 +1,7 @@
 require_relative './dealable.rb'
 require_relative './viewable.rb'
 require_relative './scoreable.rb'
+require 'pry-byebug'
 
 module Playable
   include Dealable
@@ -27,11 +28,11 @@ module Playable
   #   end
   # end
 
-  # def display_initial_dealer_hand(dealer_hand)
-  #   dealer_cards = make_dealer_cards_with_one_hidden(dealer_hand)
-  #   puts prompt("Dealer hand:")
-  #   display_cards(dealer_cards)
-  # end
+  def display_dealer_hand_player_turn(dealer_hand)
+    dealer_cards = make_dealer_cards_player_turn(dealer_hand)
+    puts prompt("Dealer hand:")
+    display_cards(dealer_cards)
+  end
 
   # def display_dealer_hand(dealer_hand)
   #   dealer_cards = make_cards(dealer_hand)
@@ -48,12 +49,12 @@ module Playable
   #   end
   # end
 
-  # def display_player_hand(player_hand)
-  #   player_cards = make_cards(player_hand)
-  #   puts prompt("Player hand:")
-  #   display_cards(player_cards)
-  #   puts display_player_score(player_hand)
-  # end
+  def display_player_hand(player_hand, player_score)
+    player_cards = make_cards(player_hand)
+    puts prompt("Player hand:")
+    display_cards(player_cards)
+    display_one_score("Player", player_score)
+  end
 
   # def display_dealer_score(dealer_hand)
   #   dealer_score = total(dealer_hand)
@@ -66,14 +67,14 @@ module Playable
   #   end
   # end
 
-  # def display_player_score(player_hand)
-  #   player_score = total(player_hand)
-  #   if player_score <= 21
-  #     prompt("Player score is: #{player_score}")
-  #   else
-  #     prompt("Player score is: #{player_score}, Player busts, Dealer wins the round!!")
-  #   end
-  # end
+  def display_player_score(player_hand)
+    player_score = total(player_hand)
+    if player_score <= 21
+      prompt("Player score is: #{player_score}")
+    else
+      prompt("Player score is: #{player_score}, Player busts, Dealer wins the round!!")
+    end
+  end
 
   # def display_round_winner(winner, game_tally)
   #   current_player_tally = game_tally[:player]
@@ -139,26 +140,25 @@ module Playable
   #   end
   # end
 
-  # def make_dealer_cards_with_one_hidden(dealer_hand)
-  #   dealer_hand_ary = dealer_hand.to_a
-  #   first_card, *rest = make_cards(dealer_hand)
 
-  #   [first_card, blank_card]
-  # end
+  def make_cards(hand)
+    cards = hand.keys
+    display_cards = cards.map do |card|
+      if card.size == 3 # check for a "10"
+        face = card[0..1]
+        suit = card[2]
+      else
+        face, suit = card[0], card[1]
+      end
+      make_card(face, suit)
+    end
+  end
 
-  # def make_cards(hand)
-  #   cards = hand.keys
-  #   display_cards = cards.map do |card|
-  #     if card.size == 3 # check for a "10"
-  #       face = card[0..1]
-  #       suit = card[2]
-  #     else
-  #       face, suit = card[0], card[1]
-  #     end
-  #     make_card(face, suit)
-  #   end
-  # end
-
+  def make_dealer_cards_player_turn(dealer_hand)
+    dealer_hand_ary = dealer_hand.to_a
+    first_card, *rest = make_cards(dealer_hand)
+    [first_card, blank_card]
+  end
   # def init_game(deck)
   #   player_hand, dealer_hand = {}, {}
   #   game_tally = { player: 0, dealer: 0 }
@@ -176,18 +176,34 @@ module Playable
   #   [total(player_hand), total(dealer_hand), false, false]
   # end
 
-  # def present_hands(player_hand, dealer_hand)
+  # def present_hands_dealer_turn(player_hand, dealer_hand)
   #   display_dealer_hand(dealer_hand)
   #   display_player_hand(player_hand)
   # end
 
-  # def present_hands_one_dealer_card_hidden(player_hand, dealer_hand)
-  #   display_initial_dealer_hand(dealer_hand)
-  #   display_player_hand(player_hand)
-  # end
+
+  def new_round_message
+    puts prompt("A new round begins!!")
+  end
+
+  def present_hands_player_turn(player_hand, dealer_hand, player_score)
+    display_dealer_hand_player_turn(dealer_hand)
+    display_player_hand(player_hand, player_score)
+  end
 
   def prompt(str)
     "=> " + str
+  end
+
+  def start_round(deck, player_hand, dealer_hand)
+    2.times do
+      player_hand.merge!(deal_card(deck))
+      dealer_hand.merge!(deal_card(deck))
+    end
+  end
+
+  def start_scoring(player_hand, dealer_hand)
+    [total(player_hand), total(dealer_hand)]
   end
 
   # def prompt_continue_play

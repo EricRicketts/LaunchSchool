@@ -13,6 +13,12 @@ loop do # game loop
 
   loop do # round loop
 
+    start_round(deck, player_hand, dealer_hand)
+    player_score, dealer_score = start_scoring(player_hand, dealer_hand)
+    new_round_message
+    present_hands_player_turn(player_hand, dealer_hand, player_score)
+
+    break
   end # round loop
 
   break
