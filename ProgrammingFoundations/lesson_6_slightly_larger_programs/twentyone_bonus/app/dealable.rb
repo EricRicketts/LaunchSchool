@@ -23,6 +23,11 @@ module Dealable
     {card => value}
   end
 
+  def initialize_deck
+    unshuffled_deck = create_deck
+    shuffle_deck(unshuffled_deck)
+  end
+
   def shuffle_deck(deck)
     deck.to_a.shuffle.to_h
   end
