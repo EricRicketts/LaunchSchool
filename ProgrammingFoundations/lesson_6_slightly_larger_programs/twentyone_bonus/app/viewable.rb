@@ -62,9 +62,33 @@ module Viewable
     print_rows_of_strings(rows_of_strings)
   end
 
+  def display_game_tally(game_tally)
+    player = game_tally[:player].to_s
+    dealer = game_tally[:dealer].to_s
+    str = "Current tally:  Player #{player}, Dealer #{dealer}."
+    puts prompt(str)
+  end
+
   def display_one_score(player, score)
     str = player + " score is: " + "#{score}"
     puts prompt(str)
+  end
+
+  def display_round_results(round_winner, player_score, dealer_score)
+    str1 = "Round score: Player #{player_score}, Dealer #{dealer_score}."
+    case round_winner
+    when :player_busts then str2 = "Player busts, Dealer wins!!"
+    when :dealer_busts then str2 = "Dealer busts, Player wins!!"
+    when :player then str2 = "Player wins!!"
+    when :dealer then str2 = "Dealer wins!!"
+    else str2 = "A tie!!"
+    end
+    display_score_and_winner(str1, str2)
+  end
+
+  def display_score_and_winner(str1, str2)
+    puts prompt(str1)
+    puts prompt(str2)
   end
 
   def make_card(face, suite)
@@ -87,26 +111,4 @@ module Viewable
     "=> " + str
   end
 
-  def display_game_tally(game_tally)
-    player = game_tally[:player].to_s
-    dealer = game_tally[:dealer].to_s
-    str = "Current tally:  Player #{player}, Dealer #{dealer}."
-    puts prompt(str)
-  end
-
 end
-
-# include Viewable
-# card1 = make_card("2", "D")
-# card2 = blank_card
-# card3 = make_card("10", "C")
-# card4 = make_card("10", "H")
-# card5 = blank_card
-# card6 = make_card("A", "C")
-# card7 = make_card("2", "C")
-# card8 = blank_card
-# card9 = make_card("10", "D")
-# card10 = make_card("10", "S")
-# card11 = blank_card
-# card12 = make_card("3", "S")
-# display_cards([card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12])

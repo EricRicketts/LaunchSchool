@@ -42,35 +42,35 @@ class TestPlayable < Minitest::Test
   end
 
   def test_update_player_exit_player_quits
-    assert(update_player_exit(:quit, false))
+    assert(player_exit(:quit, false))
   end
 
   def test_update_player_exit_player_stays
-    assert(update_player_exit(:stay, false))
+    assert(player_exit(:stay, false))
   end
 
   def test_update_player_exit_player_busts
-    assert(update_player_exit(:quit, true))
+    assert(player_exit(:quit, true))
   end
 
   def test_update_player_exit_player_quits
-    refute(update_player_exit(:hit, false))
+    refute(player_exit(:hit, false))
   end
 
   def test_updat_dealer_exit_player_quits
-    assert(update_dealer_exit(:quit))
+    assert(dealer_exit(:quit))
   end
 
   def test_updat_dealer_exit_player_busts
-    assert(update_dealer_exit(:hit, true))
+    assert(dealer_exit(:hit, true))
   end
 
   def test_updat_dealer_exit_dealer_stays
-    assert(update_dealer_exit(:hit, false, true))
+    assert(dealer_exit(:hit, false, true))
   end
 
   def test_updat_dealer_exit_dealer_busts
-    assert(update_dealer_exit(:hit, false, false, true))
+    assert(dealer_exit(:hit, false, false, true))
   end
 
   def test_dealer_hit_dealer_stays

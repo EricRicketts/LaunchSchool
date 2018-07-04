@@ -18,4 +18,34 @@ class TestViewable < Minitest::Test
     assert_output(expected) { display_one_score("Dealer", 13) }
   end
 
+  def test_round_results_player_bust
+    expected = "=> Round score: Player 24, Dealer 20.\n" +
+      "=> Player busts, Dealer wins!!\n"
+    assert_output(expected) { display_round_results(:player_busts, 24, 20) }
+  end
+
+  def test_round_results_dealer_bust
+    expected = "=> Round score: Player 20, Dealer 24.\n" +
+      "=> Dealer busts, Player wins!!\n"
+    assert_output(expected) { display_round_results(:dealer_busts, 20, 24) }
+  end
+
+  def test_round_results_player_wins
+    expected = "=> Round score: Player 19, Dealer 17.\n" +
+      "=> Player wins!!\n"
+    assert_output(expected) { display_round_results(:player, 19, 17) }
+  end
+
+  def test_round_results_dealer_wins
+    expected = "=> Round score: Player 17, Dealer 19.\n" +
+      "=> Dealer wins!!\n"
+    assert_output(expected) { display_round_results(:dealer, 17, 19) }
+  end
+
+  def test_round_results_tie
+    expected = "=> Round score: Player 20, Dealer 20.\n" +
+      "=> A tie!!\n"
+    assert_output(expected) { display_round_results(:tie, 20, 20) }
+  end
+
 end
