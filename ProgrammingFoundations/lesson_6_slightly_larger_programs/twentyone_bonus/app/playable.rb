@@ -34,12 +34,12 @@ module Playable
     display_cards(dealer_cards)
   end
 
-  # def display_dealer_hand(dealer_hand)
-  #   dealer_cards = make_cards(dealer_hand)
-  #   puts prompt("Dealer hand:")
-  #   display_cards(dealer_cards)
-  #   puts display_dealer_score(dealer_hand)
-  # end
+  def display_dealer_hand(dealer_hand, dealer_score)
+    dealer_cards = make_cards(dealer_hand)
+    puts prompt("Dealer hand:")
+    display_cards(dealer_cards)
+    display_one_score("Dealer", dealer_score)
+  end
 
   # def display_busts_message(who_busts)
   #   if :player_busts
@@ -67,14 +67,14 @@ module Playable
   #   end
   # end
 
-  def display_player_score(player_hand)
-    player_score = total(player_hand)
-    if player_score <= 21
-      prompt("Player score is: #{player_score}")
-    else
-      prompt("Player score is: #{player_score}, Player busts, Dealer wins the round!!")
-    end
-  end
+  # def display_player_score(player_hand)
+  #   player_score = total(player_hand)
+  #   if player_score <= 21
+  #     prompt("Player score is: #{player_score}")
+  #   else
+  #     prompt("Player score is: #{player_score}, Player busts, Dealer wins the round!!")
+  #   end
+  # end
 
   # def display_round_winner(winner, game_tally)
   #   current_player_tally = game_tally[:player]
@@ -97,32 +97,31 @@ module Playable
   #   puts prompt("Player stays at #{score}.")
   # end
 
-  # def do_dealer_hit(deck, dealer_hand)
-  #   dealer_score = total(dealer_hand)
-  #   if dealer_score >= 17 && dealer_score <= 21
-  #     dealer_stay = true
-  #     dealer_bust = false
-  #   elsif dealer_score > 21
-  #     dealer_stay = true
-  #     dealer_bust = true
-  #   else
-  #     dealer_hand.merge!(deal_card(deck))
-  #     dealer_stay = false
-  #     dealer_bust = false
-  #   end
-  #   [dealer_score, dealer_bust, dealer_stay]
-  # end
+  def dealer_hit(deck, dealer_hand)
+    dealer_score = total(dealer_hand)
+    if dealer_score >= 17 && dealer_score <= 21
+      dealer_stays, dealer_busts = true, false
+    elsif dealer_score > 21
+      dealer_stays, dealer_busts = false, true
+    else
+      dealer_hand.merge!(deal_card(deck))
+      dealer_stays, dealer_busts = false, false
+      dealer_score = total(dealer_hand)
+    end
+    [dealer_score, dealer_busts, dealer_stays]
+  end
 
   # def do_bust(who_busts, game_tally)
   #   update_tally(who_busts, game_tally)
   #   display_current_tally(game_tally)
   # end
 
-  # def do_player_hit(deck, player_hand)
-  #   player_hand.merge!(deal_card(deck))
-  #   player_score = total(player_hand)
-  #   [player_score, busted?(player_score)]
-  # end
+  def player_hit(deck, player_hand)
+    player_hand.merge!(deal_card(deck))
+    player_score = total(player_hand)
+    player_busts = busted?(player_score)
+    [player_score, player_busts]
+  end
 
   # def game_over?(game_tally)
   #   game_tally.values.include?(5)
@@ -176,11 +175,10 @@ module Playable
   #   [total(player_hand), total(dealer_hand), false, false]
   # end
 
-  # def present_hands_dealer_turn(player_hand, dealer_hand)
-  #   display_dealer_hand(dealer_hand)
-  #   display_player_hand(player_hand)
-  # end
-
+  def present_hands_dealer_turn(player_hand, player_score, dealer_hand, dealer_score)
+    display_dealer_hand(dealer_hand, dealer_score)
+    display_player_hand(player_hand, player_score)
+  end
 
   def new_round_message
     puts prompt("A new round begins!!")
@@ -219,22 +217,31 @@ module Playable
   #   response == 'y'
   # end
 
-  # def prompt_player
-  #   prompt_str = "Would you like to (h)it, (s)tay, or (q)uit?"
-  #   response = ''
-  #   loop do
-  #     puts prompt(prompt_str)
-  #     response = gets.downcase.chomp
-  #     response = response[0]
-  #     break if ['h', 'q', 's'].include?(response)
-  #     puts prompt("Incorrect response. Let's try again.")
-  #   end
-  #   case response
-  #   when 'h' then :hit
-  #   when 's' then :stay
-  #   else :quit
-  #   end
-  # end
+  def prompt_player
+    prompt_str = "Would you like to (h)it, (s)tay, or (q)uit?"
+    response = ''
+    loop do
+      puts prompt(prompt_str)
+      response = gets.downcase.chomp
+      response = response[0]
+      break if ['h', 'q', 's'].include?(response)
+      puts prompt("Incorrect response. Let's try again.")
+    end
+    case response
+    when 'h' then :hit
+    when 's' then :stay
+    when 'q' then :quit
+    else nil
+    end
+  end
+
+  def update_dealer_exit(p_res, p_busts=false, d_stays=false, d_busts=false)
+    p_res == :quit || p_busts || d_stays || d_busts
+  end
+
+  def update_player_exit(player_response, player_busts)
+    [:quit, :stay].include?(player_response) || player_busts
+  end
 
   def welcome
     str1 = "Welcome To The Game Of Twenty One!!"

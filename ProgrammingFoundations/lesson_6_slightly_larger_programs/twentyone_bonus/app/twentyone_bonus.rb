@@ -17,7 +17,44 @@ loop do # game loop
     player_score, dealer_score = start_scoring(player_hand, dealer_hand)
     new_round_message
     present_hands_player_turn(player_hand, dealer_hand, player_score)
+    player_busts, dealer_busts = false, false
+    dealer_stays, player_response = false, nil
+    player_exit, dealer_exit = false, false
 
+    until player_exit
+      player_response = prompt_player
+      if player_response == :hit
+        player_score, player_busts = player_hit(deck, player_hand)
+        present_hands_player_turn(player_hand, dealer_hand, player_score)
+      end
+      player_exit = update_player_exit(player_response, player_busts)
+      dealer_exit = update_dealer_exit(player_response, player_busts)
+      dealer_score = total(dealer_hand)
+    end
+
+    until dealer_exit
+      present_hands_dealer_turn(player_hand, player_score, dealer_hand, dealer_score)
+      dealer_score, dealer_busts, dealer_stays = dealer_hit(deck, dealer_hand)
+      puts prompt("Dealer hits!!") if !dealer_stays
+      dealer_exit = update_dealer_exit(player_response, player_busts, dealer_stays, dealer_busts)
+    end
+    # loop do # player loop
+
+    #   player_response = prompt_player
+
+    #   if player_response == :hit
+    #     player_score, player_busts = player_hit(deck, player_hand)
+    #     present_hands_player_turn(player_hand, dealer_hand, player_score)
+    #   end
+
+    #   break if [:stay, :quit].include?(player_response) || player_busts
+
+    # end # player loop
+
+
+    round_result = return_round_result(player_score, dealer_score)
+    update_tally(round_result, game_tally)
+    display_game_tally(game_tally)
     break
   end # round loop
 

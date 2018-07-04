@@ -87,6 +87,13 @@ module Viewable
     "=> " + str
   end
 
+  def display_game_tally(game_tally)
+    player = game_tally[:player].to_s
+    dealer = game_tally[:dealer].to_s
+    str = "Current tally:  Player #{player}, Dealer #{dealer}."
+    puts prompt(str)
+  end
+
 end
 
 # include Viewable
