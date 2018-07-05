@@ -12,37 +12,36 @@ loop do # play loop
   loop do # game loop
 
     deck = initialize_deck
-    player_hand, dealer_hand = initialize_hands
+    plyr_hand, dlr_hand = initialize_hands
 
-    start_round(deck, player_hand, dealer_hand)
-    player_score, dealer_score = start_scoring(player_hand, dealer_hand)
-    player_busts, dealer_busts = false, false
-    dealer_stays, player_response = false, nil
+    start_round(deck, plyr_hand, dlr_hand)
+    plyr_score, dlr_score = start_scoring(plyr_hand, dlr_hand)
+    plyr_busts, dlr_busts, dlr_stays, plyr_response = false, false, false, nil
 
     new_round_message
-    present_hands_player_turn(player_hand, dealer_hand, player_score)
+    present_hands_player_turn(plyr_hand, dlr_hand, plyr_score)
 
-    until player_exit(player_response, player_busts)
-      player_response = prompt_player
-      if player_response == :hit
-        player_score, player_busts = player_hit(deck, player_hand)
-        present_hands_player_turn(player_hand, dealer_hand, player_score)
+    until player_exit(plyr_response, plyr_busts)
+      plyr_response = prompt_player
+      if plyr_response == :hit
+        plyr_score, plyr_busts = player_hit(deck, plyr_hand)
+        present_hands_player_turn(plyr_hand, dlr_hand, plyr_score)
       end
-      dealer_score = total(dealer_hand)
+      dlr_score = total(dlr_hand)
     end
 
-    until dealer_exit(player_response, player_busts, dealer_stays, dealer_busts)
-      present_hands_dealer_turn(player_hand, player_score, dealer_hand, dealer_score)
-      dealer_score, dealer_busts, dealer_stays = dealer_hit(deck, dealer_hand)
-      puts prompt("Dealer hits!!") unless dealer_stays || dealer_busts
+    until dealer_exit(plyr_response, plyr_busts, dlr_stays, dlr_busts)
+      present_hands_dealer_turn(plyr_hand, plyr_score, dlr_hand, dlr_score)
+      dlr_score, dlr_busts, dlr_stays = dealer_hit(deck, dlr_hand)
+      puts prompt("Dealer hits!!") unless dlr_stays || dlr_busts
     end
 
-    if player_response == :quit
-      global_quit = player_response
+    if plyr_response == :quit
+      global_quit = plyr_response
       break
     end
-    round_result = return_round_result(player_score, dealer_score)
-    display_round_results(round_result, player_score, dealer_score)
+    round_result = return_round_result(plyr_score, dlr_score)
+    display_round_results(round_result, plyr_score, dlr_score)
     update_tally(round_result, game_tally)
     display_game_tally(game_tally)
 
