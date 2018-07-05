@@ -98,14 +98,14 @@ module Playable
     "=> " + str
   end
 
-  def start_round(deck, player_hand, dealer_hand)
+  def initialize_hands(deck, player_hand, dealer_hand)
     2.times do
       player_hand.merge!(deal_card(deck))
       dealer_hand.merge!(deal_card(deck))
     end
   end
 
-  def start_scoring(player_hand, dealer_hand)
+  def initialize_scores(player_hand, dealer_hand)
     [total(player_hand), total(dealer_hand)]
   end
 

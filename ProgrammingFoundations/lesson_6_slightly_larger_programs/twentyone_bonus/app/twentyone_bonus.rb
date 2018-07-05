@@ -11,12 +11,12 @@ loop do # play loop
 
   loop do # game loop
 
-    deck = initialize_deck
-    plyr_hand, dlr_hand = initialize_hands
-
-    start_round(deck, plyr_hand, dlr_hand)
-    plyr_score, dlr_score = start_scoring(plyr_hand, dlr_hand)
+    plyr_hand, dlr_hand = {}, {}
     plyr_busts, dlr_busts, dlr_stays, plyr_response = false, false, false, nil
+
+    deck = initialize_deck
+    initialize_hands(deck, plyr_hand, dlr_hand)
+    plyr_score, dlr_score = initialize_scores(plyr_hand, dlr_hand)
 
     new_round_message
     present_hands_player_turn(plyr_hand, dlr_hand, plyr_score)
