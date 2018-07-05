@@ -1,4 +1,3 @@
-require 'pry-byebug'
 module Dealable
   def create_cards
     faces = ('2'..'10').to_a + ["J", "Q", "K", "A"]
@@ -20,7 +19,7 @@ module Dealable
   def deal_card(deck)
     card, value = deck.first
     deck.delete(card)
-    {card => value}
+    { card => value }
   end
 
   def initialize_deck

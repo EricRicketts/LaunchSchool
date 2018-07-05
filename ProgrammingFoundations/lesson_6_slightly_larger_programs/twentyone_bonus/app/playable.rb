@@ -1,113 +1,98 @@
 require_relative './dealable.rb'
 require_relative './viewable.rb'
 require_relative './scoreable.rb'
-require 'pry-byebug'
 
+# rubocop:disable Metrics/ModuleLength
 module Playable
   include Dealable
   include Viewable
   include Scoreable
 
-  def initialize_hands
-    [{}, {}]
-  end
-
-  def display_dealer_hand_player_turn(dealer_hand)
-    dealer_cards = make_dealer_cards_player_turn(dealer_hand)
-    puts prompt("Dealer hand:")
-    display_cards(dealer_cards)
-  end
-
-  def display_dealer_hand(dealer_hand, dealer_score)
-    dealer_cards = make_cards(dealer_hand)
-    puts prompt("Dealer hand:")
-    display_cards(dealer_cards)
-    display_one_score("Dealer", dealer_score)
-  end
-
-  def display_player_hand(player_hand, player_score)
-    player_cards = make_cards(player_hand)
-    puts prompt("Player hand:")
-    display_cards(player_cards)
-    display_one_score("Player", player_score)
-  end
-
   def dealer_exit(p_res, p_busts=false, d_stays=false, d_busts=false)
     p_res == :quit || p_busts || d_stays || d_busts
   end
 
-  def dealer_hit(deck, dealer_hand)
-    dealer_score = total(dealer_hand)
-    if dealer_score >= 17 && dealer_score <= 21
-      dealer_stays, dealer_busts = true, false
-    elsif dealer_score > 21
-      dealer_stays, dealer_busts = false, true
-    else
-      dealer_hand.merge!(deal_card(deck))
-      dealer_stays, dealer_busts = false, false
-      dealer_score = total(dealer_hand)
-    end
-    [dealer_score, dealer_busts, dealer_stays]
+  def display_dealer_hand_player_turn(dlr_hand)
+    dealer_cards = make_dealer_cards_player_turn(dlr_hand)
+    puts prompt("Dealer hand:")
+    display_cards(dealer_cards)
   end
 
-  def player_hit(deck, player_hand)
-    player_hand.merge!(deal_card(deck))
-    player_score = total(player_hand)
-    player_busts = busted?(player_score)
-    [player_score, player_busts]
+  def display_dealer_hand(dlr_hand, dlr_score)
+    dealer_cards = make_cards(dlr_hand)
+    puts prompt("Dealer hand:")
+    display_cards(dealer_cards)
+    display_one_score("Dealer", dlr_score)
+  end
+
+  def display_player_hand(plyr_hand, plyr_score)
+    player_cards = make_cards(plyr_hand)
+    puts prompt("Player hand:")
+    display_cards(player_cards)
+    display_one_score("Player", plyr_score)
+  end
+
+  def dealer_hit(deck, dlr_hand)
+    dlr_score = total(dlr_hand)
+    if dlr_score >= 17 && dlr_score <= 21
+      dealer_stays = true
+      dealer_busts = false
+    elsif dlr_score > 21
+      dealer_stays = false
+      dealer_busts = true
+    else
+      dlr_hand.merge!(deal_card(deck))
+      dealer_stays = false
+      dealer_busts = false
+      dlr_score = total(dlr_hand)
+    end
+    [dlr_score, dealer_busts, dealer_stays]
+  end
+
+  def get_and_display_round_result(plyr_score, dlr_score, game_tally)
+    round_result = return_round_result(plyr_score, dlr_score)
+    display_round_results(round_result, plyr_score, dlr_score)
+    update_tally(round_result, game_tally)
+    display_game_tally(game_tally)
+    winner = return_game_winner(game_tally)
+    display_game_winner(winner) unless winner == :no_winner
+  end
+
+  def initialize_hands(deck, plyr_hand, dlr_hand)
+    2.times do
+      plyr_hand.merge!(deal_card(deck))
+      dlr_hand.merge!(deal_card(deck))
+    end
+  end
+
+  def initialize_misc
+    [{}, {}, false, false, false, nil]
+  end
+
+  def initialize_scores(plyr_hand, dlr_hand)
+    [total(plyr_hand), total(dlr_hand)]
   end
 
   def make_cards(hand)
     cards = hand.keys
-    display_cards = cards.map do |card|
+    cards.map do |card|
       if card.size == 3 # check for a "10"
         face = card[0..1]
         suit = card[2]
       else
-        face, suit = card[0], card[1]
+        face = card[0]
+        suit = card[1]
       end
       make_card(face, suit)
     end
   end
 
-  def make_dealer_cards_player_turn(dealer_hand)
-    dealer_hand_ary = dealer_hand.to_a
-    first_card, *rest = make_cards(dealer_hand)
-    [first_card, blank_card]
+  # rubocop:disable Lint/UselessAssignment
+  def make_dealer_cards_player_turn(dlr_hand)
+    display_card, *rest = make_cards(dlr_hand)
+    [display_card, blank_card]
   end
-
-  def player_exit(player_response, player_busts)
-    [:quit, :stay].include?(player_response) || player_busts
-  end
-
-  def present_hands_dealer_turn(player_hand, player_score, dealer_hand, dealer_score)
-    display_dealer_hand(dealer_hand, dealer_score)
-    display_player_hand(player_hand, player_score)
-  end
-
-  def new_round_message
-    puts prompt("A new round begins!!")
-  end
-
-  def present_hands_player_turn(player_hand, dealer_hand, player_score)
-    display_dealer_hand_player_turn(dealer_hand)
-    display_player_hand(player_hand, player_score)
-  end
-
-  def prompt(str)
-    "=> " + str
-  end
-
-  def initialize_hands(deck, player_hand, dealer_hand)
-    2.times do
-      player_hand.merge!(deal_card(deck))
-      dealer_hand.merge!(deal_card(deck))
-    end
-  end
-
-  def initialize_scores(player_hand, dealer_hand)
-    [total(player_hand), total(dealer_hand)]
-  end
+  # rubocop:enable Lint/UselessAssignment
 
   def play_again?
     str = "Would you like to play a new game?((y)es or (n)o)"
@@ -120,6 +105,27 @@ module Playable
       puts prompt("Incorrect response.  Let's try again.")
     end
     response
+  end
+
+  def player_exit(player_response, player_busts)
+    [:quit, :stay].include?(player_response) || player_busts
+  end
+
+  def player_hit(deck, plyr_hand)
+    plyr_hand.merge!(deal_card(deck))
+    plyr_score = total(plyr_hand)
+    player_busts = busted?(plyr_score)
+    [plyr_score, player_busts]
+  end
+
+  def present_hands_dealer_turn(plyr_hand, plyr_score, dlr_hand, dlr_score)
+    display_dealer_hand(dlr_hand, dlr_score)
+    display_player_hand(plyr_hand, plyr_score)
+  end
+
+  def present_hands_player_turn(plyr_hand, dlr_hand, plyr_score)
+    display_dealer_hand_player_turn(dlr_hand)
+    display_player_hand(plyr_hand, plyr_score)
   end
 
   def prompt_player
@@ -135,8 +141,7 @@ module Playable
     case response
     when 'h' then :hit
     when 's' then :stay
-    when 'q' then :quit
-    else nil
+    else :quit
     end
   end
 
@@ -148,5 +153,5 @@ module Playable
     ary = [str1, str2, str3, str4]
     ary.each { |str| puts prompt(str) }
   end
-
 end
+# rubocop:enable Metrics/ModuleLength

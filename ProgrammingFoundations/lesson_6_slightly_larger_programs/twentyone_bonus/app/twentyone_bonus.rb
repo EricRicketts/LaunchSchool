@@ -1,18 +1,18 @@
 require 'pry-byebug'
 require_relative './playable.rb'
 
+# rubocop:disable Style/MixinUsage
 include Playable
+# rubocop:enable Style/MixinUsage
 
 loop do # play loop
-
   welcome_message
   game_tally = initialize_game_tally
   global_quit = nil
 
   loop do # game loop
-
-    plyr_hand, dlr_hand = {}, {}
-    plyr_busts, dlr_busts, dlr_stays, plyr_response = false, false, false, nil
+    plyr_hand, dlr_hand, plyr_busts, dlr_busts, *rest = initialize_misc
+    dlr_stays, plyr_response = rest
 
     deck = initialize_deck
     initialize_hands(deck, plyr_hand, dlr_hand)
@@ -40,15 +40,11 @@ loop do # play loop
       global_quit = plyr_response
       break
     end
-    round_result = return_round_result(plyr_score, dlr_score)
-    display_round_results(round_result, plyr_score, dlr_score)
-    update_tally(round_result, game_tally)
-    display_game_tally(game_tally)
+
+    get_and_display_round_result(plyr_score, dlr_score, game_tally)
 
     break if game_over?(game_tally)
-
-  end # game loop
+  end
 
   break if global_quit == :quit || play_again? == 'n'
-
-end # play loop
+end

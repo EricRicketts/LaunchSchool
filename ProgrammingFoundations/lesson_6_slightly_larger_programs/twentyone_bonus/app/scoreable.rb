@@ -1,11 +1,10 @@
 module Scoreable
-
   def busted?(score)
     score > 21
   end
 
   def game_over?(game_tally)
-    game_tally.values.include?(5)
+    game_tally.value?(5)
   end
 
   def initialize_game_tally
@@ -13,19 +12,23 @@ module Scoreable
   end
 
   def return_round_result(player_score, dealer_score)
-    case
-    when busted?(player_score) then :player_busts
-    when busted?(dealer_score) then :dealer_busts
-    when player_score > dealer_score then :player
-    when dealer_score > player_score then :dealer
+    if busted?(player_score)
+      :player_busts
+    elsif busted?(dealer_score)
+      :dealer_busts
+    elsif player_score > dealer_score
+      :player
+    elsif dealer_score > player_score
+      :dealer
     else :tie
     end
   end
 
-  def return_winner(game_tally)
-    case
-    when game_tally[:player] == 5 then :player_wins
-    when game_tally[:dealer] == 5 then :dealer_wins
+  def return_game_winner(game_tally)
+    if game_tally[:player] == 5
+      :player_wins
+    elsif game_tally[:dealer] == 5
+      :dealer_wins
     else :no_winner
     end
   end

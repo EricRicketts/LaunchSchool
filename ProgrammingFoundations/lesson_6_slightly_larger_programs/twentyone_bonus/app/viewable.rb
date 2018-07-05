@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module Viewable
   HORIZONTAL_LINE = "\u2550".freeze
   VERTICAL_LINE = "\u2551".freeze
@@ -69,20 +70,31 @@ module Viewable
     puts prompt(str)
   end
 
+  def display_game_winner(winner)
+    str = if winner == :player_wins
+            "Player wins the game!!"
+          elsif winner == :dealer_wins
+            "Dealer wins the game!!"
+          else
+            "No winner!!"
+          end
+    puts prompt(str)
+  end
+
   def display_one_score(player, score)
-    str = player + " score is: " + "#{score}"
+    str = player + " score is: " + score.to_s
     puts prompt(str)
   end
 
   def display_round_results(round_winner, player_score, dealer_score)
     str1 = "Round score: Player #{player_score}, Dealer #{dealer_score}."
-    case round_winner
-    when :player_busts then str2 = "Player busts, Dealer wins!!"
-    when :dealer_busts then str2 = "Dealer busts, Player wins!!"
-    when :player then str2 = "Player wins!!"
-    when :dealer then str2 = "Dealer wins!!"
-    else str2 = "A tie!!"
-    end
+    str2 =  case round_winner
+            when :player_busts then "Player busts, Dealer wins!!"
+            when :dealer_busts then "Dealer busts, Player wins!!"
+            when :player then "Player wins!!"
+            when :dealer then "Dealer wins!!"
+            else "A tie!!"
+            end
     display_score_and_winner(str1, str2)
   end
 
@@ -98,6 +110,10 @@ module Viewable
       compose_bottom(face, width_with_face)
   end
 
+  def new_round_message
+    puts prompt("A new round begins!!")
+  end
+
   def print_rows_of_strings(rows_of_strings)
     rows_of_strings.each do |row|
       row.each do |str|
@@ -110,5 +126,5 @@ module Viewable
   def prompt(str)
     "=> " + str
   end
-
 end
+# rubocop:enable Metrics/ModuleLength

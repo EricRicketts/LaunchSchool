@@ -165,17 +165,17 @@ class TestScoreableUpdateTallyAndGetWinner < Minitest::Test
 
   def test_no_winner
     game_tally = { player: 4, dealer: 3 }
-    assert_equal(:no_winner, return_winner(game_tally))
+    assert_equal(:no_winner, return_game_winner(game_tally))
   end
 
   def test_player_wins
     game_tally = { player: 5, dealer: 4 }
-    assert_equal(:player_wins, return_winner(game_tally))
+    assert_equal(:player_wins, return_game_winner(game_tally))
   end
 
   def test_dealer_wins
     game_tally = { player: 4, dealer: 5 }
-    assert_equal(:dealer_wins, return_winner(game_tally))
+    assert_equal(:dealer_wins, return_game_winner(game_tally))
   end
 
   def test_game_winner_player

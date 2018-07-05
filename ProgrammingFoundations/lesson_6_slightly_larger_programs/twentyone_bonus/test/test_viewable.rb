@@ -48,4 +48,16 @@ class TestViewable < Minitest::Test
     assert_output(expected) { display_round_results(:tie, 20, 20) }
   end
 
+  def test_game_winner_player
+    assert_output("=> Player wins the game!!\n") { display_game_winner(:player_wins) }
+  end
+
+  def test_game_winner_dealer
+    assert_output("=> Dealer wins the game!!\n") { display_game_winner(:dealer_wins) }
+  end
+
+  def test_game_winner_none
+    assert_output("=> No winner!!\n") { display_game_winner(:no_winner) }
+  end
+
 end
