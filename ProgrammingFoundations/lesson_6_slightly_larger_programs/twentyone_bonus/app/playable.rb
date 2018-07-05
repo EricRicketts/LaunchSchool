@@ -32,8 +32,7 @@ module Playable
     display_one_score("Player", plyr_score)
   end
 
-  def dealer_hit(deck, dlr_hand)
-    dlr_score = total(dlr_hand)
+  def dealer_hit(deck, dlr_hand, dlr_score)
     if dlr_score >= 17 && dlr_score <= 21
       dealer_stays = true
       dealer_busts = false

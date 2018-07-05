@@ -77,7 +77,7 @@ class TestPlayable < Minitest::Test
     deck = { "2H" => 2, "QD" => 10 }
     dealer_hand = { "KS" => 10, "7C" => 7}
     expected = [17, false, true]
-    score, bust, stay = dealer_hit(deck, dealer_hand)
+    score, bust, stay = dealer_hit(deck, dealer_hand, 17)
     assert_equal(expected, [score, bust, stay])
   end
 
@@ -85,7 +85,7 @@ class TestPlayable < Minitest::Test
     deck = { "2H" => 2, "QD" => 10 }
     dealer_hand = { "KS" => 10, "7C" => 7, "9D" => 9 }
     expected = [26, true, false]
-    score, bust, stay = dealer_hit(deck, dealer_hand)
+    score, bust, stay = dealer_hit(deck, dealer_hand, 26)
     assert_equal(expected, [score, bust, stay])
   end
 
@@ -93,7 +93,7 @@ class TestPlayable < Minitest::Test
     deck = { "2H" => 2, "QD" => 10 }
     dealer_hand = { "2S" => 2, "7C" => 7 }
     expected = [11, false, false]
-    score, bust, stay = dealer_hit(deck, dealer_hand)
+    score, bust, stay = dealer_hit(deck, dealer_hand, 9)
     assert_equal(expected, [score, bust, stay])
   end
 

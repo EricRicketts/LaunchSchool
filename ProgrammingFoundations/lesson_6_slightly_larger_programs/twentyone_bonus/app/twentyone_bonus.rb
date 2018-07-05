@@ -1,4 +1,3 @@
-require 'pry-byebug'
 require_relative './playable.rb'
 
 # rubocop:disable Style/MixinUsage
@@ -32,7 +31,7 @@ loop do # play loop
 
     until dealer_exit(plyr_response, plyr_busts, dlr_stays, dlr_busts)
       present_hands_dealer_turn(plyr_hand, plyr_score, dlr_hand, dlr_score)
-      dlr_score, dlr_busts, dlr_stays = dealer_hit(deck, dlr_hand)
+      dlr_score, dlr_busts, dlr_stays = dealer_hit(deck, dlr_hand, dlr_score)
       puts prompt("Dealer hits!!") unless dlr_stays || dlr_busts
     end
 
