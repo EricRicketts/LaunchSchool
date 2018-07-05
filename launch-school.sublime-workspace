@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"wi",
+				"width_with_suite"
+			],
+			[
+				"width",
+				"width_with_face"
+			],
+			[
+				"H",
+				"HORIZONTAL_LINE"
+			],
+			[
+				"TO",
+				"TOP_RIGHT"
+			],
+			[
+				"TOP",
+				"TOP_LEFT"
+			],
+			[
+				"D",
+				"DIAMOND"
+			],
+			[
+				"create",
+				"create_cards"
+			],
+			[
+				"un",
+				"unocccpied_squares"
+			],
+			[
 				"number",
 				"number2"
 			],
@@ -482,43 +514,28 @@
 			[
 				"ant",
 				"anti-diagonal"
-			],
-			[
-				"ch",
-				"character_buffer"
-			],
-			[
-				"just",
-				"justify_size"
-			],
-			[
-				"str",
-				"str_length"
-			],
-			[
-				"line",
-				"line_ary"
-			],
-			[
-				"greet",
-				"greet_ary"
-			],
-			[
-				"num",
-				"numbers_above_average"
-			],
-			[
-				"st",
-				"str_ary"
-			],
-			[
-				"nam",
-				"name_ary"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/twentyone.rb",
+			"settings":
+			{
+				"buffer_size": 3477,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/tic_tac_toe_bonus.rb",
+			"settings":
+			{
+				"buffer_size": 4395,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -569,10 +586,30 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/ericricketts/Documents/LaunchSchool"
+		"/Users/ericricketts/Documents/LaunchSchool",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_5_advanced_ruby_collections",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_bonus",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_bonus/app",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school"
 	],
 	"file_history":
 	[
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_bonus/app/viewable_cards.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/test/test_card_deck.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/app/dealable.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/app/deck.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/tic_tac_toe_bonus.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/tic_tac_toe_readme.md",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/test/test_game_rules.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/game_rules.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/game_view.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/game_text.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/game_tally.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/game_movement.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/casual_pseudo_code_lesson_2.md",
 		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/formal_pseudo_code_lesson_2.md",
 		"/Users/EricRicketts/Documents/LaunchSchool/ProgrammingFoundations/Lesson_2/instructor_solution_calculator.rb",
@@ -688,23 +725,11 @@
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test1.t",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicOrig.pm",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicGetSet.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/first_cd_class.pl",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/first_class.pl",
-		"/Users/EricRicketts/Documents/Perl/IntermediatePerl/myCode/ch4/ch1.pl",
-		"/Users/EricRicketts/Documents/Perl/IntermediatePerl/myCode/ch3/ex1.pl",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/register.html",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/schedule.html",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/speakers.html",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowHTML/venue.html",
-		"/Users/EricRicketts/Documents/exercism/ruby/pangram/pangram.rb",
-		"/Users/EricRicketts/Documents/exercism/ruby/pangram/pangram_test.rb",
-		"/Users/EricRicketts/Documents/exercism/ruby/pangram/README.md",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/index.html",
-		"/Users/EricRicketts/Documents/LaunchSchool/PrepatoryWork/FrontEndPrep/LearnToCodeHTMLAndCSS/GettingToKnowCSS/assets/stylesheets/main.css"
+		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/first_cd_class.pl"
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -719,6 +744,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"11",
+			"play_a_single_game",
+			"SYMBOL_CONVERSION",
+			"delim_not_included",
+			"delimiter_not_included",
+			"sq_nums",
+			"square_numbers",
 			"author",
 			"Main",
 			"posts",
@@ -812,8 +844,73 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/twentyone.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2271,
+								2271
+							]
+						],
+						"settings":
+						{
+							"SL.30.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1303.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/tic_tac_toe_bonus.rb",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4395,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -823,7 +920,7 @@
 	},
 	"input":
 	{
-		"height": 31.0
+		"height": 38.0
 	},
 	"layout":
 	{
@@ -850,7 +947,7 @@
 	"menu_visible": true,
 	"output.SublimeLinter":
 	{
-		"height": 0.0
+		"height": 120.0
 	},
 	"output.find_results":
 	{

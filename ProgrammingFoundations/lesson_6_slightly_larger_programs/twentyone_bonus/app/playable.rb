@@ -109,6 +109,19 @@ module Playable
     [total(player_hand), total(dealer_hand)]
   end
 
+  def play_again?
+    str = "Would you like to play a new game?((y)es or (n)o)"
+    response = ''
+    loop do
+      puts prompt(str)
+      response = gets.downcase.chomp
+      response = response[0]
+      break if ['n', 'y'].include?(response)
+      puts prompt("Incorrect response.  Let's try again.")
+    end
+    response
+  end
+
   def prompt_player
     prompt_str = "Would you like to (h)it, (s)tay, or (q)uit?"
     response = ''

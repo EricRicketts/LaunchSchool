@@ -4,39 +4,13 @@ module Scoreable
     score > 21
   end
 
+  def game_over?(game_tally)
+    game_tally.values.include?(5)
+  end
+
   def initialize_game_tally
     { player: 0, dealer: 0 }
   end
-
-  # def display_current_tally(game_tally)
-  #   player_tally = game_tally[:player]
-  #   dealer_tally = game_tally[:dealer]
-
-  #   str = "=> Current game score:\n" +
-  #     "=> Player: #{player_tally} Dealer: #{dealer_tally}\n"
-  #   puts str
-  # end
-
-  # def display_round_results(round_results, player_score, dealer_score)
-  #   score_str = "Player score: #{player_score}, Dealer score: #{dealer_score}."
-  #   hsh = {
-  #     player_busts: "Player busts!!  Dealer wins!!",
-  #     dealer_busts: "Dealer busts!!  Player wins!!",
-  #     player: score_str + "  Player wins!!",
-  #     dealer: score_str + "  Dealer wins!!",
-  #     tie: score_str + "  A tie!!"
-  #   }
-  #   hsh[round_results]
-  # end
-
-  # def display_winner(winner)
-  #   case winner
-  #   when :player_wins
-  #     puts "=> Player wins the game!!"
-  #   when :dealer_wins
-  #     puts "=> Dealer wins the game!!"
-  #   end
-  # end
 
   def return_round_result(player_score, dealer_score)
     case

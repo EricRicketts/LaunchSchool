@@ -178,68 +178,19 @@ class TestScoreableUpdateTallyAndGetWinner < Minitest::Test
     assert_equal(:dealer_wins, return_winner(game_tally))
   end
 
+  def test_game_winner_player
+    game_tally = { player: 5, dealer: 3 }
+    assert(game_over?(game_tally))
+  end
+
+  def test_game_winner_dealer
+    game_tally = { player: 3, dealer: 5 }
+    assert(game_over?(game_tally))
+  end
+
+  def test_no_game_winner
+    game_tally = { player: 3, dealer: 3 }
+    refute(game_over?(game_tally))
+  end
+
 end
-
-
-  # def test_display_player_bust
-  #   round_result = :player_busts
-  #   player_score = 24
-  #   dealer_score = 17
-  #   expected = "Player busts!!  Dealer wins!!"
-  #   assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
-  # end
-
-  # def test_display_dealer_bust
-  #   round_result = :dealer_busts
-  #   player_score = 17
-  #   dealer_score = 24
-  #   expected = "Dealer busts!!  Player wins!!"
-  #   assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
-  # end
-
-  # def test_display_player_wins
-  #   round_result = :player
-  #   player_score = 20
-  #   dealer_score = 17
-  #   expected = "Player score: 20, Dealer score: 17.  Player wins!!"
-  #   assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
-  # end
-
-  # def test_display_dealer_wins
-  #   round_result = :dealer
-  #   player_score = 17
-  #   dealer_score = 20
-  #   expected = "Player score: 17, Dealer score: 20.  Dealer wins!!"
-  #   assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
-  # end
-
-  # def test_display_tie
-  #   round_result = :tie
-  #   player_score = 20
-  #   dealer_score = 20
-  #   expected = "Player score: 20, Dealer score: 20.  A tie!!"
-  #   assert_equal(expected, display_round_results(round_result, player_score, dealer_score))
-  # end
-
-  # def test_select_winner_no_results
-  #   game_tally = { player: 4, dealer: 4 }
-  #   assert_equal(:no_winner, return_winner(game_tally))
-  # end
-
-  # def test_select_winner_player
-  #   game_tally = { player: 5, dealer: 4 }
-  #   assert_equal(:player_wins, return_winner(game_tally))
-  # end
-
-  # def test_select_winner_dealer
-  #   game_tally = { player: 4, dealer: 5 }
-  #   assert_equal(:dealer_wins, return_winner(game_tally))
-  # end
-
-  # def test_display_winner_player
-  #   assert_equal("Player wins the game!!", display_winner(:player_wins))
-  # end
-
-  # def test_display_dealer_winner
-  #   assert_equal("Dealer wins the game!!", display_winner(:dealer_wins))
-  # end
