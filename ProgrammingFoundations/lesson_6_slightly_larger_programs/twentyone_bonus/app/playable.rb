@@ -4,6 +4,9 @@ require_relative './scoreable.rb'
 
 # rubocop:disable Metrics/ModuleLength
 module Playable
+  LARGEST_ALLOWABLE_SCORE = 21
+  DEALER_STAY_VALUE = 17
+
   include Dealable
   include Viewable
   include Scoreable
@@ -32,11 +35,21 @@ module Playable
     display_one_score("Player", plyr_score)
   end
 
+  def deal_initial_hands(deck, plyr_hand, dlr_hand)
+    2.times do
+      plyr_hand.merge!(deal_card(deck))
+      dlr_hand.merge!(deal_card(deck))
+    end
+  end
+
   def dealer_hit(deck, dlr_hand, dlr_score)
-    if dlr_score >= 17 && dlr_score <= 21
+    dealer_stay = dlr_score >= DEALER_STAY_VALUE &&
+      dlr_score <= LARGEST_ALLOWABLE_SCORE
+
+    if dealer_stay
       dealer_stays = true
       dealer_busts = false
-    elsif dlr_score > 21
+    elsif dlr_score > LARGEST_ALLOWABLE_SCORE
       dealer_stays = false
       dealer_busts = true
     else
@@ -45,6 +58,7 @@ module Playable
       dealer_busts = false
       dlr_score = total(dlr_hand)
     end
+
     [dlr_score, dealer_busts, dealer_stays]
   end
 
@@ -57,14 +71,7 @@ module Playable
     display_game_winner(winner) unless winner == :no_winner
   end
 
-  def initialize_hands(deck, plyr_hand, dlr_hand)
-    2.times do
-      plyr_hand.merge!(deal_card(deck))
-      dlr_hand.merge!(deal_card(deck))
-    end
-  end
-
-  def initialize_misc
+  def initialize_busts_hands_stays_and_response
     [{}, {}, false, false, false, nil]
   end
 
@@ -99,8 +106,7 @@ module Playable
     loop do
       puts prompt(str)
       response = gets.downcase.chomp
-      response = response[0]
-      break if ['n', 'y'].include?(response)
+      break if ['n', 'no', 'y', 'yes'].include?(response)
       puts prompt("Incorrect response.  Let's try again.")
     end
     response
@@ -130,16 +136,16 @@ module Playable
   def prompt_player
     prompt_str = "Would you like to (h)it, (s)tay, or (q)uit?"
     response = ''
+    valid_response_ary = ['h', 'hit', 'q', 'quit', 's', 'stay']
     loop do
       puts prompt(prompt_str)
       response = gets.downcase.chomp
-      response = response[0]
-      break if ['h', 'q', 's'].include?(response)
+      break if valid_response_ary.include?(response)
       puts prompt("Incorrect response. Let's try again.")
     end
     case response
-    when 'h' then :hit
-    when 's' then :stay
+    when 'h', 'hit' then :hit
+    when 's', 'stay' then :stay
     else :quit
     end
   end

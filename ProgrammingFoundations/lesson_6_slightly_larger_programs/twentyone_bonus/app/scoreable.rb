@@ -1,10 +1,13 @@
 module Scoreable
+  LARGEST_ALLOWABLE_SCORE = 21
+  ROUNDS_TO_WIN_GAME = 5
+
   def busted?(score)
-    score > 21
+    score > LARGEST_ALLOWABLE_SCORE
   end
 
   def game_over?(game_tally)
-    game_tally.value?(5)
+    game_tally.value?(ROUNDS_TO_WIN_GAME)
   end
 
   def initialize_game_tally
@@ -25,9 +28,9 @@ module Scoreable
   end
 
   def return_game_winner(game_tally)
-    if game_tally[:player] == 5
+    if game_tally[:player] == ROUNDS_TO_WIN_GAME
       :player_wins
-    elsif game_tally[:dealer] == 5
+    elsif game_tally[:dealer] == ROUNDS_TO_WIN_GAME
       :dealer_wins
     else :no_winner
     end
@@ -38,7 +41,7 @@ module Scoreable
     aces = cards.select { |card, _| card[0] == "A" }
     return sum if aces.empty?
     aces.each do |ace, value|
-      if sum > 21
+      if sum > LARGEST_ALLOWABLE_SCORE
         cards[ace] = value - 10 unless value == 1
         sum = cards.values.sum
       end

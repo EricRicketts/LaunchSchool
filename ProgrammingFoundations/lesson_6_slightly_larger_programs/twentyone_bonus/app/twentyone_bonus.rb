@@ -10,11 +10,11 @@ loop do # play loop
   global_quit = nil
 
   loop do # game loop
-    plyr_hand, dlr_hand, plyr_busts, dlr_busts, *rest = initialize_misc
-    dlr_stays, plyr_response = rest
+    plyr_hand, dlr_hand, *rest = initialize_busts_hands_stays_and_response
+    plyr_busts, dlr_busts, dlr_stays, plyr_response = rest
 
     deck = initialize_deck
-    initialize_hands(deck, plyr_hand, dlr_hand)
+    deal_initial_hands(deck, plyr_hand, dlr_hand)
     plyr_score, dlr_score = initialize_scores(plyr_hand, dlr_hand)
 
     new_round_message
@@ -45,5 +45,5 @@ loop do # play loop
     break if game_over?(game_tally)
   end
 
-  break if global_quit == :quit || play_again? == 'n'
+  break if global_quit == :quit || ['n', 'no'].include?(play_again?)
 end
