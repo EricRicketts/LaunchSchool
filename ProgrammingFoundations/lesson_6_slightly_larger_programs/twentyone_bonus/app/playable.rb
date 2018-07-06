@@ -44,7 +44,7 @@ module Playable
 
   def dealer_hit(deck, dlr_hand, dlr_score)
     dealer_stay = dlr_score >= DEALER_STAY_VALUE &&
-      dlr_score <= LARGEST_ALLOWABLE_SCORE
+                  dlr_score <= LARGEST_ALLOWABLE_SCORE
 
     if dealer_stay
       dealer_stays = true
