@@ -63,10 +63,10 @@ module Viewable
     print_rows_of_strings(rows_of_strings)
   end
 
-  def display_game_tally(game_tally)
+  def display_game_tally(prefix, game_tally)
     player = game_tally[:player].to_s
     dealer = game_tally[:dealer].to_s
-    str = "Current tally:  Player #{player}, Dealer #{dealer}."
+    str = prefix + " tally:  Player #{player}, Dealer #{dealer}."
     puts prompt(str)
   end
 

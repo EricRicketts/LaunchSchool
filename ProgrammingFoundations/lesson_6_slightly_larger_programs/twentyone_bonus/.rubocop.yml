@@ -1,4 +1,4 @@
-# .rubocop.yml for 101 Lessons 6 (24 Aug 2017)
+# .rubocop.yml for 101 Lessons 2-5 (24 Aug 2017)
 
 AllCops:
   # Display cop names
@@ -14,7 +14,7 @@ AllCops:
   StyleGuideBaseURL: https://github.com/bbatsov/ruby-style-guide
   # What version of the Ruby interpreter is the inspected code intended to
   # run on? (If there is more than one, set this to the lowest version.)
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 
 Style/BlockComments:
   Description: 'Do not use block comments.'
@@ -52,7 +52,7 @@ Style/DoubleNegation:
   Description: 'Checks for uses of double negation (!!).'
   Enabled: false
 
-Layout/EmptyLineBetweenDefs:
+Style/EmptyLineBetweenDefs:
   Enabled: true
   AllowAdjacentOneLineDefs: true
 
@@ -87,9 +87,9 @@ Style/InlineComment:
   Description: Avoid inline comments.
   Enabled: false
 
-Style/MethodCallWithoutArgsParentheses:
+Style/MethodCallParentheses:
   Description: Do not use parentheses for method calls with no arguments.
-  Enabled: true
+  Enabled: false
 
 Style/ModuleFunction:
   Description: Checks for usage of `extend self` in modules.
@@ -127,7 +127,9 @@ Style/OneLineConditional:
   Description: Favor the ternary operator(?:) over if/then/else/end constructs.
   Enabled: false
 
-
+Style/OpMethod:
+  Description: When defining binary operators, name the argument other.
+  Enabled: false
 
 Style/ParenthesesAroundCondition:
   Description: >-
@@ -138,18 +140,7 @@ Style/ParenthesesAroundCondition:
 
 Style/PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
-  Enabled: true
-  PreferredDelimiters:
-    '%':  ()
-    '%i': '[]'
-    '%I': '[]'
-    '%q': ()
-    '%Q': ()
-    '%r': '{}'
-    '%s': ()
-    '%w': '[]'
-    '%W': '[]'
-    '%x': ()
+  Enabled: false
 
 Style/PerlBackrefs:
   Description: Avoid Perl-style regex back references.
@@ -186,7 +177,7 @@ Style/SingleLineMethods:
   Description: Avoid single-line methods.
   Enabled: false
 
-Layout/SpaceAroundEqualsInParameterDefault:
+Style/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 
 Style/StringLiterals:
@@ -241,10 +232,6 @@ Lint/LiteralInInterpolation:
   Description: 'Avoid interpolating literals in strings'
   AutoCorrect: false
   Enabled: true
-
-Naming/BinaryOperatorParameterName:
-  Description: When defining binary operators, name the argument other.
-  Enabled: false
 
 ##################### Performance ##################################
 

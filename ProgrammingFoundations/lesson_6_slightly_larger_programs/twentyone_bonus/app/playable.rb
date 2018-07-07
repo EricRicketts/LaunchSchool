@@ -28,11 +28,12 @@ module Playable
     display_one_score("Dealer", dlr_score)
   end
 
-  def display_player_hand(plyr_hand, plyr_score)
+  def display_player_hand(plyr_hand, plyr_score, game_tally)
     player_cards = make_cards(plyr_hand)
     puts prompt("Player hand:")
     display_cards(player_cards)
     display_one_score("Player", plyr_score)
+    display_game_tally("Current", game_tally)
   end
 
   def deal_initial_hands(deck, plyr_hand, dlr_hand)
@@ -66,7 +67,7 @@ module Playable
     round_result = return_round_result(plyr_score, dlr_score)
     display_round_results(round_result, plyr_score, dlr_score)
     update_tally(round_result, game_tally)
-    display_game_tally(game_tally)
+    display_game_tally("New", game_tally)
     winner = return_game_winner(game_tally)
     display_game_winner(winner) unless winner == :no_winner
   end
@@ -100,6 +101,18 @@ module Playable
   end
   # rubocop:enable Lint/UselessAssignment
 
+  def pause_dealer_turn(dlr_stays, dlr_busts)
+    puts prompt("Dealer hits!!") unless dlr_stays || dlr_busts
+    puts prompt("Dealer stays!!") if dlr_stays
+    puts prompt("Dealer busts!!") if dlr_busts
+    loop do
+      puts prompt("Show next dealer hit or move to end of round? (y)es")
+      advance = gets.downcase.chomp
+      break if ['y', 'yes'].include?(advance)
+      puts prompt("Incorrect response, please try again.")
+    end
+  end
+
   def play_again?
     str = "Would you like to play a new game?((y)es or (n)o)"
     response = ''
@@ -123,14 +136,15 @@ module Playable
     [plyr_score, player_busts]
   end
 
-  def present_hands_dealer_turn(plyr_hand, plyr_score, dlr_hand, dlr_score)
+  def present_hands_dealer_turn(plyr_hand, plyr_score, dlr_hand,
+                                dlr_score, game_tally)
     display_dealer_hand(dlr_hand, dlr_score)
-    display_player_hand(plyr_hand, plyr_score)
+    display_player_hand(plyr_hand, plyr_score, game_tally)
   end
 
-  def present_hands_player_turn(plyr_hand, dlr_hand, plyr_score)
+  def present_hands_player_turn(plyr_hand, dlr_hand, plyr_score, game_tally)
     display_dealer_hand_player_turn(dlr_hand)
-    display_player_hand(plyr_hand, plyr_score)
+    display_player_hand(plyr_hand, plyr_score, game_tally)
   end
 
   def prompt_player
@@ -156,7 +170,7 @@ module Playable
     str3 = "First to 5 wins the game."
     str4 = "Let's start!!"
     ary = [str1, str2, str3, str4]
-    ary.each { |str| puts prompt(str) }
+    ary.each { |str| prompt(str) }
   end
 end
 # rubocop:enable Metrics/ModuleLength
