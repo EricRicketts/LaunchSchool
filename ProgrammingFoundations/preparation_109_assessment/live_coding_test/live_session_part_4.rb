@@ -47,7 +47,7 @@ class LiveSessionPart4ProblemOneSolutionTwo < Minitest::Test
   def reverse(arr)
     last_index = arr.size - 1
     arr.map.with_index do |_, idx|
-      arr[(idx - last_index).abs]
+      arr[last_index - idx]
     end
   end
 
