@@ -104,3 +104,38 @@ p B.new.test
 14. Small Problems, Easy Set Nine, Exercise 2, Double Doubles
 15. Small Problems, Easy Set Nine, Exercise 8, Sequence Count
 
+### Notes from Julius Zerwick Blog Post "You Need An Interview Script"
+1. Link
+2. Read the problem and "load it into your brain"
+   a. Critical part here is to make sure you understand what you are begin asked to do.
+   b. Break down the problem statement and consider rewriting it for better understanding.
+   c. If appropriate provide examples to the interviewer to validate your understanding of the problem.
+3. Write Out Your Approach In A Step By Step Process
+   a. First describe a high level approach to solving the problem in plain English.
+   b. Then take your description and break it down into unique steps, with each step numbered, keep the steps in English.
+4. If no tests are provided, write out some with the expected output
+   a. In contrast to 2.c. these tests are more thorough and cover any edge cases.
+   b. Use these test cases as a final clarification to your understanding of the problem.
+5. Layout Your Rough Draft Of The Problem With Pseudocode (given Ruby's expressiveness this may not be required) 
+6. Rewrite Your Solution In Actual Code
+7. Test Your Code, Fix Any Errors, Get All Tests To Pass
+8. Once All The Tests Pass, Refactor Your Code
+
+### Notes From Debugging Webinar
+1. General Approach
+   a. Make an effort to fully understand the error
+      i.  Trap the error
+      ii. What inputs produce the error?
+   b. Reproducing the error consistently is going to be the vast majority of the work in debugging, especially with more complicated programs
+   c. Understand the problem holistically, do not just squash the symptoms of the problem
+   d. Pay attention to "code smells" many times they are the source of the problem though it may not appear so right away
+   e. Recognizing "code smells" comes with experience
+ 2. Tools
+   a. Pay attention to the return value, especially when iterating over collections
+   b. Understand the difference between puts and p, p uses inspect while puts uses to_s
+   c. A debugger is very useful on much larger and more complex programs
+   d. Consider "rubber ducking" to better understand the problem
+   e. Make sure any code you add DOES NOT CHANGE the return values of a method or alter your code from its expected behavior, like inserting a puts
+   at the end of a select method
+
+

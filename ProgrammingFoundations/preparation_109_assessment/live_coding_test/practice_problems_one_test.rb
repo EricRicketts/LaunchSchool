@@ -51,6 +51,38 @@ AL:
     assert_equal(expected, result)
   end
 
+  def test_3
+    # skip
+    str = "222xyzxyzyx"
+    expected = "2xyzxyzyx"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_4
+    # skip
+    str = "Q"
+    expected = "Q"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_5
+    # skip
+    str = "AAbbCC"
+    expected = "AbC"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_6
+    # skip
+    str = ""
+    expected = ""
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
 end
 
 class PracticeProblemsOneTestProblemOneManualModified < Minitest::Test
@@ -96,6 +128,38 @@ AL:
     assert_equal(expected, result)
   end
 
+  def test_3
+    # skip
+    str = "222xyzxyzyx"
+    expected = "2xyzxyzyx"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_4
+    # skip
+    str = "Q"
+    expected = "Q"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_5
+    # skip
+    str = "AAbbCC"
+    expected = "AbC"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_6
+    # skip
+    str = ""
+    expected = ""
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
 end
 
 class PracticeProblemsOneTestProblemRegex < Minitest::Test
@@ -132,6 +196,168 @@ AL:
     # skip
     str = "wwooonndeerrfull woorrlldd"
     expected = "wonderful world"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_3
+    # skip
+    str = "222xyzxyzyx"
+    expected = "2xyzxyzyx"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_4
+    # skip
+    str = "Q"
+    expected = "Q"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_5
+    # skip
+    str = "AAbbCC"
+    expected = "AbC"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_6
+    # skip
+    str = ""
+    expected = ""
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+end
+
+class PracticeProblemsOneTestAllStringsRegex < Minitest::Test
+
+  def collapse(str)
+    str.gsub(/([[:alnum:]])\1+/, '\1')
+  end
+
+  def test_1
+    # skip
+    str = "bbbbbbbbb"
+    expected = "b"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_2
+    # skip
+    str = "wwooonndeerrfull woorrlldd"
+    expected = "wonderful world"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_3
+    # skip
+    str = "222xyzxyzyx"
+    expected = "2xyzxyzyx"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_4
+    # skip
+    str = "Q"
+    expected = "Q"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_5
+    # skip
+    str = "AAbbCC"
+    expected = "AbC"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_6
+    # skip
+    str = ""
+    expected = ""
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+end
+
+class PracticeProblemsOneTestAllStringsManual < Minitest::Test
+
+=begin
+I: string which may have duplicate characters
+O: string which has any duplicate characters compressed into one character
+AL:
+  - initialize an emtpy string => collapsed_string
+  - define a last index of the string = string.length - 1
+  - loop through the string by indices 0..last_idx
+    - if idx = 0 push the character onto the collapsed string
+      if current charcter != previous character push onto the collapsed string
+=end
+
+  def collapse(str)
+    collapsed_string = ''
+    last_idx = str.length - 1
+    0.upto(last_idx) do |idx|
+      if idx.zero? || str[idx - 1] != str[idx]
+        collapsed_string << str[idx]
+      end
+    end
+    collapsed_string
+  end
+
+  def test_1
+    # skip
+    str = "bbbbbbbbb"
+    expected = "b"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_2
+    # skip
+    str = "wwooonndeerrfull woorrlldd"
+    expected = "wonderful world"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_3
+    # skip
+    str = "222xyzxyzyx"
+    expected = "2xyzxyzyx"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_4
+    # skip
+    str = "Q"
+    expected = "Q"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_5
+    # skip
+    str = "AAbbCC"
+    expected = "AbC"
+    result = collapse(str)
+    assert_equal(expected, result)
+  end
+
+  def test_6
+    # skip
+    str = ""
+    expected = ""
     result = collapse(str)
     assert_equal(expected, result)
   end
