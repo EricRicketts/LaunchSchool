@@ -31,6 +31,12 @@ AL:
     "times" => "*", "divided by" => "/"
   }
 
+  def computer(phrase)
+    phrase = conv_to_math(phrase)
+    compute_div_or_times(phrase) if phrase.split.any? { |str| ["/", "*"].include?(str) }
+    phrase.split.none? { |str| ["+", "-"].include?(str) } ? phrase.to_i : compute_plus_or_minus(phrase)
+  end
+
   def compute_plus_or_minus(phrase)
     op = ''
     words = phrase.split
@@ -113,44 +119,44 @@ AL:
     assert_equal("5 + 15 + 15 + 8 - 1 - 8", phrase)
   end
 
-  # def test_9
-  #   skip
-  #   assert_equal(15, computer("three times five"))
-  # end
+  def test_9
+    # skip
+    assert_equal(15, computer("three times five"))
+  end
 
-  # def test_10
-  #   skip
-  #   assert_equal(7, computer("one plus four times two minus two"))
-  # end
+  def test_10
+    # skip
+    assert_equal(7, computer("one plus four times two minus two"))
+  end
 
-  # def test_11
-  #   skip
-  #   assert_equal(18, computer("nine divided by three times six"))
-  # end
+  def test_11
+    # skip
+    assert_equal(18, computer("nine divided by three times six"))
+  end
 
-  # def test_12
-  #   skip
-  #   assert_equal(9, computer("seven plus four divided by two"))
-  # end
+  def test_12
+    # skip
+    assert_equal(9, computer("seven plus four divided by two"))
+  end
 
-  # def test_13
-  #   skip
-  #   assert_equal(26, computer("seven times four plus one divided by three minus two"))
-  # end
+  def test_13
+    # skip
+    assert_equal(26, computer("seven times four plus one divided by three minus two"))
+  end
 
-  # def test_14
-  #   skip
-  #   assert_equal(5, computer("one plus four times three divided by two minus two"))
-  # end
+  def test_14
+    # skip
+    assert_equal(5, computer("one plus four times three divided by two minus two"))
+  end
 
-  # def test_15
-  #   skip
-  #   assert_equal(18, computer("nine divided by three times six"))
-  # end
+  def test_15
+    # skip
+    assert_equal(18, computer("nine divided by three times six"))
+  end
 
-  # def test_16
-  #   skip
-  #   assert_equal(33, computer("eight times four plus six divided by two minus two"))
-  # end
+  def test_16
+    # skip
+    assert_equal(33, computer("eight times four plus six divided by two minus two"))
+  end
 
 end
