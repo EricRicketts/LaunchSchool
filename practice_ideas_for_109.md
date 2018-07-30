@@ -11,10 +11,11 @@ the substring length
 where to begin the substrings (by a postion in the string with 1 being the first character)
 and the desired substring length
 6.  Primes
-	1.  Write a method which generates the first n primes
-	2.  Write a method which generates all of the primes up to a certain number
-	3.  Write a method which checks to see if a number is a prime number
-	4.  Write a method which performs the prime factorization of a number, but
+  1.  _Write a method that lists the first n primes_
+	2.  _Write a method which generates primes from n1 to n2 where n1 <= 1_
+	3.  _Write a method which checks to see if a number is a prime number_
+  4.  _Write a method which produces odd numbers which are not prime_
+	5.  Write a method which performs the prime factorization of a number, but
 	stores the factorization in the format [prime_number, number_of_appearances],
 	so the prime factorization of 12 = 2*2*3 or [[2, 2], [3, 1]]
 7.  Numbers
