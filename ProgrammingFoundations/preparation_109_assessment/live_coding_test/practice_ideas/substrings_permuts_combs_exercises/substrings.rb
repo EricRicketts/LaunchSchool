@@ -94,3 +94,92 @@ AL:
   end
 
 end
+
+class SubstringsSecondSolution < Minitest::Test
+
+=begin
+I: string, say 'palin'
+O: array of strings which are substrings of the original string
+AL:
+  - with a minimum substring length of 2 substrings are:
+    'pa', 'pal', 'pali', 'palin',
+    'al', 'ali', 'alin',
+    'li', 'lin',
+    'in'
+
+this was an attempt to do the same problem a different way, but it
+turned out to be more complex.  no mater what if one has a variable
+substring size on the input, then as one iterates through the indices
+of the string you have to check if the index + offset is greater than
+the last index.
+
+In this case I set the initial string and then just added another letter
+each time to the string
+=end
+
+
+  def substrings(min_substr_size = 1, string)
+    substrs, last_index = [], string.size - 1
+    offset = min_substr_size - 1
+    result = []
+    string.chars.each_index do |index|
+      unless index + offset > last_index
+        start_str = string.slice(index, min_substr_size)
+        start_idx = index + offset + 1
+        result << start_str
+        (start_idx..last_index).reduce(start_str) do |str, idx|
+          str += string[idx]
+          result << str
+          str
+        end
+      end
+    end
+    result
+  end
+
+  def test_1
+    # skip
+    expected = [
+      'p', 'pa', 'pal', 'pali', 'palin',
+      'a', 'al', 'ali', 'alin',
+      'l', 'li', 'lin',
+      'i', 'in',
+      'n'
+    ]
+    assert_equal(expected, substrings('palin'))
+  end
+
+  def test_2
+    # skip
+    expected = [
+      'pa', 'pal', 'pali', 'palin',
+      'al', 'ali', 'alin',
+      'li', 'lin',
+      'in'
+    ]
+    assert_equal(expected, substrings(min_substr_size = 2, 'palin'))
+  end
+
+  def test_3
+    # skip
+    expected = [
+      'pal', 'pali', 'palin',
+      'ali', 'alin',
+      'lin'
+    ]
+    assert_equal(expected, substrings(min_substr_size = 3, 'palin'))
+  end
+
+  def test_4
+    # skip
+    expected = ['pali', 'palin', 'alin']
+    assert_equal(expected, substrings(min_substr_size = 4, 'palin'))
+  end
+
+  def test_5
+    # skip
+    expected = ['palin']
+    assert_equal(expected, substrings(min_substr_size = 5, 'palin'))
+  end
+
+end
