@@ -13,7 +13,7 @@ class RPSGame
   end
 
   def display_moves
-    "You chose #{human.move}, the computer chose #{computer.move}."
+    "#{human.name} chose #{human.move}, #{computer.name} chose #{computer.move}."
   end
 
   def display_welcome_message
@@ -24,11 +24,11 @@ class RPSGame
     return "It is a tie!" if human.move == computer.move
     case human.move
     when "rock"
-      computer.move == "scissors" ? "You won!" : "Computer won!"
+      computer.move == "scissors" ? "#{human.name} won!" : "#{computer.name} won!"
     when "scissors"
-      computer.move == "paper" ? "You won!" : "Computer won!"
+      computer.move == "paper" ? "#{human.name} won!" : "#{computer.name} won!"
     when "paper"
-      computer.move == "rock" ? "You won!" : "Computer won!"
+      computer.move == "rock" ? "#{human.name} won!" : "#{computer.name} won!"
     end
   end
 
