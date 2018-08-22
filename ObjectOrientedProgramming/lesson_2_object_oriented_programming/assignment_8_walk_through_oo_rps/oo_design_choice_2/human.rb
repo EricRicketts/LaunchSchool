@@ -1,16 +1,16 @@
 require_relative './player'
+require_relative './move'
 
 class Human < Player
-  
   def choose
     choice = ''
     loop do
       puts "Please choose rock, paper, or scissors:"
       choice = gets.chomp
-      break if Player::MOVES.include?(choice)
+      break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice, try again."
     end
-    self.move = choice
+    self.move = Move.new(choice)
   end
 
   def set_name

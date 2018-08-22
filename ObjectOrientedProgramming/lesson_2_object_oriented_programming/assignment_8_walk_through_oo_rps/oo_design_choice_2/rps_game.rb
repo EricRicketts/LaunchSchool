@@ -14,7 +14,8 @@ class RPSGame
   end
 
   def display_moves
-    "#{human.name} chose #{human.move}, #{computer.name} chose #{computer.move}."
+    "#{human.name} chose #{human.move}, "\
+      "#{computer.name} chose #{computer.move}."
   end
 
   def display_welcome_message
@@ -22,14 +23,12 @@ class RPSGame
   end
 
   def display_winner
-    return "It is a tie!" if human.move == computer.move
-    case human.move
-    when "rock"
-      computer.move == "scissors" ? "#{human.name} won!" : "#{computer.name} won!"
-    when "scissors"
-      computer.move == "paper" ? "#{human.name} won!" : "#{computer.name} won!"
-    when "paper"
-      computer.move == "rock" ? "#{human.name} won!" : "#{computer.name} won!"
+    if human.move > computer.move
+      puts "#{human.name} won!"
+    elsif computer.move > human.move
+      puts "#{computer.name} won!"
+    else
+      puts "It is a tie!"
     end
   end
 
@@ -54,7 +53,7 @@ class RPSGame
       break if ['y', 'n'].include?(answer)
       puts "Sorry, must be y or n."
     end
-    answer == 'y'    
+    answer == 'y'
   end
 end
 
