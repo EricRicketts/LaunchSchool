@@ -19,40 +19,40 @@ class Greater_RulesTest < Minitest::Test
 
   def test_greater_rock_rules
     # skip
-    result1 = Rules::GREATER_THAN_RULES[rock.class].call(lizard.class)
-    result2 = Rules::GREATER_THAN_RULES[rock.class].call(scissors.class)
+    result1 = Rules::GREATER_THAN[rock.class].call(lizard.class)
+    result2 = Rules::GREATER_THAN[rock.class].call(scissors.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_greater_paper_rules
     # skip
-    result1 = Rules::GREATER_THAN_RULES[paper.class].call(rock.class)
-    result2 = Rules::GREATER_THAN_RULES[paper.class].call(spock.class)
+    result1 = Rules::GREATER_THAN[paper.class].call(rock.class)
+    result2 = Rules::GREATER_THAN[paper.class].call(spock.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_greater_scissors_rules
     # skip
-    result1 = Rules::GREATER_THAN_RULES[scissors.class].call(paper.class)
-    result2 = Rules::GREATER_THAN_RULES[scissors.class].call(lizard.class)
+    result1 = Rules::GREATER_THAN[scissors.class].call(paper.class)
+    result2 = Rules::GREATER_THAN[scissors.class].call(lizard.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_greater_lizard_rules
     # skip
-    result1 = Rules::GREATER_THAN_RULES[lizard.class].call(spock.class)
-    result2 = Rules::GREATER_THAN_RULES[lizard.class].call(paper.class)
+    result1 = Rules::GREATER_THAN[lizard.class].call(spock.class)
+    result2 = Rules::GREATER_THAN[lizard.class].call(paper.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_greater_spock_rules
     # skip
-    result1 = Rules::GREATER_THAN_RULES[spock.class].call(rock.class)
-    result2 = Rules::GREATER_THAN_RULES[spock.class].call(scissors.class)
+    result1 = Rules::GREATER_THAN[spock.class].call(rock.class)
+    result2 = Rules::GREATER_THAN[spock.class].call(scissors.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end

@@ -19,40 +19,40 @@ class Greater_RulesTest < Minitest::Test
 
   def test_lesser_rock_rules
     # skip
-    result1 = Rules::LESSER_THAN_RULES[rock.class].call(paper.class)
-    result2 = Rules::LESSER_THAN_RULES[rock.class].call(spock.class)
+    result1 = Rules::LESS_THAN[rock.class].call(paper.class)
+    result2 = Rules::LESS_THAN[rock.class].call(spock.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_lesser_paper_rules
     # skip
-    result1 = Rules::LESSER_THAN_RULES[paper.class].call(lizard.class)
-    result2 = Rules::LESSER_THAN_RULES[paper.class].call(scissors.class)
+    result1 = Rules::LESS_THAN[paper.class].call(lizard.class)
+    result2 = Rules::LESS_THAN[paper.class].call(scissors.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_lesser_scissors_rules
     # skip
-    result1 = Rules::LESSER_THAN_RULES[scissors.class].call(spock.class)
-    result2 = Rules::LESSER_THAN_RULES[scissors.class].call(rock.class)
+    result1 = Rules::LESS_THAN[scissors.class].call(spock.class)
+    result2 = Rules::LESS_THAN[scissors.class].call(rock.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_lesser_lizard_rules
     # skip
-    result1 = Rules::LESSER_THAN_RULES[lizard.class].call(rock.class)
-    result2 = Rules::LESSER_THAN_RULES[lizard.class].call(scissors.class)
+    result1 = Rules::LESS_THAN[lizard.class].call(rock.class)
+    result2 = Rules::LESS_THAN[lizard.class].call(scissors.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
 
   def test_lesser_spock_rules
     # skip
-    result1 = Rules::LESSER_THAN_RULES[spock.class].call(paper.class)
-    result2 = Rules::LESSER_THAN_RULES[spock.class].call(lizard.class)
+    result1 = Rules::LESS_THAN[spock.class].call(paper.class)
+    result2 = Rules::LESS_THAN[spock.class].call(lizard.class)
     result = [result1, result2]
     assert_equal(expected, result)
   end
