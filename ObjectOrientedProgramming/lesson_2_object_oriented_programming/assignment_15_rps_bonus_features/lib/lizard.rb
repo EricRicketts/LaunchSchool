@@ -1,0 +1,2 @@
+class Lizard
+end
