@@ -1,4 +1,4 @@
 require_relative './player'
 
-class Computer < Player 
+class Computer < Player
 end
