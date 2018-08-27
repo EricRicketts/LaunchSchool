@@ -5,7 +5,7 @@ require 'pry-byebug'
 require_relative '../lib'
 require_relative '../lib/move'
 
-class MoveGreaterThanTest < Minitest::Test
+class MoveEqualToTest < Minitest::Test
   attr_reader :move_rock, :move_paper, :move_scissors,
     :move_lizard, :move_spock
 
@@ -19,31 +19,26 @@ class MoveGreaterThanTest < Minitest::Test
 
   def test_rock
     # skip
-    results = [move_rock > move_scissors, move_rock > move_lizard]
-    assert(results.all?)
+    assert(move_rock == move_rock)
   end
 
   def test_paper
     # skip
-    results = [move_paper > move_rock, move_paper > move_spock]
-    assert(results.all?)
+    assert(move_paper == move_paper)
   end
 
   def test_scissors
     # skip
-    results = [move_scissors > move_paper, move_scissors > move_lizard]
-    assert(results.all?)
+    assert(move_scissors == move_scissors)
   end
 
   def test_lizard
     # skip
-    results = [move_lizard > move_paper, move_lizard > move_spock]
-    assert(results.all?)
+    assert(move_lizard == move_lizard)
   end
 
   def test_spock
     # skip
-    results = [move_spock > move_rock, move_spock > move_scissors]
-    assert(results.all?)
+    assert(move_spock == move_spock)
   end
 end
