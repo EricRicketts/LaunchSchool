@@ -1,0 +1,5 @@
+require_relative 'lib/lizard.rb'
+require_relative 'lib/paper.rb'
+require_relative 'lib/rock.rb'
+require_relative 'lib/scissors.rb'
+require_relative 'lib/spock.rb'

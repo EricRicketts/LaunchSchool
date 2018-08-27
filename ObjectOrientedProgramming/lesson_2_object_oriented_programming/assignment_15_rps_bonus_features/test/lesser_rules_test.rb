@@ -1,11 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
-require_relative '../lib/rock'
-require_relative '../lib/paper'
-require_relative '../lib/scissors'
-require_relative '../lib/lizard'
-require_relative '../lib/spock'
+
+require_relative '../lib'
 require_relative '../lib/rules'
 
 class Greater_RulesTest < Minitest::Test

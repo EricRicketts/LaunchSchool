@@ -520,19 +520,20 @@
 	"buffers":
 	[
 		{
-			"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/twentyone.rb",
+			"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/player_basics_test.rb",
 			"settings":
 			{
-				"buffer_size": 3477,
+				"buffer_size": 390,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/tic_tac_toe_bonus.rb",
+			"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/player.rb",
 			"settings":
 			{
-				"buffer_size": 4395,
+				"buffer_size": 47,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -587,17 +588,16 @@
 	"expanded_folders":
 	[
 		"/Users/ericricketts/Documents/LaunchSchool",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_5_advanced_ruby_collections",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_bonus",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_bonus/app",
-		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school"
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming"
 	],
 	"file_history":
 	[
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/equal_rules_test.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/rules.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/greater_rules_test.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/lesser_rules_test.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/twentyone.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_bonus/app/viewable_cards.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/test/test_card_deck.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/app/dealable.rb",
@@ -720,12 +720,7 @@
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/Music.pm",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/readme.txt",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test2.t",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/Figure_3.2.pl",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/Figure_3.2_affordances.pl",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test1.t",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicOrig.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicGetSet.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/first_cd_class.pl"
+		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/Figure_3.2.pl"
 	],
 	"find":
 	{
@@ -744,6 +739,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"rock",
+			"scissors",
+			"rock",
+			"GREATER_THAN_RULES",
+			"LESSER_THAN_RULES",
 			"11",
 			"play_a_single_game",
 			"SYMBOL_CONVERSION",
@@ -844,71 +844,63 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/twentyone_launch_school/twentyone.rb",
+					"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/player_basics_test.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3477,
+						"buffer_size": 390,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2271,
-								2271
+								376,
+								376
 							]
 						],
 						"settings":
 						{
-							"SL.30.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1303.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "ProgrammingFoundations/lesson_6_slightly_larger_programs/tictactoe_bonus/app/tic_tac_toe_bonus.rb",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 4395,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/player.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 47,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -970,6 +962,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"lelss",
+				"ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/lesser_rules_test.rb"
+			],
 			[
 				"learn-reduxsotre.js",
 				"learn-redux/client/store.js"
