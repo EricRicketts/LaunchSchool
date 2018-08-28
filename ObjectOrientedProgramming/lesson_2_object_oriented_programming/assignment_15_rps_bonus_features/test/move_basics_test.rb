@@ -23,4 +23,8 @@ class MoveBasicsTest < Minitest::Test
   def test_current_selection
     assert_instance_of(Rock, move.selection)
   end
+
+  def test_output
+    assert("Rock", "#{move}")
+  end
 end
