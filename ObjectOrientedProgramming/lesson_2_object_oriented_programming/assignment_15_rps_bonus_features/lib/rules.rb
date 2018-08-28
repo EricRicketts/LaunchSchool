@@ -1,4 +1,5 @@
 module Rules
+  MOVES = [Rock, Paper, Scissors, Lizard, Spock]
 
   ROCK_GREATER = Proc.new { |other| [Lizard, Scissors].include?(other) }
   PAPER_GREATER = Proc.new { |other| [Rock, Spock].include?(other) }

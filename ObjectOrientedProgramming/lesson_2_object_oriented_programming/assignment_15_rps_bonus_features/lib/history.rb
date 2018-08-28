@@ -2,6 +2,10 @@ class History
   attr_reader :report
 
   def initialize
+    reset
+  end
+
+  def reset
     @report = []
   end
 

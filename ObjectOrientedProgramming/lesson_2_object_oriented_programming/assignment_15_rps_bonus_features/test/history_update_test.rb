@@ -36,6 +36,8 @@ class HistoryUpdateTest < Minitest::Test
     human.tally += 1
     computer.move = Move.new(Scissors.new)
     history.update(human, computer, human.name)
-    assert_equal(expected, history.report)
+    update = history.report
+    history.reset
+    assert_equal([expected, []], [update, history.report])
   end
 end

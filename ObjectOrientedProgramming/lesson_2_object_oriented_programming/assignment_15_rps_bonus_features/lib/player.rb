@@ -1,3 +1,5 @@
+require_relative './move'
+
 class Player
   attr_accessor :name, :move, :tally
 
