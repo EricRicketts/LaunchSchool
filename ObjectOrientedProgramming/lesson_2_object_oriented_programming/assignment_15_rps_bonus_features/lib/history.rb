@@ -1,21 +1,17 @@
 class History
-  attr_accessor :report
+  attr_reader :report
 
   def initialize
-    @report = reset
+    @report = []
   end
 
-  private
-
-  def reset
-    { round: 0,
-      results: {
-        human_move: '',
-        computer_move: '',
-        winner: '',
-        human_tally: 0,
-        computer_tally: 0
-      }
+  def update(human, computer, winner)
+    hsh1, hsh2 = {}, {}
+    hsh2[:results] = {
+      human_move: human.move.to_s, computer_move: computer.move.to_s,
+      winner: winner, human_tally: human.tally, computer_tally: computer.tally
     }
+    report.empty? ? hsh1[:round] = 1 : hsh1[:round] += 1
+    self.report.push(hsh1.merge(hsh2))
   end
 end

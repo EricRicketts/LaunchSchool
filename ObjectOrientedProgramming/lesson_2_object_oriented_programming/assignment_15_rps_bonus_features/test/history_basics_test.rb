@@ -21,16 +21,6 @@ class HistoryBasicsTest < Minitest::Test
   end
 
   def test_history_attribute_init
-    expected = {
-      round: 0,
-      results: {
-        human_move: '',
-        computer_move: '',
-        winner: '',
-        human_tally: 0,
-        computer_tally: 0
-      }
-    }
-    assert_equal(expected, history.report)
+    assert_equal([], history.report)
   end
 end

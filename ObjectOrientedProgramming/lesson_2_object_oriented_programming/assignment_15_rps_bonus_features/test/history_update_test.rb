@@ -4,24 +4,38 @@ require 'pry-byebug'
 
 require_relative '../lib'
 require_relative '../lib/history'
+require_relative '../lib/human'
+require_relative '../lib/computer'
+require_relative '../lib/move'
+
 
 class HistoryUpdateTest < Minitest::Test
-  attr_accessor :history
+  attr_accessor :history, :human, :computer
 
   def setup
     @history = History.new
+    @human = Human.new
+    @computer = Computer.new
   end
 
   def test_update_report
-    expected = {
-      round: 1,
-      results: {
-        human_move: "Rock",
-        computer_move: "Scissors",
-        Winner: "Eric",
-        human_tally: 1,
-        computer_tally: 0
+    expected = [
+      {
+        round: 1,
+        results: {
+          human_move: "Rock",
+          computer_move: "Scissors",
+          winner: "Eric",
+          human_tally: 1,
+          computer_tally: 0
+        }
       }
-    }
+    ]
+    human.name = "Eric"
+    human.move = Move.new(Rock.new)
+    human.tally += 1
+    computer.move = Move.new(Scissors.new)
+    history.update(human, computer, human.name)
+    assert_equal(expected, history.report)
   end
 end

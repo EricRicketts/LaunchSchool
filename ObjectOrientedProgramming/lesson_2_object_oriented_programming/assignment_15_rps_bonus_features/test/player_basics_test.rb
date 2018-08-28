@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
+
 require_relative '../lib/player'
 
 class TestPlayerBasics < Minitest::Test
