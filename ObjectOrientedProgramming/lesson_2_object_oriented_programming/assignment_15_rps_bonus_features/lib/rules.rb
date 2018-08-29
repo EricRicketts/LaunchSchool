@@ -1,3 +1,5 @@
+require_relative '../default_libs'
+
 module Rules
   MOVES = [Rock, Paper, Scissors, Lizard, Spock]
 

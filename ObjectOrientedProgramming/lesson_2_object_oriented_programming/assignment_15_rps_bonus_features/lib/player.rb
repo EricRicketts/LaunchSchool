@@ -5,5 +5,6 @@ class Player
 
   def initialize
     @tally = 0
+    set_name
   end
 end

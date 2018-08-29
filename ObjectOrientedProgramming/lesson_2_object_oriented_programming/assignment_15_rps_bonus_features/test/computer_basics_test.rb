@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
 
-require_relative '../lib'
 require_relative '../lib/computer'
 
 class ComputerBasicsTest < Minitest::Test

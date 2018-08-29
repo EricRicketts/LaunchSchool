@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
 
-require_relative '../lib'
 require_relative '../lib/history'
 require_relative '../lib/human'
 require_relative '../lib/computer'
@@ -14,11 +13,12 @@ class HistoryUpdateTest < Minitest::Test
 
   def setup
     @history = History.new
-    @human = Human.new
+    @human = Human.allocate
     @computer = Computer.new
   end
 
   def test_update_report
+    # skip
     expected = [
       {
         round: 1,
@@ -33,6 +33,7 @@ class HistoryUpdateTest < Minitest::Test
     ]
     human.name = "Eric"
     human.move = Move.new(Rock.new)
+    human.tally = 0
     human.tally += 1
     computer.move = Move.new(Scissors.new)
     history.update(human, computer, human.name)

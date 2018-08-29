@@ -31,3 +31,5 @@ Refine the computer selection based on the history of the human player's moves.
 There are some computer players which will have different personalities, for instance
 maybe R2D2 has a proclivity to choose "Rock" as his move while C3PO might be inclined
 towards paper.
+
+to run all of the tests for now: ruby -Ilib -e 'ARGV.each { |f| require f }' ./test/*_test.rb
