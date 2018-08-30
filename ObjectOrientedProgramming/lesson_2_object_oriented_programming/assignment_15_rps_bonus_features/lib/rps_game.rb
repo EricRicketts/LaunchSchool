@@ -20,6 +20,17 @@ class RPSGame
     "Thanks for playing Rock, Paper, Scissors, Lizard, Spock!  Goodbye!"
   end
 
+  def play_again?
+    answer = ''
+    loop do
+      puts "Would you like to play again? (y/n)"
+      answer = gets.downcase.chomp
+      break if ['y', 'n'].include?(answer)
+      puts "Sorry, must be y or n."
+    end
+    answer == 'y'
+  end
+
   def play_round
     moves
     display_round_winner(round_winner)
