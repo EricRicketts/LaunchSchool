@@ -9,12 +9,22 @@ class RPSGame
     @computer = Computer.new
   end
 
-  def welcome
-    "Welcome to Rock, Paper, Scissors, Lizard, Spock!"
+  def display_moves
+    "#{human.name} chose #{human.move}, "\
+      "#{computer.name} chose #{computer.move}."
   end
 
   def goodbye
     "Thanks for playing Rock, Paper, Scissors, Lizard, Spock!  Goodbye!"
+  end
+
+  def moves
+    human.choose
+    computer.choose
+  end
+
+  def welcome
+    "Welcome to Rock, Paper, Scissors, Lizard, Spock!"
   end
 
 end

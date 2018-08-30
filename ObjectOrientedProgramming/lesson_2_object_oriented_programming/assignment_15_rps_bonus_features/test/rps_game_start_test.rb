@@ -27,6 +27,7 @@ class RpsGameStartTest < Minitest::Test
   def test_computer_player_exists
     # skip
     assert_instance_of(Computer, game.computer)
+    assert_includes(Computer::NAMES, game.computer.name)
   end
 
   def test_human_player_exists
@@ -45,5 +46,26 @@ class RpsGameStartTest < Minitest::Test
     # skip
     expected = "Thanks for playing Rock, Paper, Scissors, Lizard, Spock!  Goodbye!"
     assert_equal(expected, game.goodbye)
+  end
+
+  def test_display_moves
+    # skip
+    game.human.move = Move.new(Rock.new)
+    game.computer.move = Move.new(Lizard.new)
+    computer_name = game.computer.name
+    expected = "Foo chose Rock, #{computer_name} chose Lizard."
+    assert_equal(expected, game.display_moves)
+  end
+
+  def test_choose_moves
+    # skip
+    io.string = "rock\n"
+    out, err = capture_io do
+      game.moves
+    end
+    assert_instance_of(String, out)
+    assert_empty(err)
+    assert_instance_of(Rock, game.human.move.selection)
+    assert_includes(Rules::MOVES, game.computer.move.selection.class)
   end
 end
