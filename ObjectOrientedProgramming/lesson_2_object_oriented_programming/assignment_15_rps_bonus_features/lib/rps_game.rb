@@ -14,6 +14,10 @@ class RPSGame
       "#{computer.name} chose #{computer.move}."
   end
 
+  def display_round_winner(round_winner)
+    round_winner.empty? ? "It is a tie!" : "#{round_winner} won!"
+  end
+
   def goodbye
     "Thanks for playing Rock, Paper, Scissors, Lizard, Spock!  Goodbye!"
   end
@@ -27,7 +31,7 @@ class RPSGame
     case
     when human.move > computer.move then human.name
     when human.move < computer.move then computer.name
-    else "It is a tie!"
+    else ""
     end
   end
 

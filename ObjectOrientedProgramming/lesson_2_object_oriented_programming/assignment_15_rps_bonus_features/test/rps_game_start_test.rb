@@ -82,4 +82,19 @@ class RpsGameStartTest < Minitest::Test
     assert_empty(err)
     assert_equal(result, game.computer.name)
   end
+
+  def test_display_round_winner
+    # skip
+    result = ''
+    io.string = "paper\n"
+    out, err = capture_io do
+      game.moves
+      game.computer.move = Move.new(Spock.new)
+      result = game.round_winner
+    end
+    assert_instance_of(String, out)
+    assert_empty(err)
+    expected = "Foo won!"
+    assert_equal(expected, game.display_round_winner(result))
+  end
 end
