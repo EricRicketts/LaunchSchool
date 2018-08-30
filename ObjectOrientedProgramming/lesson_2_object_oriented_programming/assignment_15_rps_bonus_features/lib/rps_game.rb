@@ -23,6 +23,14 @@ class RPSGame
     computer.choose
   end
 
+  def round_winner
+    case
+    when human.move > computer.move then human.name
+    when human.move < computer.move then computer.name
+    else "It is a tie!"
+    end
+  end
+
   def welcome
     "Welcome to Rock, Paper, Scissors, Lizard, Spock!"
   end

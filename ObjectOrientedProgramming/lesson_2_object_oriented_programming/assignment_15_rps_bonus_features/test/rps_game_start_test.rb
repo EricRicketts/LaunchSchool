@@ -68,4 +68,18 @@ class RpsGameStartTest < Minitest::Test
     assert_instance_of(Rock, game.human.move.selection)
     assert_includes(Rules::MOVES, game.computer.move.selection.class)
   end
+
+  def test_round_winner
+    # skip
+    result = ''
+    io.string = "rock\n"
+    out, err = capture_io do
+      game.moves
+      game.computer.move = Move.new(Spock.new)
+      result = game.round_winner
+    end
+    assert_instance_of(String, out)
+    assert_empty(err)
+    assert_equal(result, game.computer.name)
+  end
 end
