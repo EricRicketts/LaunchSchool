@@ -45,4 +45,19 @@ class HumanTest < Minitest::Test
     assert_instance_of(Rock, human.move.selection)
   end
 
+  def test_choose_incorrect_move
+    human = ''
+    expected = "Please enter your name: \n" +
+    "Please choose rock, paper, scissors, lizard, or spock:\n" +
+    "Sorry, invalid choice, try again.\n" +
+    "Please choose rock, paper, scissors, lizard, or spock:\n"
+    out, err = capture_io do
+      io.string = "Foo\nbar\nspock"
+      human = Human.new
+      human.choose
+    end
+    assert_equal(expected, out)
+    assert_instance_of(Spock, human.move.selection)
+  end
+
 end
