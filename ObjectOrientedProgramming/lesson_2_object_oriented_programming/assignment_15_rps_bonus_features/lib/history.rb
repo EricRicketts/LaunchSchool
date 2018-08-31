@@ -9,6 +9,14 @@ class History
     @report = []
   end
 
+  def display_header(human, computer, winner)
+    titles = [
+      " round ", " #{human.name} ", " #{computer.name} ", " Winner ",
+      " #{human.name} tally ", " #{computer.name} tally "
+    ].join("|")
+    header = titles + "\n" + "-" * titles.length + "\n"
+  end
+
   def update(human, computer, winner)
     hsh1, hsh2 = {}, {}
     hsh2[:results] = {

@@ -53,8 +53,12 @@ class RPSGame
 
   def round_winner
     case
-    when human.move > computer.move then human.name
-    when human.move < computer.move then computer.name
+    when human.move > computer.move
+      human.tally += 1
+      human.name
+    when human.move < computer.move
+      computer.tally += 1
+      computer.name
     else ""
     end
   end
