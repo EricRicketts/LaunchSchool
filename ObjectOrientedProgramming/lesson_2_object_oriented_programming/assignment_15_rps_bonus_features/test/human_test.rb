@@ -33,6 +33,7 @@ class HumanTest < Minitest::Test
       io.string = "\nFoo\n"
       human = Human.new
     end
+    assert_empty(err)
     assert_equal(expected, out)
     assert_equal("Foo", human.name)
   end
@@ -56,6 +57,7 @@ class HumanTest < Minitest::Test
       human = Human.new
       human.choose
     end
+    assert_empty(err)
     assert_equal(expected, out)
     assert_instance_of(Spock, human.move.selection)
   end
