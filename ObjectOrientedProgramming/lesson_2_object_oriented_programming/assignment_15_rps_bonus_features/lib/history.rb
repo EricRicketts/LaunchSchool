@@ -14,14 +14,7 @@ class History
   end
 
   def update(human, computer, winner)
-    hsh1 = {}
-    if report.empty?
-      hsh1[:round] = 1
-    else
-      hsh1[:round] = report.last[:round]
-      hsh1[:round] += 1
-    end
-
+    hsh1 = report.empty? ? Hash[:round, 1] : Hash[:round, report.last[:round] + 1]
     hsh2 = {
       human_move: human.move.to_s, computer_move: computer.move.to_s,
       winner: winner.include?('tie') ? "Tie" : winner,
@@ -31,10 +24,6 @@ class History
   end
 
   private
-
-  def body(header)
-    spacings = header.map { |col_header| col_header.length }
-  end
 
   def header(human, computer, winner)
     larger_name_size = human.name.length >= computer.name.length ?
