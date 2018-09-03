@@ -45,5 +45,6 @@ class HistoryOutputTest < Minitest::Test
   def test_history_output
     expected_header = "| round | Elmer Fudd | HAL 9000 | Winner | Elmer Fudd Tally | HALL 9000 Tally |\n"
     row_separator =   "_______________________________________________________________________________\n"
+    history.output(human, computer)
   end
 end
