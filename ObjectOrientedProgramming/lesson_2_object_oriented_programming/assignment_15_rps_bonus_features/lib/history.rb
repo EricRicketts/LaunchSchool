@@ -21,6 +21,8 @@ class History
     row_divider = generate_row_separator(header_strings)
 
     header = make_header(header_strings, row_divider)
+    row_sizings = generate_column_sizings(header_strings)
+    row = make_a_row(self.report[0], row_sizings, row_divider)
     binding.pry
   end
 
@@ -37,6 +39,10 @@ class History
 
   private
 
+  def generate_column_sizings(header_strings)
+    header_strings.map { |column_string| column_string.size }
+  end
+
   def generate_header_data(human, computer)
     winner_header = winner_column_sizing(human, computer)
     cols = [
@@ -47,12 +53,24 @@ class History
   end
 
   def generate_row_separator(header_strings)
-    col_sizings = header_strings.map { |column_string| column_string.size }
+    col_sizings = generate_column_sizings(header_strings)
     ("-" * col_sizings.sum) << "\n"
   end
 
   def make_header(header_strings, row_divider)
     header_strings.join << "\n" << row_divider
+  end
+
+  def make_a_row(row_hash, row_sizings, row_divider)
+    row_data = row_hash.values
+    row_data.each_with_index.inject('') do |row, (data, idx)|
+      if idx.zero?
+        row << "|" << data.to_s.center(row_sizings[idx] - 2) << "|"
+      else
+        row << data.to_s.center(row_sizings[idx] - 1) << "|"
+      end
+    end << "\n" << row_divider
+    binding.pry
   end
 
   def winner_column_sizing(human, computer)

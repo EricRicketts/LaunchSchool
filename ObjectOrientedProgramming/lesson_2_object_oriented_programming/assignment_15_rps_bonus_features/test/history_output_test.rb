@@ -23,20 +23,14 @@ class HistoryOutputTest < Minitest::Test
 
     @history = History.new
     history.report = [
-      { round: 1, results: {
-        human_move: "Scissors", computer_move: "Paper", winner: "Elmer Fudd",
+      { round: 1, human_move: "Scissors", computer_move: "Paper", winner: "Elmer Fudd",
         human_tally: 1, computer_tally: 0
-        }
       },
-      { round: 2, results: {
-        human_move: "Rock", computer_move: "Rock", winner: "Tie",
+      { round: 2, human_move: "Rock", computer_move: "Rock", winner: "Tie",
         human_tally: 1, computer_tally: 0
-        }
       },
-      { round: 3, results: {
-        human_move: "Rock", computer_move: "Paper", winner: "HAL 9000",
+      { round: 3, human_move: "Rock", computer_move: "Paper", winner: "HAL 9000",
         human_tally: 1, computer_tally: 1
-        }
       }
     ]
     history.update(human, computer, computer.name)
