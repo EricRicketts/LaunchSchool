@@ -20,10 +20,12 @@ class History
     header_strings = generate_header_data(human, computer)
     row_divider = generate_row_separator(header_strings)
 
-    header = make_header(header_strings, row_divider)
+    table_header = make_table_header(header_strings, row_divider)
     row_sizings = generate_column_sizings(header_strings)
-    row = make_a_row(self.report[0], row_sizings, row_divider)
-    binding.pry
+
+    table_body = make_table_body(report, row_sizings, row_divider)
+
+    table_header << table_body
   end
 
   def update(human, computer, winner)
@@ -57,12 +59,18 @@ class History
     ("-" * col_sizings.sum) << "\n"
   end
 
-  def make_header(header_strings, row_divider)
+  def make_table_body(report, row_sizings, row_divider)
+    report.inject('') do |table_body, row_data|
+      table_body << make_a_row(row_data, row_sizings, row_divider)
+    end
+  end
+
+  def make_table_header(header_strings, row_divider)
     header_strings.join << "\n" << row_divider
   end
 
-  def make_a_row(row_hash, row_sizings, row_divider)
-    row_data = row_hash.values
+  def make_a_row(row_data, row_sizings, row_divider)
+    row_data = row_data.values
     row_data.each_with_index.inject('') do |row, (data, idx)|
       if idx.zero?
         row << "|" << data.to_s.center(row_sizings[idx] - 2) << "|"
@@ -70,7 +78,6 @@ class History
         row << data.to_s.center(row_sizings[idx] - 1) << "|"
       end
     end << "\n" << row_divider
-    binding.pry
   end
 
   def winner_column_sizing(human, computer)
