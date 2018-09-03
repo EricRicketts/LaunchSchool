@@ -31,9 +31,25 @@ class RPSGame
     answer == 'y'
   end
 
+  def play
+    loop do
+      round_winner = play_round
+      puts round_winner
+      history.update(human, computer, round_winner)
+      puts history.output
+      if game_winner?
+        puts game_winner
+        history.reset
+        break unless play_again?
+      end
+    end
+    goodbye
+  end
+
   def play_round
     moves
-    display_round_winner(round_winner)
+    winner = round_winner
+    display_round_winner(winner)
   end
 
   def welcome
@@ -42,8 +58,8 @@ class RPSGame
 
   private
 
-  def display_round_winner(round_winner)
-    round_winner.empty? ? "It is a tie!" : "#{round_winner} won!"
+  def display_round_winner(winner)
+    winner.empty? ? "It is a tie!" : "#{round_winner} won!"
   end
 
   def moves
