@@ -47,24 +47,25 @@ class RPSGame
   def play
     puts welcome
     loop do
-      round_winner = play_round
-      puts display_round_winner(round_winner)
-      update_tally(round_winner)
-      history.update(human, computer, round_winner)
-      puts history.output(human, computer)
+      play_a_round
       if game_winner?
         puts display_game_winner
         reset_game
         break unless play_again?
       end
     end
-    goodbye
+    puts goodbye
   end
 
-  def play_round
+  def play_a_round
     moves
     puts display_moves
-    determine_round_winner
+    round_winner = determine_round_winner
+    puts display_round_winner(round_winner)
+
+    update_tally(round_winner)
+    history.update(human, computer, round_winner)
+    puts history.output(human, computer)
   end
 
   def welcome
