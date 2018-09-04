@@ -17,12 +17,9 @@ class History
   end
 
   def output(human, computer)
-    header_strings = generate_header_data(human, computer)
-    row_divider = generate_row_separator(header_strings)
+    header_strings, row_divider, row_sizings = table_prep_work(human, computer)
 
     table_header = make_table_header(header_strings, row_divider)
-    row_sizings = generate_column_sizings(header_strings)
-
     table_body = make_table_body(report, row_sizings, row_divider)
 
     table_header << table_body
@@ -36,7 +33,7 @@ class History
       human_tally: human.tally, computer_tally: computer.tally
     }
 
-    self.report.push(hsh1.merge(hsh2))
+    report.push(hsh1.merge(hsh2))
   end
 
   private
@@ -46,7 +43,7 @@ class History
   end
 
   def generate_header_data(human, computer)
-    headers = set_header_width(human, computer)
+    headers = set_player_header_widths(human, computer)
     human_header, computer_header, winner_header = *headers
 
     cols = [
@@ -60,6 +57,16 @@ class History
     ("-" * col_sizings.sum) << "\n"
   end
 
+  def make_a_row(row_data, row_sizings, row_divider)
+    row_data = row_data.values
+
+    row_data.each_with_index.inject('') do |row, (data, idx)|
+      round_col = data.to_s.center(row_sizings[idx] - 2)
+      other_cols = data.to_s.center(row_sizings[idx] - 1)
+      idx.zero? ? row << "|" << round_col << "|" : row << other_cols << "|"
+    end << "\n" << row_divider
+  end
+
   def make_table_body(report, row_sizings, row_divider)
     report.inject('') do |table_body, row_data|
       table_body << make_a_row(row_data, row_sizings, row_divider)
@@ -70,32 +77,29 @@ class History
     header_strings.join << "\n" << row_divider
   end
 
-  def make_a_row(row_data, row_sizings, row_divider)
-    row_data = row_data.values
-    row_data.each_with_index.inject('') do |row, (data, idx)|
-      if idx.zero?
-        row << "|" << data.to_s.center(row_sizings[idx] - 2) << "|"
-      else
-        row << data.to_s.center(row_sizings[idx] - 1) << "|"
-      end
-    end << "\n" << row_divider
-  end
-
   def set_column_width(human, computer)
     largest = [human.name, computer.name, "scissors"].max_by do |name|
-      name.length
-    end.length
+                name.length
+              end.length
 
     largest += 2
   end
 
-  def set_header_width(human, computer)
+  def set_player_header_widths(human, computer)
     column_width = set_column_width(human, computer)
 
     [
       human.name.center(column_width) << "|",
       computer.name.center(column_width) << "|",
       "Winner".center(column_width) << "|"
+    ]
+  end
+
+  def table_prep_work(human, computer)
+    header_strings = generate_header_data(human, computer)
+    [
+      header_strings, generate_row_separator(header_strings),
+      generate_column_sizings(header_strings)
     ]
   end
 end

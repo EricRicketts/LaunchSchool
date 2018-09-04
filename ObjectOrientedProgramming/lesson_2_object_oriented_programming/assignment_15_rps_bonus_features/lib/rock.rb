@@ -1,2 +1,2 @@
-class Rock 
+class Rock
 end

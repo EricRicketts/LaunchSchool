@@ -49,11 +49,12 @@ class RPSGame
     loop do
       round_winner = play_round
       puts display_round_winner(round_winner)
+      update_tally(round_winner)
       history.update(human, computer, round_winner)
       puts history.output(human, computer)
       if game_winner?
         puts display_game_winner
-        history.reset
+        reset_game
         break unless play_again?
       end
     end
@@ -76,21 +77,29 @@ class RPSGame
 
   private
 
+  def determine_round_winner
+    case
+    when human.move > computer.move then human.name
+    when human.move < computer.move then computer.name
+    else ""
+    end
+  end
 
   def moves
     human.choose
     computer.choose
   end
 
-  def determine_round_winner
-    case
-    when human.move > computer.move
-      human.tally += 1
-      human.name
-    when human.move < computer.move
-      computer.tally += 1
-      computer.name
-    else ""
+  def reset_game
+    human.tally = 0
+    computer.tally = 0
+    history.reset
+  end
+
+  def update_tally(round_winner)
+    case round_winner
+    when human.name then human.tally += 1
+    when computer.name then computer.tally += 1
     end
   end
 end
