@@ -46,11 +46,12 @@ class History
   end
 
   def generate_header_data(human, computer)
-    winner_header = winner_column_sizing(human, computer)
+    headers = set_header_width(human, computer)
+    human_header, computer_header, winner_header = *headers
+
     cols = [
-      "| round |", " #{human.name} |", " #{computer.name} |",
-      "#{winner_header}", " #{human.name} tally |",
-      " #{computer.name} tally |"
+      "| round |", "#{human_header}", " #{computer_header}", "#{winner_header}",
+      " #{human.name} tally |", " #{computer.name} tally |"
     ]
   end
 
@@ -80,11 +81,21 @@ class History
     end << "\n" << row_divider
   end
 
-  def winner_column_sizing(human, computer)
-    larger_name_size = human.name.length >= computer.name.length ?
-      human.name.length : computer.name.length
+  def set_column_width(human, computer)
+    largest = [human.name, computer.name, "scissors"].max_by do |name|
+      name.length
+    end.length
 
-    larger_name_size += 2
-    "Winner".center(larger_name_size) << "|"
+    largest += 2
+  end
+
+  def set_header_width(human, computer)
+    column_width = set_column_width(human, computer)
+
+    [
+      human.name.center(column_width) << "|",
+      computer.name.center(column_width) << "|",
+      "Winner".center(column_width) << "|"
+    ]
   end
 end
