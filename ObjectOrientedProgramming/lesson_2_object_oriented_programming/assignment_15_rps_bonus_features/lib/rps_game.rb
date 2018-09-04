@@ -36,7 +36,7 @@ class RPSGame
   def play_again?
     answer = ''
     loop do
-      puts "Would you like to play again? (y/n)"
+      puts "Would you like to play another game? (y/n)"
       answer = gets.downcase.chomp
       break if ['y', 'n'].include?(answer)
       puts "Sorry, must be y or n."
@@ -49,7 +49,6 @@ class RPSGame
     loop do
       round_winner = play_round
       puts display_round_winner(round_winner)
-      # binding.pry
       history.update(human, computer, round_winner)
       puts history.output(human, computer)
       if game_winner?

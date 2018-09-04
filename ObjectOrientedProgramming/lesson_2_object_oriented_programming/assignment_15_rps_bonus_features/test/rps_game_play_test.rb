@@ -27,7 +27,7 @@ class RpsGamePlayTest < Minitest::Test
     # skip
     io.string = "n\n"
     result = ''
-    expected = "Would you like to play again? (y/n)\n"
+    expected = "Would you like to play another game? (y/n)\n"
     out, err = capture_io do
       result = game.play_again?
     end
@@ -40,8 +40,8 @@ class RpsGamePlayTest < Minitest::Test
     # skip
     io.string = "foo\nY\n"
     result = ''
-    expected = "Would you like to play again? (y/n)\n" +
-      "Sorry, must be y or n.\n" + "Would you like to play again? (y/n)\n"
+    expected = "Would you like to play another game? (y/n)\n" +
+      "Sorry, must be y or n.\n" + "Would you like to play another game? (y/n)\n"
     out, err = capture_io do
       result = game.play_again?
     end
