@@ -49,8 +49,7 @@ class RPSGame
     loop do
       play_a_round
       if game_winner?
-        puts display_game_winner
-        reset_game
+        end_of_game_cleanup
         break unless play_again?
       end
     end
@@ -58,14 +57,8 @@ class RPSGame
   end
 
   def play_a_round
-    moves
-    puts display_moves
-    round_winner = determine_round_winner
-    puts display_round_winner(round_winner)
-
-    update_tally(round_winner)
-    history.update(human, computer, round_winner)
-    puts history.output(human, computer)
+    round_winner = compare_moves_and_declare_winner
+    update_and_display_history(round_winner)
   end
 
   def welcome
@@ -78,6 +71,15 @@ class RPSGame
 
   private
 
+  def compare_moves_and_declare_winner
+    make_moves
+    puts display_moves
+
+    round_winner = determine_round_winner
+    puts display_round_winner(round_winner)
+    round_winner
+  end
+
   def determine_round_winner
     case
     when human.move > computer.move then human.name
@@ -86,7 +88,12 @@ class RPSGame
     end
   end
 
-  def moves
+  def end_of_game_cleanup
+    puts display_game_winner
+    reset_game
+  end
+
+  def make_moves
     human.choose
     computer.choose
   end
@@ -95,6 +102,12 @@ class RPSGame
     human.tally = 0
     computer.tally = 0
     history.reset
+  end
+
+  def update_and_display_history(round_winner)
+    update_tally(round_winner)
+    history.update(human, computer, round_winner)
+    puts history.output(human, computer)
   end
 
   def update_tally(round_winner)
