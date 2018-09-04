@@ -64,7 +64,7 @@ class HistoryUpdateTest < Minitest::Test
     ]
     human.move = Move.new(Rock.new)
     computer.move = Move.new(Rock.new)
-    winner = "It is a tie!"
+    winner = ""
     history.update(human, computer, winner)
     assert_equal(expected, history.report)
   end

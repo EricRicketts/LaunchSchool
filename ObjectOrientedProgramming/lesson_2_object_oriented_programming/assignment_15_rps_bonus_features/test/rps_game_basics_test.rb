@@ -43,7 +43,9 @@ class RpsGameStartTest < Minitest::Test
 
   def test_welcome_message
     # skip
-    expected = "Welcome to Rock, Paper, Scissors, Lizard, Spock!"
+    expected = "Welcome to Rock, Paper, Scissors, Lizard, Spock!\n"
+    expected << "Each game consists of a number of rounds.\n" << "The player choses rock, paper, scissors, lizard or spock.\n"
+    expected << "The computer will randomly select one of those options.\n" << "The first to win 10 rounds wins the game."
     assert_equal(expected, game.welcome)
   end
 

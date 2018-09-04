@@ -1,10 +1,10 @@
-ary = []
-count = 0
+# require 'minitest/autorun'
+# require 'minitest/pride'
+# require 'pry-byebug'
 
-loop do
-  count += 1
-  ary.push(count)
-  break if count >= 10
+x = 10
+case x
+when 5 then "x is 5"
+when 6 then "x is 6"
+else "x is neither 5 or 6"
 end
-
-p ary

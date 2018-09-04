@@ -32,7 +32,7 @@ class History
     hsh1 = report.empty? ? Hash[:round, 1] : Hash[:round, report.last[:round] + 1]
     hsh2 = {
       human_move: human.move.to_s, computer_move: computer.move.to_s,
-      winner: winner.include?('tie') ? "Tie" : winner,
+      winner: winner.empty? ? "Tie" : winner,
       human_tally: human.tally, computer_tally: computer.tally
     }
 

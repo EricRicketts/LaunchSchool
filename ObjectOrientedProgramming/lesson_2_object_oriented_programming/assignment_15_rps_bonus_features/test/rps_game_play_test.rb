@@ -23,22 +23,6 @@ class RpsGamePlayTest < Minitest::Test
     $stdin = STDIN
   end
 
-  def test_play_round
-    # skip
-    first_str = "Please choose rock, paper, scissors, lizard, or spock:\n"
-    tie_str = "It is a tie!\n"
-    human_str = "Foo won!\n"
-    computer_str = "#{game.computer.name} won!\n"
-    io.string = "rock\n"
-    out, err = capture_io do
-      puts game.play_round
-    end
-    results = [first_str + tie_str, first_str + human_str,
-      first_str + computer_str]
-    assert_empty(err)
-    assert(results.any? { |result| result == out })
-  end
-
   def test_play_another_game
     # skip
     io.string = "n\n"

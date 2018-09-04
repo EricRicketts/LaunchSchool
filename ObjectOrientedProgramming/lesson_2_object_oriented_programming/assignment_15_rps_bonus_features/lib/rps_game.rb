@@ -11,9 +11,22 @@ class RPSGame
     @history = History.new
   end
 
+  def display_game_winner
+    winner = human.tally == 10 ? human.name : computer.name
+    "#{winner} wins the game!!"
+  end
+
   def display_moves
     "#{human.name} chose #{human.move}, "\
       "#{computer.name} chose #{computer.move}."
+  end
+
+  def display_round_winner(round_winner)
+    round_winner.empty? ? "It is a tie!" : "#{round_winner} won!"
+  end
+
+  def game_winner?
+    human.tally == 10 || computer.tally == 10
   end
 
   def goodbye
@@ -32,13 +45,15 @@ class RPSGame
   end
 
   def play
+    puts welcome
     loop do
       round_winner = play_round
-      puts round_winner
+      puts display_round_winner(round_winner)
+      # binding.pry
       history.update(human, computer, round_winner)
-      puts history.output
+      puts history.output(human, computer)
       if game_winner?
-        puts game_winner
+        puts display_game_winner
         history.reset
         break unless play_again?
       end
@@ -48,26 +63,27 @@ class RPSGame
 
   def play_round
     moves
-    winner = round_winner
-    display_round_winner(winner)
+    puts display_moves
+    determine_round_winner
   end
 
   def welcome
-    "Welcome to Rock, Paper, Scissors, Lizard, Spock!"
+    "Welcome to Rock, Paper, Scissors, Lizard, Spock!\n"\
+    "Each game consists of a number of rounds.\n"\
+    "The player choses rock, paper, scissors, lizard or spock.\n"\
+    "The computer will randomly select one of those options.\n"\
+    "The first to win 10 rounds wins the game."
   end
 
   private
 
-  def display_round_winner(winner)
-    winner.empty? ? "It is a tie!" : "#{round_winner} won!"
-  end
 
   def moves
     human.choose
     computer.choose
   end
 
-  def round_winner
+  def determine_round_winner
     case
     when human.move > computer.move
       human.tally += 1
