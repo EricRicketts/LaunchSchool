@@ -1,11 +1,4 @@
-require 'pry-byebug'
 class History
-
-  COLUMN_HEADERS = [
-    :round, :human_move, :computer_move, :winner,
-    :human_tally, :computer_tally
-  ]
-
   attr_accessor :report
 
   def initialize
@@ -26,28 +19,33 @@ class History
   end
 
   def update(human, computer, winner)
-    hsh1 = report.empty? ? Hash[:round, 1] : Hash[:round, report.last[:round] + 1]
-    hsh2 = {
+    hsh = if report.empty?
+            Hash[:round, 1]
+          else
+            Hash[:round, report.last[:round] + 1]
+          end
+
+    hsh1 = {
       human_move: human.move.to_s, computer_move: computer.move.to_s,
       winner: winner.empty? ? "Tie" : winner,
       human_tally: human.tally, computer_tally: computer.tally
     }
 
-    report.push(hsh1.merge(hsh2))
+    report.push(hsh.merge(hsh1))
   end
 
   private
 
   def generate_column_sizings(header_strings)
-    header_strings.map { |column_string| column_string.size }
+    header_strings.map(&:size)
   end
 
   def generate_header_data(human, computer)
     headers = set_player_header_widths(human, computer)
     human_header, computer_header, winner_header = *headers
 
-    cols = [
-      "| round |", "#{human_header}", " #{computer_header}", "#{winner_header}",
+    [
+      "| round |", human_header, computer_header, winner_header,
       " #{human.name} tally |", " #{computer.name} tally |"
     ]
   end
@@ -78,11 +76,7 @@ class History
   end
 
   def set_column_width(human, computer)
-    largest = [human.name, computer.name, "scissors"].max_by do |name|
-                name.length
-              end.length
-
-    largest += 2
+    [human.name, computer.name, "scissors"].max_by(&:length).length + 2
   end
 
   def set_player_header_widths(human, computer)

@@ -2,9 +2,9 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
 
-require_relative '../lib/rps_game'
+require_relative '../lib/rpsclsp_game'
 
-class RpsGamePlayTest < Minitest::Test
+class RPScLSpGamePlayTest < Minitest::Test
   attr_accessor :game, :io
 
   def setup
@@ -12,7 +12,7 @@ class RpsGamePlayTest < Minitest::Test
     io.string = "Foo\n"
     $stdin = io
     out, err = capture_io do
-      @game = RPSGame.new
+      @game = RPScLSpGame.new
     end
     assert_instance_of(String, out)
     assert_empty(err)

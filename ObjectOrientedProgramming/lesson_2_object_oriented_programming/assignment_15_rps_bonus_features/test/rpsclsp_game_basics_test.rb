@@ -2,9 +2,9 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
 
-require_relative '../lib/rps_game'
+require_relative '../lib/rpsclsp_game'
 
-class RpsGameStartTest < Minitest::Test
+class RPScLSpGameBasicsTest < Minitest::Test
   attr_accessor :game, :io
 
   def setup
@@ -12,7 +12,7 @@ class RpsGameStartTest < Minitest::Test
     io.string = "Foo\n"
     $stdin = io
     out, err = capture_io do
-      @game = RPSGame.new
+      @game = RPScLSpGame.new
     end
     expected = "Please enter your name: \n"
     assert_equal(expected, out)

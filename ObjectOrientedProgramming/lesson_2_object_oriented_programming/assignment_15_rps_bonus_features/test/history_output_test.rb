@@ -38,13 +38,13 @@ class HistoryOutputTest < Minitest::Test
 
   def test_history_output
     expected = ''
-    expected_header = "| round | Elmer Fudd |   HAL 9000  |   Winner   | Elmer Fudd tally | HAL 9000 tally |\n"
-    row_separator =   "-------------------------------------------------------------------------------------\n"
+    expected_header = "| round | Elmer Fudd |  HAL 9000  |   Winner   | Elmer Fudd tally | HAL 9000 tally |\n"
+    row_separator =   "------------------------------------------------------------------------------------\n"
     expected_header << row_separator
-    first_row =  "|   1   |  Scissors  |    Paper    | Elmer Fudd |        1         |       0        |\n" << row_separator
-    second_row = "|   2   |    Rock    |    Rock     |    Tie     |        1         |       0        |\n" << row_separator
-    third_row =  "|   3   |    Rock    |    Paper    |  HAL 9000  |        1         |       1        |\n" << row_separator
-    fourth_row = "|   4   |   Spock    |   Lizard    |  HAL 9000  |        1         |       2        |\n" << row_separator
+    first_row =  "|   1   |  Scissors  |   Paper    | Elmer Fudd |        1         |       0        |\n" << row_separator
+    second_row = "|   2   |    Rock    |    Rock    |    Tie     |        1         |       0        |\n" << row_separator
+    third_row =  "|   3   |    Rock    |   Paper    |  HAL 9000  |        1         |       1        |\n" << row_separator
+    fourth_row = "|   4   |   Spock    |   Lizard   |  HAL 9000  |        1         |       2        |\n" << row_separator
     expected << expected_header << first_row << second_row << third_row << fourth_row
     results = history.output(human, computer)
     assert_equal(expected, results)

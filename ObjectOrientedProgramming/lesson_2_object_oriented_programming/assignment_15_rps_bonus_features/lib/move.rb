@@ -11,7 +11,7 @@ class Move
   end
 
   def <=>(other)
-    object_class = self.selection.class
+    object_class = selection.class
     other_class = other.selection.class
 
     return -1 if Rules::LESS_THAN[object_class].call(other_class)
@@ -20,6 +20,6 @@ class Move
   end
 
   def to_s
-    self.selection.class.to_s
+    selection.class.to_s
   end
 end

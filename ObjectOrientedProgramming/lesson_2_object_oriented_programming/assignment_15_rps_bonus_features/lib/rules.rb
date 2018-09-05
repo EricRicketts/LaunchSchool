@@ -32,5 +32,4 @@ module Rules
     Lizard => Proc.new { |other| other == Lizard },
     Spock => Proc.new { |other| other == Spock }
   }
-
 end

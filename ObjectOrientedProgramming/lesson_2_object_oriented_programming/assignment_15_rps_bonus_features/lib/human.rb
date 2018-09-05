@@ -1,9 +1,8 @@
 require_relative './player'
 
 class Human < Player
-
   def choose
-    choices = %W(rock paper scissors lizard spock)
+    choices = %w[rock paper scissors lizard spock]
     response = ''
     loop do
       puts "Please choose rock, paper, scissors, lizard, or spock:"

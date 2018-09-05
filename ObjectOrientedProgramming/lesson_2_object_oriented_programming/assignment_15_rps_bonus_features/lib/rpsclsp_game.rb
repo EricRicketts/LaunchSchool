@@ -2,7 +2,7 @@ require_relative './human'
 require_relative './computer'
 require_relative './history'
 
-class RPSGame
+class RPScLSpGame
   attr_accessor :human, :computer, :history
 
   def initialize
@@ -81,10 +81,12 @@ class RPSGame
   end
 
   def determine_round_winner
-    case
-    when human.move > computer.move then human.name
-    when human.move < computer.move then computer.name
-    else ""
+    if human.move > computer.move
+      human.name
+    elsif human.move < computer.move
+      computer.name
+    else
+      ""
     end
   end
 
