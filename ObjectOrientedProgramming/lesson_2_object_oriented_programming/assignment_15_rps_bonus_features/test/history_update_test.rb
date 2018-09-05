@@ -9,63 +9,38 @@ require_relative '../lib/move'
 
 
 class HistoryUpdateTest < Minitest::Test
-  attr_accessor :history, :human, :computer
+  attr_accessor :history
 
   def setup
-    @history = History.new
-    @human = Human.allocate
-    @computer = Computer.new
-
-    human.name = "Eric"
-    human.tally = 0
-    human.move = Move.new(Paper.new)
-
-    computer.name = "HAL 9000"
-    computer.move = Move.new(Scissors.new)
-    computer.tally = 1
-
-    history.update(human, computer, computer.name)
+    keys = [
+      :round, :human_move, :computer_move,
+      :winner, :human_tally, :computer_tally
+    ]
+    @history = History.new(keys)
   end
 
-  def teardown
-    history.reset
-  end
-
-  def test_update_report_winner
+  def test_history_update
     # skip
     expected = [
       {
-        round: 1, human_move: "Paper", computer_move: "Scissors",
-        winner: "HAL 9000", human_tally: 0, computer_tally: 1
+        round: "1", human_move: "Paper", computer_move: "Scissors",
+        winner: "HAL 9000", human_tally: "0", computer_tally: "1"
       },
       {
-        round: 2, human_move: "Spock", computer_move: "Rock",
-        winner: "Eric", human_tally: 1, computer_tally: 1
-      }
-    ]
-    human.move = Move.new(Spock.new)
-    human.tally += 1
-    computer.move = Move.new(Rock.new)
-    history.update(human, computer, human.name)
-    assert_equal(expected, history.report)
-  end
-
-  def test_update_report_tie
-    # skip
-    expected = [
-      {
-        round: 1, human_move: "Paper", computer_move: "Scissors",
-        winner: "HAL 9000", human_tally: 0, computer_tally: 1
+        round: "2", human_move: "Spock", computer_move: "Rock",
+        winner: "Eric", human_tally: "1", computer_tally: "1"
       },
       {
-        round: 2, human_move: "Rock", computer_move: "Rock",
-        winner: "Tie", human_tally: 0, computer_tally: 1
+        round: "3", human_move: "Rock", computer_move: "Rock",
+        winner: "Tie", human_tally: "1", computer_tally: "1"
       }
     ]
-    human.move = Move.new(Rock.new)
-    computer.move = Move.new(Rock.new)
-    winner = ""
-    history.update(human, computer, winner)
+    first_round = ["1", "Paper", "Scissors", "HAL 9000", "0", "1"]
+    second_round = ["2", "Spock", "Rock", "Eric", "1", "1"]
+    third_round = ["3", "Rock", "Rock", "Tie", "1", "1"]
+    [first_round, second_round, third_round].each do |round|
+      history.update(round)
+    end
     assert_equal(expected, history.report)
   end
 end

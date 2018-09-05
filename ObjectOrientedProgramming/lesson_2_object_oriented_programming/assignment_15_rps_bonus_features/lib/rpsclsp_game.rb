@@ -1,14 +1,17 @@
 require_relative './human'
 require_relative './computer'
 require_relative './history'
+require_relative './table'
+require 'pry-byebug'
 
 class RPScLSpGame
-  attr_accessor :human, :computer, :history
+  attr_accessor :human, :computer, :history, :table
 
   def initialize
     @human = Human.new
     @computer = Computer.new
-    @history = History.new
+    @history = History.new(set_keys)
+    @table = Table.new(set_header, opt_for_size = "scissors")
   end
 
   def display_game_winner
@@ -77,7 +80,7 @@ class RPScLSpGame
 
     round_winner = determine_round_winner
     puts display_round_winner(round_winner)
-    round_winner
+    round_winner.empty? ? "Tie" : round_winner
   end
 
   def determine_round_winner
@@ -95,6 +98,21 @@ class RPScLSpGame
     reset_game
   end
 
+  def get_history_data
+    history.report.inject([]) do |data, hsh|
+      data.push(hsh.values)
+    end
+  end
+
+  def get_round_results(round_winner)
+    human_move, computer_move = human.move.to_s, computer.move.to_s
+    round = history.report.empty? ? 1 : history.report.size + 1
+    [
+      round.to_s, human_move, computer_move, round_winner,
+      human.tally.to_s, computer.tally.to_s
+    ]
+  end
+
   def make_moves
     human.choose
     computer.choose
@@ -106,10 +124,26 @@ class RPScLSpGame
     history.reset
   end
 
+  def set_header
+    human_name = human.name
+    computer_name = computer.name
+    [
+      "Round", human_name, computer_name, "Winner",
+      human_name + " Tally", computer_name + " Tally"
+    ]
+  end
+
+  def set_keys
+    [
+      :round, :human_move, :computer_move,
+      :winner, :human_tally, :computer_tally
+    ]
+  end
+
   def update_and_display_history(round_winner)
     update_tally(round_winner)
-    history.update(human, computer, round_winner)
-    puts history.output(human, computer)
+    history.update(get_round_results(round_winner))
+    puts table.output(get_history_data)
   end
 
   def update_tally(round_winner)
