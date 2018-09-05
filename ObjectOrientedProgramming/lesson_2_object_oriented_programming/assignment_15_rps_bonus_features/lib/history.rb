@@ -19,19 +19,10 @@ class History
   end
 
   def update(human, computer, winner)
-    hsh = if report.empty?
-            Hash[:round, 1]
-          else
-            Hash[:round, report.last[:round] + 1]
-          end
+    h = update_round_column
+    hsh = update_remaining_columns(human, computer, winner)
 
-    hsh1 = {
-      human_move: human.move.to_s, computer_move: computer.move.to_s,
-      winner: winner.empty? ? "Tie" : winner,
-      human_tally: human.tally, computer_tally: computer.tally
-    }
-
-    report.push(hsh.merge(hsh1))
+    report.push(h.merge(hsh))
   end
 
   private
@@ -56,13 +47,13 @@ class History
   end
 
   def make_a_row(row_data, row_sizings, row_divider)
-    row_data = row_data.values
-
-    row_data.each_with_index.inject('') do |row, (data, idx)|
-      round_col = data.to_s.center(row_sizings[idx] - 2)
-      other_cols = data.to_s.center(row_sizings[idx] - 1)
-      idx.zero? ? row << "|" << round_col << "|" : row << other_cols << "|"
-    end << "\n" << row_divider
+    row_data.values.each_with_index.inject('') do |row, (data, idx)|
+      if idx.zero?
+        row.concat("|", data.to_s.center(row_sizings[idx] - 2), "|")
+      else
+        row.concat(data.to_s.center(row_sizings[idx] - 1), "|")
+      end
+    end.concat("\n", row_divider)
   end
 
   def make_table_body(report, row_sizings, row_divider)
@@ -95,5 +86,17 @@ class History
       header_strings, generate_row_separator(header_strings),
       generate_column_sizings(header_strings)
     ]
+  end
+
+  def update_round_column
+    report.empty? ? Hash[:round, 1] : Hash[:round, report.last[:round] + 1]
+  end
+
+  def update_remaining_columns(human, computer, winner)
+    {
+      human_move: human.move.to_s, computer_move: computer.move.to_s,
+      winner: winner.empty? ? "Tie" : winner,
+      human_tally: human.tally, computer_tally: computer.tally
+    }
   end
 end
