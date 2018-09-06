@@ -8,6 +8,8 @@ require_relative './data_initialization'
 class RPScLSpGame
   include Statements
   include DataInitialization
+  WINING_TALLY = 10
+
   attr_accessor :human, :computer, :history, :table
 
   def initialize
@@ -19,7 +21,7 @@ class RPScLSpGame
   end
 
   def play
-    puts welcome
+    welcome
     loop do
       play_a_round
       if game_winner?
@@ -27,7 +29,7 @@ class RPScLSpGame
         break unless play_again?
       end
     end
-    puts goodbye
+    goodbye
   end
 
   private
@@ -49,13 +51,13 @@ class RPScLSpGame
   end
 
   def end_of_game_cleanup
-    winner = human.tally == 10 ? human.name : computer.name
+    winner = human.tally == WINING_TALLY ? human.name : computer.name
     display_game_winner(winner)
     reset_game
   end
 
   def game_winner?
-    human.tally == 10 || computer.tally == 10
+    human.tally == WINING_TALLY || computer.tally == WINING_TALLY
   end
 
   def get_round_results(round_winner)
@@ -78,8 +80,15 @@ class RPScLSpGame
     loop do
       puts "Would you like to play another game? (y/n)"
       answer = gets.downcase.chomp
-      break if ['y', 'n'].include?(answer)
-      puts "Sorry, must be y or n."
+      case answer
+      when 'y'
+        system "clear"
+        break
+      when 'n'
+        break
+      else
+        "Sorry, must be y or n."
+      end
     end
     answer == 'y'
   end
@@ -87,14 +96,14 @@ class RPScLSpGame
   def play_a_round
     round_winner = compare_moves
 
+    update_history(round_winner)
+    puts table.output(history.data)
+
     round_result_input = [
       human.name, human.move, computer.name,
       computer.move, round_winner
     ]
-    puts display_round_results(*round_result_input)
-
-    update_history(round_winner)
-    puts table.output(history.data)
+    display_round_results(*round_result_input)
   end
 
   def reset_game

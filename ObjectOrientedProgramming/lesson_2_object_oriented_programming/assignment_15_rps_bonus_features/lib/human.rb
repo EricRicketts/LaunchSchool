@@ -6,7 +6,7 @@ class Human < Player
     response = ''
     loop do
       puts "Please choose rock, paper, scissors, lizard, or spock:"
-      response = gets.chomp
+      response = gets.strip.downcase.chomp
       break if choices.include?(response)
       puts "Sorry, invalid choice, try again."
     end
@@ -19,7 +19,7 @@ class Human < Player
     response = ''
     loop do
       puts 'Please enter your name: '
-      response = gets.chomp
+      response = gets.strip.chomp
       break unless response.empty?
       puts 'Sorry, you must enter a value for your name.'
     end
