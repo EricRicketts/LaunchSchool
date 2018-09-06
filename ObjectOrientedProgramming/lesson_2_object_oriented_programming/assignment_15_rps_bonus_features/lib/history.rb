@@ -6,8 +6,18 @@ class History
     reset
   end
 
+  def data
+    report.inject([]) do |data, hsh|
+      data.push(hsh.values)
+    end
+  end
+
   def reset
     @report = []
+  end
+
+  def size
+    report.size
   end
 
   def update(data)

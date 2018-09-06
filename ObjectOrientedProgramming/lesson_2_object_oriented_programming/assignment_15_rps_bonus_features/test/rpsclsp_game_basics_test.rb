@@ -24,9 +24,13 @@ class RPScLSpGameBasicsTest < Minitest::Test
     $stdin = STDIN
   end
 
-  def test_history_attribute
+  def test_history_init
     # skip
-    assert_instance_of(History, game.history)
+    expected = [
+      :round, :human_move, :computer_move,
+      :winner, :human_tally, :computer_tally
+    ]
+    assert_equal(expected, game.history.keys)
   end
 
   def test_computer_player_exists
@@ -41,17 +45,10 @@ class RPScLSpGameBasicsTest < Minitest::Test
     assert_equal("Foo", game.human.name)
   end
 
-  def test_welcome_message
+  def test_table_init
     # skip
-    expected = "Welcome to Rock, Paper, Scissors, Lizard, Spock!\n"
-    expected << "Each game consists of a number of rounds.\n" << "The player choses rock, paper, scissors, lizard or spock.\n"
-    expected << "The computer will randomly select one of those options.\n" << "The first to win 10 rounds wins the game."
-    assert_equal(expected, game.welcome)
-  end
-
-  def test_goodbye_message
-    # skip
-    expected = "Thanks for playing Rock, Paper, Scissors, Lizard, Spock!  Goodbye!"
-    assert_equal(expected, game.goodbye)
+    computer_name = game.computer.name
+    expected = %W(Round Foo #{computer_name} Winner Foo\sTally #{computer_name}\sTally)
+    assert_equal(expected, game.table.columns)
   end
 end

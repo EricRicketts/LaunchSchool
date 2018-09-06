@@ -19,7 +19,7 @@ class Table
   def format_header
     col_size = set_column_size
     columns.inject('') do |header, col|
-        header.concat(col.center(col_size), "|")
+      header.concat(col.center(col_size), "|")
     end.prepend("|") << "\n"
   end
 
