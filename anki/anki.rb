@@ -2,9 +2,15 @@
 # require 'minitest/pride'
 # require 'pry-byebug'
 
-x = 10
-case x
-when 5 then "x is 5"
-when 6 then "x is 6"
-else "x is neither 5 or 6"
+module MyModule
+  def self.my_method(num)
+    num ** 2
+  end
+
+  def MyModule.another_method(string)
+    "#{string}"
+  end
 end
+
+puts MyModule.my_method(4)
+puts MyModule::another_method("foo bar")
