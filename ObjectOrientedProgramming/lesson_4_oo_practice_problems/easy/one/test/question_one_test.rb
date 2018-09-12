@@ -14,6 +14,7 @@ true
 142
 =end
 class QuestionOneTest < Minitest::Test
+
   def test_1
     # true is an instance of the TrueClass
     assert_equal(TrueClass, true.class)

@@ -47,6 +47,7 @@ class Car
 end
 
 class QuestionThreeTest < Minitest::Test
+
   def test_1
     # self refers to the object itself, which in this
     # case is a Car object.  Then we just call the #class

@@ -47,10 +47,12 @@ class Truck
 end
 
 class QuestionTwoTest < Minitest::Test
+
   def test_1
     expected = "I am a Car and going super fast!"
     assert_equal(expected, Car.new.go_fast)
   end
+
   def test_2
     expected = "I am a Truck and going super fast!"
     assert_equal(expected, Truck.new.go_fast)
