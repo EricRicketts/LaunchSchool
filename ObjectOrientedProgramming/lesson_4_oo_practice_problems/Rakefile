@@ -18,10 +18,23 @@ task :easy_two_task do
   end
 end
 
+task :easy_three_task do
+  Rake::TestTask.new('easy_three') do |t|
+    t.libs << "easy/three/test"
+    t.test_files = FileList['easy/three/test/*_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
 task :easy_one do
   Rake::Task['easy_one_task'].invoke
 end
 
 task :easy_two do
   Rake::Task['easy_two_task'].invoke
+end
+
+task :easy_three do
+  Rake::Task['easy_three_task'].invoke
 end
