@@ -43,6 +43,8 @@ class QuestionTwoTest < Minitest::Test
   class Hello < Greeting
     def self.hi
       # "Hi from the Hello class" not author's desired answer
+      # what the author wanted was a instance of Greeting and
+      # then to call Greeting#greet on that instance
       greeting = Greeting.new
       greeting.greet("Hello")
     end
