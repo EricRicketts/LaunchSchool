@@ -27,6 +27,24 @@ task :easy_three_task do
   end
 end
 
+task :medium_one_task do
+  Rake::TestTask.new('medium_one') do |t|
+    t.libs << "medium/one/test"
+    t.test_files = FileList['medium/one/test/*_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
+task :hard_one_task do
+  Rake::TestTask.new('hard_one') do |t|
+    t.libs << "hard/one/test"
+    t.test_files = FileList['hard/one/test/*_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
 task :easy_one do
   Rake::Task['easy_one_task'].invoke
 end
@@ -37,4 +55,12 @@ end
 
 task :easy_three do
   Rake::Task['easy_three_task'].invoke
+end
+
+task :medium_one do
+  Rake::Task['medium_one_task'].invoke
+end
+
+task :hard_one do
+  Rake::Task['hard_one_task'].invoke
 end

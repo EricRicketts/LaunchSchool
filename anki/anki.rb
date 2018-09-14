@@ -2,15 +2,14 @@
 # require 'minitest/pride'
 # require 'pry-byebug'
 
-module MyModule
-  def self.my_method(num)
-    num ** 2
-  end
+class Dog
+  LEGS = 4
+end
 
-  def MyModule.another_method(string)
-    "#{string}"
+class Cat
+  def legs
+    Dog::LEGS
   end
 end
 
-puts MyModule.my_method(4)
-puts MyModule::another_method("foo bar")
+puts Cat.new.legs
