@@ -3,12 +3,10 @@ class Board
   WINING_LINES = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9], # rows
     [1, 4, 7], [2, 5, 8], [3, 6, 9], # columns
-    [1, 5, 9], [4, 5, 6] # diagonals
+    [1, 5, 9], [3, 5, 7] # diagonals
   ]
   def initialize
-    @squares = (1..9).each_with_object({}) do |key, hash|
-      hash[key] = Square.new
-    end
+    reset
   end
 
   def get_square_at(key)
@@ -51,6 +49,12 @@ class Board
       end
     end
     nil
+  end
+
+  def reset
+    @squares = (1..9).each_with_object({}) do |key, hash|
+      hash[key] = Square.new
+    end
   end
 end
 
@@ -101,9 +105,9 @@ class TTTGame
     puts "Thanks for playing Tic Tac Toe!  Goodbye!"
   end
 
-  def display_board
+  def display_board(clear = true)
     a =  board.instance_variable_get("@squares").values
-    system 'clear'
+    system 'clear' if clear
     puts "You are a #{human.marker}.  Computer is a #{computer.marker}."
     puts ""
     puts "     |     |  "
@@ -145,18 +149,39 @@ class TTTGame
     board.set_square_at(board.unmarked_keys.sample, computer.marker)
   end
 
-  def play
-    display_welcome_message
-    display_board
+  def play_again?
+    answer = nil
     loop do
-      human_moves
-      break if board.someone_won? || board.full?
-
-      computer_moves
-      break if board.someone_won? || board.full?
-      display_board
+      puts "Would you like to play again? (y/n)"
+      answer = gets.downcase.chomp
+      break if %w(y n).include?(answer)
+      puts "Sorry, must be y or n."
     end
-    display_result
+
+    answer == 'y'
+  end
+
+  def play
+    system 'clear'
+    display_welcome_message
+    loop do
+    display_board(false)
+      loop do
+        human_moves
+        break if board.someone_won? || board.full?
+
+        computer_moves
+        break if board.someone_won? || board.full?
+        display_board
+      end
+      display_result
+      break unless play_again?
+      board.reset
+      system 'clear'
+      puts "Let us play again!!"
+      puts
+    end
+
     display_goodbye_message
   end
 end
