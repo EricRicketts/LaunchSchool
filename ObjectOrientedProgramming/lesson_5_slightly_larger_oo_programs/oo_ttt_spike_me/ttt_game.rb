@@ -94,10 +94,6 @@ end
 
 class Player
   attr_reader :marker, :name
-
-  def initialize(marker)
-    @marker = marker
-  end
 end
 
 class ComputerPlayer < Player
@@ -105,6 +101,30 @@ class ComputerPlayer < Player
   def initialize(maker)
     @marker = maker
     @name = NAMES.sample
+  end
+end
+
+class HumanPlayer < Player
+  def choose_name
+    entered_name = ''
+    loop do
+      puts "Please enter your name, it must be at least 2 non-space characters long."
+      entered_name = gets.strip.chomp
+      break unless entered_name.length < 2
+      puts "Sorry, the name is not long enough."
+    end
+    @name = entered_name
+  end
+
+  def choose_marker
+    entered_marker = ''
+    loop do
+      puts "Please enter your marker, it must be one non-space character."
+      entered_marker = gets.strip.chomp
+      break unless entered_marker.length > 1
+      puts "Sorry the marker is too big."
+    end
+    @marker = entered_marker
   end
 end
 
@@ -117,7 +137,7 @@ class TTTGame
 
   def initialize
     @board = Board.new
-    @human = Player.new(HUMAN_MARKER)
+    @human = HumanPlayer.allocate
     @computer = ComputerPlayer.new(COMPUTER_MARKER)
     @current_marker = FIRST_TO_MOVE
   end
@@ -125,6 +145,7 @@ class TTTGame
   def play
     clear
     display_welcome_message
+    get_human_name_and_marker
     loop do
       display_board
       loop do
@@ -152,6 +173,12 @@ class TTTGame
     puts ""
   end
 
+  def get_human_name_and_marker
+    human.choose_name
+    puts
+    human.choose_marker
+  end
+
   def display_goodbye_message
     puts "Thanks for playing Tic Tac Toe!  Goodbye!"
   end
@@ -162,7 +189,7 @@ class TTTGame
   end
 
   def display_board
-    puts "You are a #{human.marker}.  #{computer.name} is a #{computer.marker}."
+    puts "#{human.name} is a #{human.marker}.  #{computer.name} is a #{computer.marker}."
     puts
     board.draw
     puts
@@ -172,7 +199,7 @@ class TTTGame
     display_board
 
     case board.winning_marker
-    when human.marker then puts "You won!!"
+    when human.marker then puts "#{human.name} wins!!"
     when computer.marker then puts "#{computer.name} won!!"
     else puts "It is a tie!!"
     end
