@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"compue",
+				"computer_moves"
+			],
+			[
+				"clear",
+				"clear_screen_and_display_board"
+			],
+			[
 				"wi",
 				"width_with_suite"
 			],
@@ -506,33 +514,16 @@
 			[
 				"colum",
 				"column_width"
-			],
-			[
-				"ge",
-				"geometryArray"
-			],
-			[
-				"ant",
-				"anti-diagonal"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/player_basics_test.rb",
+			"file": "ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs/oo_ttt_spike_ls/ttt_game.rb",
 			"settings":
 			{
-				"buffer_size": 390,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/player.rb",
-			"settings":
-			{
-				"buffer_size": 47,
+				"buffer_size": 4223,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -589,10 +580,14 @@
 	[
 		"/Users/ericricketts/Documents/LaunchSchool",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming",
-		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming"
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs/oo_ttt_spike_ls"
 	],
 	"file_history":
 	[
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/player.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/player_basics_test.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/equal_rules_test.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/rules.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/greater_rules_test.rb",
@@ -718,9 +713,7 @@
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicFirstAutoload.pm",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicSecondAutoload.pm",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/Music.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/readme.txt",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test2.t",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/Figure_3.2.pl"
+		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/readme.txt"
 	],
 	"find":
 	{
@@ -849,58 +842,35 @@
 			[
 				{
 					"buffer": 0,
-					"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/player_basics_test.rb",
+					"file": "ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs/oo_ttt_spike_ls/ttt_game.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 390,
+						"buffer_size": 4223,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								376,
-								376
+								2127,
+								2127
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+							"SL.102.region_keys":
+							[
+							],
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2266.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/player.rb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 47,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								42,
-								42
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]

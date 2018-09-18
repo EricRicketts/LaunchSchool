@@ -93,10 +93,18 @@ class Square
 end
 
 class Player
-  attr_reader :marker
+  attr_reader :marker, :name
 
   def initialize(marker)
     @marker = marker
+  end
+end
+
+class ComputerPlayer < Player
+  NAMES = %w[R2D2 C3P0 WALL-E HAL-9000 DATA BFORE]
+  def initialize(maker)
+    @marker = maker
+    @name = NAMES.sample
   end
 end
 
@@ -110,7 +118,7 @@ class TTTGame
   def initialize
     @board = Board.new
     @human = Player.new(HUMAN_MARKER)
-    @computer = Player.new(COMPUTER_MARKER)
+    @computer = ComputerPlayer.new(COMPUTER_MARKER)
     @current_marker = FIRST_TO_MOVE
   end
 
@@ -154,7 +162,7 @@ class TTTGame
   end
 
   def display_board
-    puts "You are a #{human.marker}.  Computer is a #{computer.marker}."
+    puts "You are a #{human.marker}.  #{computer.name} is a #{computer.marker}."
     puts
     board.draw
     puts
@@ -165,7 +173,7 @@ class TTTGame
 
     case board.winning_marker
     when human.marker then puts "You won!!"
-    when computer.marker then puts "Computer won!!"
+    when computer.marker then puts "#{computer.name} won!!"
     else puts "It is a tie!!"
     end
   end
