@@ -2,8 +2,35 @@ require 'rake/testtask'
 
 task :card_task do
   Rake::TestTask.new('card') do |t|
-    t.libs << 'test/card'
+    t.libs << 'test'
     t.test_files = FileList['test/card_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
+task :deck_task do
+  Rake::TestTask.new('deck') do |t|
+    t.libs << 'test'
+    t.test_files = FileList['test/deck_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
+task :player_task do
+  Rake::TestTask.new('player') do |t|
+    t.libs << 'test'
+    t.test_files = FileList['test/player_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
+task :dealer_task do
+  Rake::TestTask.new('dealer') do |t|
+    t.libs << 'test'
+    t.test_files = FileList['test/dealer_test.rb']
     t.verbose = false
     t.warning = false
   end
@@ -12,3 +39,16 @@ end
 task :card do
   Rake::Task['card_task'].invoke
 end
+
+task :deck do
+  Rake::Task['deck_task'].invoke
+end
+
+task :player do
+  Rake::Task['player_task'].invoke
+end
+
+task :dealer do
+  Rake::Task['dealer_task'].invoke
+end
+

@@ -25,15 +25,19 @@ arr = %w[xray albatross dog horse deer shark elephant]
 # dog = Dog.new("Mammal", "Brown", "Blood Hound")
 # p dog
 
-module MyModule
-  def self.my_method(num)
-    num * num
+module Mammal
+  class Dog
+    def speak(sound)
+      "says #{sound}"
+    end
   end
 
-  def self.another_method(str)
-    str
+  class Cat
+    def say_name(name)
+      "come here #{name}"
+    end
   end
 end
 
-puts MyModule.my_method(4)
-puts MyModule::another_method("foo bar")
+puts Mammal::Dog.new.speak("Arf")
+puts Mammal::Cat.new.say_name("Tabby")
