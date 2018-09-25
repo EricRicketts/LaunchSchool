@@ -1,0 +1,14 @@
+require 'rake/testtask'
+
+task :card_task do
+  Rake::TestTask.new('card') do |t|
+    t.libs << 'test/card'
+    t.test_files = FileList['test/card_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
+task :card do
+  Rake::Task['card_task'].invoke
+end
