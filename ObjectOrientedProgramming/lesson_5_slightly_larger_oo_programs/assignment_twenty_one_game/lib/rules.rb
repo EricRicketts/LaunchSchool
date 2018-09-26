@@ -19,10 +19,8 @@ module Rules
   end
 
   def score(cards)
-    cards.sort_by do |card|
-      card.value
-    end.inject(0) do |sum, card|
-      sum += card.rank == "Ace" ? handle_ace(sum, card) : card.value
+    cards.sort_by(&:value).inject(0) do |sum, card|
+      sum + (card.rank == "Ace" ? handle_ace(sum, card) : card.value)
     end
   end
 

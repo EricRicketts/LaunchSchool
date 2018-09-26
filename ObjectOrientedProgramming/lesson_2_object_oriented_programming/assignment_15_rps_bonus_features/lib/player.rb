@@ -8,3 +8,4 @@ class Player
     set_name
   end
 end
+
