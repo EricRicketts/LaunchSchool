@@ -56,4 +56,20 @@ class RulesTest < Minitest::Test
     game.initialize_values(cards)
     assert_equal(21, game.score(cards))
   end
+
+  def test_monitor_score_as_aces_added
+    cards = []
+    array_of_cards = [
+      Card.new("Clubs", "5"), Card.new("Clubs", "Ace"),
+      Card.new("Hearts", "3"), Card.new("Diamonds", "Ace"),
+      Card.new("Spades", "Ace")
+    ]
+    expected_scores = [5, 16, 19, 20, 21]
+    array_of_cards.each.with_index do |card, idx|
+      cards.push(card)
+      game.initialize_values(cards)
+      expected_score = expected_scores[idx]
+      assert_equal(expected_score, game.score(cards))
+    end
+  end
 end
