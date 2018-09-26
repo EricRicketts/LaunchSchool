@@ -36,6 +36,15 @@ task :dealer_task do
   end
 end
 
+task :rules_task do
+  Rake::TestTask.new('rules') do |t|
+    t.libs << 'test'
+    t.test_files = FileList['test/rules_test.rb']
+    t.verbose = false
+    t.warning = false
+  end
+end
+
 task :card do
   Rake::Task['card_task'].invoke
 end
@@ -50,5 +59,9 @@ end
 
 task :dealer do
   Rake::Task['dealer_task'].invoke
+end
+
+task :rules do
+  Rake::Task['rules_task'].invoke
 end
 

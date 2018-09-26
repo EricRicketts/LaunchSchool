@@ -8,11 +8,11 @@ class DealerTest < Minitest::Test
   attr_accessor :dealer
 
   def setup
-    @dealer = Dealer.new("Frank")
+    @dealer = Dealer.new
   end
 
   def test_name
-    assert_equal("Frank", dealer.name)
+    assert_equal("Dealer", dealer.name)
   end
 
   def test_remaining_attributes

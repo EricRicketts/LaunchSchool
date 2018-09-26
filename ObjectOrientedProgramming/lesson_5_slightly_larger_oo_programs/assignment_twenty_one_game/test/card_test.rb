@@ -24,6 +24,13 @@ class CardTest < Minitest::Test
     assert_equal(expected, [original, card.rank])
   end
 
+  def test_value
+    original = card.value
+    card.value = 10
+    expected = [0, 10]
+    assert_equal(expected, [original, card.value])
+  end
+
   def test_face_down
     original = card.face_down
     card.face_down = true
