@@ -5,7 +5,11 @@ module Rules
   ROYAL_VALUE = 10
   ACE_VALUE = 11
 
-  def initialize_values(cards)
+  def busted?(cards)
+    score(cards) > PERFECT_SCORE
+  end
+
+  def set_values(cards)
     cards.each do |card|
       case card.rank
       when ('2'..'10')

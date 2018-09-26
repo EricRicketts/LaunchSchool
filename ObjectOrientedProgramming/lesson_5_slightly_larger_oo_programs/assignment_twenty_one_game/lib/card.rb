@@ -4,4 +4,8 @@ Card = Struct.new :suit, :rank, :value, :face_down do
     self.value = 0
     self.face_down ||= false
   end
+
+  def to_s
+    rank[0] + suit[0]
+  end
 end

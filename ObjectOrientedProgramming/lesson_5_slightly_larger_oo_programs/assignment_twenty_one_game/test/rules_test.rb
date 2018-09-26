@@ -72,4 +72,15 @@ class RulesTest < Minitest::Test
       assert_equal(expected_score, game.score(cards))
     end
   end
+
+  def test_not_busted
+    game.initialize_values(cards)
+    refute(game.busted?(cards))
+  end
+
+  def test_busted
+    cards.push(Card.new("Hearts", "7"))
+    game.initialize_values(cards)
+    assert(game.busted?(cards))
+  end
 end

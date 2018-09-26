@@ -37,4 +37,8 @@ class CardTest < Minitest::Test
     expected = [false, true]
     assert_equal(expected, [original, card.face_down])
   end
+
+  def test_to_s
+    assert_equal("KS", card.to_s)
+  end
 end
