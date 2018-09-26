@@ -1,6 +1,9 @@
 require 'pry-byebug'
 module Rules
   PERFECT_SCORE = 21
+  ACE_ADJUSTMENT = 1
+  ROYAL_VALUE = 10
+  ACE_VALUE = 11
 
   def initialize_values(cards)
     cards.each do |card|
@@ -8,9 +11,9 @@ module Rules
       when ('2'..'10')
         card.value = card.rank.to_i
       when "Jack", "Queen", "King"
-        card.value = 10
+        card.value = ROYAL_VALUE
       else
-        card.value = 11
+        card.value = ACE_VALUE
       end
     end
   end
@@ -19,13 +22,13 @@ module Rules
     cards.sort_by do |card|
       card.value
     end.inject(0) do |sum, card|
-      sum += (card.rank == "Ace" ? handle_ace(sum, card) : card.value)
+      sum += card.rank == "Ace" ? handle_ace(sum, card) : card.value
     end
   end
 
   private
 
-  def handle_ace(sum, card)
-    sum + card.value > PERFECT_SCORE ? sum - 10 : sum + card.value
+  def handle_ace(sum, ace)
+    sum + ace.value > PERFECT_SCORE ? ACE_ADJUSTMENT : ace.value
   end
 end

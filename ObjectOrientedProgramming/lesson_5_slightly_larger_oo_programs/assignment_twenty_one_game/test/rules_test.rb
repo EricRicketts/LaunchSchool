@@ -42,4 +42,18 @@ class RulesTest < Minitest::Test
     game.initialize_values(cards)
     assert_equal(15, game.score(cards))
   end
+
+  def test_one_ace_added
+    cards.push(Card.new("Hearts", "Ace"))
+    game.initialize_values(cards)
+    assert_equal(16, game.score(cards))
+  end
+
+  def test_perfect_score_with_ace
+    cards = [
+      Card.new("Clubs", "King"), Card.new("Diamonds", "Ace")
+    ]
+    game.initialize_values(cards)
+    assert_equal(21, game.score(cards))
+  end
 end
