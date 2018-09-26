@@ -21,7 +21,7 @@ class RulesTest < Minitest::Test
     @game = Game.new
   end
 
-  def test_initialize_card_values
+  def test_initialize_deck_values
     game.initialize_values(deck.cards)
     two_clubs = deck.cards.find do |card|
       card.suit == "Clubs" && card.rank == "2"
