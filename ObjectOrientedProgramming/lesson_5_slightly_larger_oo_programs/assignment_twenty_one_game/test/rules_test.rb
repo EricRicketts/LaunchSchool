@@ -22,7 +22,7 @@ class RulesTest < Minitest::Test
   end
 
   def test_initialize_deck_values
-    game.initialize_values(deck.cards)
+    game.set_values(deck.cards)
     two_clubs = deck.cards.find do |card|
       card.suit == "Clubs" && card.rank == "2"
     end
@@ -39,13 +39,13 @@ class RulesTest < Minitest::Test
   end
 
   def test_simple_sum
-    game.initialize_values(cards)
+    game.set_values(cards)
     assert_equal(15, game.score(cards))
   end
 
   def test_one_ace_added
     cards.push(Card.new("Hearts", "Ace"))
-    game.initialize_values(cards)
+    game.set_values(cards)
     assert_equal(16, game.score(cards))
   end
 
@@ -53,7 +53,7 @@ class RulesTest < Minitest::Test
     cards = [
       Card.new("Clubs", "King"), Card.new("Diamonds", "Ace")
     ]
-    game.initialize_values(cards)
+    game.set_values(cards)
     assert_equal(21, game.score(cards))
   end
 
@@ -67,20 +67,20 @@ class RulesTest < Minitest::Test
     expected_scores = [5, 16, 19, 20, 21]
     array_of_cards.each.with_index do |card, idx|
       cards.push(card)
-      game.initialize_values(cards)
+      game.set_values(cards)
       expected_score = expected_scores[idx]
       assert_equal(expected_score, game.score(cards))
     end
   end
 
   def test_not_busted
-    game.initialize_values(cards)
+    game.set_values(cards)
     refute(game.busted?(cards))
   end
 
   def test_busted
     cards.push(Card.new("Hearts", "7"))
-    game.initialize_values(cards)
+    game.set_values(cards)
     assert(game.busted?(cards))
   end
 end

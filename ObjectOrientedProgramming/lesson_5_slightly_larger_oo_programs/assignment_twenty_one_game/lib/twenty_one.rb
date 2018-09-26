@@ -20,6 +20,7 @@ class TwentyOne
       loop do
         deal_cards
         show_cards
+        binding.pry
         break
       end
       break
@@ -51,6 +52,15 @@ class TwentyOne
   def setup_game
     set_values(dealer.deck.cards)
     dealer.deck.shuffle
+  end
+
+  def show_cards
+    puts "Dealer cards:"
+    puts dealer.cards.map { |card| card.to_s }.join(' ')
+    puts
+    puts "Player cards:"
+    puts player.cards.map { |card| card.to_s }.join(' ')
+    puts
   end
 
   def welcome_message
