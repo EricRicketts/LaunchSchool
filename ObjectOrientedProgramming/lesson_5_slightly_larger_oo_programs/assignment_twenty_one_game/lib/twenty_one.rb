@@ -20,6 +20,7 @@ class TwentyOne
       loop do
         deal_cards
         show_cards
+        player_turn
         binding.pry
         break
       end
@@ -47,6 +48,9 @@ class TwentyOne
     end
     puts
     name
+  end
+
+  def player_turn
   end
 
   def setup_game
