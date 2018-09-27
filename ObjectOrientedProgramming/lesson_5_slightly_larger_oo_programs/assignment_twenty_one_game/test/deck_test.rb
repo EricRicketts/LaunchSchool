@@ -30,4 +30,11 @@ class DeckTest < Minitest::Test
     cards = deck.deal(2)
     assert(cards.all?(Card))
   end
+
+  def test_take_back_cards
+    four_cards = deck.deal(4)
+    deck_total_after_deal = deck.number_of_cards
+    deck.take_back(four_cards)
+    assert_equal([48, 52], [deck_total_after_deal, deck.number_of_cards])
+  end
 end

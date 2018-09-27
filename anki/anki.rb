@@ -25,19 +25,14 @@ arr = %w[xray albatross dog horse deer shark elephant]
 # dog = Dog.new("Mammal", "Brown", "Blood Hound")
 # p dog
 
-module Mammal
-  class Dog
-    def speak(sound)
-      "says #{sound}"
-    end
-  end
 
-  class Cat
-    def say_name(name)
-      "come here #{name}"
-    end
+
+
+class Cube
+  def initialize(volume)
+    @volume = volume
   end
 end
 
-puts Mammal::Dog.new.speak("Arf")
-puts Mammal::Cat.new.say_name("Tabby")
+cube = Cube.new(100)
+puts cube.instance_variable_get("@volume")

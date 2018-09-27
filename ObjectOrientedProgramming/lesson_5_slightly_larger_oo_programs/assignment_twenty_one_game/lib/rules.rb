@@ -4,9 +4,14 @@ module Rules
   ACE_ADJUSTMENT = 1
   ROYAL_VALUE = 10
   ACE_VALUE = 11
+  DEALER_CUTOFF = 17
 
   def busted?(cards)
     score(cards) > PERFECT_SCORE
+  end
+
+  def dealer_stays?(cards)
+    score(cards) >= DEALER_CUTOFF
   end
 
   def set_values(cards)

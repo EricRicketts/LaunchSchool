@@ -18,6 +18,10 @@ class Deck
     cards.size
   end
 
+  def take_back(card_ary)
+    cards.unshift(*card_ary)
+  end
+
   def shuffle
     5.times { cards.shuffle! }
   end

@@ -83,4 +83,13 @@ class RulesTest < Minitest::Test
     game.set_values(cards)
     assert(game.busted?(cards))
   end
+
+  def test_dealer_cutoff
+    game.set_values(cards)
+    first_cutoff = game.dealer_stays?(cards)
+    cards.push(Card.new("Hearts", "3"))
+    game.set_values(cards)
+    second_cutoff = game.dealer_stays?(cards)
+    assert_equal([false, true], [first_cutoff, second_cutoff])
+  end
 end
