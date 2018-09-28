@@ -28,19 +28,12 @@ class PlayerTest < Minitest::Test
     assert_equal(cards, player.cards)
   end
 
-  def test_change_status
-    original = player.status
-    player.status = :stay
-    assert_equal([:hit, :stay], [original, player.status])
-  end
-
   def test_reset_cards
     cards = [Card.new("Diamonds", "Jack"), Card.new("Clubs", "Queen")]
     player.take(cards)
-    player.status = :stay
     original = player.cards
-    expected = [cards, [], :hit]
+    expected = [cards, []]
     player.reset
-    assert_equal(expected, [original, player.cards, player.status])
+    assert_equal(expected, [original, player.cards])
   end
 end

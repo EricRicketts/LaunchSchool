@@ -16,8 +16,8 @@ class DealerTest < Minitest::Test
   end
 
   def test_remaining_attributes
-    expected = [[], :hit, true]
-    actual = [dealer.cards, dealer.status, dealer.deck.is_a?(Deck)]
+    expected = [[], true]
+    actual = [dealer.cards, dealer.deck.is_a?(Deck)]
     assert_equal(expected, actual)
   end
 end
