@@ -25,8 +25,10 @@ class TwentyOne
     loop do
       start_game_message
       loop do
+        start_round_message
         deal_cards
         show_cards
+        current_tally_message
         player_turn
         dealer_turn unless busted?(player.cards)
         if no_busts?
@@ -34,6 +36,7 @@ class TwentyOne
           update_game_tally(round_winner)
           round_winner_message(round_winner)
         end
+        end_of_round_cleanup
         break if game_winner?
       end
       break
@@ -46,7 +49,6 @@ class TwentyOne
     opponent = participant == :player ? :dealer : :player
     puts "#{send(participant).name} busts!!  #{send(opponent).name} wins!!"
     game_tally[opponent] += 1
-    end_of_round_cleanup
   end
 
   def current_tally_message
@@ -70,6 +72,7 @@ class TwentyOne
       hit(dealer)
     end
     show_cards
+    current_tally_message
     busted_actions_for(:dealer) if busted?(dealer.cards)
   end
 
@@ -82,8 +85,7 @@ class TwentyOne
   end
 
   def game_winner?
-    scores = [score(player.cards), score(dealer.cards)]
-    scores.any? { |score| score >= WINNING_TALLY }
+    game_tally.values.any? { |tally| tally >= WINNING_TALLY }
   end
 
   def get_player_name
@@ -100,7 +102,7 @@ class TwentyOne
   end
 
   def get_round_winner_by_score
-    if score(player.cards) > score(dealer.score)
+    if score(player.cards) > score(dealer.cards)
       :player
     elsif score(dealer.cards) > score(player.cards)
       :dealer
@@ -130,6 +132,7 @@ class TwentyOne
       break puts "#{player.name} decides to stay!" if answer == 's'
       hit(player) if answer == 'h'
       show_cards
+      current_tally_message
       break busted_actions_for(:player) if busted?(player.cards)
     end
   end
@@ -157,8 +160,12 @@ class TwentyOne
     puts
   end
 
+  def start_round_message
+    puts "Start a new round!!"
+  end
+
   def start_game_message
-    puts "Start the game!!"
+    puts "Start a new game!!"
   end
 
   def update_game_tally(round_winner)
