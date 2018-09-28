@@ -15,9 +15,7 @@ class TwentyOne
     welcome_message
     @dealer = Dealer.new
     @player = Player.new(get_player_name)
-    @game_tally = {
-      player: 0, dealer: 0
-    }
+    @game_tally = { player: 0, dealer: 0 }
   end
 
   def play
@@ -31,11 +29,7 @@ class TwentyOne
         current_tally_message
         player_turn
         dealer_turn unless busted?(player.cards)
-        if no_busts?
-          round_winner = get_round_winner_by_score
-          update_game_tally(round_winner)
-          round_winner_message(round_winner)
-        end
+        update_game_with_round_winner if no_busts?
         end_of_round_cleanup
         break if game_winner?
       end
@@ -160,16 +154,31 @@ class TwentyOne
     puts
   end
 
+  def show_scores
+    player_score = score(player.cards)
+    dealer_score = score(dealer.cards)
+    puts "Scores are: #{player.name} #{player_score} #{dealer.name} #{dealer_score}"
+  end
+
   def start_round_message
     puts "Start a new round!!"
+    puts
   end
 
   def start_game_message
     puts "Start a new game!!"
+    puts
   end
 
   def update_game_tally(round_winner)
     game_tally[round_winner] += 1 unless round_winner == :draw
+  end
+
+  def update_game_with_round_winner
+    round_winner = get_round_winner_by_score
+    update_game_tally(round_winner)
+    show_scores
+    round_winner_message(round_winner)
   end
 
   def welcome_message
