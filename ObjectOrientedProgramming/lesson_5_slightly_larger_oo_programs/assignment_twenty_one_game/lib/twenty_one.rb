@@ -33,8 +33,9 @@ class TwentyOne
         end_of_round_cleanup
         break if game_winner?
       end
-      break
+      break unless play_again?
     end
+    goodbye_message
   end
 
   private
@@ -105,6 +106,10 @@ class TwentyOne
     end
   end
 
+  def goodbye_message
+    puts "Thanks for playing the game of twenty-one!!  Goodbye!!"
+  end
+
   def hit(participant)
     single_card = dealer.deck.deal(1)
     participant.cards.push(*single_card)
@@ -112,6 +117,18 @@ class TwentyOne
 
   def no_busts?
     !busted?(player.cards) && !busted?(dealer.cards)
+  end
+
+  def play_again?
+    puts
+    answer = nil
+    loop do
+      puts "Would you like to play another game? (y/n)"
+      answer = gets.strip.downcase.chomp[0]
+      break if %w(y n).include?(answer)
+      puts INCORRECT_ENTRY
+    end
+    answer == 'y'
   end
 
   def player_turn
