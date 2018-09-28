@@ -1,15 +1,14 @@
 require_relative './player'
 require_relative './dealer'
 require_relative './rules'
+require_relative './messaging'
 require 'pry-byebug'
 
 class TwentyOne
-  INCORRECT_ENTRY = "Sorry, incorrect input try again."
-  WINNING_TALLY = 10
-
   include Rules
+  include Messaging
 
-  attr_accessor :player, :dealer, :game_tally
+  attr_accessor :player, :dealer
 
   def initialize
     welcome_message
@@ -31,7 +30,11 @@ class TwentyOne
         dealer_turn unless busted?(player.cards)
         update_game_with_round_winner if no_busts?
         end_of_round_cleanup
-        break if game_winner?
+        if game_winner?
+          winner = get_game_winner
+          game_winner_message(winner)
+          break
+        end
       end
       break unless play_again?
     end
@@ -42,7 +45,7 @@ class TwentyOne
 
   def busted_actions_for(participant)
     opponent = participant == :player ? :dealer : :player
-    puts "#{send(participant).name} busts!!  #{send(opponent).name} wins!!"
+    puts "#{send(participant).name} busts!!  #{send(opponent).name} wins the round!!"
     game_tally[opponent] += 1
   end
 
@@ -79,10 +82,6 @@ class TwentyOne
     dealer.deck.shuffle
   end
 
-  def game_winner?
-    game_tally.values.any? { |tally| tally >= WINNING_TALLY }
-  end
-
   def get_player_name
     name = ''
     loop do
@@ -104,10 +103,6 @@ class TwentyOne
     else
       :draw
     end
-  end
-
-  def goodbye_message
-    puts "Thanks for playing the game of twenty-one!!  Goodbye!!"
   end
 
   def hit(participant)
@@ -177,16 +172,6 @@ class TwentyOne
     puts "Scores are: #{player.name} #{player_score} #{dealer.name} #{dealer_score}"
   end
 
-  def start_round_message
-    puts "Start a new round!!"
-    puts
-  end
-
-  def start_game_message
-    puts "Start a new game!!"
-    puts
-  end
-
   def update_game_tally(round_winner)
     game_tally[round_winner] += 1 unless round_winner == :draw
   end
@@ -196,17 +181,5 @@ class TwentyOne
     update_game_tally(round_winner)
     show_scores
     round_winner_message(round_winner)
-  end
-
-  def welcome_message
-    puts "Welcome to the game of twenty-one!!"
-    puts
-    puts "A game winner is the player who is the first to win ten rounds."
-    puts "A bust is a win for the player who did not bust."
-    puts "Draws add nothing to the game tally for each player."
-    puts
-    puts "At the end of the game, the player has the option to continue or quit."
-    puts "Game wins are not tracked, just round wins within the current game."
-    puts
   end
 end

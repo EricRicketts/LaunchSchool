@@ -9,6 +9,10 @@ require_relative '../lib/card'
 class RulesTest < Minitest::Test
   class Game
     include Rules
+
+    def initialize
+      @game_tally = { player: 0, dealer: 0 }
+    end
   end
 
   attr_accessor :cards, :deck, :game
@@ -91,5 +95,17 @@ class RulesTest < Minitest::Test
     game.set_values(cards)
     second_cutoff = game.dealer_stays?(cards)
     assert_equal([false, true], [first_cutoff, second_cutoff])
+  end
+
+  def test_game_winner
+    game.game_tally = { player: 5, dealer: 6 }
+    original = game.game_winner?
+    game.game_tally[:dealer] = 10
+    assert_equal([false, true], [original, game.game_winner?])
+  end
+
+  def test_get_game_winner
+    game.game_tally = { player: 10, dealer: 8 }
+    assert_equal(:player, game.get_game_winner)
   end
 end

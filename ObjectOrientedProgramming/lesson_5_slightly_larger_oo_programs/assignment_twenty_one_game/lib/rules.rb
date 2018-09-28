@@ -5,6 +5,9 @@ module Rules
   ROYAL_VALUE = 10
   ACE_VALUE = 11
   DEALER_CUTOFF = 17
+  WINNING_TALLY = 10
+
+  attr_accessor :game_tally
 
   def busted?(cards)
     score(cards) > PERFECT_SCORE
@@ -12,6 +15,14 @@ module Rules
 
   def dealer_stays?(cards)
     score(cards) >= DEALER_CUTOFF
+  end
+
+  def game_winner?
+    game_tally.values.any? { |tally| tally >= WINNING_TALLY }
+  end
+
+  def get_game_winner
+    game_tally.key(WINNING_TALLY)
   end
 
   def set_values(cards)
