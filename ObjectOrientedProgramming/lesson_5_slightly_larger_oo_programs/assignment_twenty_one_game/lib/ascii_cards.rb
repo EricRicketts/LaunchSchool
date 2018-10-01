@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ModuleLength
 module AsciiCards
   HORIZONTAL_LINE = "\u2550".freeze
   VERTICAL_LINE = "\u2551".freeze
@@ -79,4 +78,3 @@ module AsciiCards
     end
   end
 end
-# rubocop:enable Metrics/ModuleLength

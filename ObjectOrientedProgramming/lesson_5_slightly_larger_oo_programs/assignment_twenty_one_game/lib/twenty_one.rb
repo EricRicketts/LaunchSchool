@@ -15,7 +15,7 @@ class TwentyOne
   def initialize
     welcome_message
     @dealer = Dealer.new
-    @player = Player.new(get_player_name)
+    @player = Player.new(obtain_player_name)
     @quit_game = false
     @game_tally = reset_tally
   end
@@ -27,7 +27,7 @@ class TwentyOne
       loop do
         play_round
         break if quit_game
-        end_of_game_actions and break if game_winner?
+        end_of_game_actions && break if game_winner?
       end
       break if quit_game
       play_again? ? system('clear') : break
@@ -39,7 +39,9 @@ class TwentyOne
 
   def busted_actions_for(participant)
     opponent = participant == :player ? :dealer : :player
-    puts "#{send(participant).name} busts!!  #{send(opponent).name} wins the round!!"
+    participant_name = send(participant).name
+    opponent_name = send(opponent).name
+    puts "#{participant_name} busts!!  #{opponent_name} wins the round!!"
     game_tally[opponent] += 1
   end
 
@@ -69,7 +71,7 @@ class TwentyOne
 
   def declare_game_winner
     winner = determine_game_winner
-    game_winner_message(send(winner).name) or true
+    game_winner_message(send(winner).name)
   end
 
   def end_of_game_actions
@@ -85,26 +87,15 @@ class TwentyOne
     dealer.deck.shuffle
   end
 
-  def get_player_name
-    name = ''
-    loop do
-      puts "Please enter your name."
-      puts "At least two non-blank characters are required."
-      name = gets.strip.chomp
-      break if name.delete(' ').match?(/[[:alnum:]]{2,}/)
-      puts INCORRECT_ENTRY
-    end
-    puts
-    name
+  def first_letter_of_input
+    gets.strip.downcase.chomp[0]
   end
 
-  def get_round_winner_by_score
-    if score(player.cards) > score(dealer.cards)
-      :player
-    elsif score(dealer.cards) > score(player.cards)
-      :dealer
+  def handle_quit_or_stay(answer)
+    if answer == 'q'
+      self.quit_game = true
     else
-      :draw
+      puts "#{player.name} decides to stay!"
     end
   end
 
@@ -125,13 +116,36 @@ class TwentyOne
     !busted?(player.cards) && !busted?(dealer.cards)
   end
 
+  def obtain_player_name
+    name = ''
+    loop do
+      puts "Please enter your name."
+      puts "At least two non-blank characters are required."
+      name = gets.strip.chomp
+      break if name.delete(' ').match?(/[[:alnum:]]{2,}/)
+      puts INCORRECT_ENTRY
+    end
+    puts
+    name
+  end
+
+  def obtain_round_winner_by_score
+    if score(player.cards) > score(dealer.cards)
+      :player
+    elsif score(dealer.cards) > score(player.cards)
+      :dealer
+    else
+      :draw
+    end
+  end
+
   def play_again?
     puts
     answer = nil
     loop do
       puts "Would you like to play another game? (y/n)"
-      answer = gets.strip.downcase.chomp[0]
-      break if %w(y n).include?(answer)
+      answer = first_letter_of_input
+      break if %w[y n].include?(answer)
       puts INCORRECT_ENTRY
     end
     answer == 'y'
@@ -143,25 +157,22 @@ class TwentyOne
     show_cards
     current_tally_message
     player_turn
-    unless quit_game
-      dealer_turn unless busted?(player.cards)
-      update_game_with_round_winner if no_busts?
-      end_of_round_cleanup
-    end
-    current_tally_message
+    return if quit_game
+    dealer_turn unless busted?(player.cards)
+    update_game_with_round_winner if no_busts?
+    end_of_round_cleanup
   end
 
   def player_turn
     answer = ''
     loop do
       puts "Hit, Stay or Quit game (h/hit, s/stay or q/quit):"
-      answer = gets.strip.downcase.chomp[0]
-      unless %w(h s q).include?(answer)
+      answer = first_letter_of_input
+      unless %w[h s q].include?(answer)
         puts "Sorry, incorrect input try again."
         redo
       end
-      break self.quit_game = true if answer == 'q'
-      break puts "#{player.name} decides to stay!" if answer == 's'
+      break handle_quit_or_stay(answer) if %w[q s].include?(answer)
       hit(player) if answer == 'h'
       show_cards
       break busted_actions_for(:player) if busted?(player.cards)
@@ -169,7 +180,7 @@ class TwentyOne
   end
 
   def reset_tally
-    game_tally = { player: 0, dealer: 0 }
+    self.game_tally = { player: 0, dealer: 0 }
   end
 
   def round_winner_message(round_winner)
@@ -201,7 +212,8 @@ class TwentyOne
   def show_scores
     player_score = score(player.cards)
     dealer_score = score(dealer.cards)
-    puts "Scores are: #{player.name} #{player_score} #{dealer.name} #{dealer_score}"
+    puts "Scores are: #{player.name} #{player_score} "\
+      "#{dealer.name} #{dealer_score}"
   end
 
   def update_game_tally(round_winner)
@@ -209,7 +221,7 @@ class TwentyOne
   end
 
   def update_game_with_round_winner
-    round_winner = get_round_winner_by_score
+    round_winner = obtain_round_winner_by_score
     update_game_tally(round_winner)
     show_scores
     round_winner_message(round_winner)
