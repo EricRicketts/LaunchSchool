@@ -26,7 +26,7 @@ class RulesTest < Minitest::Test
   end
 
   def test_initialize_deck_values
-    game.set_values(deck.cards)
+    game.give_values_to(deck.cards)
     two_clubs = deck.cards.find do |card|
       card.suit == "Clubs" && card.rank == "2"
     end
@@ -43,13 +43,13 @@ class RulesTest < Minitest::Test
   end
 
   def test_simple_sum
-    game.set_values(cards)
+    game.give_values_to(cards)
     assert_equal(15, game.score(cards))
   end
 
   def test_one_ace_added
     cards.push(Card.new("Hearts", "Ace"))
-    game.set_values(cards)
+    game.give_values_to(cards)
     assert_equal(16, game.score(cards))
   end
 
@@ -57,7 +57,7 @@ class RulesTest < Minitest::Test
     cards = [
       Card.new("Clubs", "King"), Card.new("Diamonds", "Ace")
     ]
-    game.set_values(cards)
+    game.give_values_to(cards)
     assert_equal(21, game.score(cards))
   end
 
@@ -71,28 +71,43 @@ class RulesTest < Minitest::Test
     expected_scores = [5, 16, 19, 20, 21]
     array_of_cards.each.with_index do |card, idx|
       cards.push(card)
-      game.set_values(cards)
+      game.give_values_to(cards)
+      expected_score = expected_scores[idx]
+      assert_equal(expected_score, game.score(cards))
+    end
+  end
+
+  def test_two_aces_and_jack
+    cards = []
+    array_of_cards = [
+      Card.new("Spades", "Ace"), Card.new("Hearts", "Ace"),
+      Card.new("Diamonds", "Jack"), Card.new("Clubs", "10")
+    ]
+    expected_scores = [11, 12, 12, 22]
+    array_of_cards.each.with_index do |card, idx|
+      cards.push(card)
+      game.give_values_to(cards)
       expected_score = expected_scores[idx]
       assert_equal(expected_score, game.score(cards))
     end
   end
 
   def test_not_busted
-    game.set_values(cards)
+    game.give_values_to(cards)
     refute(game.busted?(cards))
   end
 
   def test_busted
     cards.push(Card.new("Hearts", "7"))
-    game.set_values(cards)
+    game.give_values_to(cards)
     assert(game.busted?(cards))
   end
 
   def test_dealer_cutoff
-    game.set_values(cards)
+    game.give_values_to(cards)
     first_cutoff = game.dealer_stays?(cards)
     cards.push(Card.new("Hearts", "3"))
-    game.set_values(cards)
+    game.give_values_to(cards)
     second_cutoff = game.dealer_stays?(cards)
     assert_equal([false, true], [first_cutoff, second_cutoff])
   end
@@ -106,6 +121,6 @@ class RulesTest < Minitest::Test
 
   def test_get_game_winner
     game.game_tally = { player: 10, dealer: 8 }
-    assert_equal(:player, game.get_game_winner)
+    assert_equal(:player, game.determine_game_winner)
   end
 end

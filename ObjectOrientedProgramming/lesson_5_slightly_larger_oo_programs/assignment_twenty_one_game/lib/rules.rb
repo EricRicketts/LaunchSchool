@@ -1,7 +1,7 @@
 require 'pry-byebug'
 module Rules
   PERFECT_SCORE = 21
-  ACE_ADJUSTMENT = 1
+  ACE_ADJUSTMENT = 10
   ROYAL_VALUE = 10
   ACE_VALUE = 11
   DEALER_CUTOFF = 17
@@ -21,11 +21,11 @@ module Rules
     game_tally.values.any? { |tally| tally >= WINNING_TALLY }
   end
 
-  def get_game_winner
+  def determine_game_winner
     game_tally.key(WINNING_TALLY)
   end
 
-  def set_values(cards)
+  def give_values_to(cards)
     cards.each do |card|
       case card.rank
       when ('2'..'10')
@@ -39,9 +39,17 @@ module Rules
   end
 
   def score(cards)
-    cards.sort_by(&:value).inject(0) do |sum, card|
-      sum + (card.rank == "Ace" ? handle_ace(sum, card) : card.value)
+    aces = cards.select { |card| card.rank == "Ace" }
+    sum = cards.map(&:value).sum
+    return sum if aces.empty?
+    aces_count = aces.length
+    until aces_count.zero? || sum <= PERFECT_SCORE
+      if sum > PERFECT_SCORE
+        sum -= ACE_ADJUSTMENT
+        aces_count -= 1
+      end
     end
+    sum
   end
 
   private

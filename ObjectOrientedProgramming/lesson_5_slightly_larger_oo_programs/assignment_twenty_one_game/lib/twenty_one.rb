@@ -2,19 +2,22 @@ require_relative './player'
 require_relative './dealer'
 require_relative './rules'
 require_relative './messaging'
+require_relative './ascii_cards'
 require 'pry-byebug'
 
 class TwentyOne
   include Rules
   include Messaging
+  include AsciiCards
 
-  attr_accessor :player, :dealer
+  attr_accessor :player, :dealer, :quit_game
 
   def initialize
     welcome_message
     @dealer = Dealer.new
     @player = Player.new(get_player_name)
-    @game_tally = { player: 0, dealer: 0 }
+    @quit_game = false
+    @game_tally = reset_tally
   end
 
   def play
@@ -22,21 +25,12 @@ class TwentyOne
     loop do
       start_game_message
       loop do
-        start_round_message
-        deal_cards
-        show_cards
-        current_tally_message
-        player_turn
-        dealer_turn unless busted?(player.cards)
-        update_game_with_round_winner if no_busts?
-        end_of_round_cleanup
-        if game_winner?
-          winner = get_game_winner
-          game_winner_message(winner)
-          break
-        end
+        play_round
+        break if quit_game
+        end_of_game_actions and break if game_winner?
       end
-      break unless play_again?
+      break if quit_game
+      play_again? ? system('clear') : break
     end
     goodbye_message
   end
@@ -69,9 +63,18 @@ class TwentyOne
     until busted?(dealer.cards) || dealer_stays?(dealer.cards)
       hit(dealer)
     end
-    show_cards
-    current_tally_message
+    show_cards(is_player_turn: false)
     busted_actions_for(:dealer) if busted?(dealer.cards)
+  end
+
+  def declare_game_winner
+    winner = determine_game_winner
+    game_winner_message(send(winner).name) or true
+  end
+
+  def end_of_game_actions
+    declare_game_winner
+    reset_tally
   end
 
   def end_of_round_cleanup
@@ -110,6 +113,14 @@ class TwentyOne
     participant.cards.push(*single_card)
   end
 
+  def make_viewable_cards(cards)
+    cards.map do |card|
+      suit = card.to_s.chars.last
+      rank = card.to_s.chars[0..-2].join
+      make_ascii_card(rank, suit)
+    end
+  end
+
   def no_busts?
     !busted?(player.cards) && !busted?(dealer.cards)
   end
@@ -126,21 +137,39 @@ class TwentyOne
     answer == 'y'
   end
 
+  def play_round
+    start_round_message
+    deal_cards
+    show_cards
+    current_tally_message
+    player_turn
+    unless quit_game
+      dealer_turn unless busted?(player.cards)
+      update_game_with_round_winner if no_busts?
+      end_of_round_cleanup
+    end
+    current_tally_message
+  end
+
   def player_turn
     answer = ''
     loop do
-      puts "Hit or Stay (h/hit or s/stay):"
+      puts "Hit, Stay or Quit game (h/hit, s/stay or q/quit):"
       answer = gets.strip.downcase.chomp[0]
-      unless %w(h s).include?(answer)
+      unless %w(h s q).include?(answer)
         puts "Sorry, incorrect input try again."
         redo
       end
+      break self.quit_game = true if answer == 'q'
       break puts "#{player.name} decides to stay!" if answer == 's'
       hit(player) if answer == 'h'
       show_cards
-      current_tally_message
       break busted_actions_for(:player) if busted?(player.cards)
     end
+  end
+
+  def reset_tally
+    game_tally = { player: 0, dealer: 0 }
   end
 
   def round_winner_message(round_winner)
@@ -153,16 +182,19 @@ class TwentyOne
   end
 
   def setup_game
-    set_values(dealer.deck.cards)
+    give_values_to(dealer.deck.cards)
     dealer.deck.shuffle
   end
 
-  def show_cards
+  def show_cards(is_player_turn: true)
     puts "Dealer cards:"
-    puts dealer.cards.map { |card| card.to_s }.join(' ')
+    dealer_cards = make_viewable_cards(dealer.cards)
+    dealer_cards[0] = blank_card if is_player_turn
+    display_cards(dealer_cards)
     puts
     puts "Player cards:"
-    puts player.cards.map { |card| card.to_s }.join(' ')
+    player_cards = make_viewable_cards(player.cards)
+    display_cards(player_cards)
     puts
   end
 
