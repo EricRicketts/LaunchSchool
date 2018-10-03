@@ -1,9 +1,9 @@
+require 'io/console'
 require_relative './player'
 require_relative './dealer'
 require_relative './rules'
 require_relative './messaging'
 require_relative './ascii_cards'
-require 'pry-byebug'
 
 class TwentyOne
   include Rules
@@ -13,7 +13,7 @@ class TwentyOne
   attr_accessor :player, :dealer, :quit_game
 
   def initialize
-    welcome_message
+    puts welcome_message
     @dealer = Dealer.new
     @player = Player.new(obtain_player_name)
     @quit_game = false
@@ -43,6 +43,12 @@ class TwentyOne
     opponent_name = send(opponent).name
     puts "#{participant_name} busts!!  #{opponent_name} wins the round!!"
     game_tally[opponent] += 1
+    participant == :player ? show_cards : show_cards(is_player_turn: false)
+  end
+
+  def continue_game
+    puts "Press any key to continue ...."
+    STDIN.getch
   end
 
   def current_tally_message
@@ -61,12 +67,20 @@ class TwentyOne
 
   def dealer_turn
     puts "It is now the dealer's turn"
-    puts
-    until busted?(dealer.cards) || dealer_stays?(dealer.cards)
+    loop do
+      break busted_actions_for(:dealer) if busted?(dealer.cards)
+      break dealer_stay_actions if dealer_stays?(dealer.cards)
+      puts "Dealer hits!!  Next dealer card coming up ..."
       hit(dealer)
+      show_cards(is_player_turn: false)
+      continue_game
     end
+  end
+
+  def dealer_stay_actions
+    puts "The Dealer stays!!"
     show_cards(is_player_turn: false)
-    busted_actions_for(:dealer) if busted?(dealer.cards)
+    continue_game
   end
 
   def declare_game_winner
@@ -85,17 +99,15 @@ class TwentyOne
     player.reset
     dealer.reset
     dealer.deck.shuffle
-  end
-
-  def first_letter_of_input
-    gets.strip.downcase.chomp[0]
+    continue_game
   end
 
   def handle_quit_or_stay(answer)
-    if answer == 'q'
+    if answer == 'quit'
       self.quit_game = true
     else
       puts "#{player.name} decides to stay!"
+      show_cards(is_player_turn: false)
     end
   end
 
@@ -143,15 +155,16 @@ class TwentyOne
     puts
     answer = nil
     loop do
-      puts "Would you like to play another game? (y/n)"
-      answer = first_letter_of_input
-      break if %w[y n].include?(answer)
+      puts "Would you like to play another game? (yes/no)"
+      answer = trim_input
+      break if %w[yes no].include?(answer)
       puts INCORRECT_ENTRY
     end
-    answer == 'y'
+    answer == 'yes'
   end
 
   def play_round
+    system 'clear'
     start_round_message
     deal_cards
     show_cards
@@ -164,18 +177,20 @@ class TwentyOne
   end
 
   def player_turn
-    answer = ''
     loop do
-      puts "Hit, Stay or Quit game (h/hit, s/stay or q/quit):"
-      answer = first_letter_of_input
-      unless %w[h s q].include?(answer)
-        puts "Sorry, incorrect input try again."
+      puts "Hit, Stay or Quit game (hit, stay or quit):"
+      answer = trim_input
+      unless %w[hit stay quit].include?(answer)
+        puts INCORRECT_ENTRY
         redo
       end
-      break handle_quit_or_stay(answer) if %w[q s].include?(answer)
-      hit(player) if answer == 'h'
-      show_cards
-      break busted_actions_for(:player) if busted?(player.cards)
+      break handle_quit_or_stay(answer) if %w[quit stay].include?(answer)
+      if answer == 'hit'
+        hit(player)
+        break busted_actions_for(:player) if busted?(player.cards)
+        show_cards
+        continue_game
+      end
     end
   end
 
@@ -214,6 +229,10 @@ class TwentyOne
     dealer_score = score(dealer.cards)
     puts "Scores are: #{player.name} #{player_score} "\
       "#{dealer.name} #{dealer_score}"
+  end
+
+  def trim_input
+    gets.downcase.strip.chomp
   end
 
   def update_game_tally(round_winner)

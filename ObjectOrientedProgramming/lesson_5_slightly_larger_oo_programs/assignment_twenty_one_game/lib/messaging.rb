@@ -18,14 +18,17 @@ module Messaging
   end
 
   def welcome_message
-    puts "Welcome to the game of twenty-one!!"
-    puts
-    puts "A game winner is the player who is the first to win ten rounds."
-    puts "A bust is a win for the player who did not bust."
-    puts "Draws add nothing to the game tally for each player."
-    puts
-    puts "At the end of the game, the player can continue or quit."
-    puts "Game wins are not tracked, just round wins within the current game."
-    puts
+    <<-MSG
+*******************************************************************
+Welcome to the game of twenty-one!!
+
+A game winner is the player who is the first to win ten rounds.
+A bust is a win for the player who did not bust.
+Draws add nothing to the game tally for each player.
+
+At the end of the game, the player can continue or quit.
+Game wins are not tracked, just round wins within the current game.
+*******************************************************************
+MSG
   end
 end

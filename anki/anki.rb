@@ -4,35 +4,38 @@
 
 arr = %w[xray albatross dog horse deer shark elephant]
 
-# class Animal
-#   attr_reader :type, :color
+class GoodDog
+  DOG_YEARS = 7
 
-#   def initialize(type, color)
-#     @type = type
-#     @color = color
-#   end
-# end
+  attr_accessor :name, :age
 
-# class Dog < Animal
-#   attr_reader :breed
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
 
-#   def initialize(type, color, breed)
-#     super
-#     @breed = breed
-#   end
-# end
+  def public_disclosure
+    "#{self.name} is human years is #{human_years} old."
+  end
 
-# dog = Dog.new("Mammal", "Brown", "Blood Hound")
-# p dog
+  def a_public_method
+    "Will this work?  " + self.a_protected_method
+  end
 
+  protected
 
+  def a_protected_method
+    "Yes!!  I am proteted!!"
+  end
 
+  private
 
-class Cube
-  def initialize(volume)
-    @volume = volume
+  def human_years
+    DOG_YEARS * age
   end
 end
 
-cube = Cube.new(100)
-puts cube.instance_variable_get("@volume")
+dog = GoodDog.new("Sounder", 5)
+
+puts dog.public_disclosure
+puts dog.a_public_method
