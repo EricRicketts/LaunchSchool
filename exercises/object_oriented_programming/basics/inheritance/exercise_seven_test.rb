@@ -20,7 +20,6 @@ $ancestors = Cat.ancestors
 $ancestors.delete(PP::ObjectMixin)
 $ancestors.delete(Minitest::Expectations)
 
-
 class ExerciseSevenTest < Minitest::Test
   def test_one
     cat = Cat.new('Black')
