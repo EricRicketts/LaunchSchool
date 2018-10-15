@@ -25,6 +25,29 @@ class ExerciseTwoTest < Minitest::Test
       (-self.size..self.size - 1).include?(index)
     end
   end
+
+    class FixedArrayLS
+    def initialize(size)
+      @array = Array.new(size)
+    end
+
+    def [](index)
+      @array.fetch(index)
+    end
+
+    def []=(index, value)
+      @array[index] = value
+    end
+
+    def to_a
+      @array.clone
+    end
+
+    def to_s
+      to_a.to_s
+    end
+  end
+
   def test_one
     fixed_array = FixedArray.new(5)
     assert(fixed_array[3] == nil)
@@ -53,4 +76,34 @@ class ExerciseTwoTest < Minitest::Test
     assert_raises(IndexError) { fixed_array[6] }
     assert_raises(IndexError) { fixed_array[-7] = 3 }
   end
+
+  def test_two
+    fixed_array = FixedArrayLS.new(5)
+    assert(fixed_array[3] == nil)
+    assert(fixed_array.to_a == [nil] * 5)
+
+    fixed_array[3] = 'a'
+    assert(fixed_array[3] == 'a')
+    assert(fixed_array.to_a == [nil, nil, nil, 'a', nil])
+
+    fixed_array[1] = 'b'
+    assert(fixed_array[1] == 'b')
+    assert(fixed_array.to_a == [nil, 'b', nil, 'a', nil])
+
+    fixed_array[1] = 'c'
+    assert(fixed_array[1] == 'c')
+    assert(fixed_array.to_a == [nil, 'c', nil, 'a', nil])
+
+    fixed_array[4] = 'd'
+    assert(fixed_array[4] == 'd')
+    assert(fixed_array.to_a == [nil, 'c', nil, 'a', 'd'])
+    assert(fixed_array.to_s == '[nil, "c", nil, "a", "d"]')
+
+    assert(fixed_array[-1] == 'd')
+    assert(fixed_array[-4] == 'c')
+
+    assert_raises(IndexError) { fixed_array[6] }
+    assert_raises(IndexError) { fixed_array[-7] = 3 }
+  end
+
 end
