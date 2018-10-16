@@ -6,8 +6,6 @@ class ExerciseFourTest < Minitest::Test
   attr_accessor :queue
 
   class CircularQueue
-    attr_reader :max_size
-
     def initialize(max_size)
       @max_size = max_size
       @q = []
@@ -18,13 +16,13 @@ class ExerciseFourTest < Minitest::Test
     end
 
     def enqueue(n)
-      @q = full? ? @q.unshift(n).take(max_size) : @q.unshift(n)
+      @q = full? ? @q.unshift(n).take(@max_size) : @q.unshift(n)
     end
 
     private
 
     def full?
-      max_size == @q.size
+      @max_size == @q.size
     end
   end
 
