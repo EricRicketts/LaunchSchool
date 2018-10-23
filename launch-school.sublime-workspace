@@ -520,10 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs/oo_ttt_spike_ls/ttt_game.rb",
+			"file": "exercises/object_oriented_programming/medium/exercise_five_test.rb",
 			"settings":
 			{
-				"buffer_size": 4223,
+				"buffer_size": 1285,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -579,6 +579,9 @@
 	"expanded_folders":
 	[
 		"/Users/ericricketts/Documents/LaunchSchool",
+		"/Users/ericricketts/Documents/LaunchSchool/exercises",
+		"/Users/ericricketts/Documents/LaunchSchool/exercises/object_oriented_programming",
+		"/Users/ericricketts/Documents/LaunchSchool/exercises/object_oriented_programming/medium",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs",
@@ -586,6 +589,9 @@
 	],
 	"file_history":
 	[
+		"/Users/ericricketts/Documents/LaunchSchool/exercises/object_oriented_programming/debugging/exercise_ten_test.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/exercises/object_oriented_programming/easy/two/exercise_seven_test.rb",
+		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs/oo_ttt_spike_ls/ttt_game.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/lib/player.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/player_basics_test.rb",
 		"/Users/ericricketts/Documents/LaunchSchool/ObjectOrientedProgramming/lesson_2_object_oriented_programming/assignment_15_rps_bonus_features/test/equal_rules_test.rb",
@@ -710,10 +716,7 @@
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test4.t",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test5.t",
 		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/myCode/ch3/test3.t",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicFirstAutoload.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicSecondAutoload.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/Music.pm",
-		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/perlcode/readme.txt"
+		"/Users/EricRicketts/Documents/Perl/ObjectOrientedPerl/PracticeModules/CD/MusicFirstAutoload.pm"
 	],
 	"find":
 	{
@@ -732,6 +735,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"StandardError",
 			"rock",
 			"scissors",
 			"rock",
@@ -842,32 +846,27 @@
 			[
 				{
 					"buffer": 0,
-					"file": "ObjectOrientedProgramming/lesson_5_slightly_larger_oo_programs/oo_ttt_spike_ls/ttt_game.rb",
+					"file": "exercises/object_oriented_programming/medium/exercise_five_test.rb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4223,
+						"buffer_size": 1285,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2127,
-								2127
+								294,
+								298
 							]
 						],
 						"settings":
 						{
-							"SL.102.region_keys":
-							[
-							],
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2266.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
