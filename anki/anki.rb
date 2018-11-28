@@ -1,41 +1,45 @@
 # require 'minitest/autorun'
 # require 'minitest/pride'
-# require 'pry-byebug'
+require 'pry-byebug'
 
-arr = %w[xray albatross dog horse deer shark elephant]
+=begin
+1.  write a textual description of the problem.
+2.  extract the major nouns and verbs from the textual description
+3.  Organize by associating the verbs with the nouns
+4.  The nouns are the classes and the verbs the methods.
+=end
 
-class GoodDog
-  DOG_YEARS = 7
+class Dog
 
-  attr_accessor :name, :age
-
-  def initialize(name, age)
-    @name = name
-    @age = age
-  end
-
-  def public_disclosure
-    "#{self.name} is human years is #{human_years} old."
-  end
-
-  def a_public_method
-    "Will this work?  " + self.a_protected_method
-  end
-
-  protected
-
-  def a_protected_method
-    "Yes!!  I am proteted!!"
+  def self.foo
+    "foo"
   end
 
   private
 
-  def human_years
-    DOG_YEARS * age
+  def self.dream
+    puts "I am flying!"
   end
+
+  # public
+
+  # def i_method
+  #   self.class.dream
+  # end
+
+  # def self.sleep # 2
+  #   dream
+  # end
+
+  # def self.another_call
+  #   sleep
+  # end
+
+  # self.dream # 1
 end
 
-dog = GoodDog.new("Sounder", 5)
+# Dog.another_call
+# Dog.new.i_method
+class Pet < Dog; end
 
-puts dog.public_disclosure
-puts dog.a_public_method
+Pet.dream
