@@ -15,4 +15,19 @@ class ToDoTest < Minitest::Test
     result = [to_do.done, to_do.title, to_do.description]
     assert_equal(expected, result)
   end
+
+  def test_initial_to_s
+    expected = "[ ] Item One"
+    assert_equal(expected, to_do.to_s)
+  end
+
+  def test_done_undone
+    result = []
+    expected = ["[X] Item One", "[ ] Item One"]
+    to_do.done!
+    result << to_do.to_s
+    to_do.undone!
+    result << to_do.to_s
+    assert_equal(expected, result)
+  end
 end
