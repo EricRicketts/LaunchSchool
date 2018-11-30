@@ -20,4 +20,19 @@ class ToDoListTest < Minitest::Test
     assert_equal(3, list.size)
   end
 
+  def test_add_improper_item
+    assert("TypeError can only add ToDo objects.", list.add(1))
+  end
+
+  def test_shovel_operator
+    list << ToDo.new("Foo", "Bar")
+    assert_equal(4, list.size)
+  end
+
+  def test_first
+    expected = [ToDo, "Buy Milk", "Need milk for breakfast"]
+    result = [list.first.class, list.first.title, list.first.description]
+    assert_equal(expected, result)
+  end
+
 end
