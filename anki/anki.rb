@@ -2,44 +2,20 @@
 # require 'minitest/pride'
 require 'pry-byebug'
 
-=begin
-1.  write a textual description of the problem.
-2.  extract the major nouns and verbs from the textual description
-3.  Organize by associating the verbs with the nouns
-4.  The nouns are the classes and the verbs the methods.
-=end
+arr1 = %w(a b c)
+arr2 = [[1, 2], ['a', 'b']]
 
-class Dog
+def my_reduce(collection, accumulator=collection.first)
+  size = collection.count
+  count = 1
 
-  def self.foo
-    "foo"
+  while count < size
+    accumulator = yield(accumulator, collection[count])
+    count += 1
   end
 
-  private
-
-  def self.dream
-    puts "I am flying!"
-  end
-
-  # public
-
-  # def i_method
-  #   self.class.dream
-  # end
-
-  # def self.sleep # 2
-  #   dream
-  # end
-
-  # def self.another_call
-  #   sleep
-  # end
-
-  # self.dream # 1
+  accumulator
 end
 
-# Dog.another_call
-# Dog.new.i_method
-class Pet < Dog; end
-
-Pet.dream
+puts (my_reduce(arr1) { |acc, value| acc += value } == 'abc')
+puts (my_reduce(arr2) { |acc, value| acc + value } == [1, 2, 'a', 'b'])
