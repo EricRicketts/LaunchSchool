@@ -20,6 +20,10 @@ class ToDoList
     todos.first
   end
 
+  def last
+    todos.last
+  end
+
   def size
     todos.size
   end

@@ -31,7 +31,15 @@ class ToDoListTest < Minitest::Test
 
   def test_first
     expected = [ToDo, "Buy Milk", "Need milk for breakfast"]
-    result = [list.first.class, list.first.title, list.first.description]
+    item = list.first
+    result = [item.class, item.title, item.description]
+    assert_equal(expected, result)
+  end
+
+  def test_last
+    expected = [ToDo, "Go To Gym", "Increase Testosterone"]
+    item = list.last
+    result = [item.class, item.title, item.description]
     assert_equal(expected, result)
   end
 
