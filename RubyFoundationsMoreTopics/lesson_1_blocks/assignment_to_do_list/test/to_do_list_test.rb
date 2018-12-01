@@ -55,4 +55,12 @@ class ToDoListTest < Minitest::Test
     assert_equal(expected, result)
   end
 
+  def test_item_at_no_argument
+    assert_raises(ArgumentError) { list.item_at }
+  end
+
+  def test_item_at_out_of_range
+    assert_raises(IndexError) { list.item_at(100) }
+  end
+
 end
