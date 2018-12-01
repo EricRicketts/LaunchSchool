@@ -20,6 +20,10 @@ class ToDoList
     todos.first
   end
 
+  def item_at(index)
+    todos.fetch(index)
+  end
+
   def last
     todos.last
   end

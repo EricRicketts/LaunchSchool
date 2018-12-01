@@ -48,4 +48,11 @@ class ToDoListTest < Minitest::Test
     assert(arr.all?(ToDo))
   end
 
+  def test_item_at
+    expected = [ToDo, "Clean Room", "Room is a mess"]
+    item = list.item_at(1)
+    result = [item.class, item.title, item.description]
+    assert_equal(expected, result)
+  end
+
 end
