@@ -43,4 +43,9 @@ class ToDoListTest < Minitest::Test
     assert_equal(expected, result)
   end
 
+  def test_to_a
+    arr = list.to_a
+    assert(arr.all?(ToDo))
+  end
+
 end

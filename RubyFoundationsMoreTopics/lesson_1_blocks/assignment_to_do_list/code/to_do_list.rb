@@ -28,6 +28,10 @@ class ToDoList
     todos.size
   end
 
+  def to_a
+    todos
+  end
+
   alias_method :<<, :add
 
   private
