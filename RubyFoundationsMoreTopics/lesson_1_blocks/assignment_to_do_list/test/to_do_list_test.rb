@@ -102,4 +102,15 @@ class ToDoListTest < Minitest::Test
     list.undone!
     assert(list.todos.none? { |item| item.done? })
   end
+
+  def test_shift
+    item = list.shift
+    expected = [
+      ToDo, "Buy Milk", "Need milk for breakfast", 2
+    ]
+    result = [
+      item.class, item.title, item.description, list.size
+    ]
+    assert_equal(expected, result)
+  end
 end
