@@ -76,4 +76,12 @@ class ToDoListTest < Minitest::Test
     assert_raises(IndexError) { list.mark_done_at(100) }
   end
 
+  def test_list_mark_undone
+    list.mark_done_at(1)
+    first_toggle = list.item_at(1).done?
+    list.mark_undone_at(1)
+    second_toggle = list.item_at(1).done?
+    assert_equal([true, false], [first_toggle, second_toggle])
+  end
+
 end

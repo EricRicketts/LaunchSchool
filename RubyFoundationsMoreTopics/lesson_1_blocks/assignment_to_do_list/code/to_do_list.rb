@@ -24,6 +24,10 @@ class ToDoList
     item_at(index).done!
   end
 
+  def mark_undone_at(index)
+    item_at(index).undone!
+  end
+
   def item_at(index)
     todos.fetch(index)
   end
