@@ -113,4 +113,15 @@ class ToDoListTest < Minitest::Test
     ]
     assert_equal(expected, result)
   end
+
+  def test_pop
+    item = list.pop
+    expected = [
+      ToDo, "Go To Gym", "Increase Testosterone", 2
+    ]
+    result = [
+      item.class, item.title, item.description, list.size
+    ]
+    assert_equal(expected, result)
+  end
 end

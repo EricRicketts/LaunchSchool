@@ -40,6 +40,10 @@ class ToDoList
     todos.last
   end
 
+  def pop
+    todos.pop
+  end
+
   def shift
     todos.shift
   end
