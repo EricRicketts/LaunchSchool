@@ -44,6 +44,11 @@ class ToDoList
     todos.pop
   end
 
+  def remove_at(index)
+    item_at(index)
+    todos.delete_at(index)
+  end
+
   def shift
     todos.shift
   end

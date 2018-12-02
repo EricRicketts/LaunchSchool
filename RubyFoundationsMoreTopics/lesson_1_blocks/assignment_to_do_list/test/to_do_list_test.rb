@@ -124,4 +124,11 @@ class ToDoListTest < Minitest::Test
     ]
     assert_equal(expected, result)
   end
+
+  def test_remove_at
+    item = list.remove_at(1)
+    expected = [ToDo, "Clean Room", "Room is a mess", 2]
+    result = [item.class, item.title, item.description, list.size]
+    assert_equal(expected, result)
+  end
 end
