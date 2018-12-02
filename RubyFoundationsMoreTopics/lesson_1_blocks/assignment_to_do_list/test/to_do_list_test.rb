@@ -68,4 +68,12 @@ class ToDoListTest < Minitest::Test
     assert(list.item_at(1).done?)
   end
 
+  def test_list_mark_done_no_argument
+    assert_raises(ArgumentError) { list.mark_done_at() }
+  end
+
+  def test_list_mark_done_at_out_of_range
+    assert_raises(IndexError) { list.mark_done_at(100) }
+  end
+
 end
