@@ -61,6 +61,15 @@ class ToDoList
     todos
   end
 
+  def to_s
+    heading = "---- Today's Todos ----"
+    output = [heading]
+    todos.each do |item|
+      output << item.to_s
+    end
+    output.join("\n") << "\n"
+  end
+
   def undone!
     todos.each { |item| item.undone! }
   end

@@ -139,4 +139,15 @@ class ToDoListTest < Minitest::Test
   def test_remove_at_out_of_range
     assert_raises(IndexError) { list.remove_at(100) }
   end
+
+  def test_to_s
+    list.mark_done_at(1)
+    expected = [
+      "---- Today's Todos ----\n",
+      "[ ] Buy Milk\n",
+      "[X] Clean Room\n",
+      "[ ] Go To Gym\n"
+    ].join
+    assert_equal(expected, list.to_s)
+  end
 end
