@@ -97,4 +97,9 @@ class ToDoListTest < Minitest::Test
     assert(list.todos.all? { |item| item.done? })
   end
 
+  def test_list_undone
+    list.done!
+    list.undone!
+    assert(list.todos.none? { |item| item.done? })
+  end
 end

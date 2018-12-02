@@ -48,6 +48,10 @@ class ToDoList
     todos
   end
 
+  def undone!
+    todos.each { |item| item.undone! }
+  end
+
   alias_method :<<, :add
 
   private
