@@ -94,13 +94,17 @@ class ToDoListTest < Minitest::Test
 
   def test_list_done
     list.done!
-    assert(list.todos.all? { |item| item.done? })
+    to_do_items = []
+    (0..2).to_a.each { |index| to_do_items << list.item_at(index) }
+    assert_equal([true, true], [list.done?, to_do_items.all? { |item| item.done? }])
   end
 
   def test_list_undone
     list.done!
     list.undone!
-    assert(list.todos.none? { |item| item.done? })
+    to_do_items = []
+    (0..2).to_a.each { |index| to_do_items << list.item_at(index) }
+    assert_equal([true, true], [list.undone?, to_do_items.none? { |item| item.done? }])
   end
 
   def test_shift

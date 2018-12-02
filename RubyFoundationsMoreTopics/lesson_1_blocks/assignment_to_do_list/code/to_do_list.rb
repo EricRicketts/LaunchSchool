@@ -1,7 +1,7 @@
 require_relative './to_do'
 
 class ToDoList
-  attr_accessor :title, :todos
+  attr_accessor :title
 
   def initialize(title)
     @title = title
@@ -17,7 +17,11 @@ class ToDoList
   end
 
   def done!
-    todos.each { |item| item.done! }
+    todos.each_index { |index| mark_done_at(index) }
+  end
+
+  def done?
+    todos.all? { |item| item.done? }
   end
 
   def first
@@ -45,8 +49,10 @@ class ToDoList
   end
 
   def remove_at(index)
-    item_at(index)
-    todos.delete_at(index)
+    # my original code
+    # item_at(index)
+    # todos.delete_at(index)
+    todos.delete(item_at(index))
   end
 
   def shift
@@ -62,19 +68,31 @@ class ToDoList
   end
 
   def to_s
-    heading = "---- Today's Todos ----"
-    output = [heading]
-    todos.each do |item|
-      output << item.to_s
-    end
-    output.join("\n") << "\n"
+    # my original code
+    # heading = "---- Today's Todos ----"
+    # output = [heading]
+    # todos.each do |item|
+    #   output << item.to_s
+    # end
+    # output.join("\n") << "\n"
+    text = "---- Today's Todos ----\n"
+    text << todos.map(&:to_s).join("\n")
+    text.concat("\n")
   end
 
   def undone!
-    todos.each { |item| item.undone! }
+    todos.each_index { |index| mark_undone_at(index) }
+  end
+
+  def undone?
+    todos.none? { |item| item.done? }
   end
 
   alias_method :<<, :add
+
+  protected
+
+  attr_accessor :todos
 
   private
 
