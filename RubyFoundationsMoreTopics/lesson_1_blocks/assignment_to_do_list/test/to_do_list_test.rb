@@ -92,4 +92,9 @@ class ToDoListTest < Minitest::Test
     assert_raises(IndexError) { list.mark_undone_at(100) }
   end
 
+  def test_list_done
+    list.done!
+    assert(list.todos.all? { |item| item.done? })
+  end
+
 end

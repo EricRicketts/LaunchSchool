@@ -16,6 +16,10 @@ class ToDoList
     end
   end
 
+  def done!
+    todos.each { |item| item.done! }
+  end
+
   def first
     todos.first
   end
