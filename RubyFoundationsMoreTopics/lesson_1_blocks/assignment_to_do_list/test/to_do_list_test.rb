@@ -63,12 +63,12 @@ class ToDoListTest < Minitest::Test
     assert_raises(IndexError) { list.item_at(100) }
   end
 
-  def test_list_mark_done
+  def test_list_mark_done_at
     list.mark_done_at(1)
     assert(list.item_at(1).done?)
   end
 
-  def test_list_mark_done_no_argument
+  def test_list_mark_done_at_no_argument
     assert_raises(ArgumentError) { list.mark_done_at() }
   end
 
@@ -76,12 +76,20 @@ class ToDoListTest < Minitest::Test
     assert_raises(IndexError) { list.mark_done_at(100) }
   end
 
-  def test_list_mark_undone
+  def test_list_mark_undone_at
     list.mark_done_at(1)
     first_toggle = list.item_at(1).done?
     list.mark_undone_at(1)
     second_toggle = list.item_at(1).done?
     assert_equal([true, false], [first_toggle, second_toggle])
+  end
+
+  def test_list_mark_undone_at_no_argument
+    assert_raises(ArgumentError) { list.mark_undone_at }
+  end
+
+  def test_list_mark_undone_at_out_of_range
+    assert_raises(IndexError) { list.mark_undone_at(100) }
   end
 
 end
