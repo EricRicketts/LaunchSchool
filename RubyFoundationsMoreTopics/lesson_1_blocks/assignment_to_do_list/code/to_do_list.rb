@@ -20,6 +20,10 @@ class ToDoList
     todos.first
   end
 
+  def mark_done_at(index)
+    item_at(index).done!
+  end
+
   def item_at(index)
     todos.fetch(index)
   end
