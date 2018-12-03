@@ -24,6 +24,19 @@ class ToDoList
     todos.all? { |item| item.done? }
   end
 
+  def each(&block)
+    # size = self.size
+    # index = 0
+    # while index < size
+    #   yield(todos[index])
+    #   index += 1
+    # end
+    # self.todos
+    # foo = todos.to_enum(:each)
+    # foo.each &block
+    todos.to_enum(:each).each &block
+  end
+
   def first
     todos.first
   end
