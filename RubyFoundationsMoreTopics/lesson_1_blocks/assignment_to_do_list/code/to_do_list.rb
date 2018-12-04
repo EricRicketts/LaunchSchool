@@ -29,6 +29,12 @@ class ToDoList
     self
   end
 
+  def find_by_title(title_str)
+    self.select do |item|
+      title_str == item.title
+    end.first
+  end
+
   def first
     todos.first
   end
