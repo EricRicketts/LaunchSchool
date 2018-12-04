@@ -34,4 +34,19 @@ class ToDoListTest < Minitest::Test
     ]
     assert_equal([2, expected], [done_list.size, result])
   end
+
+  def test_all_not_done
+    not_done_list = list.all_not_done
+    expected = [
+      ToDoList, "Not Done ToDos",
+      @item2.done, @item2.title, @item2.description,
+      @item4.done, @item4.title, @item4.description
+    ]
+    result = [
+      not_done_list.class, not_done_list.title,
+      not_done_list.first.done, not_done_list.first.title, not_done_list.first.description,
+      not_done_list.last.done, not_done_list.last.title, not_done_list.last.description
+    ]
+    assert_equal([2, expected], [not_done_list.size, result])
+  end
 end

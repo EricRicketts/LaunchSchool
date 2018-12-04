@@ -22,6 +22,12 @@ class ToDoList
     new_list
   end
 
+  def all_not_done
+    new_list = self.select { |item| !item.done? }
+    new_list.title = "Not Done ToDos"
+    new_list
+  end
+
   def done!
     todos.each_index { |index| mark_done_at(index) }
   end
