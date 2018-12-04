@@ -16,14 +16,9 @@ class ToDoListTest < Minitest::Test
     end
   end
 
-  def test_each
-    arr = []
-    expected = [
-      "[ ] Buy Milk",
-      "[ ] Clean Room",
-      "[ ] Go To Gym"
-    ]
-    list.each { |item| arr.push(item.to_s) }
-    assert_equal(expected, arr)
+  def test_select
+    list.mark_done_at(1)
+    selected = list.select { |item| item.done? }
+    assert_equal(item2, selected.first)
   end
 end

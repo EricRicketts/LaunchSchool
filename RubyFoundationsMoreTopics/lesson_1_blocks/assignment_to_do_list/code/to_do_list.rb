@@ -25,16 +25,7 @@ class ToDoList
   end
 
   def each(&block)
-    # size = self.size
-    # index = 0
-    # while index < size
-    #   yield(todos[index])
-    #   index += 1
-    # end
-    # self.todos
-    # foo = todos.to_enum(:each)
-    # foo.each &block
-    todos.to_enum(:each).each &block
+    enumerator.each &block
   end
 
   def first
@@ -62,10 +53,11 @@ class ToDoList
   end
 
   def remove_at(index)
-    # my original code
-    # item_at(index)
-    # todos.delete_at(index)
     todos.delete(item_at(index))
+  end
+
+  def select(&block)
+    enumerator.select &block
   end
 
   def shift
@@ -81,13 +73,6 @@ class ToDoList
   end
 
   def to_s
-    # my original code
-    # heading = "---- Today's Todos ----"
-    # output = [heading]
-    # todos.each do |item|
-    #   output << item.to_s
-    # end
-    # output.join("\n") << "\n"
     text = "---- Today's Todos ----\n"
     text << todos.map(&:to_s).join("\n")
     text.concat("\n")
@@ -109,10 +94,12 @@ class ToDoList
 
   private
 
+  def enumerator
+    self.todos.to_enum
+  end
+
   def valid?(item)
     raise TypeError unless item.instance_of?(ToDo)
     true
   end
-
-
 end
