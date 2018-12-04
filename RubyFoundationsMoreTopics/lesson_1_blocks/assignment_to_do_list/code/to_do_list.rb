@@ -26,6 +26,7 @@ class ToDoList
 
   def each(&block)
     enumerator.each &block
+    self
   end
 
   def first

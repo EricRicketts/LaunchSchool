@@ -26,4 +26,9 @@ class ToDoListTest < Minitest::Test
     list.each { |item| arr.push(item.to_s) }
     assert_equal(expected, arr)
   end
+
+  def test_each_return
+    arr = []
+    assert_equal(list, list.each { |item| arr.push(item.to_s) })
+  end
 end
