@@ -58,7 +58,9 @@ class ToDoList
   end
 
   def select(&block)
-    enumerator.select &block
+    new_list = ToDoList.new(title)
+    enumerator.select(&block).each { |item| new_list.add(item) }
+    new_list
   end
 
   def shift
