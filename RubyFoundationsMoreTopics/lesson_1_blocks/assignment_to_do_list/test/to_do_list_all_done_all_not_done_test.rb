@@ -49,4 +49,14 @@ class ToDoListTest < Minitest::Test
     ]
     assert_equal([2, expected], [not_done_list.size, result])
   end
+
+  def test_mark_all_done
+    list.mark_all_done
+    assert(list.done?)
+  end
+
+  def test_mark_all_undone
+    list.mark_all_undone
+    assert(list.undone?)
+  end
 end
