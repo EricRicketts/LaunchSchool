@@ -51,6 +51,10 @@ class ToDoList
     todos.first
   end
 
+  def item_at(index)
+    todos.fetch(index)
+  end
+
   def mark_done(str)
     mark_done_at(find_index(find_by_title(str)))
   end
@@ -61,10 +65,6 @@ class ToDoList
 
   def mark_undone_at(index)
     item_at(index).undone!
-  end
-
-  def item_at(index)
-    todos.fetch(index)
   end
 
   def last
