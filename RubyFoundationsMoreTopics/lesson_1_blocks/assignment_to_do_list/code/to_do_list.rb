@@ -51,6 +51,10 @@ class ToDoList
     todos.first
   end
 
+  def mark_done(str)
+    mark_done_at(find_index(find_by_title(str)))
+  end
+
   def mark_done_at(index)
     item_at(index).done!
   end
@@ -108,6 +112,8 @@ class ToDoList
   end
 
   alias_method :<<, :add
+  alias_method :mark_all_done, :done!
+  alias_method :mark_all_undone, :undone!
 
   protected
 
@@ -117,6 +123,10 @@ class ToDoList
 
   def enumerator
     self.todos.to_enum
+  end
+
+  def find_index(todo)
+    self.todos.index(todo)
   end
 
   def valid?(item)
