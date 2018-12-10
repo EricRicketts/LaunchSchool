@@ -1,9 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry-byebug'
-require_relative '../code/to_do_list'
+require_relative 'test_helper'
 
-class ToDoListTest < Minitest::Test
+class ToDoListEachTest < Minitest::Test
   attr_accessor :list, :item1, :item2, :item3
 
   def setup
@@ -14,6 +11,11 @@ class ToDoListTest < Minitest::Test
     [item1, item2, item3].each do |item|
       list.add(item)
     end
+  end
+
+  def teardown
+    list.title = ''
+    list.instance_variable_set('@todos', [])
   end
 
   def test_each

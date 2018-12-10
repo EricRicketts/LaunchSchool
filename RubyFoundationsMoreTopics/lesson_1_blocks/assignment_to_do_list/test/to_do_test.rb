@@ -1,7 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry-byebug'
-require_relative '../code/to_do'
+require_relative 'test_helper'
 
 class ToDoTest < Minitest::Test
   attr_accessor :to_do

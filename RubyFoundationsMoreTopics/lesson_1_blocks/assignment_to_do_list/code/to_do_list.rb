@@ -37,7 +37,7 @@ class ToDoList
   end
 
   def each(&block)
-    enumerator.each &block
+    enumerator.each(&block)
     self
   end
 

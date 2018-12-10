@@ -1,9 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry-byebug'
-require_relative '../code/to_do_list'
+require_relative 'test_helper'
 
-class ToDoListTest < Minitest::Test
+class ToDoListAllDoneAllNotDoneTest < Minitest::Test
   attr_accessor :list, :item1, :item2, :item3, :item4
 
   def setup
@@ -20,12 +17,17 @@ class ToDoListTest < Minitest::Test
     end
   end
 
+  def teardown
+    list.title = ''
+    list.instance_variable_set('@todos', [])
+  end
+
   def test_all_done
     done_list = list.all_done
     expected = [
       ToDoList, "Done ToDos",
-      @item1.done, @item1.title, @item1.description,
-      @item3.done, @item3.title, @item3.description
+      item1.done, item1.title, item1.description,
+      item3.done, item3.title, item3.description
     ]
     result = [
       done_list.class, done_list.title,
@@ -39,8 +41,8 @@ class ToDoListTest < Minitest::Test
     not_done_list = list.all_not_done
     expected = [
       ToDoList, "Not Done ToDos",
-      @item2.done, @item2.title, @item2.description,
-      @item4.done, @item4.title, @item4.description
+      item2.done, item2.title, item2.description,
+      item4.done, item4.title, item4.description
     ]
     result = [
       not_done_list.class, not_done_list.title,
