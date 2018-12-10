@@ -25,8 +25,9 @@ class ToDoListTest < Minitest::Test
   end
 
   def test_shovel_operator
-    list << ToDo.new("Foo", "Bar")
-    assert_equal(4, list.size)
+    item4 = ToDo.new("Foo", "Bar")
+    list << item4
+    assert_equal([item4, 4], [list.last, list.size])
   end
 
   def test_first
@@ -41,11 +42,15 @@ class ToDoListTest < Minitest::Test
     assert_equal([item1, item2, item3], list.to_a)
   end
 
+  def test_done?
+    first_case = list.done?
+    list.each { |item| item.done! }
+    second_case = list.done?
+    assert_equal([false, true], [first_case, second_case])
+  end
+
   def test_item_at
-    expected = [ToDo, "Clean Room", "Room is a mess"]
-    item = list.item_at(1)
-    result = [item.class, item.title, item.description]
-    assert_equal(expected, result)
+    assert_equal(item2, list.item_at(1))
   end
 
   def test_item_at_no_argument
@@ -58,7 +63,10 @@ class ToDoListTest < Minitest::Test
 
   def test_list_mark_done_at
     list.mark_done_at(1)
-    assert(list.item_at(1).done?)
+    expected = [false, true, false]
+    result = []
+    list.each { |item| result << item.done? }
+    assert_equal(expected, result)
   end
 
   def test_list_mark_done_at_no_argument
@@ -70,11 +78,12 @@ class ToDoListTest < Minitest::Test
   end
 
   def test_list_mark_undone_at
-    list.mark_done_at(1)
-    first_toggle = list.item_at(1).done?
+    list.each { |item| item.done! }
     list.mark_undone_at(1)
-    second_toggle = list.item_at(1).done?
-    assert_equal([true, false], [first_toggle, second_toggle])
+    expected = [true, false, true]
+    result = []
+    list.each { |item| result << item.done? }
+    assert_equal(expected, result)
   end
 
   def test_list_mark_undone_at_no_argument
@@ -109,10 +118,7 @@ class ToDoListTest < Minitest::Test
   end
 
   def test_remove_at
-    item = list.remove_at(1)
-    expected = [ToDo, "Clean Room", "Room is a mess", 2]
-    result = [item.class, item.title, item.description, list.size]
-    assert_equal(expected, result)
+    assert_equal([item2, [item1, item3]], [list.remove_at(1), list.to_a])
   end
 
   def test_remove_at_no_argument
@@ -123,7 +129,17 @@ class ToDoListTest < Minitest::Test
     assert_raises(IndexError) { list.remove_at(100) }
   end
 
-  def test_to_s
+  def test_to_s_none_done
+    expected = <<~OUTPUT
+    ---- Today's Todos ----
+    [ ] Buy Milk
+    [ ] Clean Room
+    [ ] Go To Gym
+    OUTPUT
+    assert_equal(expected, list.to_s)
+  end
+
+  def test_to_s_one_done
     list.mark_done_at(1)
     expected = [
       "---- Today's Todos ----\n",
@@ -131,6 +147,17 @@ class ToDoListTest < Minitest::Test
       "[X] Clean Room\n",
       "[ ] Go To Gym\n"
     ].join
+    assert_equal(expected, list.to_s)
+  end
+
+  def test_to_s_all_done
+    list.done!
+    expected = <<~OUTPUT
+    ---- Today's Todos ----
+    [X] Buy Milk
+    [X] Clean Room
+    [X] Go To Gym
+    OUTPUT
     assert_equal(expected, list.to_s)
   end
 end

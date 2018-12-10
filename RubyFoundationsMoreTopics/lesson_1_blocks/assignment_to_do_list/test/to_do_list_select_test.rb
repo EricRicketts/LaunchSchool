@@ -20,11 +20,10 @@ class ToDoListTest < Minitest::Test
     list.mark_done_at(1)
     expected = [ToDo, true, "Clean Room", "Room is a mess"]
     selected = list.select { |item| item.done? }
-    result = [selected.class, selected.title]
-    assert_equal([ToDoList, "Today's List"], result)
-    selected.each do |item|
-      result = [item.class, item.done?, item.title, item.description]
-      assert_equal(expected, result)
-    end
+    expected = [ToDoList, "Today's List", 1, [item2]]
+    result = [
+      selected.class, selected.title, selected.size, selected.to_a
+    ]
+    assert_equal(expected, result)
   end
 end
