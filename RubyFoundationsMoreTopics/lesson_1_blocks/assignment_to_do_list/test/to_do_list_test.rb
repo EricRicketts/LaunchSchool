@@ -16,7 +16,7 @@ class ToDoListTest < Minitest::Test
     end
   end
 
-  def test_add_to_list
+  def test_size
     assert_equal(3, list.size)
   end
 
@@ -30,22 +30,15 @@ class ToDoListTest < Minitest::Test
   end
 
   def test_first
-    expected = [ToDo, "Buy Milk", "Need milk for breakfast"]
-    item = list.first
-    result = [item.class, item.title, item.description]
-    assert_equal(expected, result)
+    assert_equal(item1, list.first)
   end
 
   def test_last
-    expected = [ToDo, "Go To Gym", "Increase Testosterone"]
-    item = list.last
-    result = [item.class, item.title, item.description]
-    assert_equal(expected, result)
+    assert_equal(item3, list.last)
   end
 
   def test_to_a
-    arr = list.to_a
-    assert(arr.all?(ToDo))
+    assert_equal([item1, item2, item3], list.to_a)
   end
 
   def test_item_at
@@ -108,25 +101,11 @@ class ToDoListTest < Minitest::Test
   end
 
   def test_shift
-    item = list.shift
-    expected = [
-      ToDo, "Buy Milk", "Need milk for breakfast", 2
-    ]
-    result = [
-      item.class, item.title, item.description, list.size
-    ]
-    assert_equal(expected, result)
+    assert_equal([item1, [item2, item3]], [list.shift, list.to_a])
   end
 
   def test_pop
-    item = list.pop
-    expected = [
-      ToDo, "Go To Gym", "Increase Testosterone", 2
-    ]
-    result = [
-      item.class, item.title, item.description, list.size
-    ]
-    assert_equal(expected, result)
+    assert_equal([item3, [item1, item2]], [list.pop, list.to_a])
   end
 
   def test_remove_at
