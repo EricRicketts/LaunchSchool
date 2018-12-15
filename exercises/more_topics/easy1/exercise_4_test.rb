@@ -31,6 +31,10 @@ class Exercise4Test < Minitest::Test
 end
 
 class Exercise4TestMakeFaster < Minitest::Test
+# this can be refactored, you can eliminate the break
+# and use return instead, you can also eliminate the check for 1
+
+# another solution can be done by limiting the iteration up front.
 
   def divisors(num)
     return [1] if num == 1
