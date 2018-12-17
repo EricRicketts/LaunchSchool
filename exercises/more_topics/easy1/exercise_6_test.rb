@@ -50,5 +50,4 @@ class Exercise6Test < Minitest::Test
     # loop never runs and false is returned.
     refute(my_any?([]) { |value| true })
   end
-
 end
