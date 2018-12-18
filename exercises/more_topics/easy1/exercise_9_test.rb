@@ -11,6 +11,7 @@ class Exercise9Test < Minitest::Test
     matched = []
     while index < size
       matched << arr[index] if yield(arr[index])
+      return false if matched.length == 2
       index += 1
     end
     matched.length == 1
