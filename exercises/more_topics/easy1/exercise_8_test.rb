@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry-byebug'
 
-class Exercise7Test < Minitest::Test
+class Exercise8Test < Minitest::Test
   attr_accessor :arr1, :arr2, :arr3
 
   def my_none?(arr)
