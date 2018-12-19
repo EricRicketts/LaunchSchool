@@ -14,7 +14,7 @@ class Exercise2Test < Minitest::Test
     refute_equal(expected, str.downcase)
   end
 
-  def test_downcase_with_assert_equal
+  def test_downcase_with_assert
     assert(!(expected == str.downcase))
   end
 end
