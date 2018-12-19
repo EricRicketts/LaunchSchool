@@ -23,4 +23,16 @@ class Exercise1Test < Minitest::Test
   def test_failed_boolean_with_assert_equal_nil
     refute_equal(nil, 4.odd?, 'value is not odd')
   end
+
+  def test_with_assert
+    # this test will fail
+    skip
+    assert(4.odd?, 'value is not odd')
+  end
+
+  def test_with_assert_equal
+    # this test will fail
+    skip
+    assert_equal(true, 4.odd?, 'value is not odd')
+  end
 end
