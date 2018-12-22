@@ -4,7 +4,7 @@ require_relative './cash_register'
 require_relative './transaction'
 Minitest::Reporters.use!
 
-class Exercise1Test < Minitest::Test
+class Exercise2Test < Minitest::Test
   attr_accessor :register, :transaction
 
   def setup
