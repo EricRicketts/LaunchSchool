@@ -8,15 +8,11 @@ class Exercise10Test < Minitest::Test
   attr_accessor :text_obj
 
   def setup
-    file = File.open('./sample_text.txt')
+    file = File.read('./sample_text.txt')
     @text_obj = Text.new(file)
   end
 
-  def test_import
-    assert_equal(Text, text_obj.class)
-  end
-
-  def test_text_attribute
-    assert_equal(File, text_obj.instance_variable_get('@text').class)
+  def test_word_count
+    assert_equal(72, text_obj.word_count)
   end
 end
