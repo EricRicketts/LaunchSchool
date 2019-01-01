@@ -4,7 +4,7 @@ require 'pry-byebug'
 require_relative './code/sum_of_multiples'
 Minitest::Reporters.use!
 
-class SumTest < Minitest::Test
+class Exercise5Test < Minitest::Test
   def test_sum_to_1
     # skip
     assert_equal 0, SumOfMultiples.to(1)

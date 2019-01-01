@@ -4,7 +4,7 @@ require 'pry-byebug'
 require_relative './code/anagram'
 Minitest::Reporters.use!
 
-class AnagramTest < Minitest::Test
+class Exercise6Test < Minitest::Test
   def test_no_matches
     # skip
     detector = Anagram.new('diaper')

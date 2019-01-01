@@ -4,7 +4,7 @@ require 'pry-byebug'
 require_relative './code/octal'
 Minitest::Reporters.use!
 
-class OctalTest < Minitest::Test
+class Exercise3Test < Minitest::Test
   def test_octal_1_is_decimal_1
     # skip
     assert_equal 1, Octal.new('1').to_decimal

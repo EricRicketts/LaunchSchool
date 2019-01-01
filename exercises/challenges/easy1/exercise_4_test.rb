@@ -4,7 +4,7 @@ require 'pry-byebug'
 require_relative './code/trinary'
 Minitest::Reporters.use!
 
-class TrinaryTest < Minitest::Test
+class Exercise4Test < Minitest::Test
   def test_trinary_1_is_decimal_1
     # skip
     assert_equal 1, Trinary.new('1').to_decimal

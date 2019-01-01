@@ -4,7 +4,7 @@ require 'pry-byebug'
 require_relative './code/sieve'
 Minitest::Reporters.use!
 
-class SieveTest < Minitest::Test
+class Exercise2Test < Minitest::Test
   def test_a_few_primes
     # skip
     expected = [2, 3, 5, 7]
