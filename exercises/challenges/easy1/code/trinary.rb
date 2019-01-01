@@ -6,9 +6,7 @@ class Trinary
   end
 
   def to_decimal
-    digit_ary.each.with_index.inject(0) do |base_ten, (digit, exp)|
-      base_ten += digit*(BASE**exp)
-    end
+    digit_ary.map.with_index { |digit, exp| digit*(BASE**exp) }.sum
   end
 
   private
