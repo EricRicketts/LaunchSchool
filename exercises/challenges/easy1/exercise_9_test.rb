@@ -4,7 +4,7 @@ require 'pry-byebug'
 require_relative './code/perfect_numbers'
 Minitest::Reporters.use!
 
-class PerfectNumberTest < Minitest::Test
+class Exercise9Test < Minitest::Test
   def test_initialize_perfect_number
     # skip
     assert_raises RuntimeError do
