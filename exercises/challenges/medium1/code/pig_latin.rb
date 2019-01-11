@@ -1,7 +1,7 @@
 class PigLatin
   CONSONANT = /[bcdfghjklmnpqrstvwxyz]/
   VOWEL = /[aeiou]/
-  LEAD_CONSONANTS = /\A(#{CONSONANT}*)(#{VOWEL}[[:alpha:]]+)\Z/
+  BASE_CASE = /\A(#{CONSONANT}*)(#{VOWEL}[[:alpha:]]+)\Z/
   LEAD_QU = /\A(#{CONSONANT}?qu)([[:alpha:]]+)\Z/
   LEAD_Y_OR_X = /\A(y|x)#{CONSONANT}[[:alpha:]]+\Z/
   SUFFIX = "ay"
@@ -12,7 +12,7 @@ class PigLatin
       case word
       when LEAD_Y_OR_X then word << SUFFIX
       when LEAD_QU then PIG_LATIN.call($1, $2)
-      else word.gsub(LEAD_CONSONANTS) { PIG_LATIN.call($1, $2) }
+      else word.gsub(BASE_CASE) { PIG_LATIN.call($1, $2) }
       end
     end.join(' ')
   end
