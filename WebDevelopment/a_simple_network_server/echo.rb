@@ -4,22 +4,33 @@ require 'pry-byebug'
 server = TCPServer.new("localhost", 3003)
 loop do
   client = server.accept
+  arr = Array.new
+  request_line = ''
+  rq = ''
+  counter = 0
+  puts "Begin loop and request output"
+  puts
 
-  request_line = client.gets
-  puts request_line
+  loop do
+    request_line = client.gets
+    rq = request_line.dup
+    rq = rq.chomp
+    puts(rq + ' line ' + counter.to_s)
+    arr.push(rq)
+    counter += 1
+    break if request_line == "\r\n"
+  end
 
+  # binding.pry
   client.puts "HTTP/1.1 200 OK"
   client.puts "Content-Type: text/plain\r\n\r\n"
-  client.puts request_line
+  arr.each.with_index { |line, idx| client.puts(line + ' line ' + idx.to_s) }
+  puts "\n\n"
   client.close
 end
 
 =begin
-Just really wnat to understand what is going on here.  I used
-to be a hardware engineer before coming to Launch School, so maybe
-I try to dig into the details too much.
-
-Could anyone comment on my assumptions and answer my questions?
+Just really wnat to understand what is going on here.
 
 So in line 4 we createa a TCP Server socket bound to "localhost"
 port 3003.  As the video stated, the internals of TCP/IP is
@@ -32,8 +43,9 @@ Here is a question, is DNS still at work here, considering
 localhost is my own computer?  If I understand from our prior
 instruction, the ISP will take the domain name and send it out
 to the DNS servers, the DNS servers will return the IP Address
-to the ISP so that the browsers GET request is submitted to an
-actual IP address.
+to the ISP so that the browsers GET request is submitted to the
+required IP address, which is actually a request to a server
+which hosts that IP Address.
 
 On line 6, the video stated a wait state is entered until
 someone tries to request something from the server.  I say
@@ -45,21 +57,12 @@ then it will open a connection to the client.  In the video
 it says the code returns a "client object", which is actually
 a TCPSocket object according to the documentation.  The video
 says this "client object" enables us to interact with whatever
-the remote system is.  If the server has to open a connection
-with the client then how did the server receive the request in
-the first place?  Some channel of communication had to be open.
+the remote system is.  Note it returns a TCPSocket object and
+the TCPSocket class is the parent class to TCPServer.
 
 On line 8, we are using #gets to grab just the first line of
-the request.  This is where I get a bit confused.  So the client
-formulated the request and sent it out, so client.gets grabs
-the first line of the request.  Where is the text of the request
-stored so #gets can retrieve it?
+the request.  In relating to my prior Launch School learning,
+the request is
 
-Are lines 11-13 "faking" a response from the server?  I can
-see we have the required status field for a response, a response
-header, and finally a response message body.  If this is true, how
-does client.puts go about simulating a response from the server?
-How does the browser know to display the "request_line" to the browser
-window?
 
 =end
