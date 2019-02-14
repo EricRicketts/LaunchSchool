@@ -4,5 +4,7 @@
 # run HelloWorldSecond.new
 # require_relative 'hello_world_third'
 # run HelloWorldThird.new
-require_relative 'hello_world_fourth'
-run HelloWorldFourth.new
+# require_relative 'hello_world_fourth'
+# run HelloWorldFourth.new
+require_relative 'app'
+run App.new
