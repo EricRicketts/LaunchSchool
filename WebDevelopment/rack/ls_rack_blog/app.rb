@@ -1,6 +1,7 @@
 require_relative 'advice'
+require_relative 'monroe'
 
-class App
+class App < Monroe
   CONTENT_TYPE = { 'Content-Type' => 'text/html' }
 
   def call(env)
@@ -24,19 +25,5 @@ class App
         erb(:not_found)
       end
     end
-  end
-
-  private
-
-  def erb(filename, local={})
-    b = binding
-    message = local[:message]
-    template = File.read("./views/#{filename}.erb")
-    ERB.new(template).result(b)
-  end
-
-  def response(status, headers, body='')
-    body = yield if block_given?
-    [status, headers, [body]]
   end
 end
