@@ -1,11 +1,12 @@
 require "sinatra"
 require "sinatra/reloader"
 require "tilt/erubis"
-
-# get "/" do
-#   File.read "public/template.html"
-# end
+require 'pry-byebug'
 
 get "/" do
-  erb :home
+  table_of_contents = File.readlines('data/toc.txt', chomp: true)
+  erb :home, :locals => {
+    :title => "The Adventures of Sherlock Holmes",
+    :toc => table_of_contents
+  }
 end

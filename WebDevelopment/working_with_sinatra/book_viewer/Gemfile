@@ -5,6 +5,7 @@ github 'sinatra/sinatra' do
   gem 'sinatra-contrib'
 end
 gem "erubis"
+gem 'pry-byebug'
 
 group :test do
   gem 'minitest', '~>5.11.3'
