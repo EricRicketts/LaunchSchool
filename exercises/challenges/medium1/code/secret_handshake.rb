@@ -1,33 +1,39 @@
 class SecretHandshake
+  REVERSE_POINT = 15
+  BINARY_DIGITS = %w(0 1)
+  CODES = %W[wink double\sblink close\syour\seyes jump]
 
   def initialize(n)
     @binary = convert_to_binary(n)
   end
 
+  def commands
+    binary.nil? ? [] : generate_commands
+  end
 
   private
 
+  attr_reader :binary
+
   def convert_to_binary(n)
-    case n
-    when Integer
+    if n.is_a?(Integer)
       n.to_s(2)
-    when /[01]+/
+    elsif n.chars.all? { |char| BINARY_DIGITS.include?(char) }
       n
     else
-      []
+      nil
     end
   end
-end
 
-=begin
-1.  Check if the input is an Integer, if so convert to binary
-2.  Next check if the input is a string and if the string only
-    consists of 1's and 0's if so process it, if not return
-    an empty array
-3.  take the binary numbers and reverse them
-4.  cycle through each binary number with index
-    index 0 digit 1 'wink'
-    index 1 digit 1 'double blink'
-    index 2 digit 1 'close your eyes'
-    index 3 digit 1 'jump'
-=end
+  def generate_commands
+    secret_commands = binary.reverse.chars.map.with_index do |digit, idx|
+      next unless digit == '1'
+      CODES[idx]
+    end.compact
+    reverse_command_order? ? secret_commands.reverse : secret_commands
+  end
+
+  def reverse_command_order?
+    binary.to_i(2) > REVERSE_POINT
+  end
+end
