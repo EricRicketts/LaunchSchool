@@ -1,0 +1,4 @@
+This is the "foo.txt" file.
+He favors playing with bar, but he is amicable
+enough to play with other files.  However, after
+a while he does get homesick for "bar.txt".
