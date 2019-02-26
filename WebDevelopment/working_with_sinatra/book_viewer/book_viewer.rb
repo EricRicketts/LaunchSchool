@@ -5,21 +5,26 @@ require 'pry-byebug'
 
 get "/" do
   table_of_contents = File.readlines('data/toc.txt', chomp: true)
+  chapter_titles = table_of_contents.map.with_index(1) do |title, idx|
+    "Chapter #{idx} #{title}"
+  end
   erb :home, :locals => {
     :title => "The Adventures of Sherlock Holmes",
     :contents => table_of_contents
   }
 end
 
-get "/chapters/1" do
+get "/chapters/:number" do
   table_of_contents = File.readlines('data/toc.txt', chomp: true)
-  chapter_1 = File.readlines('data/chp1.txt')
-  chapter_1_modified = chapter_1.map do |line|
-    line.gsub(/\n/, '<br>')
+  chapter_number = params[:number].to_i
+  chapter = File.readlines("data/chp#{chapter_number}.txt")
+  chapter_titles = table_of_contents.map.with_index(1) do |title, idx|
+    "Chapter #{idx}:&nbsp;&nbsp;#{title}"
   end
   erb :chapter, :locals => {
     :title => "The Adventures of Sherlock Holmes",
     :contents => table_of_contents,
-    :chapter => chapter_1_modified
+    :chapter_title => chapter_titles[chapter_number - 1],
+    :chapter => chapter
   }
 end
