@@ -7,7 +7,7 @@ get "/" do
   table_of_contents = File.readlines('data/toc.txt', chomp: true)
   erb :home, :locals => {
     :title => "The Adventures of Sherlock Holmes",
-    :toc => table_of_contents
+    :contents => table_of_contents
   }
 end
 
@@ -19,7 +19,7 @@ get "/chapters/1" do
   end
   erb :chapter, :locals => {
     :title => "The Adventures of Sherlock Holmes",
-    :toc => table_of_contents,
+    :contents => table_of_contents,
     :chapter => chapter_1_modified
   }
 end
