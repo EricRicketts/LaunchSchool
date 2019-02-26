@@ -28,10 +28,15 @@ end
 
 get "/chapters/:number" do
   chapter_number = params[:number].to_i
+  redirect to("/"), 303 unless (1..@table_of_contents.size).cover?(chapter_number)
   chapter = File.read("data/chp#{chapter_number}.txt")
   erb :chapter, :locals => {
     :contents => @table_of_contents,
     :chapter_title => @chapter_titles[chapter_number - 1],
     :chapter => in_paragraphs(chapter)
   }
+end
+
+not_found do
+  redirect to("/"), 303
 end
