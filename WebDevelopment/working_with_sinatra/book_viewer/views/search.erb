@@ -1,0 +1,18 @@
+<h2 class="contnet-subhead">Search</h2>
+<form action="/search" method="get" accept-charset="utf-8">
+  <input type="search" name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<% if params[:query] %>
+  <% if results.empty? %>
+    <p>Sorry, no matches were found.</p>
+    <% else %>
+    <h2 class="content-subhead">Results for '<%= params[:query] %>'</h2>
+    <ul>
+      <% results.each do |chapter_title, chapter_number| %>
+        <li><a href="chapters/<%= chapter_number %>"><%= chapter_title %></a></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
