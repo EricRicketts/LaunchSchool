@@ -40,12 +40,6 @@ get "/chapters/:number" do
     chapter_title: @chapter_titles[params[:number].to_i - 1],
     chapter: in_paragraphs(chapter)
   }
-  # erb :chapter, :locals => {
-  #   :title => @title,
-  #   :contents => @table_of_contents,
-  #   :chapter_title => @chapter_titles[params[:number].to_i - 1],
-  #   :chapter => in_paragraphs(chapter)
-  # }
   erb :chapter, :locals => @standard_locals.merge(chapter_locals)
 end
 
@@ -64,11 +58,7 @@ get "/search" do
   else
     @results = @search_results.map { |title, chapter| [title, chapter.scan(/\d+/)[0]] }.to_h
   end
-  erb :search, :locals => {
-    :title => @title,
-    :contents => @table_of_contents,
-    :results => @results
-  }
+  erb :search, :locals => @standard_locals.merge({ results: @results })
 end
 
 not_found do
