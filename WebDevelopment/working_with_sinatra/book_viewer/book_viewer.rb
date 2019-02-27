@@ -22,6 +22,12 @@ helpers do
     paragraphs = lines.map { |line| "<p>" << line << "</p>" }
     paragraphs.join
   end
+
+  def get_chapter(chapter_query)
+    chapter_number = chapter_query.to_i
+    redirect to ("/"), 303 unless (1..@table_of_contents.size).cover?(chapter_number)
+    File.read("data/chp#{chapter_number}.txt")
+  end
 end
 
 get "/" do
@@ -29,13 +35,11 @@ get "/" do
 end
 
 get "/chapters/:number" do
-  chapter_number = params[:number].to_i
-  redirect to("/"), 303 unless (1..@table_of_contents.size).cover?(chapter_number)
-  chapter = File.read("data/chp#{chapter_number}.txt")
+  chapter = get_chapter(params[:number])
   erb :chapter, :locals => {
     :title => @title,
     :contents => @table_of_contents,
-    :chapter_title => @chapter_titles[chapter_number - 1],
+    :chapter_title => @chapter_titles[params[:number].to_i - 1],
     :chapter => in_paragraphs(chapter)
   }
 end
