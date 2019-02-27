@@ -13,6 +13,7 @@ before do
     chapter.match(/\d+/)[0].to_i
   end
   @titles_and_chapters = (@table_of_contents.zip(@chapters)).to_h
+  @standard_locals = { title: @title, contents: @table_of_contents }
 end
 
 helpers do
@@ -24,10 +25,7 @@ helpers do
 end
 
 get "/" do
-  erb :home, :locals => {
-    :title => @title,
-    :contents => @table_of_contents
-  }
+  erb :home, :locals => @standard_locals
 end
 
 get "/chapters/:number" do
