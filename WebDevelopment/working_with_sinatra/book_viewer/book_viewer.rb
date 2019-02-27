@@ -36,12 +36,17 @@ end
 
 get "/chapters/:number" do
   chapter = get_chapter(params[:number])
-  erb :chapter, :locals => {
-    :title => @title,
-    :contents => @table_of_contents,
-    :chapter_title => @chapter_titles[params[:number].to_i - 1],
-    :chapter => in_paragraphs(chapter)
+  chapter_locals = {
+    chapter_title: @chapter_titles[params[:number].to_i - 1],
+    chapter: in_paragraphs(chapter)
   }
+  # erb :chapter, :locals => {
+  #   :title => @title,
+  #   :contents => @table_of_contents,
+  #   :chapter_title => @chapter_titles[params[:number].to_i - 1],
+  #   :chapter => in_paragraphs(chapter)
+  # }
+  erb :chapter, :locals => @standard_locals.merge(chapter_locals)
 end
 
 get "/search" do
