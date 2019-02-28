@@ -35,6 +35,14 @@ helpers do
     paragraphs.join
   end
 
+  def search_for_term(search_term)
+    search_results = []
+    unless !search_term || search_term.strip.empty?
+      regex = Regexp.new(search_term)
+      search_results = find_chapters(regex)
+    end
+    search_results.empty? ? [] : search_results.map { |title, chapter| [title, chapter.scan(/\d+/)[0]] }.to_h
+  end
 end
 
 get "/" do
@@ -52,18 +60,8 @@ get "/chapters/:number" do
 end
 
 get "/search" do
-  search_term = params[:query]
-  @search_results = []
-  unless !search_term || search_term.strip.empty?
-    regex = Regexp.new(search_term)
-    @search_results = find_chapters(regex)
-  end
-  if @search_results.empty?
-    @results = []
-  else
-    @results = @search_results.map { |title, chapter| [title, chapter.scan(/\d+/)[0]] }.to_h
-  end
-  erb :search, :locals => @standard_locals.merge({ results: @results })
+  results = search_for_term(params[:query])
+  erb :search, :locals => @standard_locals.merge({ results: results })
 end
 
 not_found do
