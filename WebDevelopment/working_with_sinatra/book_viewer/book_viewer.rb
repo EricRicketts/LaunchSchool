@@ -23,8 +23,7 @@ helpers do
     paragraphs.join
   end
 
-  def get_chapter(chapter_query)
-    chapter_number = chapter_query.to_i
+  def get_chapter(chapter_number)
     redirect to ("/"), 303 unless (1..@table_of_contents.size).cover?(chapter_number)
     File.read("data/chp#{chapter_number}.txt")
   end
@@ -35,9 +34,10 @@ get "/" do
 end
 
 get "/chapters/:number" do
-  chapter = get_chapter(params[:number])
+  chapter_number, idx = params[:number].to_i, params[:number].to_i - 1
+  chapter = get_chapter(chapter_number)
   chapter_locals = {
-    chapter_title: @chapter_titles[params[:number].to_i - 1],
+    chapter_title: @chapter_titles[idx],
     chapter: in_paragraphs(chapter)
   }
   erb :chapter, :locals => @standard_locals.merge(chapter_locals)
