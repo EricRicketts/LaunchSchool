@@ -24,15 +24,16 @@ helpers do
     end
   end
 
-  def get_chapter(chapter_number)
+  def in_paragraphs(chapter_number)
     redirect to ("/"), 303 unless (1..@table_of_contents.size).cover?(chapter_number)
-    File.read("data/chp#{chapter_number}.txt")
-  end
+    chapter_relative_path = "data/chp#{chapter_number}.txt"
+    chapter = File.read(chapter_relative_path)
+    chapter_string = chapter_relative_path.match(/chp\d+/)[0]
 
-  def in_paragraphs(chapter)
-    lines = chapter.split(/\n{2}/).map { |line| line.gsub(/\n/, ' ') }
-    paragraphs = lines.map { |line| "<p>" << line << "</p>" }
-    paragraphs.join
+    lines =  chapter.split(/\n{2}/).map { |line| line.gsub(/\n/, ' ') }
+    lines.map.with_index do |line, idx|
+      "<p id=\"#{chapter_string}_#{idx}\">" << line << "</p>"
+    end.join
   end
 
   def search_for_term(search_term)
@@ -50,11 +51,9 @@ get "/" do
 end
 
 get "/chapters/:number" do
-  chapter_number, idx = params[:number].to_i, params[:number].to_i - 1
-  chapter = get_chapter(chapter_number)
   chapter_locals = {
-    chapter_title: @chapter_titles[idx],
-    chapter: in_paragraphs(chapter)
+    chapter_title: @chapter_titles[params[:number].to_i - 1],
+    chapter: in_paragraphs(params[:number].to_i)
   }
   erb :chapter, :locals => @standard_locals.merge(chapter_locals)
 end
