@@ -17,16 +17,24 @@ before do
 end
 
 helpers do
-  def in_paragraphs(chapter)
-    lines = chapter.split(/\n{2}/).map { |line| line.gsub(/\n/, ' ') }
-    paragraphs = lines.map { |line| "<p>" << line << "</p>" }
-    paragraphs.join
+  def find_chapters(regex)
+    @titles_and_chapters.select do |title, chapter|
+      file = File.read("data/#{chapter}")
+      file.split(/\n/).find { |line| line.match?(regex) }
+    end
   end
 
   def get_chapter(chapter_number)
     redirect to ("/"), 303 unless (1..@table_of_contents.size).cover?(chapter_number)
     File.read("data/chp#{chapter_number}.txt")
   end
+
+  def in_paragraphs(chapter)
+    lines = chapter.split(/\n{2}/).map { |line| line.gsub(/\n/, ' ') }
+    paragraphs = lines.map { |line| "<p>" << line << "</p>" }
+    paragraphs.join
+  end
+
 end
 
 get "/" do
@@ -48,10 +56,7 @@ get "/search" do
   @search_results = []
   unless !search_term || search_term.strip.empty?
     regex = Regexp.new(search_term)
-    @search_results = @titles_and_chapters.select do |title, chapter|
-      file = File.read("data/#{chapter}")
-      file.split(/\n/).find { |line| line.match?(regex) }
-    end
+    @search_results = find_chapters(regex)
   end
   if @search_results.empty?
     @results = []
