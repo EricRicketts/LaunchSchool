@@ -18,6 +18,11 @@ end
 
 helpers do
 
+  def extract_path(chapter_number, paragraph)
+    id = paragraph.match(/<p\s+id="(\w+)"\s*>/)[1]
+    "chapters/#{chapter_number}\##{id}"
+  end
+
   def find_chapters(regex)
     @titles_and_chapters.select do |title, chapter|
       file = File.read("data/#{chapter}")
@@ -33,10 +38,11 @@ helpers do
         paragraph_regex = Regexp.new(/<p\s+id="\w+">[^<]*#{search_term}[^<]*<\/p>/)
         chapter_number = chapter.match(/\d+/)[0].to_i
         formatted_content = in_paragraphs(chapter_number)
-        chapters_and_paragraphs[title] = formatted_content.scan(paragraph_regex)
+        paragraphs = formatted_content.scan(paragraph_regex)
+        chapters_and_paragraphs[title] = [chapter_number, paragraphs]
       end
     end
-
+    binding.pry
     chapters_and_paragraphs
   end
 

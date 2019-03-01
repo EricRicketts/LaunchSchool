@@ -1,3 +1,4 @@
+require 'pry-byebug'
 <h2 class="contnet-subhead">Search</h2>
 <form action="/search" method="get" accept-charset="utf-8">
   <input type="search" name="query" value="<%= params[:query] %>">
@@ -10,11 +11,11 @@
     <% else %>
     <h2 class="content-subhead">Results for '<%= params[:query] %>'</h2>
     <ul>
-      <% results.each do |chapter_title, paragraphs| %>
+      <% results.each do |chapter_title, (chapter_number, paragraphs)| %>
         <li><%= chapter_title %></li>
           <ul>
             <% paragraphs.each do |p| %>
-            <li><%= p %></li>
+            <li><a href=<%= extract_path(chapter_number, p) %>><%= p %></a></li>
             <% end %>
           </ul>
       <% end %>
