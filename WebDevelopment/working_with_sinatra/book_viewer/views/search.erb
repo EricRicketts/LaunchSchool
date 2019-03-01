@@ -10,8 +10,13 @@
     <% else %>
     <h2 class="content-subhead">Results for '<%= params[:query] %>'</h2>
     <ul>
-      <% results.each do |chapter_title, chapter_number| %>
-        <li><a href="chapters/<%= chapter_number %>"><%= chapter_title %></a></li>
+      <% results.each do |chapter_title, paragraphs| %>
+        <li><%= chapter_title %></li>
+          <ul>
+            <% paragraphs.each do |p| %>
+            <li><%= p %></li>
+            <% end %>
+          </ul>
       <% end %>
     </ul>
   <% end %>

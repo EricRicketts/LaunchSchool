@@ -26,22 +26,21 @@ helpers do
   end
 
   def find_paragraphs(search_term)
-    search_results = []
-    found_paragraphs = []
+    chapter_results = []
+    chapters_and_paragraphs = {}
     unless !search_term || search_term.strip.empty?
       regex = Regexp.new(search_term)
-      search_results = find_chapters(regex)
+      chapter_results = find_chapters(regex)
     end
-    unless search_results.empty?
-      search_results.each do |title, chapter|
-        paragraph_regex = Regexp.new(/<p id=\"\w+\">[\"\w\s]*#{search_term}[\"\w\s]*<\/p>/)
+    unless chapter_results.empty?
+      chapter_results.each do |title, chapter|
+        paragraph_regex = Regexp.new(/<p\s+id="\w+">[^<]*#{search_term}[^<]*<\/p>/)
         chapter_number = chapter.match(/\d+/)[0].to_i
-        binding.pry
         formatted_content = in_paragraphs(chapter_number)
-        found_paragraphs = formatted_content.scan(paragraph_regex)
+        chapters_and_paragraphs[title] = formatted_content.scan(paragraph_regex)
       end
     end
-    found_paragraphs
+    chapters_and_paragraphs
   end
 
   def in_paragraphs(chapter_number)
@@ -79,9 +78,7 @@ get "/chapters/:number" do
 end
 
 get "/search" do
-  # find_paragraphs(params[:query])
-  # regex = Regexp.new(/<p\s+id="\w+">[^<]*#{search_terms.first}[^<]*<\/p>/)
-  results = search_for_term(params[:query])
+  results = find_paragraphs(params[:query])
   erb :search, :locals => @standard_locals.merge({ results: results })
 end
 
