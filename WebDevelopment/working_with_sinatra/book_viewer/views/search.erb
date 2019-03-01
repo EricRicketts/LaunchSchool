@@ -5,17 +5,19 @@ require 'pry-byebug'
   <button type="submit">Search</button>
 </form>
 
-<% if params[:query] %>
+<% if search_term %>
   <% if results.empty? %>
     <p>Sorry, no matches were found.</p>
     <% else %>
-    <h2 class="content-subhead">Results for '<%= params[:query] %>'</h2>
+    <h2 class="content-subhead">Results for '<%= search_term %>'</h2>
     <ul>
       <% results.each do |chapter_title, (chapter_number, paragraphs)| %>
         <li><%= chapter_title %></li>
           <ul>
             <% paragraphs.each do |p| %>
-            <li><a href=<%= extract_path(chapter_number, p) %>><%= p %></a></li>
+            <li><a href=<%= extract_path(chapter_number, p) %>>
+              <%= highlight_search_term(search_term, p) %></a>
+            </li>
             <% end %>
           </ul>
       <% end %>

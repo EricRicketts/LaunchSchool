@@ -31,7 +31,7 @@ helpers do
   end
 
   def find_paragraphs(chapter_results, search_term)
-    chapters_and_paragraphs = {}
+    chapter_numbers_and_paragraphs = {}
 
     unless chapter_results.empty?
       chapter_results.each do |title, chapter|
@@ -39,11 +39,14 @@ helpers do
         chapter_number = chapter.match(/\d+/)[0].to_i
         formatted_content = in_paragraphs(chapter_number)
         paragraphs = formatted_content.scan(paragraph_regex)
-        chapters_and_paragraphs[title] = [chapter_number, paragraphs]
+        chapter_numbers_and_paragraphs[title] = [chapter_number, paragraphs]
       end
     end
-    binding.pry
-    chapters_and_paragraphs
+    chapter_numbers_and_paragraphs
+  end
+
+  def highlight_search_term(search_term, paragraph)
+    paragraph.gsub(/#{search_term}/, "<strong>#{search_term}</strong>")
   end
 
   def in_paragraphs(chapter_number)
@@ -92,8 +95,10 @@ get "/chapters/:number" do
 end
 
 get "/search" do
+  search_term = params[:query]
   results = search_chapters_and_paragraphs(params[:query])
-  erb :search, :locals => @standard_locals.merge({ results: results })
+  search_locals = { search_term: search_term, results: results }
+  erb :search, :locals => @standard_locals.merge(search_locals)
 end
 
 not_found do
