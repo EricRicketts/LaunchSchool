@@ -25,13 +25,9 @@ helpers do
     end
   end
 
-  def find_paragraphs(search_term)
-    chapter_results = []
+  def find_paragraphs(chapter_results, search_term)
     chapters_and_paragraphs = {}
-    unless !search_term || search_term.strip.empty?
-      regex = Regexp.new(search_term)
-      chapter_results = find_chapters(regex)
-    end
+
     unless chapter_results.empty?
       chapter_results.each do |title, chapter|
         paragraph_regex = Regexp.new(/<p\s+id="\w+">[^<]*#{search_term}[^<]*<\/p>/)
@@ -40,6 +36,7 @@ helpers do
         chapters_and_paragraphs[title] = formatted_content.scan(paragraph_regex)
       end
     end
+
     chapters_and_paragraphs
   end
 
@@ -53,6 +50,17 @@ helpers do
     lines.map.with_index do |line, idx|
       "<p id=\"#{chapter_string}_#{idx}\">" << line << "</p>"
     end.join
+  end
+
+  def search_chapters_and_paragraphs(search_term)
+    chapter_results = []
+
+    unless !search_term || search_term.strip.empty?
+      regex = Regexp.new(search_term)
+      chapter_results = find_chapters(regex)
+    end
+
+    find_paragraphs(chapter_results, search_term)
   end
 
   def search_for_term(search_term)
@@ -78,18 +86,10 @@ get "/chapters/:number" do
 end
 
 get "/search" do
-  results = find_paragraphs(params[:query])
+  results = search_chapters_and_paragraphs(params[:query])
   erb :search, :locals => @standard_locals.merge({ results: results })
 end
 
 not_found do
   redirect to("/"), 303
 end
-
-=begin
-1.  Cycle through all of the chapters
-2.  makes sure the data is in paragraph format with with ids in each element
-3.  Search for the term throughout the entire chapter and use regular expressions to
-grab all of the paragraphs, tags and content.
-4.  if any paragraphs are found the chapter title needs to be stored.
-=end
