@@ -1,4 +1,3 @@
-require 'pry-byebug'
 class InvalidCodonError < StandardError; end
 
 class Translation
