@@ -1,5 +1,5 @@
 class PhoneNumber
-  REGEX = /^(\d)?(\()?(\d{3})(?(2)\)\s)[.-]*(\d{3})[.-]*(\d{4,})$/
+  REGEX = /^(\d)?(\()?(\d{3})(?(2)\)\s|((\.)?|(-)?))(\d{3})(?(4)\4|(?(2)-))(\d{4,})$/
 
   def initialize(str)
     @str = str
@@ -11,7 +11,7 @@ class PhoneNumber
 
   def number
     m = str.match(REGEX)
-    invalid_phone_number?(m) ? '0' * 10 : m[3] << m[4] << m[5]
+    invalid_phone_number?(m) ? '0' * 10 : m[3] << m[7] << m[8]
   end
 
   def to_s
@@ -23,6 +23,6 @@ class PhoneNumber
   attr_reader :str
 
   def invalid_phone_number?(m)
-    m.nil? || m[5].size > 4 || (m[1] != "1" && !m[1].nil?)
+    m.nil? || m[8].size > 4 || (m[1] != "1" && !m[1].nil?)
   end
 end
