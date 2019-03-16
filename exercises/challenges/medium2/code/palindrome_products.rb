@@ -16,7 +16,7 @@ class Palindromes
   end
 
   def generate
-    self.palindromes = (min_factor..max_factor).to_a.repeated_permutation(2).select do |n1, n2|
+    self.palindromes = (min_factor..max_factor).to_a.repeated_combination(2).select do |n1, n2|
       (n1*n2).digits == (n1*n2).digits.reverse
     end.sort_by { |n1, n2| n1*n2 }.map { |n1, n2| { n1*n2 => [n1, n2].sort } }.uniq
   end
