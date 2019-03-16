@@ -1,10 +1,9 @@
-class Hash
-  def factors
-    self.values.first
-  end
+class Palindrome
+  attr_accessor :value, :factors
 
-  def value
-    self.keys.first
+  def initialize(value, factors)
+    @value = value
+    @factors = factors
   end
 end
 
@@ -23,12 +22,12 @@ class Palindromes
 
   def largest
     max_value = palindromes.last.keys.first
-    { max_value => generate_values(max_value) }
+    Palindrome.new(max_value, generate_values(max_value))
   end
 
   def smallest
     min_value = palindromes.first.keys.first
-    { min_value => generate_values(min_value) }
+    Palindrome.new(min_value, generate_values(min_value))
   end
 
   private
