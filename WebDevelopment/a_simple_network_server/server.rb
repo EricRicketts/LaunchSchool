@@ -7,9 +7,10 @@ loop do
   request_lines = []
   single_line = ''
   loop do
-    single_line = client.gets
-    break request_lines.push(single_line) if single_line.match?(/(\A|^)\r\n(\z|$)/)
+    single_line = client.gets.chomp
+    break if single_line.empty? || single_line.nil?
     request_lines.push(single_line)
+    puts single_line
   end
   client.puts "HTTP/1.1 200 OK"
   client.puts "Content-Type: text/plain\r\n\r\n"

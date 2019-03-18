@@ -4,28 +4,13 @@ require 'pry-byebug'
 server = TCPServer.new("localhost", 3003)
 loop do
   client = server.accept
-  arr = Array.new
-  request_line = ''
-  rq = ''
-  counter = 0
-  puts "Begin loop and request output"
-  puts
 
-  loop do
-    request_line = client.gets
-    rq = request_line.dup
-    rq = rq.chomp
-    puts(rq + ' line ' + counter.to_s)
-    arr.push(rq)
-    counter += 1
-    break if request_line == "\r\n"
-  end
+  request_line = client.gets
+  puts request_line
 
-  # binding.pry
   client.puts "HTTP/1.1 200 OK"
   client.puts "Content-Type: text/plain\r\n\r\n"
-  arr.each.with_index { |line, idx| client.puts(line + ' line ' + idx.to_s) }
-  puts "\n\n"
+  client.puts request_line
   client.close
 end
 

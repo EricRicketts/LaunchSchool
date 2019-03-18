@@ -18,7 +18,7 @@ class WordProblem
 
     arr[1..-1].inject(arr.first.to_i) do |result, n_or_op|
       if n_or_op.match?(REGEX)
-        lambda { |x| result.send(OPERATORS[n_or_op], x)}
+        lambda { |x| result.send(OPERATORS[n_or_op], x) }
       else
         result.call(n_or_op.to_i)
       end
