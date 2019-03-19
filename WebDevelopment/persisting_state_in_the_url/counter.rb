@@ -2,9 +2,10 @@ require 'pry-byebug'
 require 'socket'
 
 def parse_request(request_line)
-  http_method = request_line.match(/[[:alpha:]]+(?=\s+\/)/)[0]
-  path = request_line.match(/\//)[0]
-  params = request_line.match(/(?<=\?).*(?=\s+H)/)[0].scan(/[\p{Alnum}\-]+/).each_slice(2).map(&:itself).to_h || {}
+  # http_method = request_line.match(/[[:alpha:]]+(?=\s+\/)/)[0]
+  # path = request_line.match(/\//)[0]
+  # params = request_line.match(/(?<=\?).*(?=\s+H)/)[0].scan(/[\p{Alnum}\-]+/).each_slice(2).map(&:itself).to_h || {}
+  http_method, path, params = request_line.split
 
   [http_method, path, params]
 end
@@ -42,7 +43,6 @@ loop do
   client = server.accept
 
   request_line = client.gets
-  binding.pry
   next if !request_line || request_line =~ /favicon/
   puts request_line
 
