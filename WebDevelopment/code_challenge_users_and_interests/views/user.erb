@@ -1,4 +1,12 @@
+<h3>Name: <%= name %></h3>
 <ul>
   <li>email: <%= email %></li>
   <li>interests: <%= interests %></li>
 </ul>
+<h3>Other Users</h3>
+<ol>
+  <% other_users.each do |user| %>
+  <li><a href="/<%= user %>"><%= user.capitalize %></a></li>
+  <% end %>
+</ol>
+<p><a href="/">home</a></p>

@@ -25,12 +25,13 @@ end
 get "/" do
   names = @users.keys
   num_users, num_interests = count_users_and_interests
-  erb :home, locals: { names: names }
+  erb :home, locals: { names: names.map(&:capitalize) }
 end
 
 get "/:name" do
   current_user = params[:name]
-  other_names = @users.reject { |name| name == current_user }
+  other_users = @users.reject { |k, v| k == current_user.to_sym }.keys.map(&:to_s)
   email, interests = get_user_data(current_user)
-  erb :user, locals: { email: email, interests: interests.join(", ") }
+  erb :user, locals: { name: current_user.capitalize, email: email,
+    interests: interests.join(", "), other_users: other_users }
 end

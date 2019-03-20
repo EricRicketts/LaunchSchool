@@ -17,8 +17,7 @@ class UsersAndInterestsTest < Minitest::Test
     list_item_string.scan(/<li>.*?<\/li>/)
   end
 
-  def get_informational_paragraph(str)
-    regex = /(?<=(<\/ol>|<\/ul>)).*?(?=<\/body>)/
+  def get_informational_paragraph(str, regex)
     no_line_returns = str.gsub(/\n/, '')
     no_line_returns.match(regex)[0].strip
   end
@@ -50,14 +49,23 @@ class UsersAndInterestsTest < Minitest::Test
   def test_layout_home_page
     # skip
     get "/"
-    paragraph = get_informational_paragraph(last_response.body)
+    regex = /(?<=<\/ol>).*?(?=<\/body>)/
+    paragraph = get_informational_paragraph(last_response.body, regex)
     assert_equal "<p>There are 3 users with a total of 9 interests.</p>", paragraph
   end
 
   def test_layout_user_page
-    # skip 
+    # skip
     get "/nora"
-    paragraph = get_informational_paragraph(last_response.body)
+    regex = /(?<=<\/p>).*?(?=<\/body>)/
+    paragraph = get_informational_paragraph(last_response.body, regex)
     assert_equal "<p>There are 3 users with a total of 9 interests.</p>", paragraph
+  end
+
+  def test_links_on_user_page
+    # skip
+    get "/hiroko"
+    list_items = get_list_items(last_response.body, /(?<=<ol>).*(?=\/ol>)/)
+    assert list_items.first.match(/Jamy/) && list_items.last.match(/Nora/)
   end
 end
