@@ -1,5 +1,5 @@
+require 'pry-byebug'
 require 'date'
-
 class Meetup
   TEENTH_DAYS = (13..19).to_a
   ARRAY_LITERAL = "[]"
