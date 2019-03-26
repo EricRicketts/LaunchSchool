@@ -14,13 +14,8 @@ class SinatraTodosTest < Minitest::Test
     Capybara.use_default_driver
   end
 
-  def test_root_path
+  def test_root_path_lists_exist
     visit "/"
-    assert_selector('main > p', text: 'You have no lists.', visible: true)
-  end
-
-  def test_root_path_another_way
-    visit "/"
-    assert_text(:visible, "You have no lists.", count: 1)
+    assert_selector('main > ul#lists > li', count: 2, visible: true)
   end
 end

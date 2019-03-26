@@ -3,5 +3,9 @@ require "sinatra/reloader"
 require "tilt/erubis"
 
 get "/" do
-  erb "<p>You have no lists.</p>", layout: :layout
+  @lists = [
+    { name: "Lunch Groceries" },
+    { name: "Dinner Groceries" }
+  ]
+  erb :lists, layout: :layout
 end
