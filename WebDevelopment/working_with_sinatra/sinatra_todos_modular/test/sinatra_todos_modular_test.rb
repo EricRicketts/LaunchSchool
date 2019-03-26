@@ -2,12 +2,12 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/minitest'
 require 'pry-byebug'
-require_relative '../todo'
+require_relative '../todo_modular'
 
 class SinatraTodosTest < Minitest::Test
   include Capybara::DSL
   include Capybara::Minitest::Assertions
-  Capybara.app = Sinatra::Application
+  Capybara.app = TodoModular
 
   def teardown
     Capybara.reset_sessions!
