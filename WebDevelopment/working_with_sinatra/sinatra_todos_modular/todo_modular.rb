@@ -1,17 +1,15 @@
 require "sinatra/base"
 require "sinatra/reloader"
 require "tilt/erubis"
+require_relative "./config_and_filters/before_filters"
+require_relative "./config_and_filters/config"
 
 class TodoModular < Sinatra::Base
+  register Sinatra::Config
+  register Sinatra::BeforeFilters
 
-  configure do
-    enable :sessions
-    set :session_secret, 'secret'
-  end
-
-  before do
-    session[:lists] ||= []
-  end
+  enable_sessions
+  init_session
 
   get "/" do
     redirect "/lists"

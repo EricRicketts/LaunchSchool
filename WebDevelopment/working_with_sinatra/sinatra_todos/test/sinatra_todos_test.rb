@@ -14,13 +14,8 @@ class SinatraTodosTest < Minitest::Test
     Capybara.use_default_driver
   end
 
-  def test_root_redirect
-    visit "/"
-    assert_current_path("/lists")
-  end
-
-  def test_todos_within_list
-    visit "/lists"
-    assert_selector('main > ul#lists > li > a > p', count: 2, visible: true)
+  def test_lists_new
+    visit "/lists/new"
+    assert_equal("/lists", page.find('form')[:action])
   end
 end
