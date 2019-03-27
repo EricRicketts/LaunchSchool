@@ -1,12 +1,15 @@
-require "sinatra/base"
-require "sinatra/reloader"
-require "tilt/erubis"
-require "rack_session_access"
-require "pry-byebug"
-require_relative "./config_and_filters/before_filters"
-require_relative "./config_and_filters/config"
-require_relative "./helpers/helpers"
+# frozen_string_literal: true
 
+require 'sinatra/base'
+require 'sinatra/reloader'
+require 'tilt/erubis'
+require 'rack_session_access'
+require 'pry-byebug'
+require_relative './config_and_filters/before_filters'
+require_relative './config_and_filters/config'
+require_relative './helpers/helpers'
+
+# Implement a modular Sinatra apllication
 class TodoModular < Sinatra::Base
   register Sinatra::Config
   register Sinatra::BeforeFilters
@@ -15,30 +18,31 @@ class TodoModular < Sinatra::Base
   enable_sessions
   init_session
 
-  get "/" do
-    redirect "/lists"
+  get '/' do
+    redirect '/lists'
   end
 
-  get "/lists" do
+  get '/lists' do
     @lists = session[:lists]
-    locals = session.has_key?(:success) ? { key: :success } : { key: :none }
+    locals = session.key?(:success) ? { key: :success } : { key: :none }
     erb :lists, locals: locals, layout: :layout
   end
 
-  get "/lists/new" do
+  get '/lists/new' do
     erb :new_list, locals: { key: :none }, layout: :layout
   end
 
-  post "/lists" do
+  post '/lists' do
     list_name = params[:list_name].strip
-    if error = error_for_list_name(list_name)
+    error = error_for_list_name(list_name)
+    if error
       set_flash(:error, error)
       erb :new_list, locals: { key: :error }, layout: :layout
     else
-      message = "The list has been created."
+      message = 'The list has been created.'
       set_flash(:success, message)
       session[:lists] << { name: list_name, todos: [] }
-      redirect "/lists"
+      redirect '/lists'
     end
   end
 end
