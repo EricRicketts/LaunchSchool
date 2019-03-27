@@ -11,6 +11,15 @@
     <header>
       <h1>Todo Tracker</h1>
     </header>
+
+    <% unless key == :none %>
+      <% if session[key] %>
+      <div class="flash <%= key.to_s %>">
+        <p><%= session.delete(key) %></p>
+      </div>
+      <% end %>
+    <% end %>
+
     <main>
       <%= yield %>
     </main>

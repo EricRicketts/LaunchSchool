@@ -18,6 +18,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_lists_new
+    # skip
     visit "/lists/new"
     form_selector = "form[action=\"/lists\"][method=\"post\"]"
     label_selector = "form > dl > dt > label[for=\"list_name\"]"
@@ -33,6 +34,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_new_list
+    # skip 
     visit "/lists/new"
     page.find('form > dl > dd > input').set("First List")
     page.find('form > fieldset > input').click
