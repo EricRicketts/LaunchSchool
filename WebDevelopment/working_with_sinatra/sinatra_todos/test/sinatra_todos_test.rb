@@ -16,6 +16,16 @@ class SinatraTodosTest < Minitest::Test
 
   def test_lists_new
     visit "/lists/new"
-    assert_equal("/lists", page.find('form')[:action])
+    form_selector = "form[action=\"/lists\"][method=\"post\"]"
+    label_selector = "form > dl > dt > label[for=\"list_name\"]"
+    input_selector = "form > dl > dd > input[type=\"text\"][name=\"list_name\"][value=\"\"]"
+    submit_button = "form > fieldset > input[type=\"submit\"][value=\"Save\"]"
+    form_link = "form > fieldset > a[href=\"/lists\"]"
+    assert_selector(form_selector)
+    assert_selector(label_selector)
+    assert_selector(input_selector)
+    assert_selector(submit_button)
+    assert_selector(form_link)
+    assert_text('Cancel', count: 1)
   end
 end
