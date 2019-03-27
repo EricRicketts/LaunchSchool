@@ -1,6 +1,8 @@
 require "sinatra/base"
 require "sinatra/reloader"
 require "tilt/erubis"
+require "rack_session_access"
+require "pry-byebug"
 require_relative "./config_and_filters/before_filters"
 require_relative "./config_and_filters/config"
 
@@ -26,6 +28,7 @@ class TodoModular < Sinatra::Base
 
   post "/lists" do
     session[:lists] << { name: params[:list_name], todos: [] }
+    session[:success] = "The list has been created."
     redirect "/lists"
   end
 end

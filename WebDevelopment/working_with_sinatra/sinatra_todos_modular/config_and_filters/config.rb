@@ -5,6 +5,7 @@ module Sinatra
     def enable_sessions
       configure do
         enable :sessions
+        use RackSessionAccess::Middleware if ENV['APP_ENV'] == 'test'
         set :session_secret, 'secret'
       end
     end

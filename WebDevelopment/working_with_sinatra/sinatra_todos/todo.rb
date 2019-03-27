@@ -1,9 +1,12 @@
 require "sinatra"
 require "sinatra/reloader"
 require "tilt/erubis"
+require "rack_session_access"
+require 'pry-byebug'
 
 configure do
   enable :sessions
+  use RackSessionAccess::Middleware if ENV['APP_ENV'] == 'test'
   set :session_secret, 'secret'
 end
 
@@ -26,5 +29,6 @@ end
 
 post "/lists" do
   session[:lists] << { name: params[:list_name], todos: [] }
+  session[:success] = "The list has been created."
   redirect "/lists"
 end
