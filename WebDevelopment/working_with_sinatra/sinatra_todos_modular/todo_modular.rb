@@ -2,6 +2,7 @@
 
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'rack_session_access'
 require 'pry-byebug'
@@ -11,6 +12,7 @@ require_relative './helpers/helpers'
 
 # Implement a modular Sinatra apllication
 class TodoModular < Sinatra::Base
+  helpers Sinatra::ContentFor
   register Sinatra::Config
   register Sinatra::BeforeFilters
   helpers Sinatra::Helpers
