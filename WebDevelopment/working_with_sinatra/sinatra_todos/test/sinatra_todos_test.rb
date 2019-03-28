@@ -9,7 +9,8 @@ require_relative '../todo'
 
 class SinatraTodosTest < Minitest::Test
   attr_accessor :new_list_path, :new_list_form, :new_list_button,
-    :first_list_name, :home_path, :list_created_text
+    :first_list_name, :home_path, :list_created_text, :first_list_link,
+    :second_list_name, :list_name_error
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -20,8 +21,11 @@ class SinatraTodosTest < Minitest::Test
     @new_list_form = 'form > dl > dd > input'
     @new_list_button = 'form > fieldset > input'
     @first_list_name = 'First List'
+    @second_list_name = 'Second List'
     @home_path = '/lists'
     @list_created_text = 'The list has been created.'
+    @first_list_link = 'ul#lists > li > a:first-of-type'
+    @list_name_error = 'List name must be between 1 and 100 characters.'
   end
 
   def teardown
@@ -57,17 +61,19 @@ class SinatraTodosTest < Minitest::Test
     assert_text(list_created_text, count: 1)
     list_data = page.get_rack_session_key('lists').first
     list_name, list_todos = list_data[:name], list_data[:todos].size.to_s
+
     visit home_path
+
     assert_no_text(list_created_text, count: 1)
     assert_equal(list_name, page.find('ul#lists > li > a > h2').text)
     assert_equal(list_todos, page.find('ul#lists > li > a > p').text)
-    assert_text("New List", count: 1)
+    assert_text(first_list_name, count: 1)
   end
 
   def test_visit_a_list
     # skip
     create_new_list(new_list_path, first_list_name)
-    page.find('ul#lists > li > a:first-of-type').click
+    page.find(first_list_link).click
     assert_selector('section#todos > header > h2:first-of-type')
     assert_equal(first_list_name, page.find('section#todos > header > h2:first-of-type').text)
     assert_text("All Lists", count: 1)
@@ -76,20 +82,20 @@ class SinatraTodosTest < Minitest::Test
   def test_edit_a_list
     # skip
     create_new_list(new_list_path, first_list_name)
-    assert_text("First List", count: 1)
-    page.find('ul#lists > li > a:first-of-type').click
+    assert_text(first_list_name, count: 1)
+    page.find(first_list_link).click
     page.find('section#todos > header > a').click
-    page.find('form > dl > dd > input').set("Second List")
+    page.find(new_list_form).set(second_list_name)
     page.find('form > fieldset > input').click
     assert_text('The list has been updated.')
-    assert_text("Second List", count: 1)
+    assert_text(second_list_name, count: 1)
   end
 
   def test_spaces_only_for_new_list_name
     # skip
     create_new_list(new_list_path, '   ')
-    assert_text('List name must be between 1 and 100 characters.', count: 1)
-    page.find('form > dl > dd > input').set(first_list_name)
+    assert_text(list_name_error, count: 1)
+    page.find(new_list_form).set(first_list_name)
     page.find('form > fieldset > input').click
     assert_text(list_created_text, count: 1)
   end
@@ -97,12 +103,12 @@ class SinatraTodosTest < Minitest::Test
   def test_spaces_only_for_edit_list_name
     # skip
     create_new_list(new_list_path, first_list_name)
-    page.find('ul#lists > li > a:first-of-type').click
+    page.find(first_list_link).click
     page.find('section#todos > header > a').click
-    page.find('form > dl > dd > input').set("    ")
+    page.find(new_list_form).set("    ")
     page.find('form > fieldset > input').click
-    assert_text('List name must be between 1 and 100 characters.', count: 1)
-    page.find('form > dl > dd > input').set("Second List")
+    assert_text(list_name_error, count: 1)
+    page.find(new_list_form).set(second_list_name)
     page.find('form > fieldset > input').click
     assert_text('Second List', count: 1)
   end
@@ -111,10 +117,10 @@ class SinatraTodosTest < Minitest::Test
     # skip
     create_new_list(new_list_path, first_list_name)
     page.find('div.actions > a[href="/lists/new"]').click
-    page.find('form > dl > dd > input').set("First List")
+    page.find(new_list_form).set(first_list_name)
     page.find('form > fieldset > input').click
     assert_text('List name must be unique.', count: 1)
-    page.find('form > dl > dd > input').set("Second List")
+    page.find(new_list_form).set(second_list_name)
     page.find('form > fieldset > input').click
     assert_text(list_created_text, count: 1)
   end
