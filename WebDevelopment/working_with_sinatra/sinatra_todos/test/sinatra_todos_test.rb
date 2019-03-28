@@ -46,4 +46,14 @@ class SinatraTodosTest < Minitest::Test
     assert_equal(list_name, page.find('ul#lists > li > a > h2').text)
     assert_equal(list_todos, page.find('ul#lists > li > a > p').text)
   end
+
+  def test_visit_a_list
+    # skip
+    visit "/lists/new"
+    page.find('form > dl > dd > input').set("First List")
+    page.find('form > fieldset > input').click
+    page.find('ul#lists > li > a:first-of-type').click
+    assert_selector('section#todos > header > h2:first-of-type')
+    assert_equal('First List', page.find('section#todos > header > h2:first-of-type').text)
+  end
 end

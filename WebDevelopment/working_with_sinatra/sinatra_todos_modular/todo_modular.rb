@@ -32,6 +32,11 @@ class TodoModular < Sinatra::Base
     erb :new_list, locals: { key: :none }, layout: :layout
   end
 
+  get '/lists/:id' do |id|
+    list = session[:lists][id.to_i]
+    erb :list, locals: { list: list, key: :none }, layout: :layout
+  end
+
   post '/lists' do
     list_name = params[:list_name].strip
     error = error_for_list_name(list_name)
