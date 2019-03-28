@@ -45,6 +45,7 @@ class SinatraTodosTest < Minitest::Test
     assert_no_text('The list has been created.')
     assert_equal(list_name, page.find('ul#lists > li > a > h2').text)
     assert_equal(list_todos, page.find('ul#lists > li > a > p').text)
+    assert_text("New List", count: 1)
   end
 
   def test_visit_a_list
@@ -55,5 +56,6 @@ class SinatraTodosTest < Minitest::Test
     page.find('ul#lists > li > a:first-of-type').click
     assert_selector('section#todos > header > h2:first-of-type')
     assert_equal('First List', page.find('section#todos > header > h2:first-of-type').text)
+    assert_text("All Lists", count: 1)
   end
 end
