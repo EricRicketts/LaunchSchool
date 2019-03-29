@@ -11,7 +11,8 @@ class SinatraTodosTest < Minitest::Test
   attr_accessor :new_list_path, :new_list_form, :new_list_button,
     :first_list_name, :home_path, :list_created, :first_list_link,
     :second_list_name, :list_name_error, :duplicate_list_error,
-    :empty_string, :edit_list_link
+    :empty_string, :edit_list_link, :home_page_link_text, :list_updated,
+    :list_header
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -30,6 +31,9 @@ class SinatraTodosTest < Minitest::Test
     @duplicate_list_error = 'List name must be unique.'
     @empty_string = '   '
     @edit_list_link = 'section#todos > header > a'
+    @home_page_link_text = 'All Lists'
+    @list_updated = 'The list has been updated.'
+    @list_header = 'section#todos > header > h2:first-of-type'
   end
 
   def teardown
@@ -45,22 +49,6 @@ class SinatraTodosTest < Minitest::Test
   def complete_new_list_form(page_obj, list_name)
     page_obj.find(new_list_form).set(list_name)
     page_obj.find(new_list_button).click
-  end
-
-  def test_lists_new_form
-    skip
-    visit "/lists/new"
-    form_selector = "form[action=\"/lists\"][method=\"post\"]"
-    label_selector = "form > dl > dt > label[for=\"list_name\"]"
-    input_selector = "form > dl > dd > input[type=\"text\"][name=\"list_name\"][value=\"\"]"
-    submit_button = "form > fieldset > input[type=\"submit\"][value=\"Save\"]"
-    form_link = "form > fieldset > a[href=\"/lists\"]"
-    assert_selector(form_selector)
-    assert_selector(label_selector)
-    assert_selector(input_selector)
-    assert_selector(submit_button)
-    assert_selector(form_link)
-    assert_text('Cancel', count: 1)
   end
 
   def test_add_new_list
@@ -82,20 +70,21 @@ class SinatraTodosTest < Minitest::Test
     # skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
-    assert_selector('section#todos > header > h2:first-of-type')
-    assert_equal(first_list_name, page.find('section#todos > header > h2:first-of-type').text)
-    assert_text("All Lists", count: 1)
+
+    assert_equal(first_list_name, page.find(list_header).text)
+    assert_text(home_page_link_text, count: 1)
   end
 
   def test_edit_a_list
     # skip
     create_new_list(new_list_path, first_list_name)
     assert_text(first_list_name, count: 1)
+
     page.find(first_list_link).click
     page.find(edit_list_link).click
-    page.find(new_list_form).set(second_list_name)
-    page.find(new_list_button).click
-    assert_text('The list has been updated.')
+
+    complete_new_list_form(page, second_list_name)
+    assert_text(list_updated)
     assert_text(second_list_name, count: 1)
   end
 
@@ -111,13 +100,14 @@ class SinatraTodosTest < Minitest::Test
   def test_spaces_only_for_edit_list_name
     # skip
     create_new_list(new_list_path, first_list_name)
+
     page.find(first_list_link).click
     page.find(edit_list_link).click
-    page.find(new_list_form).set(empty_string)
-    page.find(new_list_button).click
+
+    complete_new_list_form(page, empty_string)
     assert_text(list_name_error, count: 1)
-    page.find(new_list_form).set(second_list_name)
-    page.find(new_list_button).click
+
+    complete_new_list_form(page, second_list_name)
     assert_text(second_list_name, count: 1)
   end
 
@@ -125,11 +115,23 @@ class SinatraTodosTest < Minitest::Test
     # skip
     create_new_list(new_list_path, first_list_name)
     page.find('div.actions > a[href="/lists/new"]').click
-    page.find(new_list_form).set(first_list_name)
-    page.find(new_list_button).click
+
+    complete_new_list_form(page, first_list_name)
     assert_text(duplicate_list_error, count: 1)
-    page.find(new_list_form).set(second_list_name)
-    page.find(new_list_button).click
+
+    complete_new_list_form(page, second_list_name)
     assert_text(list_created, count: 1)
+  end
+
+  def test_home_page
+    create_new_list(new_list_path, first_list_name)
+    create_new_list(new_list_path, second_list_name)
+
+    assert_current_path(home_path)
+    assert_selector('ul#lists > li > a', count: 2)
+    assert_text(first_list_name, count: 1)
+    assert_text(second_list_name, count: 1)
+    assert_link(href: '/lists/0')
+    assert_link(href: '/lists/1')
   end
 end
