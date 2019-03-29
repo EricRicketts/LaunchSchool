@@ -30,7 +30,7 @@ class SinatraTodosTest < Minitest::Test
     @list_name_error = 'List name must be between 1 and 100 characters.'
     @duplicate_list_error = 'List name must be unique.'
     @empty_string = '   '
-    @edit_list_link = 'section#todos > header > a'
+    @edit_list_link = 'section#todos a'
     @home_page_link_text = 'All Lists'
     @list_updated = 'The list has been updated.'
     @list_header = 'section#todos > header > h2:first-of-type'
@@ -84,6 +84,7 @@ class SinatraTodosTest < Minitest::Test
     page.find(edit_list_link).click
 
     complete_new_list_form(page, second_list_name)
+
     assert_text(list_updated)
     assert_text(second_list_name, count: 1)
   end

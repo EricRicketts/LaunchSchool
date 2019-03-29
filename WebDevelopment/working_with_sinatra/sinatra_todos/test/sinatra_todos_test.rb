@@ -30,7 +30,7 @@ class SinatraTodosTest < Minitest::Test
     @list_name_error = 'List name must be between 1 and 100 characters.'
     @duplicate_list_error = 'List name must be unique.'
     @empty_string = '   '
-    @edit_list_link = 'section#todos > header > a'
+    @edit_list_link = 'section#todos a'
     @home_page_link_text = 'All Lists'
     @list_updated = 'The list has been updated.'
     @list_header = 'section#todos > header > h2:first-of-type'
@@ -43,10 +43,10 @@ class SinatraTodosTest < Minitest::Test
 
   def create_new_list(path, list_name)
     visit path
-    complete_new_list_form(page, list_name)
+    complete_list_form(page, list_name)
   end
 
-  def complete_new_list_form(page_obj, list_name)
+  def complete_list_form(page_obj, list_name)
     page_obj.find(new_list_form).set(list_name)
     page_obj.find(new_list_button).click
   end
@@ -83,7 +83,8 @@ class SinatraTodosTest < Minitest::Test
     page.find(first_list_link).click
     page.find(edit_list_link).click
 
-    complete_new_list_form(page, second_list_name)
+    complete_list_form(page, second_list_name)
+
     assert_text(list_updated)
     assert_text(second_list_name, count: 1)
   end
@@ -93,21 +94,20 @@ class SinatraTodosTest < Minitest::Test
     create_new_list(new_list_path, empty_string)
     assert_text(list_name_error, count: 1)
 
-    complete_new_list_form(page, first_list_name)
+    complete_list_form(page, first_list_name)
     assert_text(list_created, count: 1)
   end
 
   def test_spaces_only_for_edit_list_name
     # skip
     create_new_list(new_list_path, first_list_name)
-
     page.find(first_list_link).click
     page.find(edit_list_link).click
 
-    complete_new_list_form(page, empty_string)
+    complete_list_form(page, empty_string)
     assert_text(list_name_error, count: 1)
 
-    complete_new_list_form(page, second_list_name)
+    complete_list_form(page, second_list_name)
     assert_text(second_list_name, count: 1)
   end
 
@@ -116,10 +116,10 @@ class SinatraTodosTest < Minitest::Test
     create_new_list(new_list_path, first_list_name)
     page.find('div.actions > a[href="/lists/new"]').click
 
-    complete_new_list_form(page, first_list_name)
+    complete_list_form(page, first_list_name)
     assert_text(duplicate_list_error, count: 1)
 
-    complete_new_list_form(page, second_list_name)
+    complete_list_form(page, second_list_name)
     assert_text(list_created, count: 1)
   end
 
