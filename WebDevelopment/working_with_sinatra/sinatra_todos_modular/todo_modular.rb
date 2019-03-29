@@ -36,7 +36,11 @@ class TodoModular < Sinatra::Base
 
   get '/lists/:id' do |id|
     list = session[:lists][id.to_i]
-    erb :list, locals: { list: list, key: :none }, layout: :layout
+    erb :list, locals: { list: list, id: id, key: :none }, layout: :layout
+  end
+
+  get '/lists/:id/edit' do |id|
+    erb :edit_list, locals: { id: id, key: :none }, layout: :layout
   end
 
   post '/lists' do
@@ -49,6 +53,20 @@ class TodoModular < Sinatra::Base
       message = 'The list has been created.'
       set_flash(:success, message)
       session[:lists] << { name: list_name, todos: [] }
+      redirect '/lists'
+    end
+  end
+
+  post '/lists/:id' do |id|
+    list_name = params[:list_name].strip
+    error = error_for_list_name(list_name)
+    if error
+      set_flash(:error, error)
+      erb :edit_list, locals: { id: id, key: :error }, layout: :layout
+    else
+      message = 'The list has been updated.'
+      set_flash(:success, message)
+      session[:lists][id.to_i][:name] = list_name
       redirect '/lists'
     end
   end
