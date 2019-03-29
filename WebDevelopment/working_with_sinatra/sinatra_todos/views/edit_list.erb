@@ -4,11 +4,11 @@
       <label for="list_name">Edit the name of your list:</label>
     </dt>
     <dd>
-      <input type="text" name="list_name" placeholder="List Name" value="<%= list[:name] %>">
+      <input type="text" name="list_name" placeholder="List Name" value="<%= params[:list_name] || list[:name] %>">
     </dd>
   </dl>
   <fieldset class="actions">
     <input type="submit" value="Save">
-    <a href="/lists">Cancel</a>
+    <a href="/lists/<%= id %>">Cancel</a>
   </fieldset>
 </form>

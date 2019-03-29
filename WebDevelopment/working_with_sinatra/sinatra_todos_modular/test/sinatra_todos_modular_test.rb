@@ -124,6 +124,17 @@ class SinatraTodosTest < Minitest::Test
     assert_text(list_created, count: 1)
   end
 
+  def test_edit_list_and_cancel
+    # skip
+    create_new_list(new_list_path, first_list_name)
+    page.find(first_list_link).click
+    page.find(edit_list_link).click
+
+    page.find(new_list_form).set(second_list_name)
+    page.find('fieldset.actions a').click
+    assert_current_path('/lists/0')
+  end
+
   def test_home_page
     # skip
     create_new_list(new_list_path, first_list_name)

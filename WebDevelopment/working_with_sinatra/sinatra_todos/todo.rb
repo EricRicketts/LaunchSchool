@@ -76,7 +76,7 @@ post '/lists/:id' do |id|
   list = session[:lists][id.to_i]
   list_name = params[:list_name].strip
   error = error_for_list_name(list_name)
-  
+
   if error
     set_flash(:error, error)
     erb :edit_list, locals: { list: list, id: id, key: :error }, layout: :layout
