@@ -31,6 +31,14 @@ helpers do
       false
     end
   end
+
+  def error_for_todo(name)
+    if !(1..100).cover?(name.size)
+      'Todo must be between 1 and 100 characters.'
+    else
+      false
+    end
+  end
 end
 
 get '/' do
@@ -95,10 +103,17 @@ post '/lists/:id' do |id|
 end
 
 post '/lists/:id/todos' do |id|
-  todo = params[:todo]
-  session[:lists][id.to_i][:todos] << { name: todo, completed: false }
+  list = session[:lists][id.to_i]
+  todo = params[:todo].strip
+  error = error_for_todo(todo)
 
-  message = 'The todo was added.'
-  set_flash(:success, message)
-  redirect "/lists/#{id}"
+  if error
+    session[:error] = error
+    erb :list, locals: { list: list, id: id, key: :error}, layout: :layout
+  else
+    session[:lists][id.to_i][:todos] << { name: todo, completed: false }
+    message = 'The todo was added.'
+    set_flash(:success, message)
+    redirect "/lists/#{id}"   
+  end
 end
