@@ -134,6 +134,18 @@ class SinatraTodosTest < Minitest::Test
     assert_current_path('/lists/0')
   end
 
+  def test_delete_a_list
+    create_new_list(new_list_path, first_list_name)
+    create_new_list(new_list_path, second_list_name)
+
+    page.find_link('First List').click
+    page.find(edit_list_link).click
+
+    page.find_button('Delete List').click
+    assert_text('The list has been deleted.')
+    assert_no_text(first_list_name)
+  end
+
   def test_home_page
     # skip
     create_new_list(new_list_path, first_list_name)

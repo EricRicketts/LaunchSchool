@@ -58,6 +58,12 @@ get '/lists/:id/edit' do |id|
   erb :edit_list, locals: { list: list, id: id, key: :none }, layout: :layout
 end
 
+delete '/lists/:id/delete' do |id|
+  session[:lists].delete_at(id.to_i)
+  session[:success] = "The list has been deleted."
+  redirect '/lists'
+end
+
 post '/lists' do
   list_name = params[:list_name].strip
   error = error_for_list_name(list_name)
