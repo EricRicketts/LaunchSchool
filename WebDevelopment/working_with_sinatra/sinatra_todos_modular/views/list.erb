@@ -5,6 +5,15 @@
       <li><a class="edit" href="/lists/<%= id %>/edit">Edit List</a></li>
     </ul>
   </header>
+  <% unless list[:todos].empty? %>
+    <ul>
+    <% list[:todos].each.with_index do |todo, index| %>
+      <li>
+        <h3><%= todo[:name] %></h3>   
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
 </section>
 
 <form action="/lists/<%= id %>/todos" method="post">
@@ -13,7 +22,7 @@
       <label for="todo">Enter a new todo item:</label>
     </dt>
     <dd>
-      <input name="todo" id="todo" placeholder="Something to do" type="text" value="">
+      <input name="todo" id="todo" placeholder="Something to do" type="text" value="<%= params[:todo] %>">
     </dd>
   </dl>
   <fieldset class="actions">

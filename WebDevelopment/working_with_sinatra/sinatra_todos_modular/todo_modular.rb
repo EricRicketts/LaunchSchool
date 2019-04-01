@@ -81,4 +81,20 @@ class TodoModular < Sinatra::Base
       redirect "/lists/#{id}"
     end
   end
+
+  post '/lists/:id/todos' do |id|
+    list = session[:lists][id.to_i]
+    todo = params[:todo].strip
+    error = error_for_todo(todo)
+
+    if error
+      session[:error] = error
+      erb :list, locals: { list: list, id: id, key: :error}, layout: :layout
+    else
+      session[:lists][id.to_i][:todos] << { name: todo, completed: false }
+      message = 'The todo was added.'
+      set_flash(:success, message)
+      redirect "/lists/#{id}"
+    end
+  end
 end

@@ -19,6 +19,14 @@ module Sinatra
         false
       end
     end
+
+    def error_for_todo(name)
+      if !(1..100).cover?(name.size)
+        'Todo must be between 1 and 100 characters.'
+      else
+        false
+      end
+    end
   end
 
   helpers Helpers
