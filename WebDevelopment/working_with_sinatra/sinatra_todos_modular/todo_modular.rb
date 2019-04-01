@@ -12,6 +12,7 @@ require_relative './helpers/helpers'
 
 # Implement a modular Sinatra apllication
 class TodoModular < Sinatra::Base
+  use Rack::MethodOverride
   helpers Sinatra::ContentFor
   register Sinatra::Config
   register Sinatra::BeforeFilters
@@ -43,6 +44,12 @@ class TodoModular < Sinatra::Base
   get '/lists/:id/edit' do |id|
     list = session[:lists][id.to_i]
     erb :edit_list, locals: { list: list, id: id, key: :none }, layout: :layout
+  end
+
+  delete '/lists/:id/delete' do |id|
+    session[:lists].delete_at(id.to_i)
+    session[:success] = 'The list has been deleted.'
+    redirect '/lists'
   end
 
   post '/lists' do

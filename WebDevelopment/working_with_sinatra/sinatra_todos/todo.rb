@@ -60,7 +60,7 @@ end
 
 delete '/lists/:id/delete' do |id|
   session[:lists].delete_at(id.to_i)
-  session[:success] = "The list has been deleted."
+  session[:success] = 'The list has been deleted.'
   redirect '/lists'
 end
 
