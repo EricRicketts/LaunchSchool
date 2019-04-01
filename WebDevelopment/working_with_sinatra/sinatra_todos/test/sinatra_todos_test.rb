@@ -147,6 +147,18 @@ class SinatraTodosTest < Minitest::Test
     assert_no_text(first_list_name)
   end
 
+  def test_add_todos_to_a_list
+    # skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    assert_text('The todo was added.')
+    assert_text('First ToDo')
+  end
+
   def test_home_page
     # skip
     create_new_list(new_list_path, first_list_name)
