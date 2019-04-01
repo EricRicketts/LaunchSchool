@@ -168,6 +168,7 @@ class SinatraTodosTest < Minitest::Test
     page.find('fieldset.actions > input[value="Add"]').click
 
     assert_text('Todo must be between 1 and 100 characters.')
+    assert_current_path('/lists/0/todos')
   end
 
   def test_home_page
