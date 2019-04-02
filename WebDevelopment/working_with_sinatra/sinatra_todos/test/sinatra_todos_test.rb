@@ -186,9 +186,26 @@ class SinatraTodosTest < Minitest::Test
       assert_text(text)
     end
 
-    page.find('section#todos > ul > li:nth-of-type(2) > form > button').click
+    page.find('section#todos > ul > li:nth-of-type(2) > form:nth-of-type(2) > button').click
     assert_text('The todo has been deleted.')
     assert_no_text('Second ToDo')
+  end
+
+  def test_toggle_a_todo_item
+    # skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    assert_nil(page.find('section#todos > ul > li:first-of-type')['class'])
+
+    page.find('section#todos > ul > li:first-of-type > form:first-of-type > button').click
+    assert_equal("complete", page.find('section#todos > ul > li:first-of-type')['class'])
+
+    page.find('section#todos > ul > li:first-of-type > form:first-of-type > button').click
+    assert_nil(page.find('section#todos > ul > li:first-of-type')['class'])
   end
 
   def test_home_page
