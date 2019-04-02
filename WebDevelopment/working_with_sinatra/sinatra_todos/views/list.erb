@@ -8,7 +8,16 @@
   <% unless list[:todos].empty? %>
     <ul>
     <% list[:todos].each.with_index do |todo, index| %>
+      <% if todo[:completed] %>
+      <li class="complete">
+      <% else %>
       <li>
+      <% end %>
+        <form action="/lists/<%= list_id %>/todos/<%= index %>" method="post" class="check">
+          <input type="hidden" name="_method" value="patch">
+          <input type="hidden" name="completed" value="<%= !todo[:completed] %>">
+          <button type="submit">Complete</button>
+        </form>
         <h3><%= todo[:name] %></h3>
         <form action="/lists/<%= list_id %>/todos/<%= index %>" method="post" class="delete">
           <input type="hidden" name="_method" value="delete">
