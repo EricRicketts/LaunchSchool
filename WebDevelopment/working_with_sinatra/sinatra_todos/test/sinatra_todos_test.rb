@@ -171,6 +171,27 @@ class SinatraTodosTest < Minitest::Test
     assert_current_path('/lists/0/todos')
   end
 
+  def test_delete_a_todo_item_from_a_list
+    # skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Second ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    ['First ToDo', 'Second ToDo'].each do |text|
+      assert_text(text)
+    end
+
+    page.find('section#todos > ul > li:nth-of-type(2) > form > button').click
+    assert_text('The todo has been deleted.')
+    assert_no_text('Second ToDo')
+
+  end
+
   def test_home_page
     # skip
     create_new_list(new_list_path, first_list_name)

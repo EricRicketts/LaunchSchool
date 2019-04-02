@@ -66,10 +66,17 @@ get '/lists/:id/edit' do |id|
   erb :edit_list, locals: { list: list, id: id, key: :none }, layout: :layout
 end
 
-delete '/lists/:id/delete' do |id|
+delete '/lists/:id' do |id|
   session[:lists].delete_at(id.to_i)
   session[:success] = 'The list has been deleted.'
   redirect '/lists'
+end
+
+delete '/lists/:id/todos/:todo_id' do |id, todo_id|
+  list = session[:lists][id.to_i]
+  list[:todos].delete_at(todo_id.to_i)
+  session[:success] = 'The todo has been deleted.'
+  redirect "/lists/#{id}"
 end
 
 post '/lists' do
@@ -114,6 +121,6 @@ post '/lists/:id/todos' do |id|
     session[:lists][id.to_i][:todos] << { name: todo, completed: false }
     message = 'The todo was added.'
     set_flash(:success, message)
-    redirect "/lists/#{id}"   
+    redirect "/lists/#{id}"
   end
 end
