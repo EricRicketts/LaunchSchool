@@ -46,7 +46,7 @@ class TodoModular < Sinatra::Base
     erb :edit_list, locals: { list: list, list_id: list_id, key: :none }, layout: :layout
   end
 
-  delete '/lists/:list_id/delete' do |list_id|
+  delete '/lists/:list_id' do |list_id|
     session[:lists].delete_at(list_id.to_i)
     session[:success] = 'The list has been deleted.'
     redirect '/lists'
