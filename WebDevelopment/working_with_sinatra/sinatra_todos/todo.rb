@@ -87,6 +87,13 @@ patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
   redirect "/lists/#{list_id}"
 end
 
+patch '/lists/:list_id/todos' do |list_id|
+  list = session[:lists][list_id.to_i]
+  list[:todos].each { |todo| todo[:completed] = true }
+  session[:success] = "All todos have been completed."
+  redirect "/lists/#{list_id}"
+end
+
 post '/lists' do
   list_name = params[:list_name].strip
   error = error_for_list_name(list_name)

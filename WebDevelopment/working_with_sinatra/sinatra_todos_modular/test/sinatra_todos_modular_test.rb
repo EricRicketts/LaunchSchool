@@ -30,7 +30,7 @@ class SinatraTodosTest < Minitest::Test
     @list_name_error = 'List name must be between 1 and 100 characters.'
     @duplicate_list_error = 'List name must be unique.'
     @empty_string = '   '
-    @edit_list_link = 'section#todos a'
+    @edit_list_link = 'section#todos a.edit'
     @home_page_link_text = 'All Lists'
     @list_updated = 'The list has been updated.'
     @list_header = 'section#todos > header > h2:first-of-type'
@@ -209,6 +209,27 @@ class SinatraTodosTest < Minitest::Test
     page.find('section#todos > ul > li:first-of-type > form:first-of-type > button').click
     assert_text("The todo has been updated.", count: 1)
     assert_nil(page.find('section#todos > ul > li:first-of-type')['class'])
+  end
+
+  def test_toggle_all_todo_items
+    # skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Second ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Third ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    assert_nil(page.find('section#todos > ul > li:first-of-type')['class'])
+    page.find('section#todos button.check').click
+
+    assert_text('All todos have been completed.', count: 1)
+    assert_selector('section#todos > ul > li.complete', count: 3)
   end
 
   def test_home_page

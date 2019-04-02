@@ -2,6 +2,12 @@
   <header>
     <h2><%= list[:name] %></h2>
     <ul>
+      <li>
+        <form action="/lists/<%= list_id %>/todos" method="post" accept-charset="utf-8">
+          <input type="hidden" name="_method" value="patch">
+          <button class="check" type="submit">Complete All</button>
+        </form>
+      </li>
       <li><a class="edit" href="/lists/<%= list_id %>/edit">Edit List</a></li>
     </ul>
   </header>
