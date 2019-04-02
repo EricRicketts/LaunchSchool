@@ -18,10 +18,6 @@ before do
 end
 
 helpers do
-  def set_flash(key, message = '')
-    session[key] = message
-  end
-
   def error_for_list_name(name)
     if !(1..100).cover?(name.size)
       'List name must be between 1 and 100 characters.'
@@ -38,6 +34,15 @@ helpers do
     else
       false
     end
+  end
+
+  def list_complete?(list_id)
+    list = session[:lists][list_id]
+    list[:todos].all? { |todo| todo[:completed] }
+  end
+
+  def set_flash(key, message = '')
+    session[key] = message
   end
 end
 

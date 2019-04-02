@@ -52,7 +52,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_new_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     assert_text(list_created, count: 1)
     list_data = page.get_rack_session_key('lists').first
@@ -67,7 +67,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_visit_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
 
@@ -76,7 +76,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_edit_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     assert_text(first_list_name, count: 1)
 
@@ -90,7 +90,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_spaces_only_for_new_list_name
-    # skip
+    skip
     create_new_list(new_list_path, empty_string)
     assert_text(list_name_error, count: 1)
 
@@ -99,7 +99,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_spaces_only_for_edit_list_name
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
     page.find(edit_list_link).click
@@ -112,7 +112,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_new_list_name_no_duplicates
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find('div.actions > a[href="/lists/new"]').click
 
@@ -124,7 +124,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_edit_list_and_cancel
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
     page.find(edit_list_link).click
@@ -135,7 +135,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_delete_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     create_new_list(new_list_path, second_list_name)
 
@@ -148,7 +148,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_todos_to_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -160,7 +160,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_blank_spaces_for_todo_item
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -172,7 +172,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_delete_a_todo_item_from_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -192,7 +192,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_toggle_a_todo_item
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -228,11 +228,28 @@ class SinatraTodosTest < Minitest::Test
     page.find('section#todos button.check').click
 
     assert_text('All todos have been completed.', count: 1)
+    assert_equal('complete', page.find('section#todos')['class'])
     assert_selector('section#todos > ul > li.complete', count: 3)
   end
 
+  def test_completed_list_appearance_on_all_lists_page
+    skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Second ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Third ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+  end
+
   def test_home_page
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     create_new_list(new_list_path, second_list_name)
 
