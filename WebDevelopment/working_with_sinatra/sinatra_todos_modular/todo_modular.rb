@@ -35,19 +35,19 @@ class TodoModular < Sinatra::Base
     erb :new_list, locals: { key: :none }, layout: :layout
   end
 
-  get '/lists/:id' do |id|
-    list = session[:lists][id.to_i]
+  get '/lists/:list_id' do |list_id|
+    list = session[:lists][list_id.to_i]
     key = session.key?(:success) ? :success : :none
-    erb :list, locals: { list: list, id: id, key: key }, layout: :layout
+    erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
   end
 
-  get '/lists/:id/edit' do |id|
-    list = session[:lists][id.to_i]
-    erb :edit_list, locals: { list: list, id: id, key: :none }, layout: :layout
+  get '/lists/:list_id/edit' do |list_id|
+    list = session[:lists][list_id.to_i]
+    erb :edit_list, locals: { list: list, list_id: list_id, key: :none }, layout: :layout
   end
 
-  delete '/lists/:id/delete' do |id|
-    session[:lists].delete_at(id.to_i)
+  delete '/lists/:list_id/delete' do |list_id|
+    session[:lists].delete_at(list_id.to_i)
     session[:success] = 'The list has been deleted.'
     redirect '/lists'
   end
@@ -66,35 +66,35 @@ class TodoModular < Sinatra::Base
     end
   end
 
-  post '/lists/:id' do |id|
-    list = session[:lists][id.to_i]
+  post '/lists/:list_id' do |list_id|
+    list = session[:lists][list_id.to_i]
     list_name = params[:list_name].strip
     error = error_for_list_name(list_name)
 
     if error
       set_flash(:error, error)
-      erb :edit_list, locals: { list: list, id: id, key: :error }, layout: :layout
+      erb :edit_list, locals: { list: list, list_id: list_id, key: :error }, layout: :layout
     else
       message = 'The list has been updated.'
       set_flash(:success, message)
-      session[:lists][id.to_i][:name] = list_name
-      redirect "/lists/#{id}"
+      session[:lists][list_id.to_i][:name] = list_name
+      redirect "/lists/#{list_id}"
     end
   end
 
-  post '/lists/:id/todos' do |id|
-    list = session[:lists][id.to_i]
+  post '/lists/:list_id/todos' do |list_id|
+    list = session[:lists][list_id.to_i]
     todo = params[:todo].strip
     error = error_for_todo(todo)
 
     if error
       session[:error] = error
-      erb :list, locals: { list: list, id: id, key: :error}, layout: :layout
+      erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
     else
-      session[:lists][id.to_i][:todos] << { name: todo, completed: false }
+      session[:lists][list_id.to_i][:todos] << { name: todo, completed: false }
       message = 'The todo was added.'
       set_flash(:success, message)
-      redirect "/lists/#{id}"
+      redirect "/lists/#{list_id}"
     end
   end
 end
