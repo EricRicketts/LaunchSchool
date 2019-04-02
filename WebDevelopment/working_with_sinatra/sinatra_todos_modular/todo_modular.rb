@@ -63,6 +63,7 @@ class TodoModular < Sinatra::Base
     completed_value = params[:completed].to_s == "true"
     list = session[:lists][list_id.to_i]
     list[:todos][todo_id.to_i][:completed] = completed_value
+    session[:success] = "The todo has been updated."
     redirect "/lists/#{list_id}"
   end
 

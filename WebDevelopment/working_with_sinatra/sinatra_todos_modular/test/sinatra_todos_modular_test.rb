@@ -203,9 +203,11 @@ class SinatraTodosTest < Minitest::Test
     assert_nil(page.find('section#todos > ul > li:first-of-type')['class'])
 
     page.find('section#todos > ul > li:first-of-type > form:first-of-type > button').click
+    assert_text("The todo has been updated.", count: 1)
     assert_equal("complete", page.find('section#todos > ul > li:first-of-type')['class'])
 
     page.find('section#todos > ul > li:first-of-type > form:first-of-type > button').click
+    assert_text("The todo has been updated.", count: 1)
     assert_nil(page.find('section#todos > ul > li:first-of-type')['class'])
   end
 
