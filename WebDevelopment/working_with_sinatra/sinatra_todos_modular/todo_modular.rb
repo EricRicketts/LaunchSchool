@@ -59,6 +59,13 @@ class TodoModular < Sinatra::Base
     redirect "/lists/#{list_id}"
   end
 
+  patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
+    completed_value = params[:completed].to_s == "true"
+    list = session[:lists][list_id.to_i]
+    list[:todos][todo_id.to_i][:completed] = completed_value
+    redirect "/lists/#{list_id}"
+  end
+
   post '/lists' do
     list_name = params[:list_name].strip
     error = error_for_list_name(list_name)
