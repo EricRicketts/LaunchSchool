@@ -189,7 +189,6 @@ class SinatraTodosTest < Minitest::Test
     page.find('section#todos > ul > li:nth-of-type(2) > form > button').click
     assert_text('The todo has been deleted.')
     assert_no_text('Second ToDo')
-
   end
 
   def test_home_page
