@@ -52,6 +52,13 @@ class TodoModular < Sinatra::Base
     redirect '/lists'
   end
 
+  delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
+    list = session[:lists][list_id.to_i]
+    list[:todos].delete_at(todo_id.to_i)
+    session[:success] = 'The todo has been deleted.'
+    redirect "/lists/#{list_id}"
+  end
+
   post '/lists' do
     list_name = params[:list_name].strip
     error = error_for_list_name(list_name)
