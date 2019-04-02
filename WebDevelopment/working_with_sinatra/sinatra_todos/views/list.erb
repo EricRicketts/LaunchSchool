@@ -2,7 +2,7 @@
   <header>
     <h2><%= list[:name] %></h2>
     <ul>
-      <li><a class="edit" href="/lists/<%= id %>/edit">Edit List</a></li>
+      <li><a class="edit" href="/lists/<%= list_id %>/edit">Edit List</a></li>
     </ul>
   </header>
   <% unless list[:todos].empty? %>
@@ -10,7 +10,7 @@
     <% list[:todos].each.with_index do |todo, index| %>
       <li>
         <h3><%= todo[:name] %></h3>
-        <form action="/lists/<%= id %>/todos/<%= index %>" method="post" class="delete">
+        <form action="/lists/<%= list_id %>/todos/<%= index %>" method="post" class="delete">
           <input type="hidden" name="_method" value="delete">
           <button type="submit">Delete</button>
         </form>
@@ -20,7 +20,7 @@
   <% end %>
 </section>
 
-<form action="/lists/<%= id %>/todos" method="post">
+<form action="/lists/<%= list_id %>/todos" method="post">
   <dl>
     <dt>
       <label for="todo">Enter a new todo item:</label>
