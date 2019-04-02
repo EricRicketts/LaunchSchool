@@ -36,9 +36,8 @@ helpers do
     end
   end
 
-  def list_complete?(list_id)
-    list = session[:lists][list_id]
-    list[:todos].all? { |todo| todo[:completed] }
+  def list_complete?(list)
+    list[:todos].size > 0 && list[:todos].all? { |todo| todo[:completed] }
   end
 
   def set_flash(key, message = '')
