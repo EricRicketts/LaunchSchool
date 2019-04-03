@@ -41,17 +41,23 @@ helpers do
   end
 
   def list_complete?(list)
-    list[:todos].size > 0 && list[:todos].all? { |todo| todo[:completed] }
+    list_count(list) > 0 && todos_remaining(list).zero?
+  end
+
+  def list_count(list)
+    list[:todos].size
   end
 
   def list_status(list)
-    total = list[:todos].size
-    not_complete = list[:todos].reject { |todo| todo[:completed] }.size
-    "#{not_complete}/#{total}"
+    "#{todos_remaining(list)}/#{list_count(list)}"
   end
 
   def set_flash(key, message = '')
     session[key] = message
+  end
+
+  def todos_remaining(list)
+    list[:todos].reject { |todo| todo[:completed] }.size
   end
 end
 
