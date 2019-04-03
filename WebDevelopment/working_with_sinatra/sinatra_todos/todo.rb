@@ -68,6 +68,18 @@ helpers do
     uncompleted_lists + completed_lists
   end
 
+  def sort_todos(list)
+    completed_todos, uncompleted_todos = list[:todos].partition do |todo|
+      todo[:completed]
+    end
+
+    list[:todos] = [completed_todos, uncompleted_todos].each do |todo_arr|
+      todo_arr.sort_by! { |todo| todo[:created_at] }
+    end.reverse.flatten
+
+    list
+  end
+
   def todos_remaining(list)
     list[:todos].reject { |todo| todo[:completed] }.size
   end
@@ -89,7 +101,7 @@ get '/lists/new' do
 end
 
 get '/lists/:list_id' do |list_id|
-  list = session[:lists][list_id.to_i]
+  list = sort_todos(session[:lists][list_id.to_i])
   key = session.key?(:success) ? :success : :none
   erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
 end
@@ -166,7 +178,8 @@ post '/lists/:list_id/todos' do |list_id|
     session[:error] = error
     erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
   else
-    session[:lists][list_id.to_i][:todos] << { name: todo, completed: false }
+    todo_properites = { name: todo, completed: false, created_at: Time.now.gmtime }
+    session[:lists][list_id.to_i][:todos] << todo_properites
     message = 'The todo was added.'
     set_flash(:success, message)
     redirect "/lists/#{list_id}"
