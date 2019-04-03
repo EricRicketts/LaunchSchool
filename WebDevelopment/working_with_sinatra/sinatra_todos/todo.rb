@@ -156,7 +156,7 @@ post '/lists' do
   else
     message = 'The list has been created.'
     set_flash(:success, message)
-    session[:lists] << { name: list_name, todos: [], created_at: Time.now.gmtime }
+    session[:lists] << { name: list_name, todos: [] }
     redirect '/lists'
   end
 end

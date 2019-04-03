@@ -26,7 +26,6 @@ class TodoModular < Sinatra::Base
   end
 
   get '/lists' do
-    session[:lists] = sort_lists(session)
     locals = session.key?(:success) ? { key: :success } : { key: :none }
     locals = locals.merge({ lists: session[:lists] })
     erb :lists, locals: locals, layout: :layout
@@ -37,7 +36,7 @@ class TodoModular < Sinatra::Base
   end
 
   get '/lists/:list_id' do |list_id|
-    list = sort_todos(session[:lists][list_id.to_i])
+    list = session[:lists][list_id.to_i]
     key = session.key?(:success) ? :success : :none
     erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
   end
@@ -84,7 +83,7 @@ class TodoModular < Sinatra::Base
     else
       message = 'The list has been created.'
       set_flash(:success, message)
-      session[:lists] << { name: list_name, todos: [], created_at: Time.now.gmtime }
+      session[:lists] << { name: list_name, todos: [] }
       redirect '/lists'
     end
   end
@@ -114,7 +113,7 @@ class TodoModular < Sinatra::Base
       session[:error] = error
       erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
     else
-      todo_properites = { name: todo, completed: false, created_at: Time.now.gmtime }
+      todo_properites = { name: todo, completed: false }
       session[:lists][list_id.to_i][:todos] << todo_properites
       message = 'The todo was added.'
       set_flash(:success, message)

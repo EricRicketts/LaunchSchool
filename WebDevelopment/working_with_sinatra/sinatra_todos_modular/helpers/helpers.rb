@@ -44,28 +44,36 @@ module Sinatra
       session[key] = message
     end
 
-    def sort_lists(session)
-      completed_lists, uncompleted_lists = session[:lists].partition do |list|
-        list_complete?(list)
+    def sort_lists(lists, &block)
+      incomplete_lists = {}
+      complete_lists = {}
+
+      lists.each.with_index do |list, idx|
+        if list_complete?(list)
+          complete_lists[list] = idx
+        else
+          incomplete_lists[list] = idx
+        end
       end
 
-      [completed_lists, uncompleted_lists].each do |list_arr|
-        list_arr.sort_by! { |list| list[:created_at] }
-      end
-
-      uncompleted_lists + completed_lists
+      incomplete_lists.each(&block)
+      complete_lists.each(&block)
     end
 
-    def sort_todos(list)
-      completed_todos, uncompleted_todos = list[:todos].partition do |todo|
-        todo[:completed]
+    def sort_todos(todos, &block)
+      incomplete_todos = {}
+      complete_todos = {}
+
+      todos.each.with_index do |todo, idx|
+        if todo[:completed]
+          complete_todos[todo] = idx
+        else
+          incomplete_todos[todo] = idx
+        end
       end
 
-      list[:todos] = [completed_todos, uncompleted_todos].each do |todo_arr|
-        todo_arr.sort_by! { |todo| todo[:created_at] }
-      end.reverse.flatten
-
-      list
+      incomplete_todos.each(&block)
+      complete_todos.each(&block)
     end
 
     def todos_remaining(list)
