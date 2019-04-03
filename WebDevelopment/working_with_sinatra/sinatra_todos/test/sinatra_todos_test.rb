@@ -56,13 +56,13 @@ class SinatraTodosTest < Minitest::Test
     create_new_list(new_list_path, first_list_name)
     assert_text(list_created, count: 1)
     list_data = page.get_rack_session_key('lists').first
-    list_name, list_todos = list_data[:name], list_data[:todos].size.to_s
+    list_name = list_data[:name]
 
     visit home_path
 
     assert_no_text(list_created, count: 1)
     assert_equal(list_name, page.find('ul#lists > li > a > h2').text)
-    assert_equal(list_todos, page.find('ul#lists > li > a > p').text)
+    assert_equal('0/0', page.find('ul#lists > li > a > p').text)
     assert_text(first_list_name, count: 1)
   end
 
@@ -250,6 +250,27 @@ class SinatraTodosTest < Minitest::Test
     page.find_link('All Lists').click
 
     assert_equal('complete', page.find('ul#lists > li:first-of-type')['class'])
+  end
+
+  def test_list_status_on_all_lists_page
+    # skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Second ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Third ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('h3', exact_text: 'First ToDo').sibling('form.check').find('button').click
+    page.find('h3', exact_text: 'Second ToDo').sibling('form.check').find('button').click
+
+    page.find_link('All Lists').click
+    assert_text('1/3', count: 1)
   end
 
   def test_home_page
