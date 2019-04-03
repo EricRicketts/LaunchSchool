@@ -7,7 +7,7 @@
   <% end %>
 		<a href="/lists/<%= list_id %>">
 			<h2><%= list[:name] %></h2>
-			<p><%= list[:todos].size %></p>
+			<p><%= list_status(list) %></p>
 		</a>
 	</li>
 	<% end %>

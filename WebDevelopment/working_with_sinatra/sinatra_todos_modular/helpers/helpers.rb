@@ -31,6 +31,12 @@ module Sinatra
     def list_complete?(list)
       list[:todos].size > 0 && list[:todos].all? { |todo| todo[:completed] }
     end
+
+    def list_status(list)
+      total = list[:todos].size
+      not_complete = list[:todos].reject { |todo| todo[:completed] }.size
+      "#{not_complete}/#{total}"
+    end
   end
 
   helpers Helpers
