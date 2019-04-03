@@ -274,6 +274,59 @@ class SinatraTodosTest < Minitest::Test
     assert_text('1/3', count: 1)
   end
 
+  def test_todos_sorted_when_completed
+    # skip
+    create_new_list(new_list_path, first_list_name)
+
+    page.find_link('First List').click
+    page.find('input', id: 'todo').set('First ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Second ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Third ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('input', id: 'todo').set('Fourth ToDo')
+    page.find('fieldset.actions > input[value="Add"]').click
+
+    page.find('h3', exact_text: 'Second ToDo').sibling('form.check').find('button').click
+    page.find('h3', exact_text: 'Fourth ToDo').sibling('form.check').find('button').click
+
+    todos = page.find_all('section#todos > ul > li')
+    %W[First\sToDo Third\sToDo Second\sToDo Fourth\sToDo].each.with_index do |todo_name, idx|
+      assert_equal(todo_name, todos[idx].find('h3').text)
+    end
+  end
+
+  def test_lists_sorted_when_completed
+    #skip
+    list_names = %W[First\sList Second\sList Third\sList Fourth\sList]
+    list_names.each do |list_name|
+      create_new_list(new_list_path, list_name)
+    end
+
+    list_names.each do |list_name|
+      page.find_link(list_name).click
+      page.find('input', id: 'todo').set('First ToDo')
+      page.find('fieldset.actions > input[value="Add"]').click
+      page.find_link('All Lists').click
+    end
+
+    %W[Second\sList Fourth\sList].each do |list_name|
+      page.find_link(list_name).click
+      page.find('h3', exact_text: 'First ToDo').sibling('form.check').find('button').click
+      page.find_link('All Lists').click
+    end
+
+    expected_sort = [list_names[0], list_names[2], list_names[1], list_names[3]]
+    lists = page.find_all('ul#lists > li')
+    expected_sort.each.with_index do |list_name, idx|
+      assert_equal(list_name, lists[idx].find('a > h2').text)
+    end
+  end
+
   def test_home_page
     # skip
     create_new_list(new_list_path, first_list_name)
