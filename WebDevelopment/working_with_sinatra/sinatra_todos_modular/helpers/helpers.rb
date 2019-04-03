@@ -45,35 +45,17 @@ module Sinatra
     end
 
     def sort_lists(lists, &block)
-      incomplete_lists = {}
-      complete_lists = {}
+      complete_lists, incomplete_lists = lists.partition { |list| list_complete?(list) }
 
-      lists.each.with_index do |list, idx|
-        if list_complete?(list)
-          complete_lists[list] = idx
-        else
-          incomplete_lists[list] = idx
-        end
-      end
-
-      incomplete_lists.each(&block)
-      complete_lists.each(&block)
+      incomplete_lists.each { |list| yield list, lists.index(list) }
+      complete_lists.each { |list| yield list, lists.index(list) }
     end
 
     def sort_todos(todos, &block)
-      incomplete_todos = {}
-      complete_todos = {}
+      complete_todos, incomplete_todos = todos.partition { |todo| todo[:completed] }
 
-      todos.each.with_index do |todo, idx|
-        if todo[:completed]
-          complete_todos[todo] = idx
-        else
-          incomplete_todos[todo] = idx
-        end
-      end
-
-      incomplete_todos.each(&block)
-      complete_todos.each(&block)
+      incomplete_todos.each { |todo| yield todo, todos.index(todo) }
+      complete_todos.each { |todo| yield todo, todos.index(todo) }
     end
 
     def todos_remaining(list)
