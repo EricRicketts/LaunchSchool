@@ -229,11 +229,12 @@ class SinatraTodosTest < Minitest::Test
     page.find('section#todos button.check').click
 
     assert_text('All todos have been completed.', count: 1)
+    assert_equal('complete', page.find('section#todos')['class'])
     assert_selector('section#todos > ul > li.complete', count: 3)
   end
 
-  def test_completed_list_appearance_on_list_page
-    skip
+  def test_completed_list_appearance_on_all_lists_page
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -246,6 +247,10 @@ class SinatraTodosTest < Minitest::Test
     page.find('input', id: 'todo').set('Third ToDo')
     page.find('fieldset.actions > input[value="Add"]').click
 
+    page.find('section#todos button.check').click
+    page.find_link('All Lists').click
+
+    assert_equal('complete', page.find('ul#lists > li:first-of-type')['class'])
   end
 
   def test_home_page
