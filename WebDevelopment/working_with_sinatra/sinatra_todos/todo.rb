@@ -56,6 +56,18 @@ helpers do
     session[key] = message
   end
 
+  def sort_lists(session)
+    completed_lists, uncompleted_lists = session[:lists].partition do |list|
+      list_complete?(list)
+    end
+
+    [completed_lists, uncompleted_lists].each do |list_arr|
+      list_arr.sort_by! { |list| list[:created_at] }
+    end
+
+    uncompleted_lists + completed_lists
+  end
+
   def todos_remaining(list)
     list[:todos].reject { |todo| todo[:completed] }.size
   end
@@ -66,9 +78,9 @@ get '/' do
 end
 
 get '/lists' do
-  lists = session[:lists]
+  session[:lists] = sort_lists(session)
   locals = session.key?(:success) ? { key: :success } : { key: :none }
-  locals = locals.merge({ lists: lists })
+  locals = locals.merge({ lists: session[:lists] })
   erb :lists, locals: locals, layout: :layout
 end
 
@@ -124,7 +136,7 @@ post '/lists' do
   else
     message = 'The list has been created.'
     set_flash(:success, message)
-    session[:lists] << { name: list_name, todos: [] }
+    session[:lists] << { name: list_name, todos: [], created_at: Time.now.gmtime }
     redirect '/lists'
   end
 end
