@@ -66,8 +66,9 @@ get '/' do
 end
 
 get '/lists' do
-  @lists = session[:lists]
+  lists = session[:lists]
   locals = session.key?(:success) ? { key: :success } : { key: :none }
+  locals = locals.merge({ lists: lists })
   erb :lists, locals: locals, layout: :layout
 end
 
