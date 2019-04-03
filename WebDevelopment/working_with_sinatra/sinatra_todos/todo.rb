@@ -56,28 +56,36 @@ helpers do
     session[key] = message
   end
 
-  def sort_lists(session)
-    completed_lists, uncompleted_lists = session[:lists].partition do |list|
-      list_complete?(list)
+  def sort_lists(lists, &block)
+    incomplete_lists = {}
+    complete_lists = {}
+
+    lists.each.with_index do |list, idx|
+      if list_complete?(list)
+        complete_lists[list] = idx
+      else
+        incomplete_lists[list] = idx
+      end
     end
 
-    [completed_lists, uncompleted_lists].each do |list_arr|
-      list_arr.sort_by! { |list| list[:created_at] }
-    end
-
-    uncompleted_lists + completed_lists
+    incomplete_lists.each(&block)
+    complete_lists.each(&block)
   end
 
-  def sort_todos(list)
-    completed_todos, uncompleted_todos = list[:todos].partition do |todo|
-      todo[:completed]
+  def sort_todos(todos, &block)
+    incomplete_todos = {}
+    complete_todos = {}
+
+    todos.each.with_index do |todo, idx|
+      if todo[:completed]
+        complete_todos[todo] = idx
+      else
+        incomplete_todos[todo] = idx
+      end
     end
 
-    list[:todos] = [completed_todos, uncompleted_todos].each do |todo_arr|
-      todo_arr.sort_by! { |todo| todo[:created_at] }
-    end.reverse.flatten
-
-    list
+    incomplete_todos.each(&block)
+    complete_todos.each(&block)
   end
 
   def todos_remaining(list)
@@ -90,7 +98,7 @@ get '/' do
 end
 
 get '/lists' do
-  session[:lists] = sort_lists(session)
+  # session[:lists] = sort_lists(session)
   locals = session.key?(:success) ? { key: :success } : { key: :none }
   locals = locals.merge({ lists: session[:lists] })
   erb :lists, locals: locals, layout: :layout
@@ -101,7 +109,7 @@ get '/lists/new' do
 end
 
 get '/lists/:list_id' do |list_id|
-  list = sort_todos(session[:lists][list_id.to_i])
+  list = session[:lists][list_id.to_i]
   key = session.key?(:success) ? :success : :none
   erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
 end
@@ -178,7 +186,7 @@ post '/lists/:list_id/todos' do |list_id|
     session[:error] = error
     erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
   else
-    todo_properites = { name: todo, completed: false, created_at: Time.now.gmtime }
+    todo_properites = { name: todo, completed: false }
     session[:lists][list_id.to_i][:todos] << todo_properites
     message = 'The todo was added.'
     set_flash(:success, message)
