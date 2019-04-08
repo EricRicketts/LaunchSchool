@@ -13,6 +13,10 @@ module Sinatra
         set :session_secret, 'secret'
       end
     end
+
+    def enable_escape_html
+      set :erb, escape_html: true
+    end
   end
 
   register Config

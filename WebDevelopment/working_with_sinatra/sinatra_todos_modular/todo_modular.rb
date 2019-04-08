@@ -20,6 +20,7 @@ class TodoModular < Sinatra::Base
 
   enable_sessions
   init_session
+  enable_escape_html
 
   get '/' do
     redirect '/lists'
