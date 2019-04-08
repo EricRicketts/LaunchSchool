@@ -11,6 +11,7 @@ configure do
   enable :sessions
   use RackSessionAccess::Middleware if ENV['APP_ENV'] == 'test'
   set :session_secret, 'secret'
+  set :erb, escape_html: true
 end
 
 before do
