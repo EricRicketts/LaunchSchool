@@ -300,7 +300,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_lists_sorted_when_completed
-    #skip
+    # skip
     list_names = %W[First\sList Second\sList Third\sList Fourth\sList]
     list_names.each do |list_name|
       create_new_list(new_list_path, list_name)
@@ -337,5 +337,14 @@ class SinatraTodosTest < Minitest::Test
     assert_text(second_list_name, count: 1)
     assert_link(href: '/lists/0')
     assert_link(href: '/lists/1')
+  end
+
+  def test_non_existant_list
+    # skip
+    create_new_list(new_list_path, first_list_name)
+    visit "/lists/100"
+
+    assert_text('The specified list was not found.', count: 1)
+    assert_current_path(home_path)
   end
 end

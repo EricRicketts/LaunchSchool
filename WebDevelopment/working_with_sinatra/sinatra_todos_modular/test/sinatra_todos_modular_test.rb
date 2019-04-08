@@ -339,4 +339,13 @@ class SinatraTodosTest < Minitest::Test
     assert_link(href: '/lists/0')
     assert_link(href: '/lists/1')
   end
+
+  def test_non_existant_list
+    # skip
+    create_new_list(new_list_path, first_list_name)
+    visit "/lists/100"
+
+    assert_text('The specified list was not found.', count: 1)
+    assert_current_path(home_path)
+  end
 end

@@ -37,6 +37,16 @@ helpers do
     end
   end
 
+  def flash_key
+    if session.key?(:success )
+      { key: :success }
+    elsif session.key?(:error)
+      { key: :error }
+    else
+      { key: :none }
+    end
+  end
+
   def list_class(list)
     "complete" if list_complete?(list)
   end
@@ -51,6 +61,15 @@ helpers do
 
   def list_status(list)
     "#{todos_remaining(list)}/#{list_count(list)}"
+  end
+
+  def load_list(index)
+    list = session[:lists][index] if index && session[:lists][index]
+    return list if list
+
+    message = 'The specified list was not found.'
+    set_flash(:error, message)
+    redirect '/lists'
   end
 
   def set_flash(key, message = '')
@@ -81,8 +100,7 @@ get '/' do
 end
 
 get '/lists' do
-  # session[:lists] = sort_lists(session)
-  locals = session.key?(:success) ? { key: :success } : { key: :none }
+  locals = flash_key
   locals = locals.merge({ lists: session[:lists] })
   erb :lists, locals: locals, layout: :layout
 end
@@ -92,13 +110,13 @@ get '/lists/new' do
 end
 
 get '/lists/:list_id' do |list_id|
-  list = session[:lists][list_id.to_i]
+  list = load_list(list_id.to_i)
   key = session.key?(:success) ? :success : :none
   erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
 end
 
 get '/lists/:list_id/edit' do |list_id|
-  list = session[:lists][list_id.to_i]
+  list = load_list(list_id.to_i)
   erb :edit_list, locals: { list: list, list_id: list_id, key: :none }, layout: :layout
 end
 
@@ -109,7 +127,7 @@ delete '/lists/:list_id' do |list_id|
 end
 
 delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
-  list = session[:lists][list_id.to_i]
+  list = load_list(list_id.to_i)
   list[:todos].delete_at(todo_id.to_i)
   session[:success] = 'The todo has been deleted.'
   redirect "/lists/#{list_id}"
@@ -117,14 +135,14 @@ end
 
 patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
   completed_value = params[:completed].to_s == "true"
-  list = session[:lists][list_id.to_i]
+  list = load_list(list_id.to_i)
   list[:todos][todo_id.to_i][:completed] = completed_value
   session[:success] = "The todo has been updated."
   redirect "/lists/#{list_id}"
 end
 
 patch '/lists/:list_id/todos' do |list_id|
-  list = session[:lists][list_id.to_i]
+  list = load_list(list_id.to_i)
   list[:todos].each { |todo| todo[:completed] = true }
   session[:success] = "All todos have been completed."
   redirect "/lists/#{list_id}"
@@ -145,8 +163,8 @@ post '/lists' do
 end
 
 post '/lists/:list_id' do |list_id|
-  list = session[:lists][list_id.to_i]
   list_name = params[:list_name].strip
+  list = load_list(list_id.to_i)
   error = error_for_list_name(list_name)
 
   if error
@@ -161,8 +179,8 @@ post '/lists/:list_id' do |list_id|
 end
 
 post '/lists/:list_id/todos' do |list_id|
-  list = session[:lists][list_id.to_i]
   todo = params[:todo].strip
+  list = load_list(list_id.to_i)
   error = error_for_todo(todo)
 
   if error

@@ -24,6 +24,16 @@ module Sinatra
       end
     end
 
+    def flash_key
+      if session.key?(:success )
+        { key: :success }
+      elsif session.key?(:error)
+        { key: :error }
+      else
+        { key: :none }
+      end
+    end
+
     def list_class(list)
       "complete" if list_complete?(list)
     end
@@ -38,6 +48,15 @@ module Sinatra
 
     def list_status(list)
       "#{todos_remaining(list)}/#{list_count(list)}"
+    end
+
+    def load_list(index)
+      list = session[:lists][index] if index && session[:lists][index]
+      return list if list
+
+      message = 'The specified list was not found.'
+      set_flash(:error, message)
+      redirect '/lists'
     end
 
     def set_flash(key, message = '')
