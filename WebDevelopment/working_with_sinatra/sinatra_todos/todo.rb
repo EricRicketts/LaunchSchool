@@ -19,6 +19,11 @@ before do
 end
 
 helpers do
+  def create_todo_id(todos)
+    max = todos.map { |todo| todo[:id] }.max || 0
+    max + 1
+  end
+
   def error_for_list_name(name)
     if !(1..100).cover?(name.size)
       'List name must be between 1 and 100 characters.'
@@ -86,8 +91,11 @@ helpers do
   def sort_todos(todos, &block)
     complete_todos, incomplete_todos = todos.partition { |todo| todo[:completed] }
 
-    incomplete_todos.each { |todo| yield todo, todos.index(todo) }
-    complete_todos.each { |todo| yield todo, todos.index(todo) }
+    incomplete_todos.sort_by! { |todo| todo[:id] }
+    complete_todos.sort_by! { |todo| todo[:id] }
+
+    incomplete_todos.each { |todo| yield todo }
+    complete_todos.each { |todo| yield todo }
   end
 
   def todos_remaining(list)
@@ -122,21 +130,31 @@ end
 
 delete '/lists/:list_id' do |list_id|
   session[:lists].delete_at(list_id.to_i)
-  session[:success] = 'The list has been deleted.'
-  redirect '/lists'
+  if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+    "/lists"
+  else
+    session[:success] = 'The list has been deleted.'
+    redirect '/lists'
+  end
 end
 
 delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
   list = load_list(list_id.to_i)
-  list[:todos].delete_at(todo_id.to_i)
-  session[:success] = 'The todo has been deleted.'
-  redirect "/lists/#{list_id}"
+  idx = list[:todos].index { |todo| todo[:id] == todo_id.to_i }
+  list[:todos].delete_at(idx)
+
+  if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+    status 204
+  else
+    session[:success] = 'The todo has been deleted.'
+    redirect "/lists/#{list_id}"
+  end
 end
 
 patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
   completed_value = params[:completed].to_s == "true"
   list = load_list(list_id.to_i)
-  list[:todos][todo_id.to_i][:completed] = completed_value
+  list[:todos].find { |todo| todo[:id] == todo_id.to_i }[:completed] = completed_value
   session[:success] = "The todo has been updated."
   redirect "/lists/#{list_id}"
 end
@@ -187,7 +205,7 @@ post '/lists/:list_id/todos' do |list_id|
     session[:error] = error
     erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
   else
-    todo_properites = { name: todo, completed: false }
+    todo_properites = { id: create_todo_id(list[:todos]), name: todo, completed: false }
     session[:lists][list_id.to_i][:todos] << todo_properites
     message = 'The todo was added.'
     set_flash(:success, message)

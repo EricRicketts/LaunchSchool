@@ -49,21 +49,31 @@ class TodoModular < Sinatra::Base
 
   delete '/lists/:list_id' do |list_id|
     session[:lists].delete_at(list_id.to_i)
-    session[:success] = 'The list has been deleted.'
-    redirect '/lists'
+    if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+      "/lists"
+    else
+      session[:success] = 'The list has been deleted.'
+      redirect '/lists'
+    end
   end
 
   delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
     list = load_list(list_id.to_i)
-    list[:todos].delete_at(todo_id.to_i)
-    session[:success] = 'The todo has been deleted.'
-    redirect "/lists/#{list_id}"
+    idx = list[:todos].index { |todo| todo[:id] == todo_id.to_i }
+    list[:todos].delete_at(idx)
+
+    if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+      status 204
+    else
+      session[:success] = 'The todo has been deleted.'
+      redirect "/lists/#{list_id}"
+    end
   end
 
   patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
     completed_value = params[:completed].to_s == "true"
     list = load_list(list_id.to_i)
-    list[:todos][todo_id.to_i][:completed] = completed_value
+    list[:todos].find { |todo| todo[:id] == todo_id.to_i }[:completed] = completed_value
     session[:success] = "The todo has been updated."
     redirect "/lists/#{list_id}"
   end
@@ -114,7 +124,7 @@ class TodoModular < Sinatra::Base
       session[:error] = error
       erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
     else
-      todo_properites = { name: todo, completed: false }
+      todo_properites = { id: create_todo_id(list[:todos]), name: todo, completed: false }
       session[:lists][list_id.to_i][:todos] << todo_properites
       message = 'The todo was added.'
       set_flash(:success, message)

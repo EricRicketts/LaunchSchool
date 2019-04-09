@@ -6,6 +6,11 @@ require 'sinatra/base'
 module Sinatra
   # Define helper methods for route handlers and view templates
   module Helpers
+    def create_todo_id(todos)
+      max = todos.map { |todo| todo[:id] }.max || 0
+      max + 1
+    end
+
     def error_for_list_name(name)
       if !(1..100).cover?(name.size)
         'List name must be between 1 and 100 characters.'
@@ -73,8 +78,11 @@ module Sinatra
     def sort_todos(todos, &block)
       complete_todos, incomplete_todos = todos.partition { |todo| todo[:completed] }
 
-      incomplete_todos.each { |todo| yield todo, todos.index(todo) }
-      complete_todos.each { |todo| yield todo, todos.index(todo) }
+      incomplete_todos.sort_by! { |todo| todo[:id] }
+      complete_todos.sort_by! { |todo| todo[:id] }
+
+      incomplete_todos.each { |todo| yield todo }
+      complete_todos.each { |todo| yield todo }
     end
 
     def todos_remaining(list)
