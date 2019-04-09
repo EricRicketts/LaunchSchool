@@ -1,12 +1,12 @@
 <ul id="lists">
-	<% sort_lists(lists) do |list, list_id| %>
+<% sort_lists_or_todos(lists) do |list| %>
   <li class="<%= list_class(list) %>">
-		<a href="/lists/<%= list_id %>">
-			<h2><%= list[:name] %></h2>
-			<p><%= list_status(list) %></p>
-		</a>
-	</li>
-	<% end %>
+    <a href="/lists/<%= list[:id] %>">
+      <h2><%= list[:name] %></h2>
+      <p><%= list_status(list) %></p>
+    </a>
+  </li>
+  <% end %>
 </ul>
 
 <% content_for :header_links do %>

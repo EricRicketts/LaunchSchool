@@ -132,7 +132,7 @@ class SinatraTodosTest < Minitest::Test
 
     page.find(new_list_form).set(second_list_name)
     page.find('fieldset.actions a').click
-    assert_current_path('/lists/0')
+    assert_current_path('/lists/1')
   end
 
   def test_delete_a_list
@@ -169,7 +169,7 @@ class SinatraTodosTest < Minitest::Test
     page.find('fieldset.actions > input[value="Add"]').click
 
     assert_text('Todo must be between 1 and 100 characters.')
-    assert_current_path('/lists/0/todos')
+    assert_current_path('/lists/1/todos')
   end
 
   def test_delete_a_todo_item_from_a_list
@@ -336,8 +336,8 @@ class SinatraTodosTest < Minitest::Test
     assert_selector('ul#lists > li > a', count: 2)
     assert_text(first_list_name, count: 1)
     assert_text(second_list_name, count: 1)
-    assert_link(href: '/lists/0')
     assert_link(href: '/lists/1')
+    assert_link(href: '/lists/2')
   end
 
   def test_non_existant_list

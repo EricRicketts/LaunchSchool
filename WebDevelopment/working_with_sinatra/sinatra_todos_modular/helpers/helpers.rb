@@ -6,8 +6,8 @@ require 'sinatra/base'
 module Sinatra
   # Define helper methods for route handlers and view templates
   module Helpers
-    def create_todo_id(todos)
-      max = todos.map { |todo| todo[:id] }.max || 0
+    def create_id(arr)
+      max = arr.map { |hsh| hsh[:id] }.max || 0
       max + 1
     end
 
@@ -55,34 +55,28 @@ module Sinatra
       "#{todos_remaining(list)}/#{list_count(list)}"
     end
 
-    def load_list(index)
-      list = session[:lists][index] if index && session[:lists][index]
-      return list if list
-
-      message = 'The specified list was not found.'
-      set_flash(:error, message)
-      redirect '/lists'
+    def load_list(list_id)
+      list = session[:lists].find { |list| list[:id] == list_id.to_i }
+      if list_id && list
+        list
+      else
+        message = 'The specified list was not found.'
+        set_flash(:error, message)
+        redirect '/lists'
+      end
     end
 
     def set_flash(key, message = '')
       session[key] = message
     end
 
-    def sort_lists(lists, &block)
-      complete_lists, incomplete_lists = lists.partition { |list| list_complete?(list) }
+    def sort_lists_or_todos(arr, &block)
+      complete, incomplete = arr.partition do |hsh|
+        hsh.key?(:todos) ? list_complete?(hsh) : hsh[:completed]
+      end
 
-      incomplete_lists.each { |list| yield list, lists.index(list) }
-      complete_lists.each { |list| yield list, lists.index(list) }
-    end
-
-    def sort_todos(todos, &block)
-      complete_todos, incomplete_todos = todos.partition { |todo| todo[:completed] }
-
-      incomplete_todos.sort_by! { |todo| todo[:id] }
-      complete_todos.sort_by! { |todo| todo[:id] }
-
-      incomplete_todos.each { |todo| yield todo }
-      complete_todos.each { |todo| yield todo }
+      incomplete.sort_by! { |hsh| hsh[:id] }.each(&block)
+      complete.sort_by! { |hsh| hsh[:id] }.each(&block)
     end
 
     def todos_remaining(list)
