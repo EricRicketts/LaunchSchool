@@ -5,7 +5,6 @@ require 'tilt/erubis'
 require 'rack_session_access'
 require 'pry-byebug'
 
-PROJECT_DIR = '/Documents/LaunchSchool/WebDevelopment/working_with_sinatra/file_based_cms/'
 configure do
   enable :sessions
   use RackSessionAccess::Middleware if ENV['APP_ENV'] == 'test'
@@ -13,16 +12,14 @@ configure do
 end
 
   helpers do
-    def change_directory(dir)
-      Dir.home << PROJECT_DIR << dir
+    def get_full_path(file)
+      File.expand_path(file)
     end
 
-    def get_data
-      d = Dir.new(change_directory('data'))
-      d.select { |fname| fname.match?(/[[:alnum:]]+\.txt/) }
-    end
   end
 
 get "/" do
+  dir = get_full_path("data")
+  @files = Dir.glob("*.txt", base:dir)
   erb :index
 end
