@@ -1,0 +1,23 @@
+source 'https://rubygems.org'
+
+ruby '2.5.1'
+
+gem "sinatra", "~>2.0.5"
+gem "sinatra-contrib", "~>2.0.5"
+gem "erubis", "~>2.7.0"
+
+group :development do
+  gem "pry-byebug", "~>3.6.0"
+  gem "rubocop", "~>0.66.0"
+end
+
+group :test do
+  gem "minitest", "~>5.11.3"
+  gem "capybara", "~>3.15.0"
+  gem "rack-test", "~>1.1.0"
+  gem "rack_session_access", "~>0.2.0"
+end
+
+group :production do
+  gem "puma", "~>3.12.0"
+end
