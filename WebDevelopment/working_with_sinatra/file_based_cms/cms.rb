@@ -7,7 +7,7 @@ require 'pry-byebug'
 
 configure do
   enable :sessions
-  use RackSessionAccess::Middleware if ENV['APP_ENV'] == 'test'
+  use RackSessionAccess::Middleware if ENV['RACK_ENV'] == 'test'
   set :erb, escape_html: true
 end
 
@@ -16,16 +16,25 @@ end
       File.expand_path(file)
     end
 
+    def file_exists?(dir, file)
+      files = Dir.glob("*.txt", base: dir)
+      files.include?(file)
+    end
   end
 
 get "/" do
-  dir = get_full_path("data")
-  @files = Dir.glob("*.txt", base:dir)
+  dir = get_full_path('data')
+  @files = Dir.glob("*.txt", base: dir)
   erb :index
 end
 
 get "/:fname" do |fname|
   dir = get_full_path("data")
-  headers['Content-Type'] = 'text/plain'
-  File.read(dir << "/#{fname}")
+  if file_exists?(dir, fname)
+    headers['Content-Type'] = 'text/plain'
+    File.read(dir << "/#{fname}")
+  else
+    session[:error] = "#{fname} does not exist."
+    redirect "/"
+  end
 end
