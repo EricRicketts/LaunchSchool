@@ -23,3 +23,9 @@ get "/" do
   @files = Dir.glob("*.txt", base:dir)
   erb :index
 end
+
+get "/:fname" do |fname|
+  dir = get_full_path("data")
+  headers['Content-Type'] = 'text/plain'
+  File.read(dir << "/#{fname}")
+end
