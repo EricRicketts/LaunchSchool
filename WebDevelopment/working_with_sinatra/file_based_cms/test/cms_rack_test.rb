@@ -43,10 +43,15 @@ class CmsRackTest < Minitest::Test
     # skip
     filename = 'foo.txt'
     url = home_page + filename
-    get url
     expected = "#{filename} does not exist."
-    get home_page
+
+    get url
+    assert_equal(302, last_response.status)
+    get last_response.headers['Location']
+
+    assert_equal(200, last_response.status)
     assert_includes(last_response.body, expected)
+
     get home_page
     refute_includes(last_response.body, expected)
   end

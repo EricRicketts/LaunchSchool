@@ -11,16 +11,16 @@ configure do
   set :erb, escape_html: true
 end
 
-  helpers do
-    def get_full_path(file)
-      File.expand_path(file)
-    end
-
-    def file_exists?(dir, file)
-      files = Dir.glob("*.txt", base: dir)
-      files.include?(file)
-    end
+helpers do
+  def get_full_path(file)
+    File.expand_path(file)
   end
+
+  def file_exists?(dir, file)
+    files = Dir.glob("*.txt", base: dir)
+    files.include?(file)
+  end
+end
 
 get "/" do
   dir = get_full_path('data')
