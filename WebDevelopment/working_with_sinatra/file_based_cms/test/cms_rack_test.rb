@@ -64,6 +64,7 @@ class CmsRackTest < Minitest::Test
     get url
 
     assert_equal(200, last_response.status)
+    assert_equal('text/html; charset=utf-8', last_response.headers['Content-Type'])
     assert_includes(last_response.body, header)
     assert_includes(last_response.body, paragraph)
   end

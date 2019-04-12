@@ -26,13 +26,21 @@ helpers do
     suffix = fname.split(".").last
     case suffix
     when "txt"
-      headers['Content-Type'] = 'text/plain'
-      File.read(dir << "/#{fname}")
+      render_text(dir, fname)
     else
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-      headers['Content-Type'] = 'text/html; charset=utf-8'
-      markdown.render(File.read(dir << "/#{fname}"))
+      render_markdown(dir, fname)
     end
+  end
+
+  def render_markdown(dir, fname)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    headers['Content-Type'] = 'text/html; charset=utf-8'
+    markdown.render(File.read(dir << "/#{fname}"))
+  end
+
+  def render_text(dir, fname)
+    headers['Content-Type'] = 'text/plain'
+    File.read(dir << "/#{fname}")
   end
 end
 
