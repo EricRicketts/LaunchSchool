@@ -26,7 +26,7 @@ class CmsCapybaraTest < Minitest::Test
   def test_home_path
     # skip
     visit home_path
-    %w[about.txt changes.txt history.txt].each do |text|
+    %w[about.txt changes.txt history.txt about.md].each do |text|
       assert_text(text, count: 1)
     end
   end
@@ -52,5 +52,15 @@ class CmsCapybaraTest < Minitest::Test
     assert_text(expected, count: 1)
     visit home_path
     refute_text(expected)
+  end
+
+  def test_process_markdown_files
+    # skip
+    fname = 'about.md'
+    url = home_path << fname
+
+    visit url
+    assert_selector('h1', text: 'Ruby', count: 1)
+    assert_selector('p', text: 'An elegant programming language.', count: 1)
   end
 end

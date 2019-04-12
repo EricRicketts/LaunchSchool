@@ -1,3 +1,4 @@
+require 'redcarpet'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/content_for'
@@ -17,22 +18,34 @@ helpers do
   end
 
   def file_exists?(dir, file)
-    files = Dir.glob("*.txt", base: dir)
+    files = Dir.glob(["*.txt", "*.md"], base: dir)
     files.include?(file)
+  end
+
+  def process_file_type(dir, fname)
+    suffix = fname.split(".").last
+    case suffix
+    when "txt"
+      headers['Content-Type'] = 'text/plain'
+      File.read(dir << "/#{fname}")
+    else
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      headers['Content-Type'] = 'text/html; charset=utf-8'
+      markdown.render(File.read(dir << "/#{fname}"))
+    end
   end
 end
 
 get "/" do
   dir = get_full_path('data')
-  @files = Dir.glob("*.txt", base: dir)
+  @files = Dir.glob(["*.txt", "*.md"], base: dir)
   erb :index
 end
 
 get "/:fname" do |fname|
   dir = get_full_path("data")
   if file_exists?(dir, fname)
-    headers['Content-Type'] = 'text/plain'
-    File.read(dir << "/#{fname}")
+    process_file_type(dir, fname)
   else
     session[:error] = "#{fname} does not exist."
     redirect "/"

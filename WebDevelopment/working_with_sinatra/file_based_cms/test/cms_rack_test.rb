@@ -25,7 +25,7 @@ class CmsRackTest < Minitest::Test
     assert_equal(200, last_response.status)
     assert_equal('text/html;charset=utf-8', last_response.headers['Content-Type'])
     links = last_response.body.scan(/<a href.*?<\/a>/)
-    assert_equal(3, links.size)
+    assert_equal(4, links.size)
   end
 
   def test_home_page_links
@@ -54,5 +54,17 @@ class CmsRackTest < Minitest::Test
 
     get home_page
     refute_includes(last_response.body, expected)
+  end
+
+  def test_markdown_renders_to_html
+    # skip
+    url = home_page << 'about.md'
+    header = '<h1>Ruby</h1>'
+    paragraph = '<p>An elegant programming language.</p>'
+    get url
+
+    assert_equal(200, last_response.status)
+    assert_includes(last_response.body, header)
+    assert_includes(last_response.body, paragraph)
   end
 end
