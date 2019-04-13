@@ -91,7 +91,6 @@ class CmsRackTest < Minitest::Test
 
   def test_edit_links_exist
     # skip
-    url = home_page + fnames.first
     get home_page
 
     edit_links = [
@@ -102,5 +101,14 @@ class CmsRackTest < Minitest::Test
     edit_links.each do |edit_link|
       assert_includes(last_response.body, edit_link)
     end
+  end
+
+  def test_edit_file_link
+    # skip
+    url = home_page + fnames.last + '/edit'
+    get url
+
+    label = "<label for=\"file\">Edit content of #{fnames.last}:</label>"
+    text_area = "<textarea id=\"file\" name=\"file\" rows=\"20\" cols=\"30\">"
   end
 end
