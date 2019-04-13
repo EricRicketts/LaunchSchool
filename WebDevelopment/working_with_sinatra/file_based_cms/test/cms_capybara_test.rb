@@ -26,7 +26,7 @@ class CmsCapybaraTest < Minitest::Test
   def test_home_path
     # skip
     visit home_path
-    %w[about.txt changes.txt history.txt about.md].each do |text|
+    %w[changes.txt history.txt about.md].each do |text|
       assert_text(text, count: 1)
     end
   end
@@ -34,7 +34,7 @@ class CmsCapybaraTest < Minitest::Test
   def test_home_path_links
     # skip
     visit home_path
-    %w[about.txt changes.txt history.txt].each.with_index do |fname, idx|
+    %w[changes.txt history.txt].each.with_index do |fname, idx|
       page.find_link(fname).click
       expected = 'This is the ' << fname << ' file.'
       assert_text(expected, count: 1)
