@@ -51,20 +51,9 @@ class CmsCapybaraTest < Minitest::Test
     end
   end
 
-  def test_home_path_links
-    skip
-    visit home_path
-    %w[changes.txt history.txt].each.with_index do |fname, idx|
-      page.find_link(fname).click
-      expected = 'This is the ' << fname << ' file.'
-      assert_text(expected, count: 1)
-      visit home_path
-    end
-  end
-
   def test_invalid_route
-    skip
-    fname = 'foo.txt'
+    # skip
+    fname = 'bar_fizz_buzz.txt'
     url = home_path + fname
     expected = "#{fname} does not exist."
     visit url
