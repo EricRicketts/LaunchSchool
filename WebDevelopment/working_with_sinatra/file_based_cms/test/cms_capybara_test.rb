@@ -8,7 +8,7 @@ require 'pry-byebug'
 require_relative '../cms'
 
 class CmsCapybaraTest < Minitest::Test
-  attr_accessor :home_path
+  attr_accessor :home_path, :dir, :fnames
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -16,9 +16,26 @@ class CmsCapybaraTest < Minitest::Test
 
   def setup
     @home_path = '/'
+    @fnames = %w[foo.txt foo.md]
+    path = File.expand_path(__FILE__)
+    @dir = File.dirname(path).sub(/\/test/, "/data/")
+    fnames.each do |fname|
+      File.open(dir + fname, "w+") do |f|
+        if fname == 'foo.txt'
+          f.puts 'First line of foo.txt'
+          f.puts 'This is the second line in foo.txt which is a text file.'
+        else
+          f.puts '# Foo'
+          f.puts 'This is a paragraph in foo.md which is a markdown file.'
+        end
+      end
+    end
   end
 
   def teardown
+    fnames.each do |fname|
+      File.delete(dir + fname) if File.exists?(dir + fname)
+    end
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end
@@ -26,13 +43,16 @@ class CmsCapybaraTest < Minitest::Test
   def test_home_path
     # skip
     visit home_path
-    %w[changes.txt history.txt about.md].each do |text|
-      assert_text(text, count: 1)
+    all_files = fnames + %w[about.md changes.txt history.txt]
+
+    assert_text('Edit', count: 5)
+    all_files.each do |text|
+      assert_link(text, count: 1)
     end
   end
 
   def test_home_path_links
-    # skip
+    skip
     visit home_path
     %w[changes.txt history.txt].each.with_index do |fname, idx|
       page.find_link(fname).click
@@ -43,7 +63,7 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def test_invalid_route
-    # skip
+    skip
     fname = 'foo.txt'
     url = home_path + fname
     expected = "#{fname} does not exist."
@@ -55,7 +75,7 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def test_process_markdown_files
-    # skip
+    skip
     fname = 'about.md'
     url = home_path << fname
 
