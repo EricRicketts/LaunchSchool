@@ -110,18 +110,18 @@ class CmsRackTest < Minitest::Test
     url = home_page + fnames.last + '/edit'
     get url
 
-    form_opening_tag = "<form action=\"/#{fnames.last}\" method=\"post\" accept-charset=\"utf-8\">\n"
-    input_element = "<input type=\"hidden\" name=\"_method\" value=\"patch\">\n"
-    label = "<label for=\"file\" style=\"display: block;\">Edit content of #{fnames.last}:</label>\n"
-    textarea_opening_tag = "<textarea id=\"file\" name=\"file\" rows=\"20\" cols=\"30\">\n"
-    text = "\# Foo\nThis is a paragraph in foo.md which is a markdown file.\n"
-    text_area_closing_tag = "</textarea>\n"
-    button_element = "<button type=\"submit\" style=\"display: block;\" >Save Changes</button>\n"
+    form_opening_tag = "<form action=\"/#{fnames.last}\" method=\"post\" accept-charset=\"utf-8\">"
+    input_element = "<input type=\"hidden\" name=\"_method\" value=\"patch\">"
+    label = "<label for=\"file\" style=\"display: block;\">Edit content of #{fnames.last}:</label>"
+    textarea_opening_tag = "<textarea id=\"file\" name=\"file\" rows=\"20\" cols=\"30\">"
+    text = "\# Foo\nThis is a paragraph in foo.md which is a markdown file."
+    textarea_closing_tag = "</textarea>"
+    button_element = "<button type=\"submit\" style=\"display: block;\" >Save Changes</button>"
     form_closing_tag = "</form>"
 
     expected_tags_or_elements = [
       form_opening_tag, input_element, label, textarea_opening_tag,
-      text_area_closing_tag, button_element, form_closing_tag
+      textarea_closing_tag, button_element, form_closing_tag
     ]
 
     expected_tags_or_elements.each do |tag_or_element|
