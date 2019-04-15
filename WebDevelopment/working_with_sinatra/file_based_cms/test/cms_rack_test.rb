@@ -3,6 +3,7 @@ ENV["RACK_ENV"] = "test"
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'rack/test'
+require 'fileutils'
 require 'pry-byebug'
 require_relative '../cms'
 
@@ -18,10 +19,10 @@ class CmsRackTest < Minitest::Test
   def setup
     @home_page = '/'
     @fnames = %w[foo.txt foo.md]
-    path = File.expand_path(__FILE__)
-    @dir = File.dirname(path).sub(/\/test/, "/data/")
+    @dir = data_path
+    fnames.each { |fname| FileUtils.mkdir_p(data_path) }
     fnames.each do |fname|
-      File.open(dir + fname, "w+") do |f|
+      File.open(dir + "/#{fname}", "w+") do |f|
         if fname == 'foo.txt'
           f.puts 'First line of foo.txt'
           f.puts 'This is the second line in foo.txt which is a text file.'
@@ -34,9 +35,7 @@ class CmsRackTest < Minitest::Test
   end
 
   def teardown
-    fnames.each do |fname|
-      File.delete(dir + fname) if File.exists?(dir + fname)
-    end
+    FileUtils.rm_rf(data_path)
   end
 
   def test_home_page
@@ -45,17 +44,19 @@ class CmsRackTest < Minitest::Test
     assert_equal(200, last_response.status)
     assert_equal('text/html;charset=utf-8', last_response.headers['Content-Type'])
     links = last_response.body.scan(/<a href="\/[\w\.]+">[\w\.]+<\/a>/)
-    assert_equal(5, links.size)
+    assert_equal(2, links.size)
   end
 
   def test_text_file_content
     # skip
     url = home_page + fnames.first
+    expected = "First line of foo.txt\n" +
+      "This is the second line in foo.txt which is a text file.\n"
+
     get url
+
     assert_equal(200, last_response.status)
     assert_equal('text/plain', last_response.headers['Content-Type'])
-    expected = "First line of foo.txt\n" +
-    "This is the second line in foo.txt which is a text file.\n"
     assert_equal(expected, last_response.body)
   end
 
@@ -98,6 +99,7 @@ class CmsRackTest < Minitest::Test
       "<a href=\"/#{fnames.last}/edit\">Edit</a>"
     ]
 
+    assert_equal(edit_links.size, last_response.body.scan(/Edit/).size)
     edit_links.each do |edit_link|
       assert_includes(last_response.body, edit_link)
     end
@@ -130,15 +132,15 @@ class CmsRackTest < Minitest::Test
   def test_update_a_file
     # skip
     url = home_page + fnames.first
-    flash_message = ""
+    flash_message = 'foo.txt has been updated.'
     patch(url, params={file: "New foo.txt\nthis is the new text for the test."})
 
     assert_equal(302, last_response.status)
-    edited_file = File.read(dir + fnames.first)
+    edited_file = File.read(dir + "/#{fnames.first}")
     assert_equal("New foo.txt\nthis is the new text for the test.", edited_file)
 
     get home_page
     assert_equal(200, last_response.status)
-    assert_includes(last_response.body, 'foo.txt has been updated.')
+    assert_includes(last_response.body, flash_message)
   end
 end

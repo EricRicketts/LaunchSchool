@@ -65,11 +65,31 @@ class CmsCapybaraTest < Minitest::Test
 
   def test_process_markdown_files
     # skip
-    fname = 'foo.md'
+    fname = fnames.last
     url = home_path + fname
 
     visit url
     assert_selector('h1', text: 'Foo', count: 1)
     assert_selector('p', text: 'This is a paragraph in foo.md which is a markdown file.', count: 1)
+  end
+
+  def test_edit_a_file
+    # skip
+    fname = fnames.first
+    original_text = "First line of foo.txt This is the second line in foo.txt which is a text file."
+    new_text = 'new text for foo.txt'
+    flash_message = "#{fname} has been updated."
+    visit home_path
+
+    page.find_link('Edit', href: "/#{fname}/edit").click
+
+    assert_includes(page.text, original_text)
+    page.fill_in('file', with: new_text)
+    page.find_button('Save Changes').click
+
+    file_text = File.read(dir + fname)
+    assert_current_path(home_path)
+    assert_text(flash_message, count: 1)
+    assert_equal(new_text, file_text)
   end
 end

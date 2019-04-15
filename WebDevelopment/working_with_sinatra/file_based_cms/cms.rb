@@ -13,12 +13,8 @@ configure do
 end
 
 helpers do
-  def get_full_path(file)
-    File.expand_path(file)
-  end
-
   def file_exists?(dir, file)
-    files = Dir.glob(["*.txt", "*.md"], base: dir)
+    files = Dir.glob("*", base: dir)
     files.include?(file)
   end
 
@@ -44,14 +40,22 @@ helpers do
   end
 end
 
+def data_path
+  if ENV["RACK_ENV"] == "test"
+    File.expand_path('../test/data', __FILE__)
+  else
+    File.expand_path('../data', __FILE__)
+  end
+end
+
 get "/" do
-  dir = get_full_path('data')
-  @files = Dir.glob(["*.txt", "*.md"], base: dir)
+  dir = data_path
+  @files = Dir.glob("*", base: dir)
   erb :index
 end
 
 get "/:fname" do |fname|
-  dir = get_full_path('data')
+  dir = data_path
   if file_exists?(dir, fname)
     process_file_type(dir, fname)
   else
@@ -61,7 +65,7 @@ get "/:fname" do |fname|
 end
 
 get "/:fname/edit" do |fname|
-  dir = get_full_path('data')
+  dir = data_path
   if file_exists?(dir, fname)
     @fname = fname
     @file = File.read(dir + "/#{fname}")
@@ -74,7 +78,7 @@ end
 
 patch "/:fname" do |fname|
   file_content = params[:file]
-  File.write(get_full_path('data') + "/#{fname}", file_content)
+  File.write(data_path + "/#{fname}", file_content)
   session[:message] = "#{fname} has been updated."
   redirect "/"
 end
