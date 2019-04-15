@@ -35,12 +35,12 @@ helpers do
   def render_markdown(dir, fname)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
     headers['Content-Type'] = 'text/html; charset=utf-8'
-    markdown.render(File.read(dir << "/#{fname}"))
+    markdown.render(File.read(dir + "/#{fname}"))
   end
 
   def render_text(dir, fname)
     headers['Content-Type'] = 'text/plain'
-    File.read(dir << "/#{fname}")
+    File.read(dir + "/#{fname}")
   end
 end
 
@@ -51,11 +51,30 @@ get "/" do
 end
 
 get "/:fname" do |fname|
-  dir = get_full_path("data")
+  dir = get_full_path('data')
   if file_exists?(dir, fname)
     process_file_type(dir, fname)
   else
-    session[:error] = "#{fname} does not exist."
+    session[:message] = "#{fname} does not exist."
     redirect "/"
   end
+end
+
+get "/:fname/edit" do |fname|
+  dir = get_full_path('data')
+  if file_exists?(dir, fname)
+    @fname = fname
+    @file = File.read(dir + "/#{fname}")
+    erb :edit_file
+  else
+    session[:message] = "#{fname} does not exist."
+    redirect "/"
+  end
+end
+
+patch "/:fname" do |fname|
+  file_content = params[:file]
+  File.write(get_full_path('data') + "/#{fname}", file_content)
+  session[:message] = "#{fname} has been updated."
+  redirect "/"
 end

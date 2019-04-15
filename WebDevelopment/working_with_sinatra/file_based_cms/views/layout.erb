@@ -6,8 +6,8 @@
     <title>File Based CMS</title>
     <link rel="stylesheet" href="">
   </head>
-  <% if session[:error] %>
-    <p><%= session.delete(:error) %></p>
+  <% if session[:message] %>
+    <p><%= session.delete(:message) %></p>
   <% end %>
   <body>
     <%== yield %>

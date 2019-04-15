@@ -108,7 +108,37 @@ class CmsRackTest < Minitest::Test
     url = home_page + fnames.last + '/edit'
     get url
 
-    label = "<label for=\"file\">Edit content of #{fnames.last}:</label>"
-    text_area = "<textarea id=\"file\" name=\"file\" rows=\"20\" cols=\"30\">"
+    form_opening_tag = "<form action=\"/#{fnames.last}\" method=\"post\" accept-charset=\"utf-8\">\n"
+    input_element = "<input type=\"hidden\" name=\"_method\" value=\"patch\">\n"
+    label = "<label for=\"file\" style=\"display: block;\">Edit content of #{fnames.last}:</label>\n"
+    textarea_opening_tag = "<textarea id=\"file\" name=\"file\" rows=\"20\" cols=\"30\">\n"
+    text = "\# Foo\nThis is a paragraph in foo.md which is a markdown file.\n"
+    text_area_closing_tag = "</textarea>\n"
+    button_element = "<button type=\"submit\" style=\"display: block;\" >Save Changes</button>\n"
+    form_closing_tag = "</form>"
+
+    expected_tags_or_elements = [
+      form_opening_tag, input_element, label, textarea_opening_tag,
+      text_area_closing_tag, button_element, form_closing_tag
+    ]
+
+    expected_tags_or_elements.each do |tag_or_element|
+      assert_includes(last_response.body, tag_or_element)
+    end
+  end
+
+  def test_update_a_file
+    # skip
+    url = home_page + fnames.first
+    flash_message = ""
+    patch(url, params={file: "New foo.txt\nthis is the new text for the test."})
+
+    assert_equal(302, last_response.status)
+    edited_file = File.read(dir + fnames.first)
+    assert_equal("New foo.txt\nthis is the new text for the test.", edited_file)
+
+    get home_page
+    assert_equal(200, last_response.status)
+    assert_includes(last_response.body, 'foo.txt has been updated.')
   end
 end
