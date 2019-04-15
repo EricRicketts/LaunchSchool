@@ -64,12 +64,12 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def test_process_markdown_files
-    skip
-    fname = 'about.md'
-    url = home_path << fname
+    # skip
+    fname = 'foo.md'
+    url = home_path + fname
 
     visit url
-    assert_selector('h1', text: 'Ruby', count: 1)
-    assert_selector('p', text: 'An elegant programming language.', count: 1)
+    assert_selector('h1', text: 'Foo', count: 1)
+    assert_selector('p', text: 'This is a paragraph in foo.md which is a markdown file.', count: 1)
   end
 end
