@@ -77,10 +77,17 @@ class CmsCapybaraTest < Minitest::Test
     # skip
     fname = fnames.first
     original_text = "First line of foo.txt This is the second line in foo.txt which is a text file."
+    new_text = 'new text for foo.txt'
     visit home_path
 
     page.find_link('Edit', href: "/#{fname}/edit").click
 
     assert_includes(page.text, original_text)
+    page.fill_in('file', with: new_text)
+    page.find_button('Save Changes').click
+
+    file_text = File.read(dir + fname)
+    assert_current_path(home_path)
+    assert_equal(new_text, file_text)
   end
 end
