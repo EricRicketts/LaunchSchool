@@ -78,6 +78,7 @@ class CmsCapybaraTest < Minitest::Test
     fname = fnames.first
     original_text = "First line of foo.txt This is the second line in foo.txt which is a text file."
     new_text = 'new text for foo.txt'
+    flash_message = "#{fname} has been updated."
     visit home_path
 
     page.find_link('Edit', href: "/#{fname}/edit").click
@@ -88,6 +89,7 @@ class CmsCapybaraTest < Minitest::Test
 
     file_text = File.read(dir + fname)
     assert_current_path(home_path)
+    assert_text(flash_message, count: 1)
     assert_equal(new_text, file_text)
   end
 end
