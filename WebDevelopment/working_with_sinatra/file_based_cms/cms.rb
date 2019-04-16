@@ -86,3 +86,9 @@ patch "/:fname" do |fname|
   session[:message] = "#{fname} has been updated."
   redirect "/"
 end
+
+post "/new" do
+  new_file = params[:new]
+  File.new(data_path + "/#{new_file}", "w+")
+  redirect "/"
+end

@@ -102,5 +102,10 @@ class CmsCapybaraTest < Minitest::Test
 
     assert_selector('form', count: 1)
     assert_selector('label', text: 'Add a new document:', count: 1)
+
+    page.fill_in('new', with: 'new_file.txt')
+    page.find_button('Create').click
+
+    assert_text('new_file.txt', count: 1)
   end
 end
