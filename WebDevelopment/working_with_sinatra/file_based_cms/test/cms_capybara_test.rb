@@ -48,6 +48,7 @@ class CmsCapybaraTest < Minitest::Test
     all_files.each do |text|
       assert_link(text, count: 1)
     end
+    assert_link('New Document', count: 1)
   end
 
   def test_invalid_route

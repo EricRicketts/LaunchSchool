@@ -43,8 +43,11 @@ class CmsRackTest < Minitest::Test
     get home_page
     assert_equal(200, last_response.status)
     assert_equal('text/html;charset=utf-8', last_response.headers['Content-Type'])
-    links = last_response.body.scan(/<a href="\/[\w\.]+">[\w\.]+<\/a>/)
+    links = last_response.body.scan(/(>#{fnames.first}|>#{fnames.last})/)
+    new_document_link = last_response.body.scan(/New Document/)
+
     assert_equal(2, links.size)
+    assert_equal(1, new_document_link.size)
   end
 
   def test_text_file_content
