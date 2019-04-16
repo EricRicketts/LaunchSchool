@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>File Based CMS</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/stylesheets/cms.css">
   </head>
   <% if session[:message] %>
-    <p><%= session.delete(:message) %></p>
+    <p class="message"><%= session.delete(:message) %></p>
   <% end %>
   <body>
     <%== yield %>
