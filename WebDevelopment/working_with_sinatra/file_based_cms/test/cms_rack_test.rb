@@ -146,4 +146,12 @@ class CmsRackTest < Minitest::Test
     assert_equal(200, last_response.status)
     assert_includes(last_response.body, flash_message)
   end
+
+  def test_create_a_new_file
+    # skip
+    url = '/new'
+    get url
+
+    
+  end
 end
