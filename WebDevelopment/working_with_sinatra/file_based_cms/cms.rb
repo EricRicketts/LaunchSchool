@@ -73,7 +73,7 @@ get "/:fname/edit" do |fname|
   if file_exists?(dir, fname)
     @fname = fname
     @file = File.read(dir + "/#{fname}")
-    erb :edit_file
+    erb :edit
   else
     session[:message] = "#{fname} does not exist."
     redirect "/"
