@@ -182,13 +182,15 @@ class CmsRackTest < Minitest::Test
     # skip
     url = '/new'
     new_file_name = 'new_file.txt'
+    flash_message = "#{new_file_name} was created."
     post(url, params={ new: new_file_name })
 
     assert_equal(302, last_response.status)
 
     get last_response.headers['Location']
     assert_equal(200, last_response.status)
-    # one for read link, one for edit link, one for content in read link
-    assert_equal(3, last_response.body.scan(new_file_name).size)
+
+    assert_equal(1, last_response.body.scan(flash_message).size)
+    assert_equal(4, last_response.body.scan(new_file_name).size)
   end
 end
