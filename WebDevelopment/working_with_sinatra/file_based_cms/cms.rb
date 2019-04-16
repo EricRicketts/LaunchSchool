@@ -54,6 +54,10 @@ get "/" do
   erb :index
 end
 
+get "/new" do
+  erb :new
+end
+
 get "/:fname" do |fname|
   dir = data_path
   if file_exists?(dir, fname)

@@ -113,22 +113,27 @@ class CmsRackTest < Minitest::Test
     url = home_page + fnames.last + '/edit'
     get url
 
-    form_opening_tag = "<form action=\"/#{fnames.last}\" method=\"post\" accept-charset=\"utf-8\">"
+    form_opening_tag = "<form action=\"/foo.md\" method=\"post\" accept-charset=\"utf-8\">"
     input_element = "<input type=\"hidden\" name=\"_method\" value=\"patch\">"
-    label = "<label for=\"file\" style=\"display: block;\">Edit content of #{fnames.last}:</label>"
+    label_element_text = "Edit content of #{fnames.last}:"
     textarea_opening_tag = "<textarea id=\"file\" name=\"file\" rows=\"20\" cols=\"30\">"
-    text = "\# Foo\nThis is a paragraph in foo.md which is a markdown file."
-    textarea_closing_tag = "</textarea>"
-    button_element = "<button type=\"submit\" style=\"display: block;\" >Save Changes</button>"
-    form_closing_tag = "</form>"
+    textarea_text = "\# Foo\nThis is a paragraph in foo.md which is a markdown file."
+    button_element_text = 'Save Changes'
 
     expected_tags_or_elements = [
-      form_opening_tag, input_element, label, textarea_opening_tag,
-      textarea_closing_tag, button_element, form_closing_tag
+      form_opening_tag, input_element, label_element_text,
+      textarea_opening_tag, textarea_text, button_element_text
     ]
 
+
+    matched_tags_or_elements = []
     expected_tags_or_elements.each do |tag_or_element|
-      assert_includes(last_response.body, tag_or_element)
+      matched_tags_or_elements << last_response.body.scan(tag_or_element)
+    end
+
+    assert matched_tags_or_elements.size == 6 && matched_tags_or_elements.none?(&:empty?)
+    matched_tags_or_elements.each do |tag_or_element|
+      assert_equal(1, tag_or_element.size)
     end
   end
 
@@ -152,6 +157,24 @@ class CmsRackTest < Minitest::Test
     url = '/new'
     get url
 
-    
+    assert_equal(200, last_response.status)
+    form_opening_tag = "<form action=\"/new\" method=\"post\" accept-charset=\"utf-8\">"
+    label_element = '<label for="new" class="block-style">Add a new document:</label>'
+    input_element = '<input type="text" id="new" name="new">'
+    button_element = '<button type="submit">Create</button>'
+
+    tags_and_elements = [
+      form_opening_tag, label_element, input_element, button_element
+    ]
+
+    matched_tags_or_elements = []
+    tags_and_elements.each do |tag_or_element|
+      matched_tags_or_elements << last_response.body.scan(tag_or_element)
+    end
+
+    assert matched_tags_or_elements.size == 4 && matched_tags_or_elements.none?(&:empty?)
+    matched_tags_or_elements.each do |tag_or_element|
+      assert_equal(1, tag_or_element.size)
+    end
   end
 end
