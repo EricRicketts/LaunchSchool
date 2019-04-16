@@ -94,4 +94,13 @@ class CmsCapybaraTest < Minitest::Test
     assert_text(new_text, count: 1)
     assert_no_text(flash_message)
   end
+
+  def test_create_new_file
+    # skip
+    visit home_path
+    page.find_link('New Document').click
+
+    assert_selector('form', count: 1)
+    assert_selector('label', text: 'Add a new document:', count: 1)
+  end
 end
