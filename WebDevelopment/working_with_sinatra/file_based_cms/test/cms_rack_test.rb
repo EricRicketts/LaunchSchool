@@ -141,7 +141,7 @@ class CmsRackTest < Minitest::Test
     # skip
     url = home_page + fnames.first
     flash_message = 'foo.txt has been updated.'
-    patch(url, params={file: "New foo.txt\nthis is the new text for the test."})
+    patch(url, params={ file: "New foo.txt\nthis is the new text for the test." })
 
     assert_equal(302, last_response.status)
     edited_file = File.read(dir + "/#{fnames.first}")
@@ -152,7 +152,7 @@ class CmsRackTest < Minitest::Test
     assert_includes(last_response.body, flash_message)
   end
 
-  def test_create_a_new_file
+  def test_new_file_page
     # skip
     url = '/new'
     get url
@@ -176,5 +176,19 @@ class CmsRackTest < Minitest::Test
     matched_tags_or_elements.each do |tag_or_element|
       assert_equal(1, tag_or_element.size)
     end
+  end
+
+  def test_create_new_file
+    # skip
+    url = '/new'
+    new_file_name = 'new_file.txt'
+    post(url, params={ new: new_file_name })
+
+    assert_equal(302, last_response.status)
+
+    get last_response.headers['Location']
+    assert_equal(200, last_response.status)
+    # one for read link, one for edit link, one for content in read link
+    assert_equal(3, last_response.body.scan(new_file_name).size)
   end
 end
