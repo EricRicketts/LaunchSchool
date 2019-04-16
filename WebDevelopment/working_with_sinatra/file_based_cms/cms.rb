@@ -90,5 +90,6 @@ end
 post "/new" do
   new_file = params[:new]
   File.new(data_path + "/#{new_file}", "w+")
+  session[:message] = "#{new_file} was created."
   redirect "/"
 end

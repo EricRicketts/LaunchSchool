@@ -97,15 +97,18 @@ class CmsCapybaraTest < Minitest::Test
 
   def test_create_new_file
     # skip
+    new_file_name = 'new_file.txt'
     visit home_path
     page.find_link('New Document').click
 
     assert_selector('form', count: 1)
     assert_selector('label', text: 'Add a new document:', count: 1)
 
-    page.fill_in('new', with: 'new_file.txt')
+    page.fill_in('new', with: new_file_name)
     page.find_button('Create').click
 
-    assert_text('new_file.txt', count: 1)
+    flash_message = "#{new_file_name} was created."
+    assert_text(flash_message, count: 1)
+    assert_selector('a', text: new_file_name, count: 1)
   end
 end
