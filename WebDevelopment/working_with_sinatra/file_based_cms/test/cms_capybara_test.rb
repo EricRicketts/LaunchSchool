@@ -51,7 +51,7 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def test_invalid_route
-    skip
+    # skip
     fname = 'bar_fizz_buzz.txt'
     url = home_path + fname
     expected = "#{fname} does not exist."
@@ -63,7 +63,7 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def test_process_markdown_files
-    skip
+    # skip
     fname = fnames.last
     url = home_path + fname
 
@@ -73,7 +73,7 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def test_edit_a_file
-    skip
+    # skip
     fname = fnames.first
     original_text = "First line of foo.txt This is the second line in foo.txt which is a text file."
     new_text = 'new text for foo.txt'
@@ -86,9 +86,11 @@ class CmsCapybaraTest < Minitest::Test
     page.fill_in('file', with: new_text)
     page.find_button('Save Changes').click
 
-    file_text = File.read(dir + fname)
     assert_current_path(home_path)
     assert_text(flash_message, count: 1)
-    assert_equal(new_text, file_text)
+
+    page.find_link(fname).click
+    assert_text(new_text, count: 1)
+    assert_no_text(flash_message)
   end
 end
