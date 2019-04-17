@@ -193,4 +193,14 @@ class CmsRackTest < Minitest::Test
     assert_equal(1, last_response.body.scan(flash_message).size)
     assert_equal(4, last_response.body.scan(new_file_name).size)
   end
+
+  def test_create_new_file_blank_entry
+    # skip
+    url = '/new'
+    flash_message = 'A name is required.'
+    post(url, params={ new: '   ' })
+
+    assert_equal(422, last_response.status)
+    assert_equal(1, last_response.body.scan(flash_message).size)
+  end
 end

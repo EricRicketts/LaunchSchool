@@ -19,11 +19,10 @@ helpers do
   end
 
   def process_file_type(dir, fname)
-    suffix = fname.split(".").last
-    case suffix
-    when "txt"
+    case File.extname(dir + "/#{fname}")
+    when '.txt'
       render_text(dir, fname)
-    else
+    when '.md'
       render_markdown(dir, fname)
     end
   end
@@ -91,6 +90,7 @@ post "/new" do
   new_file = params[:new].strip
   if new_file.empty?
     session[:message] = 'A name is required.'
+    status 422
     erb :new
   else
     File.new(data_path + "/#{new_file}", "w+")
