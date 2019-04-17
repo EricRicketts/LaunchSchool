@@ -182,6 +182,7 @@ class CmsRackTest < Minitest::Test
     # skip
     url = '/new'
     new_file_name = 'new_file.txt'
+    new_file_link = '<a href="/new_file.txt">new_file.txt</a>'
     flash_message = "#{new_file_name} was created."
     post(url, params={ new: new_file_name })
 
@@ -191,7 +192,7 @@ class CmsRackTest < Minitest::Test
     assert_equal(200, last_response.status)
 
     assert_equal(1, last_response.body.scan(flash_message).size)
-    assert_equal(4, last_response.body.scan(new_file_name).size)
+    assert_equal(1, last_response.body.scan(new_file_link).size)
   end
 
   def test_create_new_file_blank_entry
@@ -202,5 +203,12 @@ class CmsRackTest < Minitest::Test
 
     assert_equal(422, last_response.status)
     assert_equal(1, last_response.body.scan(flash_message).size)
+  end
+
+  def test_delete_file_option_on_home_page
+    # skip
+    get home_page
+
+    assert_equal(2, last_response.body.scan('Delete').size)
   end
 end

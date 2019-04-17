@@ -125,4 +125,17 @@ class CmsCapybaraTest < Minitest::Test
     assert_text(flash_message, count: 1)
     assert_selector('form', count: 1)
   end
+
+  def test_delete_file
+    # skip
+    file_name = 'foo.txt'
+    remaining_file_name = 'foo.md'
+    flash_message = 'foo.txt has been deleted.'
+    visit home_path
+
+    assert_text('Delete', count: 2)
+    page.find('button[form="form_1"]').click
+    assert_text(flash_message, count: 1)
+    assert_text(remaining_file_name, count: 1)
+  end
 end

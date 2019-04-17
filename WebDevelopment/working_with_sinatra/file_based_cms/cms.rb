@@ -86,6 +86,12 @@ patch "/:fname" do |fname|
   redirect "/"
 end
 
+delete "/delete/:fname" do |fname|
+  File.delete(data_path + "/#{fname}")
+  session[:message] = "#{fname} has been deleted."
+  redirect "/"
+end
+
 post "/new" do
   new_file = params[:new].strip
   if new_file.empty?

@@ -1,8 +1,12 @@
 <ul>
-<% @files.each do |file| %>
+<% @files.each.with_index do |file, idx| %>
   <li>
   	<a href="/<%= file %>"><%= file %></a>
     <a href="/<%= file %>/edit">Edit</a>
+    <form action="/delete/<%= file %>" method="post" accept-charset="utf-8" class="inline-style" id="form_<%= idx %>">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit" form="form_<%= idx %>">Delete</button>
+    </form>
   </li>
 <% end %>
 </ul>
