@@ -216,8 +216,15 @@ class CmsRackTest < Minitest::Test
     # skip
     file = 'foo.txt'
     url = "/delete/#{file}"
+    file_reference = "/foo.txt"
+    flash_message = 'foo.txt has been deleted.'
 
-    delete()
+    delete(url)
+    assert_equal(302, last_response.status)
 
+    get last_response.headers['Location']
+    assert_equal(200, last_response.status)
+    assert_includes(last_response.body, flash_message)
+    refute_includes(last_response.body, file_reference)
   end
 end
