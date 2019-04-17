@@ -215,7 +215,7 @@ class CmsRackTest < Minitest::Test
   def test_delete_file
     # skip
     file = 'foo.txt'
-    url = "/delete/#{file}"
+    url = "/#{file}/delete"
     file_reference = "/foo.txt"
     flash_message = 'foo.txt has been deleted.'
 

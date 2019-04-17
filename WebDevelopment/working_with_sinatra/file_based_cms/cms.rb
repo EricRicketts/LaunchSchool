@@ -86,7 +86,7 @@ patch "/:fname" do |fname|
   redirect "/"
 end
 
-delete "/delete/:fname" do |fname|
+delete "/:fname/delete" do |fname|
   File.delete(data_path + "/#{fname}")
   session[:message] = "#{fname} has been deleted."
   redirect "/"
