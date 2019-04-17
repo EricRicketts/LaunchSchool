@@ -211,4 +211,13 @@ class CmsRackTest < Minitest::Test
 
     assert_equal(2, last_response.body.scan('Delete').size)
   end
+
+  def test_delete_file
+    # skip
+    file = 'foo.txt'
+    url = "/delete/#{file}"
+
+    delete()
+
+  end
 end
