@@ -228,4 +228,25 @@ class CmsRackTest < Minitest::Test
     assert_includes(last_response.body, flash_message)
     refute_includes(last_response.body, file_reference)
   end
+
+  def test_signin_form_exists
+    # skip
+    url = '/users/signin'
+    username_label = '<label for="username">Username:</label>'
+    username_input = '<input type="text" name="username" id="username">'
+    password_label = '<label for="password">Password:</label>'
+    password_input = '<input type="text" name="password" id="password">'
+    button = '<button type="submit">Sign In</button>'
+
+    get url
+
+    labels_and_inputs = [
+      username_label, username_input, button,
+      password_label, password_input
+    ]
+    assert_equal(200, last_response.status)
+    labels_and_inputs.each do |label_or_input|
+      assert_equal(1, last_response.body.scan(label_or_input).size)
+    end
+  end
 end
