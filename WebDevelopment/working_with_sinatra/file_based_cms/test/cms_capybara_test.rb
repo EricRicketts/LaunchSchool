@@ -98,6 +98,8 @@ class CmsCapybaraTest < Minitest::Test
   def test_create_new_file
     # skip
     new_file_name = 'new_file.txt'
+    flash_message = "#{new_file_name} was created."
+
     visit home_path
     page.find_link('New Document').click
 
@@ -107,8 +109,20 @@ class CmsCapybaraTest < Minitest::Test
     page.fill_in('new', with: new_file_name)
     page.find_button('Create').click
 
-    flash_message = "#{new_file_name} was created."
     assert_text(flash_message, count: 1)
     assert_selector('a', text: new_file_name, count: 1)
+  end
+
+  def test_incorrect_new_file_entry
+    # skip
+    flash_message = 'A name is required.'
+    visit home_path
+    page.find_link('New Document').click
+
+    page.fill_in('new', with: '   ')
+    page.find_button('Create').click
+
+    assert_text(flash_message, count: 1)
+    assert_selector('form', count: 1)
   end
 end
