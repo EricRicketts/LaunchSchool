@@ -48,6 +48,7 @@ class CmsRackTest < Minitest::Test
 
     assert_equal(2, links.size)
     assert_equal(1, new_document_link.size)
+    assert_equal(1, last_response.body.scan(/Sign\sIn/).size)
   end
 
   def test_text_file_content
