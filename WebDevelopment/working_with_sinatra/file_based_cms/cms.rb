@@ -37,6 +37,10 @@ helpers do
     headers['Content-Type'] = 'text/plain'
     File.read(dir + "/#{fname}")
   end
+
+  def valid?(username, password)
+    username == 'admin' && password == 'secret'
+  end
 end
 
 def data_path
@@ -105,6 +109,17 @@ post "/new" do
   else
     File.new(data_path + "/#{new_file}", "w+")
     session[:message] = "#{new_file} was created."
+    redirect "/"
+  end
+end
+
+post '/users/signin' do
+  username = params[:username].strip
+  password = params[:password].strip
+  if valid?(username, password)
+    session[:username] = username
+    session[:password] = password
+    session[:message] = 'Welcome!'
     redirect "/"
   end
 end

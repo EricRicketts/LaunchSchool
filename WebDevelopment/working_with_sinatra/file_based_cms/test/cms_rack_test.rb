@@ -249,4 +249,17 @@ class CmsRackTest < Minitest::Test
       assert_equal(1, last_response.body.scan(label_or_input).size)
     end
   end
+
+  def test_signin
+    # skip
+    flash_message = 'Welcome!'
+    url = '/users/signin'
+    post(url, params = { username: '  admin  ', password: '  secret  '} )
+
+    assert_equal(302, last_response.status)
+    get last_response.headers['Location']
+    assert_equal(200, last_response.status)
+
+    assert_equal(1, last_response.body.scan(flash_message).size)
+  end
 end
