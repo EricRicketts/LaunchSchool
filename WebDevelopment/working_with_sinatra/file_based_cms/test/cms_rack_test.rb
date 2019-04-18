@@ -233,9 +233,9 @@ class CmsRackTest < Minitest::Test
     # skip
     url = '/users/signin'
     username_label = '<label for="username">Username:</label>'
-    username_input = '<input type="text" name="username" id="username">'
+    username_input = '<input type="text" name="username" id="username"'
     password_label = '<label for="password">Password:</label>'
-    password_input = '<input type="text" name="password" id="password">'
+    password_input = '<input type="text" name="password" id="password"'
     button = '<button type="submit">Sign In</button>'
 
     get url
@@ -266,9 +266,11 @@ class CmsRackTest < Minitest::Test
   def test_invalid_signin
     # skip
     flash_message = 'Invalid Credentials'
+    modified_input = '<input type="text" name="username" id="username" value="Foo Bar">'
     url = '/users/signin'
     post(url, params = { username: 'Foo Bar', password: 'secret' })
 
     assert_equal(1, last_response.body.scan(flash_message).size)
+    assert_equal(1, last_response.body.scan(modified_input).size)
   end
 end
