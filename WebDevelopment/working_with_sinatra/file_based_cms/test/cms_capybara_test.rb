@@ -140,7 +140,7 @@ class CmsCapybaraTest < Minitest::Test
     assert_text(remaining_file_name, count: 1)
   end
 
-  def test_signin
+  def test_valid_signin
     # skip
     flash_message = 'Welcome!'
     visit home_path
@@ -153,5 +153,21 @@ class CmsCapybaraTest < Minitest::Test
 
     assert_text(flash_message, count: 1)
     assert_current_path("/")
+  end
+
+  def test_invalid_signin
+    # skip
+    flash_message = 'Invalid Credentials'
+    visit home_path
+
+    page.find_button('Sign In').click
+
+    page.fill_in('Username:', with: 'Foo Bar')
+    page.fill_in('Password:', with: 'secret')
+    page.find_button('Sign In').click
+
+    assert_text(flash_message, count: 1)
+    assert_equal('Foo Bar', page.find('input[name="username"]')['value'])
+    assert_current_path('/users/signin')
   end
 end

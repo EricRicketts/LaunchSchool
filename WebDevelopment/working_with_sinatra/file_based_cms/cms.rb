@@ -114,12 +114,13 @@ post "/new" do
 end
 
 post '/users/signin' do
-  username = params[:username].strip
-  password = params[:password].strip
-  if valid?(username, password)
-    session[:username] = username
-    session[:password] = password
+  session[:username] = params[:username].strip
+  session[:password] = params[:password].strip
+  if valid?(session[:username], session[:password])
     session[:message] = 'Welcome!'
     redirect "/"
+  else
+    session[:message] = 'Invalid Credentials'
+    erb :signin
   end
 end

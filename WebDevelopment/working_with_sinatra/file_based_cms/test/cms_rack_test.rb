@@ -250,7 +250,7 @@ class CmsRackTest < Minitest::Test
     end
   end
 
-  def test_signin
+  def test_valid_signin
     # skip
     flash_message = 'Welcome!'
     url = '/users/signin'
@@ -259,6 +259,15 @@ class CmsRackTest < Minitest::Test
     assert_equal(302, last_response.status)
     get last_response.headers['Location']
     assert_equal(200, last_response.status)
+
+    assert_equal(1, last_response.body.scan(flash_message).size)
+  end
+
+  def test_invalid_signin
+    # skip
+    flash_message = 'Invalid Credentials'
+    url = '/users/signin'
+    post(url, params = { username: 'Foo Bar', password: 'secret' })
 
     assert_equal(1, last_response.body.scan(flash_message).size)
   end
