@@ -139,4 +139,24 @@ class CmsCapybaraTest < Minitest::Test
     assert_text(flash_message, count: 1)
     assert_text(remaining_file_name, count: 1)
   end
+
+  def test_signin
+    # skip
+    expected_username = %w[text username username]
+    expected_password = %w[text password password]
+    attributes = %w[type name id]
+    visit home_path
+
+    page.find_button('Sign In').click
+    username_input, password_input = page.find_all('input')
+
+    assert_text('Username:', count: 1)
+    assert_text('Password:', count: 1)
+    assert_button('Sign In', count: 1)
+
+    attributes.each.with_index do |attribute, idx|
+      assert_selector("input[#{attribute}=#{expected_username[idx]}]")
+      assert_selector("input[#{attribute}=#{expected_password[idx]}]")
+    end
+  end
 end

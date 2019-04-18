@@ -79,6 +79,10 @@ get "/:fname/edit" do |fname|
   end
 end
 
+get "/users/signin" do
+  erb :signin
+end
+
 patch "/:fname" do |fname|
   file_content = params[:file]
   File.write(data_path + "/#{fname}", file_content)
