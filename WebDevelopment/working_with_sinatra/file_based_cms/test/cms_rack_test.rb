@@ -276,4 +276,19 @@ class CmsRackTest < Minitest::Test
     assert_equal(1, last_response.body.scan(flash_message).size)
     assert_equal(1, last_response.body.scan(modified_input).size)
   end
+
+  def test_signout
+    # skip
+    flash_message = 'You have been signed out.'
+    url = '/users/signout'
+    post url
+
+    assert_equal(302, last_response.status)
+    get "/"
+
+    assert_equal(200, last_response.status)
+    assert_equal(1, last_response.body.scan(flash_message).size)
+    refute_includes('Signed in as admin.', last_response.body)
+    refute_match(/<input.*value="Sign Out"/, last_response.body)
+  end
 end

@@ -124,3 +124,10 @@ post '/users/signin' do
     erb :signin
   end
 end
+
+post '/users/signout' do
+  session.delete(:username)
+  session.delete(:password)
+  session[:message] = 'You have been signed out.'
+  redirect "/"
+end

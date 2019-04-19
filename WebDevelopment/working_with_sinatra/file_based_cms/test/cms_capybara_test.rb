@@ -140,9 +140,10 @@ class CmsCapybaraTest < Minitest::Test
     assert_text(remaining_file_name, count: 1)
   end
 
-  def test_valid_signin
+  def test_valid_signin_and_signout
     # skip
-    flash_message = 'Welcome!'
+    flash_message_one = 'Welcome!'
+    flash_message_two = 'You have been signed out.'
     visit home_path
 
     page.find_button('Sign In').click
@@ -151,10 +152,16 @@ class CmsCapybaraTest < Minitest::Test
     page.fill_in('Password:', with: '  secret  ')
     page.find_button('Sign In').click
 
-    assert_text(flash_message, count: 1)
+    assert_text(flash_message_one, count: 1)
     assert_current_path(home_path)
     assert_selector('label', text: 'Signed in as admin.')
-    assert_selector('input[value="Sign Out"]')
+    assert_no_button('Sign In')
+
+    page.find('input[value="Sign Out"]').click
+    assert_text(flash_message_two, count: 1)
+    assert_button('Sign In')
+    assert_no_selector('label', text: 'Signed in as admin.')
+    assert_no_selector('input[value="Sign Out"]')
   end
 
   def test_invalid_signin
