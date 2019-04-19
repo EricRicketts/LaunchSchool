@@ -152,7 +152,9 @@ class CmsCapybaraTest < Minitest::Test
     page.find_button('Sign In').click
 
     assert_text(flash_message, count: 1)
-    assert_current_path("/")
+    assert_current_path(home_path)
+    assert_selector('label', text: 'Signed in as admin.')
+    assert_selector('input[value="Sign Out"]')
   end
 
   def test_invalid_signin

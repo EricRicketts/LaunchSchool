@@ -38,8 +38,8 @@ helpers do
     File.read(dir + "/#{fname}")
   end
 
-  def valid?(username, password)
-    username == 'admin' && password == 'secret'
+  def valid_signin?
+    session[:username] == 'admin' && session[:password] == 'secret'
   end
 end
 
@@ -116,7 +116,7 @@ end
 post '/users/signin' do
   session[:username] = params[:username].strip
   session[:password] = params[:password].strip
-  if valid?(session[:username], session[:password])
+  if valid_signin?
     session[:message] = 'Welcome!'
     redirect "/"
   else

@@ -13,6 +13,13 @@
 <p>
   <a href="/new">New Document</a>
 </p>
+<% if valid_signin? %>
+<form action="/users/signout" method="post" accept-charset="utf-8">
+  <label for="signout">Signed in as <%= session[:username] %>.</label>
+  <input type="submit" name="signout" id="signout" value="Sign Out">
+</form>
+<% else %>
 <form action="/users/signin" method="get" accept-charset="utf-8">
   <button type="submit">Sign In</button>
 </form>
+<% end %>

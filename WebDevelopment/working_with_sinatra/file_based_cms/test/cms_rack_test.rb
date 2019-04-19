@@ -254,6 +254,7 @@ class CmsRackTest < Minitest::Test
     # skip
     flash_message = 'Welcome!'
     url = '/users/signin'
+    signout_text = 'Signed in as admin.'
     post(url, params = { username: '  admin  ', password: '  secret  '} )
 
     assert_equal(302, last_response.status)
@@ -261,6 +262,8 @@ class CmsRackTest < Minitest::Test
     assert_equal(200, last_response.status)
 
     assert_equal(1, last_response.body.scan(flash_message).size)
+    assert_equal(1, last_response.body.scan(signout_text).size)
+    assert_match(/<input.*value="Sign Out"/, last_response.body)
   end
 
   def test_invalid_signin
