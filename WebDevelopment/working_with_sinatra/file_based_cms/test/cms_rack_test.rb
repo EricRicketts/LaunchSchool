@@ -273,6 +273,7 @@ class CmsRackTest < Minitest::Test
     url = '/users/signin'
     post(url, params = { username: 'Foo Bar', password: 'secret' })
 
+    assert_equal(422, last_response.status)
     assert_equal(1, last_response.body.scan(flash_message).size)
     assert_equal(1, last_response.body.scan(modified_input).size)
   end
