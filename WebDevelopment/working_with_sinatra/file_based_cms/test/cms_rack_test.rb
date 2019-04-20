@@ -16,6 +16,10 @@ class CmsRackTest < Minitest::Test
     Sinatra::Application
   end
 
+  def session
+    last_request.env['rack.session']
+  end
+
   def setup
     @home_page = '/'
     @fnames = %w[foo.txt foo.md]
@@ -72,13 +76,7 @@ class CmsRackTest < Minitest::Test
 
     get url
     assert_equal(302, last_response.status)
-    get last_response.headers['Location']
-
-    assert_equal(200, last_response.status)
-    assert_includes(last_response.body, expected)
-
-    get home_page
-    refute_includes(last_response.body, expected)
+    assert_equal(expected, session[:message])
   end
 
   def test_markdown_renders_to_html
@@ -145,12 +143,10 @@ class CmsRackTest < Minitest::Test
     patch(url, params={ file: "New foo.txt\nthis is the new text for the test." })
 
     assert_equal(302, last_response.status)
+    assert_equal(flash_message, session[:message])
+
     edited_file = File.read(dir + "/#{fnames.first}")
     assert_equal("New foo.txt\nthis is the new text for the test.", edited_file)
-
-    get home_page
-    assert_equal(200, last_response.status)
-    assert_includes(last_response.body, flash_message)
   end
 
   def test_new_file_page
@@ -188,11 +184,11 @@ class CmsRackTest < Minitest::Test
     post(url, params={ new: new_file_name })
 
     assert_equal(302, last_response.status)
+    assert_equal(flash_message, session[:message])
 
     get last_response.headers['Location']
     assert_equal(200, last_response.status)
 
-    assert_equal(1, last_response.body.scan(flash_message).size)
     assert_equal(1, last_response.body.scan(new_file_link).size)
   end
 
@@ -222,10 +218,10 @@ class CmsRackTest < Minitest::Test
 
     delete(url)
     assert_equal(302, last_response.status)
+    assert_equal(flash_message, session[:message])
 
     get last_response.headers['Location']
     assert_equal(200, last_response.status)
-    assert_includes(last_response.body, flash_message)
     refute_includes(last_response.body, file_reference)
   end
 
@@ -255,13 +251,18 @@ class CmsRackTest < Minitest::Test
     flash_message = 'Welcome!'
     url = '/users/signin'
     signout_text = 'Signed in as admin.'
+    username = 'admin'
+    password = 'secret'
     post(url, params = { username: '  admin  ', password: '  secret  '} )
 
     assert_equal(302, last_response.status)
+    assert_equal(flash_message, session[:message])
+    assert_equal(username, session[:username])
+    assert_equal(password, session[:password])
+
     get last_response.headers['Location']
     assert_equal(200, last_response.status)
 
-    assert_equal(1, last_response.body.scan(flash_message).size)
     assert_equal(1, last_response.body.scan(signout_text).size)
     assert_match(/<input.*value="Sign Out"/, last_response.body)
   end
@@ -269,13 +270,13 @@ class CmsRackTest < Minitest::Test
   def test_invalid_signin
     # skip
     flash_message = 'Invalid Credentials'
-    modified_input = '<input type="text" name="username" id="username" value="Foo Bar">'
+    username = 'Foo Bar'
     url = '/users/signin'
     post(url, params = { username: 'Foo Bar', password: 'secret' })
 
     assert_equal(422, last_response.status)
-    assert_equal(1, last_response.body.scan(flash_message).size)
-    assert_equal(1, last_response.body.scan(modified_input).size)
+    assert_equal(username, session[:username])
+    assert_includes(last_response.body, flash_message)
   end
 
   def test_signout
@@ -285,10 +286,10 @@ class CmsRackTest < Minitest::Test
     post url
 
     assert_equal(302, last_response.status)
+    assert_equal(flash_message, session[:message])
     get "/"
 
     assert_equal(200, last_response.status)
-    assert_equal(1, last_response.body.scan(flash_message).size)
     refute_includes('Signed in as admin.', last_response.body)
     refute_match(/<input.*value="Sign Out"/, last_response.body)
   end
