@@ -38,15 +38,15 @@ helpers do
     File.read(dir + "/#{fname}")
   end
 
-  def valid_signin?
-    session[:username] == 'admin' && session[:password] == 'secret'
-  end
-
-  def validate_user
+  def require_signed_in_user
     unless valid_signin?
       session[:message] = 'You must be signed in to do that.'
       redirect "/", 401
     end
+  end
+
+  def valid_signin?
+    session[:username] == 'admin' && session[:password] == 'secret'
   end
 end
 
@@ -65,7 +65,7 @@ get "/" do
 end
 
 get "/new" do
-  validate_user
+  require_signed_in_user
   erb :new
 end
 
@@ -80,7 +80,7 @@ get "/:fname" do |fname|
 end
 
 get "/:fname/edit" do |fname|
-  validate_user
+  require_signed_in_user
   dir = data_path
   if file_exists?(dir, fname)
     @fname = fname
@@ -97,7 +97,7 @@ get "/users/signin" do
 end
 
 patch "/:fname" do |fname|
-  validate_user
+  require_signed_in_user
   file_content = params[:file]
   File.write(data_path + "/#{fname}", file_content)
   session[:message] = "#{fname} has been updated."
@@ -105,13 +105,14 @@ patch "/:fname" do |fname|
 end
 
 delete "/:fname/delete" do |fname|
+  require_signed_in_user
   File.delete(data_path + "/#{fname}")
   session[:message] = "#{fname} has been deleted."
   redirect "/"
 end
 
 post "/new" do
-  validate_user
+  require_signed_in_user
   new_file = params[:new].strip
   if new_file.empty?
     session[:message] = 'A name is required.'
