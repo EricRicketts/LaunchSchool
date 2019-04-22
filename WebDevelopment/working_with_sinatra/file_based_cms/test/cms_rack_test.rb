@@ -36,6 +36,10 @@ class CmsRackTest < Minitest::Test
         end
       end
     end
+    test_dir = File.expand_path("../", __FILE__)
+    File.open(test_dir + '/users.yml', "w+") do |f|
+      f.puts ({ 'admin' => 'secret' }.to_yaml)
+    end
   end
 
   def admin_session
@@ -318,13 +322,11 @@ class CmsRackTest < Minitest::Test
     url = '/users/signin'
     signout_text = 'Signed in as admin.'
     username = 'admin'
-    password = 'secret'
     post(url, params = { username: '  admin  ', password: '  secret  '} )
 
     assert_equal(302, last_response.status)
     assert_equal(flash_message, session[:message])
     assert_equal(username, session[:username])
-    assert_equal(password, session[:password])
 
     get last_response.headers['Location']
     assert_equal(200, last_response.status)
@@ -341,8 +343,8 @@ class CmsRackTest < Minitest::Test
     post(url, params = { username: 'Foo Bar', password: 'secret' })
 
     assert_equal(422, last_response.status)
-    assert_equal(username, session[:username])
     assert_includes(last_response.body, flash_message)
+    assert_includes(last_response.body, username)
   end
 
   def test_signout

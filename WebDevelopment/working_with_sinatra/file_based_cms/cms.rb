@@ -39,14 +39,14 @@ helpers do
   end
 
   def require_signed_in_user
-    unless valid_signin?
+    unless user_signed_in?
       session[:message] = 'You must be signed in to do that.'
       redirect "/"
     end
   end
 
-  def valid_signin?
-    session[:username] == 'admin' && session[:password] == 'secret'
+  def user_signed_in?
+    session.key?(:username)
   end
 end
 
@@ -56,6 +56,15 @@ def data_path
   else
     File.expand_path('../data', __FILE__)
   end
+end
+
+def load_user_credentials
+  credentials_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/users.yml", __FILE__)
+  else
+    File.expand_path("../users.yml", __FILE__)
+  end
+  YAML.load_file(credentials_path)
 end
 
 get "/" do
@@ -126,14 +135,17 @@ post "/new" do
 end
 
 post '/users/signin' do
-  session[:username] = params[:username].strip
-  session[:password] = params[:password].strip
-  if valid_signin?
+  credentials = load_user_credentials
+  username = params[:username].strip
+  password = params[:password].strip
+
+  if credentials.key?(username) && credentials[username] == password
+    session[:username] = username
     session[:message] = 'Welcome!'
     redirect "/"
   else
-    status 422
     session[:message] = 'Invalid Credentials'
+    status 422
     erb :signin
   end
 end
