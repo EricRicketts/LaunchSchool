@@ -117,7 +117,7 @@ class CmsRackTest < Minitest::Test
     flash_message = 'You must be signed in to do that.'
     get url
 
-    assert_equal(401, last_response.status)
+    assert_equal(302, last_response.status)
 
     get home_page
     assert_includes(last_response.body, flash_message)
@@ -158,7 +158,7 @@ class CmsRackTest < Minitest::Test
     flash_message = 'You must be signed in to do that.'
 
     patch(url, params = { file: "New foo.txt\nthis is the new text for the test." })
-    assert_equal(401, last_response.status)
+    assert_equal(302, last_response.status)
 
     get home_page
     assert_includes(last_response.body, flash_message)
@@ -183,7 +183,7 @@ class CmsRackTest < Minitest::Test
     flash_message = 'You must be signed in to do that.'
     get url
 
-    assert_equal(401, last_response.status)
+    assert_equal(302, last_response.status)
 
     get home_page
     assert_includes(last_response.body, flash_message)
@@ -222,7 +222,7 @@ class CmsRackTest < Minitest::Test
     flash_message = 'You must be signed in to do that.'
 
     post(url, params = { new: new_file_name })
-    assert_equal(401, last_response.status)
+    assert_equal(302, last_response.status)
 
     get home_page
     assert_includes(last_response.body, flash_message)
@@ -269,7 +269,7 @@ class CmsRackTest < Minitest::Test
     flash_message = 'You must be signed in to do that.'
 
     delete url
-    assert_equal(401, last_response.status)
+    assert_equal(302, last_response.status)
 
     get home_page
     assert_includes(last_response.body, flash_message)

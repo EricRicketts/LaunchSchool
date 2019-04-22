@@ -15,6 +15,17 @@ class CmsCapybaraTest < Minitest::Test
   include Capybara::Minitest::Assertions
   Capybara.app = Sinatra::Application
 
+  def signin_user
+    visit home_path
+    visit home_path
+
+    page.find_button('Sign In').click
+
+    page.fill_in('Username:', with: 'admin')
+    page.fill_in('Password:', with: 'secret')
+    page.find_button('Sign In').click
+  end
+
   def setup
     @home_path = '/'
     @fnames = %w[foo.txt foo.md]
@@ -74,13 +85,24 @@ class CmsCapybaraTest < Minitest::Test
     assert_selector('p', text: 'This is a paragraph in foo.md which is a markdown file.', count: 1)
   end
 
+  def test_no_edit_without_sigin
+    # skip
+    fname = fnames.first
+    flash_message = 'You must be signed in to do that.'
+    visit home_path
+
+    page.find_link('Edit', href: "/#{fname}/edit").click
+    assert_text(flash_message, count: 1)
+    assert_current_path(home_path)
+  end
+
   def test_edit_a_file
     # skip
     fname = fnames.first
     original_text = "First line of foo.txt This is the second line in foo.txt which is a text file."
     new_text = 'new text for foo.txt'
     flash_message = "#{fname} has been updated."
-    visit home_path
+    signin_user
 
     page.find_link('Edit', href: "/#{fname}/edit").click
 
@@ -101,7 +123,7 @@ class CmsCapybaraTest < Minitest::Test
     new_file_name = 'new_file.txt'
     flash_message = "#{new_file_name} was created."
 
-    visit home_path
+    signin_user
     page.find_link('New Document').click
 
     assert_selector('form', count: 1)
@@ -117,7 +139,8 @@ class CmsCapybaraTest < Minitest::Test
   def test_incorrect_new_file_entry
     # skip
     flash_message = 'A name is required.'
-    visit home_path
+
+    signin_user
     page.find_link('New Document').click
 
     page.fill_in('new', with: '   ')
@@ -132,7 +155,7 @@ class CmsCapybaraTest < Minitest::Test
     file_name = 'foo.txt'
     remaining_file_name = 'foo.md'
     flash_message = 'foo.txt has been deleted.'
-    visit home_path
+    signin_user
 
     assert_text('Delete', count: 2)
     page.find('button[form="form_1"]').click

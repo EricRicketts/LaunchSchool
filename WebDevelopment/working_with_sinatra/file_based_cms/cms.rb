@@ -41,7 +41,7 @@ helpers do
   def require_signed_in_user
     unless valid_signin?
       session[:message] = 'You must be signed in to do that.'
-      redirect "/", 401
+      redirect "/"
     end
   end
 
