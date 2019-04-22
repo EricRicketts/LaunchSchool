@@ -41,6 +41,13 @@ helpers do
   def valid_signin?
     session[:username] == 'admin' && session[:password] == 'secret'
   end
+
+  def validate_user
+    unless valid_signin?
+      session[:message] = 'You must be signed in to do that.'
+      redirect "/", 401
+    end
+  end
 end
 
 def data_path
@@ -58,6 +65,7 @@ get "/" do
 end
 
 get "/new" do
+  validate_user
   erb :new
 end
 
@@ -72,6 +80,7 @@ get "/:fname" do |fname|
 end
 
 get "/:fname/edit" do |fname|
+  validate_user
   dir = data_path
   if file_exists?(dir, fname)
     @fname = fname
@@ -88,6 +97,7 @@ get "/users/signin" do
 end
 
 patch "/:fname" do |fname|
+  validate_user
   file_content = params[:file]
   File.write(data_path + "/#{fname}", file_content)
   session[:message] = "#{fname} has been updated."
@@ -101,6 +111,7 @@ delete "/:fname/delete" do |fname|
 end
 
 post "/new" do
+  validate_user
   new_file = params[:new].strip
   if new_file.empty?
     session[:message] = 'A name is required.'

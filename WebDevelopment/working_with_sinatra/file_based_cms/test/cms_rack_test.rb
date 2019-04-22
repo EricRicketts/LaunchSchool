@@ -38,6 +38,10 @@ class CmsRackTest < Minitest::Test
     end
   end
 
+  def admin_session
+    { 'rack.session' => { username: 'admin', password: 'secret' } }
+  end
+
   def teardown
     FileUtils.rm_rf(data_path)
   end
@@ -107,10 +111,22 @@ class CmsRackTest < Minitest::Test
     end
   end
 
+  def test_invalid_edit_attempt
+    # skip
+    url = home_page + fnames.first + '/edit'
+    flash_message = 'You must be signed in to do that.'
+    get url
+
+    assert_equal(401, last_response.status)
+
+    get home_page
+    assert_includes(last_response.body, flash_message)
+  end
+
   def test_edit_file_link
     # skip
     url = home_page + fnames.last + '/edit'
-    get url
+    get url, {}, admin_session
 
     form_opening_tag = "<form action=\"/foo.md\" method=\"post\" accept-charset=\"utf-8\">"
     input_element = "<input type=\"hidden\" name=\"_method\" value=\"patch\">"
@@ -136,11 +152,23 @@ class CmsRackTest < Minitest::Test
     end
   end
 
+  def test_invalid_update_a_file_attempt
+    # skip
+    url = home_page + fnames.first
+    flash_message = 'You must be signed in to do that.'
+
+    patch(url, params = { file: "New foo.txt\nthis is the new text for the test." })
+    assert_equal(401, last_response.status)
+
+    get home_page
+    assert_includes(last_response.body, flash_message)
+  end
+
   def test_update_a_file
     # skip
     url = home_page + fnames.first
     flash_message = 'foo.txt has been updated.'
-    patch(url, params={ file: "New foo.txt\nthis is the new text for the test." })
+    patch(url, params = { file: "New foo.txt\nthis is the new text for the test." }, admin_session)
 
     assert_equal(302, last_response.status)
     assert_equal(flash_message, session[:message])
@@ -149,10 +177,22 @@ class CmsRackTest < Minitest::Test
     assert_equal("New foo.txt\nthis is the new text for the test.", edited_file)
   end
 
+  def test_signed_in_for_new_document
+    # skip
+    url = '/new'
+    flash_message = 'You must be signed in to do that.'
+    get url
+
+    assert_equal(401, last_response.status)
+
+    get home_page
+    assert_includes(last_response.body, flash_message)
+  end
+
   def test_new_file_page
     # skip
     url = '/new'
-    get url
+    get url, {}, admin_session
 
     assert_equal(200, last_response.status)
     form_opening_tag = "<form action=\"/new\" method=\"post\" accept-charset=\"utf-8\">"
@@ -175,13 +215,26 @@ class CmsRackTest < Minitest::Test
     end
   end
 
+  def test_signed_in_to_submit_new_file
+    # skip
+    url = '/new'
+    new_file_name = 'new_file.txt'
+    flash_message = 'You must be signed in to do that.'
+
+    post(url, params = { new: new_file_name })
+    assert_equal(401, last_response.status)
+
+    get home_page
+    assert_includes(last_response.body, flash_message)
+  end
+
   def test_create_new_file
     # skip
     url = '/new'
     new_file_name = 'new_file.txt'
     new_file_link = '<a href="/new_file.txt">new_file.txt</a>'
     flash_message = "#{new_file_name} was created."
-    post(url, params={ new: new_file_name })
+    post(url, params = { new: new_file_name }, admin_session)
 
     assert_equal(302, last_response.status)
     assert_equal(flash_message, session[:message])
@@ -196,7 +249,7 @@ class CmsRackTest < Minitest::Test
     # skip
     url = '/new'
     flash_message = 'A name is required.'
-    post(url, params={ new: '   ' })
+    post(url, params = { new: '   ' }, admin_session)
 
     assert_equal(422, last_response.status)
     assert_equal(1, last_response.body.scan(flash_message).size)
