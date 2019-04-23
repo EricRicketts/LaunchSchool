@@ -9,7 +9,7 @@ require 'pry-byebug'
 require_relative '../cms'
 
 class CmsCapybaraTest < Minitest::Test
-  attr_accessor :home_path, :dir, :fnames
+  attr_accessor :home_path, :dir, :fnames, :dir_test
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -42,10 +42,15 @@ class CmsCapybaraTest < Minitest::Test
         end
       end
     end
+    @dir_test = File.expand_path("../", __FILE__)
+    File.open(dir_test + '/users.yml', "w+") do |f|
+      f.puts ({ 'admin' => 'secret' }.to_yaml)
+    end
   end
 
   def teardown
     FileUtils.rm_rf(data_path)
+    FileUtils.remove_file(dir_test + "/users.yml")
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end

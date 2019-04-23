@@ -8,7 +8,7 @@ require 'pry-byebug'
 require_relative '../cms'
 
 class CmsRackTest < Minitest::Test
-  attr_reader :home_page, :dir, :fnames
+  attr_reader :home_page, :dir, :fnames, :dir_test
 
   include Rack::Test::Methods
 
@@ -36,8 +36,8 @@ class CmsRackTest < Minitest::Test
         end
       end
     end
-    test_dir = File.expand_path("../", __FILE__)
-    File.open(test_dir + '/users.yml', "w+") do |f|
+    @dir_test = File.expand_path("../", __FILE__)
+    File.open(dir_test + '/users.yml', "w+") do |f|
       f.puts ({ 'admin' => 'secret' }.to_yaml)
     end
   end
@@ -48,6 +48,7 @@ class CmsRackTest < Minitest::Test
 
   def teardown
     FileUtils.rm_rf(data_path)
+    FileUtils.remove_file(dir_test + "/users.yml")
   end
 
   def test_home_page
