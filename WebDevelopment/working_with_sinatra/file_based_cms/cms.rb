@@ -49,6 +49,17 @@ helpers do
   def user_signed_in?
     session.key?(:username)
   end
+
+  def valid_credentials?(username, password)
+    credentials = load_user_credentials
+
+    if credentials.key?(username)
+      bcrypt_password = BCrypt::Password.new(credentials[username])
+      bcrypt_password == password
+    else
+      false
+    end
+  end
 end
 
 def data_path
@@ -136,11 +147,10 @@ post "/new" do
 end
 
 post '/users/signin' do
-  credentials = load_user_credentials
   username = params[:username].strip
   password = params[:password].strip
 
-  if credentials.key?(username) && credentials[username] == password
+  if valid_credentials?(username, password)
     session[:username] = username
     session[:message] = 'Welcome!'
     redirect "/"
