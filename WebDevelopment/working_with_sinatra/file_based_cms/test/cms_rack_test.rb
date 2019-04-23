@@ -4,11 +4,12 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'rack/test'
 require 'fileutils'
+require 'bcrypt'
 require 'pry-byebug'
 require_relative '../cms'
 
 class CmsRackTest < Minitest::Test
-  attr_reader :home_page, :dir, :fnames, :dir_test
+  attr_reader :home_page, :dir, :fnames, :dir_test, :password
 
   include Rack::Test::Methods
 
@@ -21,6 +22,7 @@ class CmsRackTest < Minitest::Test
   end
 
   def setup
+    @password = 'secret'
     @home_page = '/'
     @fnames = %w[foo.txt foo.md]
     @dir = data_path
@@ -38,12 +40,13 @@ class CmsRackTest < Minitest::Test
     end
     @dir_test = File.expand_path("../", __FILE__)
     File.open(dir_test + '/users.yml', "w+") do |f|
-      f.puts ({ 'admin' => 'secret' }.to_yaml)
+      admin_password = BCrypt::Password.create(password)
+      f.puts ({ 'admin' => admin_password }.to_yaml)
     end
   end
 
   def admin_session
-    { 'rack.session' => { username: 'admin', password: 'secret' } }
+    { 'rack.session' => { username: 'admin', password: password } }
   end
 
   def teardown

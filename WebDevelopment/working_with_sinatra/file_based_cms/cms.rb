@@ -3,6 +3,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
+require 'bcrypt'
 require 'rack_session_access'
 require 'pry-byebug'
 
