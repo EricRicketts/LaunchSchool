@@ -10,7 +10,7 @@ require 'pry-byebug'
 require_relative '../cms'
 
 class CmsCapybaraTest < Minitest::Test
-  attr_accessor :home_path, :dir, :fnames, :dir_test
+  attr_accessor :home_path, :dir, :fnames, :dir_test, :password
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
@@ -28,6 +28,7 @@ class CmsCapybaraTest < Minitest::Test
   end
 
   def setup
+    @password = 'secret'
     @home_path = '/'
     @fnames = %w[foo.txt foo.md]
     @dir = data_path
@@ -45,7 +46,8 @@ class CmsCapybaraTest < Minitest::Test
     end
     @dir_test = File.expand_path("../", __FILE__)
     File.open(dir_test + '/users.yml', "w+") do |f|
-      f.puts ({ 'admin' => 'secret' }.to_yaml)
+      admin_password = BCrypt::Password.create(password)
+      f.puts ({ 'admin' => admin_password }.to_yaml)
     end
   end
 
