@@ -7,5 +7,3 @@ require 'fileutils'
 require 'bcrypt'
 require 'pry-byebug'
 require_relative '../../cms'
-
-include Rack::Test::Methods
