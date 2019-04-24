@@ -1,0 +1,29 @@
+require 'pry-byebug'
+base_dir = Dir.getwd
+rack_dir = base_dir + "/test/rack"
+capybara_dir = base_dir + "/test/capybara"
+test_files = Dir.children(rack_dir)
+
+def create_task(test_file, prefix)
+  task_str = test_file.delete_suffix("_test.rb")
+  task_word = task_str.sub(/_/, ' ')
+  task_sym = (prefix + task_str).to_sym
+  [task_word, task_sym]
+end
+
+namespace :test do
+
+  test_files.each do |test_file|
+    task_str, task_sym = create_task(test_file, "rack_")
+    desc "run #{task_str} tests from test/rack directory"
+    task task_sym do
+      ruby rack_dir + "/#{test_file}"
+    end
+
+    task_str, task_sym = create_task(test_file, "capybara_")
+    desc "run #{task_str} tests from test/capybara directory"
+    task task_sym do
+      ruby capybara_dir + "/#{test_file}"
+    end
+  end
+end

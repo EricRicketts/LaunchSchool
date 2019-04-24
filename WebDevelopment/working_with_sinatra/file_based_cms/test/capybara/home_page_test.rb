@@ -1,9 +1,6 @@
 Dir[File.expand_path('../../helpers/*.rb', __FILE__)].each { |file| require file }
 Dir[File.expand_path('../../helpers/capybara/*.rb', __FILE__)].each { |file| require file }
 
-require 'capybara/minitest'
-require 'rack_session_access/capybara'
-
 class HomePageTest < Minitest::Test
   include CapybaraSetupAndTeardown
 
