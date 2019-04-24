@@ -29,7 +29,7 @@ module CapybaraSetupAndTeardown
         end
       end
     end
-    @dir_test = File.expand_path("../", __FILE__)
+    @dir_test = File.expand_path("../../../", __FILE__)
     File.open(dir_test + '/users.yml', "w+") do |f|
       admin_password = BCrypt::Password.create(password)
       f.puts ({ 'admin' => admin_password }.to_yaml)
