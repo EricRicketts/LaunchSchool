@@ -2,7 +2,6 @@ Dir[File.expand_path('../../helpers/*.rb', __FILE__)].each { |file| require file
 Dir[File.expand_path('../../helpers/rack/*.rb', __FILE__)].each { |file| require file }
 
 class EditFileTest < Minitest::Test
-  parallelize_me!
   include RackSetupAndTeardown
   include Rack::Test::Methods
 
