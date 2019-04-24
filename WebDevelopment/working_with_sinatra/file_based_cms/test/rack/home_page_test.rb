@@ -2,7 +2,7 @@ Dir[File.expand_path('../../helpers/*.rb', __FILE__)].each { |file| require file
 Dir[File.expand_path('../../helpers/rack/*.rb', __FILE__)].each { |file| require file }
 
 class HomePageTest < Minitest::Test
-  include SetupAndTeardown
+  include RackSetupAndTeardown
   include Rack::Test::Methods
 
   def test_home_page
