@@ -40,3 +40,6 @@ namespace :test do
   desc "run all tests"
   task :all_tests => [:rack_tests, :capybara_tests]
 end
+
+desc "default task"
+task :default => ["test:all_tests"]
