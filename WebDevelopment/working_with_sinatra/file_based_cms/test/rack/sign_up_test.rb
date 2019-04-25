@@ -6,10 +6,14 @@ class SignUpTest < Minitest::Test
   include Rack::Test::Methods
 
   def test_signup_form
-    skip
+    # skip
+    signup_form = '<form action="/users/signup" method="post">'
+    button = '<button type="submit">Sign Up</button>'
     url = '/users/signup'
+    get url
 
     assert_equal(200, last_response.status)
-
+    assert_equal(1, last_response.body.scan(signup_form).size)
+    assert_equal(1, last_response.body.scan(button).size)
   end
 end
