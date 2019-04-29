@@ -4,6 +4,7 @@ require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'bcrypt'
+require 'yaml'
 require 'rack_session_access'
 require 'pry-byebug'
 
@@ -77,6 +78,21 @@ def load_user_credentials
     File.expand_path("../users.yml", __FILE__)
   end
   YAML.load_file(credentials_path)
+end
+
+def signup_user(username, password)
+  original_dir = Dir.pwd
+  Dir.chdir(data_path)
+
+  Dir.chdir('../') do |path|
+    yaml_file = File.read('users.yml')
+    data = YAML.load(yaml_file)
+    data[username] = BCrypt::Password.create(password).to_s
+    output = YAML.dump(data)
+    File.write('users.yml', output)
+  end
+
+  Dir.chdir(original_dir)
 end
 
 get "/" do
@@ -171,7 +187,17 @@ post '/users/signup' do
 
   session[:message] = 'Congrats!! You now have an account.'
   session[:username] = username
-  session[:password] = BCrypt::Password.create(password)
+  signup_user(username, password)
+  # original_dir = Dir.pwd
+  # Dir.chdir(data_path)
+  # Dir.chdir('../') do |path|
+  #   yaml_file = File.read('users.yml')
+  #   data = YAML.load(yaml_file)
+  #   data[username] = BCrypt::Password.create(password).to_s
+  #   output = YAML.dump(data)
+  #   File.write('users.yml', output)
+  # end
+  # Dir.chdir(original_dir)
   redirect "/"
 end
 
