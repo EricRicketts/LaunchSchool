@@ -165,6 +165,16 @@ post '/users/signin' do
   end
 end
 
+post '/users/signup' do
+  username = params[:username].strip
+  password = params[:password].strip
+
+  session[:message] = 'Congrats!! You now have an account.'
+  session[:username] = username
+  session[:password] = BCrypt::Password.create(password)
+  redirect "/"
+end
+
 post '/users/signout' do
   session.delete(:username)
   session.delete(:password)
