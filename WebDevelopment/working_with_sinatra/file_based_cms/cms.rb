@@ -130,6 +130,9 @@ get "/:fname" do |fname|
 end
 
 get "/:fname/edit" do |fname|
+  # for file copy consider
+  # t1 = Time.now.ctime.gsub(/\s+|:/, '_')
+  # f.sub(/\.txt/, '.' + t1 + <file ending>)
   require_signed_in_user
   dir = data_path
   if file_exists?(dir, fname)
