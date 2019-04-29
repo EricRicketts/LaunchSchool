@@ -18,10 +18,11 @@ class SignUpTest < Minitest::Test
   end
 
   def test_signup
+    username = 'Elmer Fudd'
     signed_in_text = 'Signed in as Elmer Fudd.'
     flash_message = 'Congrats!! You now have an account.'
     url = '/users/signup'
-    post(url, params = { username: 'Elmer Fudd', password: 'dduF_remlE' })
+    post(url, params = { username: username, password: 'dduF_remlE' })
 
     assert_equal(302, last_response.status)
     get last_response.headers['Location']
@@ -29,5 +30,10 @@ class SignUpTest < Minitest::Test
     assert_equal(200, last_response.status)
     assert_includes(last_response.body, flash_message)
     assert_includes(last_response.body, signed_in_text)
+
+    binding.pry
+    users_file = load_user_credentials
+    assert users_file.key?(username)
+    assert users_file[username]
   end
 end

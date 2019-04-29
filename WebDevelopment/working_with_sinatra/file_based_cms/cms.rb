@@ -4,6 +4,7 @@ require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'bcrypt'
+require 'yaml'
 require 'rack_session_access'
 require 'pry-byebug'
 
@@ -171,7 +172,15 @@ post '/users/signup' do
 
   session[:message] = 'Congrats!! You now have an account.'
   session[:username] = username
-  session[:password] = BCrypt::Password.create(password)
+  original_dir = Dir.pwd
+  Dir.chdir(data_path) do |path|
+    File.open('../users.yml', "a+") do |f|
+      h = { username: username,
+        password: password }
+      f.puts h.to_yaml
+    end
+  end
+  Dir.chdir(original_dir)
   redirect "/"
 end
 
