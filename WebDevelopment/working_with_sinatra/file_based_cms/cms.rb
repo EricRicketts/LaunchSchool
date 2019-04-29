@@ -8,6 +8,11 @@ require 'yaml'
 require 'rack_session_access'
 require 'pry-byebug'
 
+ALLOWED_SUFFIXES = %w[
+  .txt .md .tif .jpeg .jpg
+  .gif .png .svg .eps .pdf
+]
+
 configure do
   enable :sessions
   use RackSessionAccess::Middleware if ENV['RACK_ENV'] == 'test'
@@ -73,6 +78,10 @@ def data_path
   else
     File.expand_path('../data', __FILE__)
   end
+end
+
+def invalid_file_entry?(fname)
+  !ALLOWED_SUFFIXES.include?(File.extname(fname))
 end
 
 def load_user_credentials
@@ -159,8 +168,8 @@ end
 post "/new" do
   require_signed_in_user
   new_file = params[:new].strip
-  if new_file.empty?
-    session[:message] = 'A name is required.'
+  if invalid_file_entry?(new_file)
+    session[:message] = 'Missing file suffix or incorrect file type.'
     status 422
     erb :new
   else

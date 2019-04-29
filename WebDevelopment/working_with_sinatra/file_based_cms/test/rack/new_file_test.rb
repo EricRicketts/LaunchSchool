@@ -76,10 +76,22 @@ class NewFileTest < Minitest::Test
   def test_create_new_file_blank_entry
     # skip
     url = '/new'
-    flash_message = 'A name is required.'
+    flash_message = 'Missing file suffix or incorrect file type.'
     post(url, params = { new: '   ' }, admin_session)
 
     assert_equal(422, last_response.status)
     assert_equal(1, last_response.body.scan(flash_message).size)
+  end
+
+  def test_invalid_file_suffix
+    # skip
+    url = '/new'
+    new_document_field = 'Add a new document:'
+    flash_message = 'Missing file suffix or incorrect file type.'
+    post(url, params = { new: 'bar.dxf' }, admin_session)
+
+    assert_equal(422, last_response.status)
+    assert_includes(last_response.body, flash_message)
+    assert_includes(last_response.body, new_document_field)
   end
 end

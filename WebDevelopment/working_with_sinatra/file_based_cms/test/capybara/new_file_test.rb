@@ -28,7 +28,7 @@ class NewFileTest < Minitest::Test
 
   def test_incorrect_new_file_entry
     # skip
-    flash_message = 'A name is required.'
+    flash_message = 'Missing file suffix or incorrect file type.'
 
     signin_user
     page.find_link('New Document').click
@@ -38,5 +38,19 @@ class NewFileTest < Minitest::Test
 
     assert_text(flash_message, count: 1)
     assert_selector('form', count: 1)
+  end
+
+  def test_invalid_file_suffix
+    # skip
+    new_document_path = '/new'
+    flash_message = 'Missing file suffix or incorrect file type.'
+
+    signin_user
+    page.find_link('New Document').click
+    page.fill_in('new', with: 'bar.dxf')
+    page.find_button('Create').click
+
+    assert_text(flash_message, count: 1)
+    assert_current_path(new_document_path)
   end
 end
