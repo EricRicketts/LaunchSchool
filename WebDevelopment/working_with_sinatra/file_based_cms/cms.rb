@@ -117,6 +117,10 @@ get "/users/signin" do
   erb :signin
 end
 
+get "/users/signup" do
+  erb :signup
+end
+
 patch "/:fname" do |fname|
   require_signed_in_user
   file_content = params[:file]
