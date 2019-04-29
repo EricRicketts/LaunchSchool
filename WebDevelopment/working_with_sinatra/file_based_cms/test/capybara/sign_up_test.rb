@@ -28,4 +28,21 @@ class SignUpTest < Minitest::Test
     assert users_file.key?(username)
     assert users_file[username]
   end
+
+  def test_invalid_signup
+    # skip
+    signup_path = '/users/signup'
+    username = '   '
+    password = '2zXfz4'
+    flash_message = 'A name and password is required.'
+    visit home_path
+
+    page.find_button('Sign Up').click
+    page.fill_in('Username:', with: username)
+    page.fill_in('Password:', with: password)
+    page.find_button('Sign Up').click
+
+    assert_text(flash_message, count: 1)
+    assert_current_path(signup_path)
+  end
 end

@@ -20,6 +20,10 @@ helpers do
     files.include?(file)
   end
 
+  def invalid_signup?(username, password)
+    username.empty? || password.empty?
+  end
+
   def process_file_type(dir, fname)
     case File.extname(dir + "/#{fname}")
     when '.txt'
@@ -185,20 +189,16 @@ post '/users/signup' do
   username = params[:username].strip
   password = params[:password].strip
 
-  session[:message] = 'Congrats!! You now have an account.'
-  session[:username] = username
-  signup_user(username, password)
-  # original_dir = Dir.pwd
-  # Dir.chdir(data_path)
-  # Dir.chdir('../') do |path|
-  #   yaml_file = File.read('users.yml')
-  #   data = YAML.load(yaml_file)
-  #   data[username] = BCrypt::Password.create(password).to_s
-  #   output = YAML.dump(data)
-  #   File.write('users.yml', output)
-  # end
-  # Dir.chdir(original_dir)
-  redirect "/"
+  if invalid_signup?(username, password)
+    session[:message] = 'A name and password is required.'
+    status 422
+    erb :signup
+  else
+    session[:message] = 'Congrats!! You now have an account.'
+    session[:username] = username
+    signup_user(username, password)
+    redirect "/"
+  end
 end
 
 post '/users/signout' do
