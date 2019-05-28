@@ -8,11 +8,10 @@ class Triangle
   private
 
   def make_pascal_triangle(row_limit)
-    x = (1..row_limit).each.with_index.inject([]) do |triangle, (row_number, idx)|
-      row = Array.new(row_number) do |i|
+    (1..row_limit).each.with_index.inject([]) do |triangle, (row_number, idx)|
+      triangle << Array.new(row_number) do |i|
         edge_number?(row_number, i) ? 1 : nonedge_number(triangle, idx, i)
       end
-      triangle << row
     end
   end
 
