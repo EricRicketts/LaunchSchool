@@ -35,7 +35,6 @@ class EditFileTest < Minitest::Test
 
     assert_current_path(home_path)
     assert_text(flash_message, count: 1)
-
     page.find_link(fname).click
     assert_text(new_text, count: 1)
     assert_no_text(flash_message)

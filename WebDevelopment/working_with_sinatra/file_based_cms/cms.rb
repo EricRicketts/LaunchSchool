@@ -93,19 +93,22 @@ def load_user_credentials
   YAML.load_file(credentials_path)
 end
 
+def preserve_current_version(path, fname)
+  utc_stamp = Time.now.to_i.to_s
+end
+
 def signup_user(username, password)
-  original_dir = Dir.pwd
-  Dir.chdir(data_path)
+  users_file = 'users.yml'
+  users_path = File.join(File.dirname(data_path), users_file)
 
-  Dir.chdir('../') do |path|
-    yaml_file = File.read('users.yml')
-    data = YAML.load(yaml_file)
-    data[username] = BCrypt::Password.create(password).to_s
-    output = YAML.dump(data)
-    File.write('users.yml', output)
-  end
+  yaml_file = File.read(users_path)
+  data = YAML.load(yaml_file)
+  data[username] = BCrypt::Password.create(password).to_s
+  output = YAML.dump(data)
 
-  Dir.chdir(original_dir)
+  File.chmod(0666, users_path)
+  File.write(users_path, output)
+  File.chmod(0444, users_path)
 end
 
 get "/" do
@@ -155,6 +158,7 @@ end
 
 patch "/:fname" do |fname|
   require_signed_in_user
+  preserve_current_version(data_path, fname)
   file_content = params[:file]
   File.write(data_path + "/#{fname}", file_content)
   session[:message] = "#{fname} has been updated."

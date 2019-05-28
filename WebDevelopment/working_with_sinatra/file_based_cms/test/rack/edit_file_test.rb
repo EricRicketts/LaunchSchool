@@ -67,6 +67,10 @@ class EditFileTest < Minitest::Test
     assert_equal(302, last_response.status)
     assert_equal(flash_message, session[:message])
 
+    files = Dir.children(dir)
+    assert_equal(3, files.size)
+    assert files.one?(/foo\.[[:digit:]]+\.txt/)
+
     edited_file = File.read(dir + "/#{fnames.first}")
     assert_equal("New foo.txt\nthis is the new text for the test.", edited_file)
   end
