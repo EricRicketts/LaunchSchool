@@ -14,4 +14,4 @@ SELECT * FROM orders WHERE drink = 'Chocolate Shake';
 SELECT burger, side, drink FROM orders WHERE id = 2;
 
 -- Exercise 4: Write a query that returns the name of anyone who ordered Onion Rings.
-SELECT customer_name FROM orders WHERE side = 'Onion Rings'
+SELECT customer_name FROM orders WHERE side = 'Onion Rings';
