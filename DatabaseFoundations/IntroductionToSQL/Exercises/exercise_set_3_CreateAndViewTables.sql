@@ -93,5 +93,5 @@ CREATE TABLE orders (
 	burger VARCHAR(50),
 	side VARCHAR(50),
 	drink VARCHAR(50),
-	order_total NUMERIC(4, 2) NOT NULL CHECK (order_total >= 0.00 AND order_total <= 99.99)
+	order_total NUMERIC(4, 2) NOT NULL CHECK (order_total > 0.00 AND order_total <= 99.99)
 );

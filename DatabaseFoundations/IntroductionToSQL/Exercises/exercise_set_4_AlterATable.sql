@@ -21,7 +21,7 @@ ALTER TABLE animals ALTER COLUMN max_weight_kg TYPE NUMERIC(10, 4);
 -- to remove the constraint:
 ALTER TABLE animals DROP CONSTRAINT animals_max_weight_check;
 -- to add a new constraint on the column:
-ALTER TABLE animals ADD CONSTRAINT animals_max_weight_check CHECK (max_weight_kg < 0.0001 AND max_weight_kg > 200000);
+ALTER TABLE animals ADD CONSTRAINT animals_max_weight_check_kg CHECK (max_weight_kg < 0.0001 AND max_weight_kg > 200000);
 
 -- Exercise 6: Change the animals table so that the binomial_name column cannot contain duplicate values.
 ALTER TABLE animals ADD CONSTRAINT unique_binomial_name UNIQUE (binomial_name);
