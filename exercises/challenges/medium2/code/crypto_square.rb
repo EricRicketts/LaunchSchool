@@ -19,9 +19,7 @@ class Crypto
   end
 
   def plaintext_segments
-    text = normalize_plaintext
-    segment_size = size
-    text.scan(/[[:alnum:]]{1,#{segment_size}}/)
+    normalize_plaintext.scan(/[[:alnum:]]{1,#{size}}/)
   end
 
   def size
