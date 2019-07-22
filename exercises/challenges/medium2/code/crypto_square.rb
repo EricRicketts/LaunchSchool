@@ -1,16 +1,17 @@
+require 'pry-byebug'
 class Crypto
   attr_reader :str
-
   def initialize(str)
     @str = str
   end
 
   def ciphertext
-    remove_spaces(transpose_text.join)
+    transposed = transpose_text_array
+    transposed.join.gsub(/[[:space:]]+/, '')
   end
 
   def normalize_ciphertext
-    transpose_text.map(&:join).map { |str| remove_spaces(str) }.join(' ')
+    transpose_text_array.map(&:join).map { |str| str.gsub(/[[:space:]]+/, '') }.join(' ')
   end
 
   def normalize_plaintext
@@ -18,20 +19,19 @@ class Crypto
   end
 
   def plaintext_segments
-    normalize_plaintext.scan(/[[:alnum:]]{1,#{size}}/)
+    text = normalize_plaintext
+    segment_size = size
+    text.scan(/[[:alnum:]]{1,#{segment_size}}/)
   end
 
   def size
-    Math.sqrt(normalize_plaintext.length).ceil
+    normalized_length = normalize_plaintext.length
+    Math.sqrt(normalized_length).ceil
   end
 
   private
 
-  def remove_spaces(str)
-    str.gsub(/[[:space:]]+/, '')
-  end
-
-  def transpose_text
+  def transpose_text_array
     text_segs = plaintext_segments
     text_segs[text_segs.length - 1] = text_segs.last.ljust(size)
     text_segs.map { |str| str.chars }.transpose
