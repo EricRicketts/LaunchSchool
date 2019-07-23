@@ -39,3 +39,25 @@ class Robot
     end << number.to_s
   end
 end
+
+=begin
+Excellent solution
+
+class Robot
+  attr_accessor :name
+  @@names = []
+  def initialize
+    reset
+  end
+
+  def reset
+    @@names.delete(name)
+    while @@names.include?(self.name = sample_name); end
+    @@names << name
+  end
+
+  def sample_name
+    ('AA'..'ZZ').to_a.sample + ('000'..'999').to_a.sample
+  end
+end
+=end
