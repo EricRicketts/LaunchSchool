@@ -1,3 +1,48 @@
 #! /usr/bin/env ruby
+require 'pry-byebug'
 require 'pg'
-puts "Hello World!"
+
+module ColumnSpacings
+  def self.init_header_hsh(column_names)
+    column_names.to_h { |name| [name, 0] }
+  end
+
+end
+
+class TableFormat
+  attr_accessor :headers, :body
+
+  def initialize(result_obj, headers, body)
+    @headers = init_header_hsh(headers, result_obj)
+    @body = body
+  end
+
+  private
+
+  def init_header_hsh(column_names, result_obj)
+    self.headers = column_names.to_h do |name|
+      [name, result_obj.field_values(name).map(&:length).max]
+    end
+  end
+end
+
+
+conn = PG::Connection.new(dbname: 'rb185')
+
+sql_for_list = <<SQL_LIST
+SELECT *
+FROM expenses;
+SQL_LIST
+
+result = conn.exec(sql_for_list)
+tf = TableFormat.new(result, result.fields, result.values)
+binding.pry
+p tf.body
+
+conn.close
+
+
+
+
+
+
