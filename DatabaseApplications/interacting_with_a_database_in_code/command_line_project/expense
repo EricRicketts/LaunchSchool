@@ -2,14 +2,8 @@
 require 'pry-byebug'
 require 'pg'
 
-module ColumnSpacings
-  def self.init_header_hsh(column_names)
-    column_names.to_h { |name| [name, 0] }
-  end
-
-end
-
 class TableFormat
+  OFFSET = 2
   attr_accessor :headers, :body
 
   def initialize(result_obj, headers, body)
@@ -17,12 +11,27 @@ class TableFormat
     @body = body
   end
 
+  def print_table
+    print_headers
+  end
+
   private
 
   def init_header_hsh(column_names, result_obj)
     self.headers = column_names.to_h do |name|
-      [name, result_obj.field_values(name).map(&:length).max]
+      [name, result_obj.field_values(name).map(&:length).max + OFFSET]
     end
+  end
+
+  def print_headers
+    col_names = headers.inject([]) do |columns, (name, spacing)|
+      columns << name.rjust(spacing)
+    end
+    separator = headers.inject([]) do |str, (_, spacing)|
+      str << '-' * spacing
+    end
+
+    col_names.join('|').concat("\n") + separator.join('+').concat("\n")
   end
 end
 
