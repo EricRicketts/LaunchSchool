@@ -4,21 +4,23 @@ require 'pg'
 
 module FieldOrder
   DESIRED_ORDER = %w[id created_on amount memo]
+  AMOUNT = DESIRED_ORDER[2]
 end
 
 class TableFormat
   include FieldOrder
   OFFSET = 2
 
-  attr_accessor :fields, :values
+  attr_accessor :fields, :values, :sum
 
   def initialize(result_obj, fields, values)
+    @sum = result_obj.field_values(AMOUNT).sum(&:to_f)
     @fields = init_fields_hsh(fields, result_obj)
     @values = values
   end
 
   def print_table
-    puts print_fields << print_values
+    puts print_fields << print_values << print_total
   end
 
   private
@@ -57,18 +59,29 @@ class TableFormat
     end
   end
 
+  def gen_field_names
+    fields.inject([]) do |columns, (name, spacing)|
+      columns << name.rjust(spacing)
+    end.join('|').concat("\n")
+  end
+
+  def print_fields
+    gen_field_names << gen_separator
+  end
+
+  def print_total
+    table_header = gen_field_names
+    sub_amount_value = table_header.gsub(/#{AMOUNT}/, sum.to_s.rjust(AMOUNT.length))
+    cleared_string = sub_amount_value.gsub(/[[:alpha:]|_]/, "\s")
+    total_line = cleared_string.gsub(/^\s{5}/, 'Total')
+    gen_separator.gsub(/\+/, '-') << total_line
+  end
+
   def print_values
     values_with_spacings = associate_values_with_spacings
     format_values(values_with_spacings)
   end
 
-  def print_fields
-    col_names = fields.inject([]) do |columns, (name, spacing)|
-      columns << name.rjust(spacing)
-    end.join('|').concat("\n")
-
-    col_names << gen_separator
-  end
 end
 
 
