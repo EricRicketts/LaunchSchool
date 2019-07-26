@@ -20,7 +20,7 @@ class TableFormat
   end
 
   def print_table
-    puts print_fields << print_values << print_total
+    print_fields << print_values << print_total
   end
 
   private
@@ -84,22 +84,56 @@ class TableFormat
 
 end
 
+RECOGNIZED_COMMANDS = %w[add clear delete list search]
 
-conn = PG::Connection.new(dbname: 'rb185')
-
-sql_for_list = <<SQL_LIST
+LIST_SQL = <<SQL_LIST
 SELECT #{FieldOrder::DESIRED_ORDER.join(', ')}
 FROM expenses;
 SQL_LIST
 
-result = conn.exec(sql_for_list)
-tf = TableFormat.new(result, result.fields, result.values)
-# binding.pry
-p tf.print_table
+HELP = <<HELP_DOC
+An expense recording system
 
-conn.close
+Commands:
 
+add AMOUNT MEMO [DATE] - record a new expense, AMOUNT required,
+MEMO must be in quotes if more than one word, DATE is optional
+formatted as a string 'yyyy-mm-dd hh:mm:ss'
 
+clear - delete all expenses
+
+delete NUMBER - remove expense with id NUMBER, NUMBER is required
+
+list - list all expenses
+
+search QUERY - list expenses with a matching MEMO field, QUERY
+is required and must be in quotes
+
+program returns an information message if input parameters
+do not match the command syntax
+HELP_DOC
+
+INFO_MSG =<<INFO_MSG
+Incorrect input, consider running './expense'
+with no arguments to get a list of viable commands.
+INFO_MSG
+
+def list
+  conn = PG::Connection.new(dbname: 'rb185')
+  result = conn.exec(LIST_SQL)
+
+  tf = TableFormat.new(result, result.fields, result.values)
+  puts tf.print_table
+
+  conn.close
+end
+
+if ARGV.empty?
+  puts HELP
+elsif !RECOGNIZED_COMMANDS.include?(ARGV.first)
+  puts INFO_MSG
+else send(ARGV.first.to_sym)
+end
 
 
 
