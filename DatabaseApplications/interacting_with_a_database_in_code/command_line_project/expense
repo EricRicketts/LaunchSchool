@@ -10,7 +10,8 @@ module CliConstants
 
   LIST_SQL = <<-SQL_LIST
   SELECT #{DESIRED_ORDER.join(', ')}
-  FROM expenses;
+  FROM expenses
+  ORDER BY id;
   SQL_LIST
 
   HELP = <<-HELP_DOC
@@ -152,7 +153,7 @@ def amount_format_correct?(amount)
 end
 
 def datetime_format_correct?(datetime)
-  if !datetime.match?(/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}$/)
+  if !datetime.match?(/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}-\d{2}$/)
     puts "Incorrect date time format"
     false
   else
@@ -162,7 +163,7 @@ end
 
 def list
   conn = PG::Connection.new(dbname: 'rb185')
-  result = conn.exec(LIST_SQL)
+  result = conn.exec(CliConstants::LIST_SQL)
 
   tf = TableFormat.new(result, result.fields, result.values)
   puts tf.print_table
@@ -174,12 +175,13 @@ def add_expense(conn, amount, memo, datetime)
 
   return unless amount_format_correct?(amount)
 
-  unless datetime.nil?
+  if datetime.nil?
+    datetime = DateTime.now.strftime("%F %T %Z")
+  else
     return unless datetime_format_correct?(datetime)
   end
 
-  binding.pry
-  conn.exec_params(CliConstants::SQL_INSERT, [amount, memo, date_time])
+  conn.exec_params(CliConstants::SQL_INSERT, [amount, memo, datetime])
   puts "expense successfully added"
 end
 
