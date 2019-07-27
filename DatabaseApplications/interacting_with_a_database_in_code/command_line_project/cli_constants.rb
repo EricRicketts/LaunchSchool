@@ -48,4 +48,10 @@ module CliConstants
   VALUES
   ($1, $2, $3);
   SQL_INSERT_TEXT
+
+  SEARCH = <<-SQL_SEARCH
+  SELECT #{DESIRED_ORDER.join(', ')}
+  FROM expenses
+  WHERE memo ILIKE $1;
+  SQL_SEARCH
 end

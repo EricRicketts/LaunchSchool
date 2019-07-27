@@ -2,14 +2,12 @@ require_relative './cli_constants'
 
 class Cli
   include CliConstants
-  attr_reader :args, :command, :amount, :memo, :datetime
+  attr_reader :args, :command, :amount, :memo, :datetime, :id
 
   def initialize(args)
     @args = args
     @command = args[0]
-    @amount = args[1]
-    @memo = args[2]
-    @datetime = args[3]
+    assign_arguments
   end
 
   def check_add_arguments
@@ -26,6 +24,19 @@ class Cli
 
   def amount_format_correct?
     amount.match?(/^\d+\.\d{2}$/)
+  end
+
+  def assign_arguments
+    case command
+    when "add"
+      @amount = args[1]
+      @memo = args[2]
+      @datetime = args[3]
+    when "search"
+      @memo = args[1]
+    when "delete"
+      @id = args[1]
+    end
   end
 
   def correct_number_of_add_arguments?

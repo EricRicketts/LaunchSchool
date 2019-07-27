@@ -17,6 +17,11 @@ class ExpenseData
     cli.check_add_arguments ? add_expense : (puts error_str)
   end
 
+  def clear
+  end
+
+  def delete
+  end
 
   def list
     conn = PG::Connection.new(dbname: DBNAME)
@@ -25,6 +30,16 @@ class ExpenseData
     tf.gather_data(result, result.fields, result.values)
     puts tf.print_table
 
+    conn.close
+  end
+
+  def search
+    conn = PG::Connection.new(dbname: DBNAME)
+    result = conn.exec_params(SEARCH, ['%' + cli.memo + '%'])
+
+    tf.gather_data(result, result.fields, result.values)
+    puts tf.print_search_results
+  
     conn.close
   end
 

@@ -12,6 +12,10 @@ class TableFormat
     @values = values
   end
 
+  def print_search_results
+    print_fields << print_values
+  end
+
   def print_table
     print_fields << print_values << print_total
   end
