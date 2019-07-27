@@ -1,67 +1,18 @@
 #! /usr/bin/env ruby
 require 'pry-byebug'
-require 'pg'
 require_relative './cli_constants'
 require_relative './table_format'
+require_relative './cli'
+require_relative './expense_data'
 
-def add
-  conn = PG::Connection.new(dbname: 'rb185')
+cli = Cli.new(ARGV)
+tf = TableFormat.new
+expenses = ExpenseData.new(cli, tf)
 
-  if ARGV.size < 3
-    puts "not enough arguments"
-  elsif ARGV.size > 4
-    puts "too many arguments"
-  else add_expense(conn, ARGV[1], ARGV[2], ARGV[3])
-  end
-
-  conn.close
-end
-
-def amount_format_correct?(amount)
-  if !amount.match?(/^\d+\.\d{2}$/)
-    puts "Incorrect format on AMOUNT"
-    false
-  else
-    true
-  end
-end
-
-def datetime_format_correct?(datetime)
-  if !datetime.match?(/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}-\d{2}$/)
-    puts "Incorrect date time format"
-    false
-  else
-    true
-  end
-end
-
-def list
-  conn = PG::Connection.new(dbname: 'rb185')
-  result = conn.exec(CliConstants::LIST_SQL)
-
-  tf = TableFormat.new(result, result.fields, result.values)
-  puts tf.print_table
-
-  conn.close
-end
-
-def add_expense(conn, amount, memo, datetime)
-
-  return unless amount_format_correct?(amount)
-
-  if datetime.nil?
-    datetime = DateTime.now.strftime("%F %T %Z")
-  else
-    return unless datetime_format_correct?(datetime)
-  end
-
-  conn.exec_params(CliConstants::SQL_INSERT, [amount, memo, datetime])
-  puts "expense successfully added"
-end
-
-if ARGV.empty?
+if cli.command.nil?
   puts CliConstants::HELP
-elsif !CliConstants::RECOGNIZED_COMMANDS.include?(ARGV.first)
+elsif !cli.valid_command?
   puts CliConstants::INFO_MSG
-else send(ARGV.first.to_sym)
+else
+  expenses.send(cli.command.to_sym)
 end

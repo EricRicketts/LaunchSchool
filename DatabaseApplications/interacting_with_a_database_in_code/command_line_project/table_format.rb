@@ -6,7 +6,7 @@ class TableFormat
 
   attr_accessor :fields, :values, :sum
 
-  def initialize(result_obj, fields, values)
+  def gather_data(result_obj, fields, values)
     @sum = result_obj.field_values(AMOUNT).sum(&:to_f)
     @fields = init_fields_hsh(fields, result_obj)
     @values = values
