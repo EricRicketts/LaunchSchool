@@ -18,17 +18,39 @@ class ExpenseData
   end
 
   def clear
+    puts "This will remove all expenses.  Are you sure? (y/n)"
+    answer = $stdin.gets.chomp.downcase
+    if answer == 'y'
+      conn = PG::Connection.new(dbname: DBNAME)
+      conn.exec(CLEAR)
+      puts "All expenses have been deleted"
+      conn.close
+    end
   end
 
   def delete
+    conn = PG::Connection.new(dbname: DBNAME)
+    result = conn.exec_params(VERIFY_EXPENSE_EXISTS, [cli.id])
+    if result.values.empty?
+      puts "There was no expense with id '#{cli.id}'"
+    else
+      conn.exec_params(DELETE, [cli.id])
+      puts "The following expense has been deleted:"
+      tf.gather_data(result, result.fields, result.values)
+      puts tf.print_search_results
+    end
   end
 
   def list
     conn = PG::Connection.new(dbname: DBNAME)
     result = conn.exec(LIST_SQL)
 
-    tf.gather_data(result, result.fields, result.values)
-    puts tf.print_table
+    if result.values.empty?
+      puts "There are no expenses"
+    else
+      tf.gather_data(result, result.fields, result.values)
+      puts tf.print_table
+    end
 
     conn.close
   end
@@ -39,7 +61,7 @@ class ExpenseData
 
     tf.gather_data(result, result.fields, result.values)
     puts tf.print_search_results
-  
+
     conn.close
   end
 

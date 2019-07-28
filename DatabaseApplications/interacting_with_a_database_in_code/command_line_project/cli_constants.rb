@@ -38,6 +38,14 @@ module CliConstants
   do not match the command syntax
   HELP_DOC
 
+  CLEAR = <<-SQL_CLEAR
+  DELETE FROM expenses;
+  SQL_CLEAR
+
+  DELETE = <<-SQL_DELETE
+  DELETE FROM expenses WHERE id = $1;
+  SQL_DELETE
+
   INFO_MSG = <<-INFO_MSG
   Incorrect input, consider running './expense'
   with no arguments to get a list of viable commands.
@@ -54,4 +62,10 @@ module CliConstants
   FROM expenses
   WHERE memo ILIKE $1;
   SQL_SEARCH
+
+  VERIFY_EXPENSE_EXISTS = <<-SQL_EXPENSE_SEARCH
+  SELECT #{DESIRED_ORDER.join(', ')}
+  FROM expenses
+  WHERE id = $1;
+  SQL_EXPENSE_SEARCH
 end
