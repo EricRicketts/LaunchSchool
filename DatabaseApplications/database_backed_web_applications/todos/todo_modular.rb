@@ -96,8 +96,7 @@ class TodoModular < Sinatra::Base
     else
       message = 'The list has been created.'
       set_flash(:success, message)
-      id = create_id(session[:lists])
-      session[:lists] << { id: id, name: list_name, todos: [] }
+      @storage.create_new_list(list_name)
       redirect '/lists'
     end
   end
@@ -127,7 +126,7 @@ class TodoModular < Sinatra::Base
       session[:error] = error
       erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
     else
-      id = create_id(list[:todos])
+      id = @storage.create_id(list[:todos])
       todo_properties = { id: id, name: todo, completed: false }
       list[:todos] << todo_properties
       message = 'The todo was added.'

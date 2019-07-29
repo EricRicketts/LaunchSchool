@@ -6,11 +6,6 @@ require 'sinatra/base'
 module Sinatra
   # Define helper methods for route handlers and view templates
   module Helpers
-    def create_id(arr)
-      max = arr.map { |hsh| hsh[:id] }.max || 0
-      max + 1
-    end
-
     def error_for_list_name(name)
       if !(1..100).cover?(name.size)
         'List name must be between 1 and 100 characters.'

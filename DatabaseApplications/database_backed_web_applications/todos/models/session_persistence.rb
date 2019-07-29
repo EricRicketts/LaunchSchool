@@ -1,5 +1,5 @@
 class SessionPersistence
-  attr_reader :session
+  attr_accessor :session
 
   def initialize(session)
     @session = session
@@ -8,6 +8,16 @@ class SessionPersistence
 
   def all_lists
     session[:lists]
+  end
+
+  def create_id(elements)
+    max = elements.map { |hsh| hsh[:id] }.max || 0
+    max + 1
+  end
+
+  def create_new_list(list_name)
+    id = create_id(all_lists)
+    all_lists << { id: id, name: list_name, todos: [] }
   end
 
   def find_list(list_id)
