@@ -48,8 +48,8 @@ class TodoModular < Sinatra::Base
   end
 
   delete '/lists/:list_id' do |list_id|
-    idx = session[:lists].index { |list| list[:id] == list_id.to_i }
-    session[:lists].delete_at(idx)
+    @storage.delete_list(list_id)
+
     if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
       "/lists"
     else
