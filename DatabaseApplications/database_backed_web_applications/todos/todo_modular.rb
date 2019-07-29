@@ -112,7 +112,8 @@ class TodoModular < Sinatra::Base
     else
       message = 'The list has been updated.'
       set_flash(:success, message)
-      list[:name] = list_name
+      @storage.update_list_name(list_id, list_name)
+      # list[:name] = list_name
       redirect "/lists/#{list_id}"
     end
   end

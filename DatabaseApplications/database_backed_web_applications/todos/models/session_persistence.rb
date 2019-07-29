@@ -28,4 +28,9 @@ class SessionPersistence
   def find_list(list_id)
     session[:lists].find { |list| list[:id] == list_id.to_i }
   end
+
+  def update_list_name(list_id, list_name)
+    list = find_list(list_id)
+    list[:name] = list_name
+  end
 end
