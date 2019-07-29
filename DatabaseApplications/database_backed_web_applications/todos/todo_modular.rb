@@ -59,10 +59,7 @@ class TodoModular < Sinatra::Base
   end
 
   delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
-    list = load_list(list_id)
-    idx = list[:todos].index { |todo| todo[:id] == todo_id.to_i }
-    list[:todos].delete_at(idx)
-
+    @storage.delete_todo_from_list(list_id, todo_id)
     if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
       status 204
     else
