@@ -70,8 +70,8 @@ class TodoModular < Sinatra::Base
 
   patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
     completed_value = params[:completed].to_s == "true"
-    list = load_list(list_id)
-    list[:todos].find { |todo| todo[:id] == todo_id.to_i }[:completed] = completed_value
+    @storage.update_todo_status(list_id, todo_id, completed_value)
+
     session[:success] = "The todo has been updated."
     redirect "/lists/#{list_id}"
   end

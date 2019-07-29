@@ -45,4 +45,10 @@ class SessionPersistence
     list = find_list(list_id)
     list[:name] = list_name
   end
+
+  def update_todo_status(list_id, todo_id, status)
+    list = find_list(list_id)
+    todo = list[:todos].find { |todo| todo[:id] == todo_id.to_i }
+    todo[:completed] = status
+  end
 end
