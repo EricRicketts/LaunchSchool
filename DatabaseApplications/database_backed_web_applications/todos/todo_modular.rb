@@ -28,7 +28,7 @@ class TodoModular < Sinatra::Base
 
   get '/lists' do
     locals = flash_key
-    locals = locals.merge({ lists: session[:lists] })
+    locals = locals.merge({ lists: @storage.all_lists })
     erb :lists, locals: locals, layout: :layout
   end
 
