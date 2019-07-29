@@ -20,6 +20,12 @@ class SessionPersistence
     all_lists << { id: id, name: list_name, todos: [] }
   end
 
+  def create_new_todo(list_id, todo_name)
+    list = find_list(list_id)
+    id = create_id(list[:todos])
+    list[:todos] << { id: id, name: todo_name, completed: false }
+  end
+
   def delete_list(list_id)
     idx = all_lists.index { |list| list[:id] == list_id.to_i }
     all_lists.delete_at(idx)

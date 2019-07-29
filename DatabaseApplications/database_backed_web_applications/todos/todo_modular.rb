@@ -113,23 +113,20 @@ class TodoModular < Sinatra::Base
       message = 'The list has been updated.'
       set_flash(:success, message)
       @storage.update_list_name(list_id, list_name)
-      # list[:name] = list_name
       redirect "/lists/#{list_id}"
     end
   end
 
   post '/lists/:list_id/todos' do |list_id|
-    todo = params[:todo].strip
+    todo_name = params[:todo].strip
     list = load_list(list_id)
-    error = error_for_todo(todo)
+    error = error_for_todo(todo_name)
 
     if error
       session[:error] = error
       erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
     else
-      id = @storage.create_id(list[:todos])
-      todo_properties = { id: id, name: todo, completed: false }
-      list[:todos] << todo_properties
+      @storage.create_new_todo(list_id, todo_name)
       message = 'The todo was added.'
       set_flash(:success, message)
       redirect "/lists/#{list_id}"
