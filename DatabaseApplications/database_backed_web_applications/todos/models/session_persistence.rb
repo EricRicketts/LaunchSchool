@@ -41,6 +41,11 @@ class SessionPersistence
     session[:lists].find { |list| list[:id] == list_id.to_i }
   end
 
+  def mark_all_todos_as_completed(list_id)
+    list = find_list(list_id)
+    list[:todos].each { |todo| todo[:completed] = true }
+  end
+
   def update_list_name(list_id, list_name)
     list = find_list(list_id)
     list[:name] = list_name
