@@ -10,11 +10,6 @@ class SessionPersistence
     session[:lists]
   end
 
-  def create_id(elements)
-    max = elements.map { |hsh| hsh[:id] }.max || 0
-    max + 1
-  end
-
   def create_new_list(list_name)
     id = create_id(all_lists)
     all_lists << { id: id, name: list_name, todos: [] }
@@ -55,5 +50,12 @@ class SessionPersistence
     list = find_list(list_id)
     todo = list[:todos].find { |todo| todo[:id] == todo_id.to_i }
     todo[:completed] = status
+  end
+
+  private
+
+  def create_id(elements)
+    max = elements.map { |hsh| hsh[:id] }.max || 0
+    max + 1
   end
 end

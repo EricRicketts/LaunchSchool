@@ -10,7 +10,6 @@ module Sinatra
     def init_session
       before do
         @storage = SessionPersistence.new(session)
-        session[:lists] ||= []
       end
     end
   end

@@ -77,8 +77,6 @@ class TodoModular < Sinatra::Base
   end
 
   patch '/lists/:list_id/todos' do |list_id|
-    # list = load_list(list_id)
-    # list[:todos].each { |todo| todo[:completed] = true }
     @storage.mark_all_todos_as_completed(list_id)
     session[:success] = "All todos have been completed."
     redirect "/lists/#{list_id}"
