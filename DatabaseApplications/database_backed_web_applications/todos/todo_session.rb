@@ -6,12 +6,12 @@ require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'rack_session_access'
 require 'pry-byebug'
-require_relative './config_and_filters/before_filters'
+require_relative './config_and_filters/before_filters_session'
 require_relative './config_and_filters/config'
 require_relative './helpers/helpers'
 
 # Implement a modular Sinatra apllication
-class TodoModular < Sinatra::Base
+class TodoSession < Sinatra::Base
   use Rack::MethodOverride
   helpers Sinatra::ContentFor
   register Sinatra::Config

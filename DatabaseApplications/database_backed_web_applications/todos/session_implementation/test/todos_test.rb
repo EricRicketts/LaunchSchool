@@ -5,7 +5,7 @@ require 'minitest/pride'
 require 'capybara/minitest'
 require 'rack_session_access/capybara'
 require 'pry-byebug'
-require_relative '../todo_modular'
+require_relative '../todos'
 
 class SinatraTodosTest < Minitest::Test
   attr_accessor :new_list_path, :new_list_form, :new_list_button,
@@ -16,7 +16,7 @@ class SinatraTodosTest < Minitest::Test
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
-  Capybara.app = TodoModular
+  Capybara.app = Todos
 
   def setup
     @new_list_path = '/lists/new'
