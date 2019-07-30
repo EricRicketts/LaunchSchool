@@ -37,17 +37,20 @@ class TodoModular < Sinatra::Base
   end
 
   get '/lists/:list_id' do |list_id|
+    list_id = list_id.to_i
     list = load_list(list_id)
     key = session.key?(:success) ? :success : :none
     erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
   end
 
   get '/lists/:list_id/edit' do |list_id|
+    list_id = list_id.to_i
     list = load_list(list_id)
     erb :edit_list, locals: { list: list, list_id: list_id, key: :none }, layout: :layout
   end
 
   delete '/lists/:list_id' do |list_id|
+    list_id = list_id.to_i
     @storage.delete_list(list_id)
 
     if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
@@ -59,6 +62,7 @@ class TodoModular < Sinatra::Base
   end
 
   delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
+    list_id, tood_id = list_id.to_i, todo_id.to_i
     @storage.delete_todo_from_list(list_id, todo_id)
     if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
       status 204
@@ -69,6 +73,7 @@ class TodoModular < Sinatra::Base
   end
 
   patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
+    list_id, todo_id = list_id.to_i, todo_id.to_i
     completed_value = params[:completed].to_s == "true"
     @storage.update_todo_status(list_id, todo_id, completed_value)
 
@@ -77,6 +82,7 @@ class TodoModular < Sinatra::Base
   end
 
   patch '/lists/:list_id/todos' do |list_id|
+    list_id = list_id.to_i
     @storage.mark_all_todos_as_completed(list_id)
     session[:success] = "All todos have been completed."
     redirect "/lists/#{list_id}"
@@ -98,6 +104,7 @@ class TodoModular < Sinatra::Base
   end
 
   post '/lists/:list_id' do |list_id|
+    list_id = list_id.to_i
     list_name = params[:list_name].strip
     list = load_list(list_id)
     error = error_for_list_name(list_name)
@@ -114,6 +121,7 @@ class TodoModular < Sinatra::Base
   end
 
   post '/lists/:list_id/todos' do |list_id|
+    list_id = list_id.to_i
     todo_name = params[:todo].strip
     list = load_list(list_id)
     error = error_for_todo(todo_name)
