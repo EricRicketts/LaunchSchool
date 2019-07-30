@@ -22,7 +22,7 @@ class SessionPersistence
   end
 
   def delete_list(list_id)
-    idx = all_lists.index { |list| list[:id] == list_id.to_i }
+    idx = all_lists.index { |list| list[:id] == list_id }
     all_lists.delete_at(idx)
   end
 
@@ -33,7 +33,7 @@ class SessionPersistence
   end
 
   def find_list(list_id)
-    session[:lists].find { |list| list[:id] == list_id.to_i }
+    session[:lists].find { |list| list[:id] == list_id }
   end
 
   def mark_all_todos_as_completed(list_id)
