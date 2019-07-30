@@ -28,7 +28,7 @@ class SessionPersistence
 
   def delete_todo_from_list(list_id, todo_id)
     list = find_list(list_id)
-    idx = list[:todos].index { |todo| todo[:id] == todo_id.to_i }
+    idx = list[:todos].index { |todo| todo[:id] == todo_id }
     list[:todos].delete_at(idx)
   end
 
@@ -48,7 +48,7 @@ class SessionPersistence
 
   def update_todo_status(list_id, todo_id, status)
     list = find_list(list_id)
-    todo = list[:todos].find { |todo| todo[:id] == todo_id.to_i }
+    todo = list[:todos].find { |todo| todo[:id] == todo_id }
     todo[:completed] = status
   end
 
