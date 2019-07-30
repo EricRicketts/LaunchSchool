@@ -5,6 +5,7 @@ ruby "2.6.3"
 gem "sinatra", "~>2.0.5"
 gem "sinatra-contrib", "~>2.0.5"
 gem "erubis", "~>2.7.0"
+gem "pg", "~>1.1.4"
 
 group :development do
   gem "pry-byebug", "~>3.7.0"

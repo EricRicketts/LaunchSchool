@@ -20,12 +20,12 @@ We'll also want each table to have an id column so we can easily identify specif
 -- 1.  Write the SQL statements necessary to create a schema that will hold the data for lists
 -- and todos as described above. Include any constraints that are appropriate.
 
-CREATE TABLE list (
+CREATE TABLE lists (
 	id SERIAL PRIMARY KEY,
 	name TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE todo (
+CREATE TABLE todos (
 	id SERIAL PRIMARY KEY,
 	name TEXT NOT NULL,
 	completed BOOLEAN NOT NULL DEFAULT FALSE,
