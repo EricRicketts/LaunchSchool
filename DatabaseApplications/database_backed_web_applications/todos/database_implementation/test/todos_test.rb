@@ -1,11 +1,12 @@
 ENV['APP_ENV'] = 'test'
 
+require 'pg'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/minitest'
 require 'rack_session_access/capybara'
 require 'pry-byebug'
-require_relative '../todo_session'
+require_relative '../todos'
 
 class SinatraTodosTest < Minitest::Test
   attr_accessor :new_list_path, :new_list_form, :new_list_button,
@@ -16,7 +17,30 @@ class SinatraTodosTest < Minitest::Test
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions
-  Capybara.app = TodoSession
+  Capybara.app = Todos
+
+
+  INITIAL_SQL = <<~SQL
+  INSERT INTO lists (name) VALUES
+  ('Homework'),
+  ('Vacation');
+  SQL
+
+  PURGE_LIST_DATA = <<~SQL
+  DELETE FROM lists;
+  SQL
+
+  RESET_LIST_ID = <<~SQL
+  ALTER SEQUENCE list_id_seq RESTART WITH 1;
+  SQL
+
+  PURGE_TODOS_DATA = <<~SQL
+  DELETE FROM todos;
+  SQL
+
+  RESET_TODOS_ID = <<~SQL
+  ALTER SEQUENCE todo_id_seq RESTART WITH 1;
+  SQL
 
   def setup
     @new_list_path = '/lists/new'
@@ -37,6 +61,15 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def teardown
+    conn = PG::Connection.new(dbname: 'todos')
+    conn.exec(PURGE_LIST_DATA)
+    conn.exec(RESET_LIST_ID)
+    conn.close
+
+    conn = PG::Connection.new(dbname: 'todos')
+    conn.exec(PURGE_TODOS_DATA)
+    conn.exec(RESET_TODOS_ID)
+    conn.close
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end
@@ -51,23 +84,30 @@ class SinatraTodosTest < Minitest::Test
     page_obj.find(new_list_button).click
   end
 
+  def test_display_lists
+    skip
+    conn = PG::Connection.new(dbname: 'todos')
+    conn.exec(INITIAL_SQL)
+    visit '/'
+    assert_equal('Homework', page.find('ul#lists > li:first-of-type > a > h2').text)
+    assert_equal('Vacation', page.find('ul#lists > li:nth-child(2) > a > h2').text)
+  end
+
   def test_add_new_list
     # skip
     create_new_list(new_list_path, first_list_name)
     assert_text(list_created, count: 1)
-    list_data = page.get_rack_session_key('lists').first
-    list_name = list_data[:name]
 
     visit home_path
 
     assert_no_text(list_created, count: 1)
-    assert_equal(list_name, page.find('ul#lists > li > a > h2').text)
+    assert_equal(first_list_name, page.find('ul#lists > li > a > h2').text)
     assert_equal('0/0', page.find('ul#lists > li > a > p').text)
     assert_text(first_list_name, count: 1)
   end
 
   def test_visit_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
 
@@ -76,7 +116,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_edit_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     assert_text(first_list_name, count: 1)
 
@@ -90,7 +130,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_spaces_only_for_new_list_name
-    # skip
+    skip
     create_new_list(new_list_path, empty_string)
     assert_text(list_name_error, count: 1)
 
@@ -99,7 +139,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_spaces_only_for_edit_list_name
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find(first_list_link).click
@@ -113,7 +153,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_new_list_name_no_duplicates
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find('div.actions > a[href="/lists/new"]').click
 
@@ -125,7 +165,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_edit_list_and_cancel
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
     page.find(edit_list_link).click
@@ -136,7 +176,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_delete_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     create_new_list(new_list_path, second_list_name)
 
@@ -149,7 +189,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_todos_to_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -161,7 +201,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_blank_spaces_for_todo_item
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -173,7 +213,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_delete_a_todo_item_from_a_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -193,7 +233,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_toggle_a_todo_item
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -212,7 +252,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_toggle_all_todo_items
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -234,7 +274,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_completed_list_appearance_on_all_lists_page
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -254,7 +294,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_list_status_on_all_lists_page
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -275,7 +315,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_todos_sorted_when_completed
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -301,7 +341,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_lists_sorted_when_completed
-    #skip
+    skip
     list_names = %W[First\sList Second\sList Third\sList Fourth\sList]
     list_names.each do |list_name|
       create_new_list(new_list_path, list_name)
@@ -328,7 +368,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_home_page
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     create_new_list(new_list_path, second_list_name)
 
@@ -341,7 +381,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_non_existant_list
-    # skip
+    skip
     create_new_list(new_list_path, first_list_name)
     visit "/lists/100"
 

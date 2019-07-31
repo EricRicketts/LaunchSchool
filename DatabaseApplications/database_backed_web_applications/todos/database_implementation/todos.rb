@@ -6,12 +6,12 @@ require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'rack_session_access'
 require 'pry-byebug'
-require_relative './config_and_filters/before_filters_session'
+require_relative './config_and_filters/before_filters'
 require_relative './config_and_filters/config'
 require_relative './helpers/helpers'
 
 # Implement a modular Sinatra apllication
-class TodoSession < Sinatra::Base
+class Todos < Sinatra::Base
   use Rack::MethodOverride
   helpers Sinatra::ContentFor
   register Sinatra::Config
@@ -36,6 +36,7 @@ class TodoSession < Sinatra::Base
     erb :new_list, locals: { key: :none }, layout: :layout
   end
 
+  # view a single list
   get '/lists/:list_id' do |list_id|
     list_id = list_id.to_i
     list = load_list(list_id)
@@ -88,6 +89,7 @@ class TodoSession < Sinatra::Base
     redirect "/lists/#{list_id}"
   end
 
+  # create a new list
   post '/lists' do
     list_name = params[:list_name].strip
     error = error_for_list_name(list_name)
@@ -96,9 +98,9 @@ class TodoSession < Sinatra::Base
       set_flash(:error, error)
       erb :new_list, locals: { key: :error }, layout: :layout
     else
+      @storage.create_new_list(list_name)
       message = 'The list has been created.'
       set_flash(:success, message)
-      @storage.create_new_list(list_name)
       redirect '/lists'
     end
   end

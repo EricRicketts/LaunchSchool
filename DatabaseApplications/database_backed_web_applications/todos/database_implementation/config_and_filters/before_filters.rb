@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sinatra/base'
-require_relative '../models/session_persistence'
+require_relative '../models/database_persistence'
 
 # must start Sinatra Extension with module Sinatra
 module Sinatra
@@ -9,7 +9,7 @@ module Sinatra
   module BeforeFilters
     def init_session
       before do
-        @storage = SessionPersistence.new(session)
+        @storage = DatabasePersistence.new
       end
     end
   end

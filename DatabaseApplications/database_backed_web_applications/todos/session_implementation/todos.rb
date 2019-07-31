@@ -6,7 +6,7 @@ require 'sinatra/content_for'
 require 'tilt/erubis'
 require 'rack_session_access'
 require 'pry-byebug'
-require_relative './config_and_filters/before_filters_session'
+require_relative './config_and_filters/before_filters'
 require_relative './config_and_filters/config'
 require_relative './helpers/helpers'
 
@@ -131,6 +131,7 @@ class Todos < Sinatra::Base
       erb :list, locals: { list: list, list_id: list_id, key: :error}, layout: :layout
     else
       @storage.create_new_todo(list_id, todo_name)
+      binding.pry
       message = 'The todo was added.'
       set_flash(:success, message)
       redirect "/lists/#{list_id}"
