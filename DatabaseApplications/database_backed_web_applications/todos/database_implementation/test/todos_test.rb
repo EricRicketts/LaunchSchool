@@ -107,7 +107,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_visit_a_list
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
 

@@ -2,14 +2,22 @@ require 'pg'
 require 'pry-byebug'
 class DatabasePersistence
   SQL_ALL_LISTS = 'SELECT id, name FROM lists;'
+
   SQL_FIND_LIST = <<~SQL
-  SELECT td.id, td.name, td.completed
-  FROM todos AS td
-  WHERE td.list_id = $1;
+  SELECT l.id, l.name
+  FROM lists AS l
+  WHERE l.id = $1;
   SQL
+
   SQL_NEW_LIST = <<~SQL
   INSERT INTO lists (name)
   VALUES ($1);
+  SQL
+
+  SQL_FIND_TODOS = <<~SQL
+  SELECT td.id, td.name, td.completed
+  FROM todos AS td
+  WHERE td.list_id = $1;
   SQL
 
   attr_accessor :db
@@ -47,18 +55,11 @@ class DatabasePersistence
   end
 
   def find_list(list_id, list_name = '')
-    result = query(SQL_FIND_LIST, list_id.to_i)
-    name_value = list_name.empty? ? result.getvlaue(0, 1) : list_name
-    hsh = { id: list_id, name: name_value, todos: [] }
-
-    result.each do |tuple|
-      todo_hsh = { id: tuple["id"].to_i,
-        name: tuple["name"],
-        completed: tuple["completed"] == "t"
-      }
-      hsh[:todos].push(todo_hsh)
-    end
-    hsh
+    list_id = list_id.to_i
+    result = query(SQL_FIND_LIST, list_id)
+    name_value = list_name.empty? ? result.getvalue(0, 1) : list_name
+    todos = find_todos_for_list(list_id)
+    { id: list_id, name: name_value, todos: todos }
   end
 
   def mark_all_todos_as_completed(list_id)
@@ -79,5 +80,15 @@ class DatabasePersistence
     # list = find_list(list_id)
     # todo = list[:todos].find { |todo| todo[:id] == todo_id }
     # todo[:completed] = status
+  end
+
+  def find_todos_for_list(list_id)
+    result = query(SQL_FIND_TODOS, list_id)
+    result.map do |tuple|
+      { id: tuple["id"].to_i,
+        name: tuple["name"],
+        completed: tuple["completed"] == "t"
+      }
+    end
   end
 end
