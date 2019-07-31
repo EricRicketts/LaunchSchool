@@ -50,6 +50,12 @@ class DatabasePersistence
   WHERE list_id = $1 AND id = $2;
   SQL
 
+  SQL_MARK_ALL_TODOS_COMPLETE = <<~SQL
+  UPDATE todos
+  SET completed = TRUE
+  WHERE list_id = $1;
+  SQL
+
   attr_accessor :db
 
   def initialize
@@ -92,8 +98,8 @@ class DatabasePersistence
   end
 
   def mark_all_todos_as_completed(list_id)
-    # list = find_list(list_id)
-    # list[:todos].each { |todo| todo[:completed] = true }
+    list_id = list_id.to_i
+    query(SQL_MARK_ALL_TODOS_COMPLETE, list_id)
   end
 
   def query(statement, *params)
