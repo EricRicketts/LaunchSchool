@@ -274,7 +274,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_completed_list_appearance_on_all_lists_page
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -294,7 +294,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_list_status_on_all_lists_page
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -315,7 +315,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_todos_sorted_when_completed
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -341,7 +341,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_lists_sorted_when_completed
-    skip
+    # skip
     list_names = %W[First\sList Second\sList Third\sList Fourth\sList]
     list_names.each do |list_name|
       create_new_list(new_list_path, list_name)
@@ -368,7 +368,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_home_page
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
     create_new_list(new_list_path, second_list_name)
 
