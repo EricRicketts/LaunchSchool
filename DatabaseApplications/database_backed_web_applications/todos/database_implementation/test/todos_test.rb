@@ -130,7 +130,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_spaces_only_for_new_list_name
-    skip
+    # skip
     create_new_list(new_list_path, empty_string)
     assert_text(list_name_error, count: 1)
 
@@ -139,7 +139,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_spaces_only_for_edit_list_name
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find(first_list_link).click
