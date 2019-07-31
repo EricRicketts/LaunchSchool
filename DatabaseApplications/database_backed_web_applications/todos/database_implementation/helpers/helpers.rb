@@ -51,8 +51,9 @@ module Sinatra
     end
 
     def load_list(list_id)
+      list_id = list_id.to_i
       list = @storage.find_list(list_id)
-      if list_id && list
+      if list_id && !list.empty?
         list
       else
         message = 'The specified list was not found.'

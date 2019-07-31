@@ -92,6 +92,8 @@ class DatabasePersistence
   def find_list(list_id, list_name = '')
     list_id = list_id.to_i
     result = query(SQL_FIND_LIST, list_id)
+    return result.values if result.values.empty?
+
     name_value = list_name.empty? ? result.getvalue(0, 1) : list_name
     todos = find_todos_for_list(list_id)
     { id: list_id, name: name_value, todos: todos }

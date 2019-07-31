@@ -85,7 +85,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_display_lists
-    skip
+    # skip
     conn = PG::Connection.new(dbname: 'todos')
     conn.exec(INITIAL_SQL)
     visit '/'
@@ -381,7 +381,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_non_existant_list
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
     visit "/lists/100"
 
