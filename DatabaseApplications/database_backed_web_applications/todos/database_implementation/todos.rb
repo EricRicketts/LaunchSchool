@@ -47,6 +47,7 @@ class Todos < Sinatra::Base
     erb :list, locals: { list: list, list_id: list_id, key: key }, layout: :layout
   end
 
+  # edit list form
   get '/lists/:list_id/edit' do |list_id|
     list_id = list_id.to_i
     list = load_list(list_id)
@@ -66,6 +67,7 @@ class Todos < Sinatra::Base
     end
   end
 
+  # delete a todo
   delete '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
     list_id, todo_id = list_id.to_i, todo_id.to_i
     @storage.delete_todo_from_list(list_id, todo_id)
@@ -77,6 +79,7 @@ class Todos < Sinatra::Base
     end
   end
 
+  # update a todo
   patch '/lists/:list_id/todos/:todo_id' do |list_id, todo_id|
     list_id, todo_id = list_id.to_i, todo_id.to_i
     completed_value = params[:completed].to_s == "true"
@@ -86,6 +89,7 @@ class Todos < Sinatra::Base
     redirect "/lists/#{list_id}"
   end
 
+  # complete all todos
   patch '/lists/:list_id/todos' do |list_id|
     list_id = list_id.to_i
     @storage.mark_all_todos_as_completed(list_id)

@@ -39,6 +39,11 @@ class DatabasePersistence
   ($2, $1);
   SQL
 
+  SQL_DELETE_TODO = <<~SQL
+  DELETE FROM todos
+  WHERE list_id = $1 AND id = $2;
+  SQL
+
   attr_accessor :db
 
   def initialize
@@ -67,9 +72,9 @@ class DatabasePersistence
   end
 
   def delete_todo_from_list(list_id, todo_id)
-    # list = find_list(list_id)
-    # idx = list[:todos].index { |todo| todo[:id] == todo_id }
-    # list[:todos].delete_at(idx)
+    list_id = list_id.to_i
+    todo_id = todo_id.to_i
+    query(SQL_DELETE_TODO, list_id, todo_id)
   end
 
   def find_list(list_id, list_name = '')

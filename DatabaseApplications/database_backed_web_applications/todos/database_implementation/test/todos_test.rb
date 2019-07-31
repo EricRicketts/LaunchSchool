@@ -213,7 +213,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_delete_a_todo_item_from_a_list
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
@@ -233,7 +233,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_toggle_a_todo_item
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
