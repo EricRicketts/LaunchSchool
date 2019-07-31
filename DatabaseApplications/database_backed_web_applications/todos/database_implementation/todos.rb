@@ -22,16 +22,19 @@ class Todos < Sinatra::Base
   init_session
   enable_escape_html
 
+  # home page displays all lists
   get '/' do
     redirect '/lists'
   end
 
+  # display all lists
   get '/lists' do
     locals = flash_key
     locals = locals.merge({ lists: @storage.all_lists })
     erb :lists, locals: locals, layout: :layout
   end
 
+  # add new list form
   get '/lists/new' do
     erb :new_list, locals: { key: :none }, layout: :layout
   end

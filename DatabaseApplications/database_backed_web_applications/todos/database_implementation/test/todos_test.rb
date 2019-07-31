@@ -153,7 +153,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_new_list_name_no_duplicates
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
     page.find('div.actions > a[href="/lists/new"]').click
 
@@ -165,7 +165,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_edit_list_and_cancel
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
     page.find(first_list_link).click
     page.find(edit_list_link).click
