@@ -201,7 +201,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_add_blank_spaces_for_todo_item
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
 
     page.find_link('First List').click
