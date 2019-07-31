@@ -44,6 +44,12 @@ class DatabasePersistence
   WHERE list_id = $1 AND id = $2;
   SQL
 
+  SQL_UPDATE_TODO_STATUS = <<~SQL
+  UPDATE todos
+  SET completed = $3
+  WHERE list_id = $1 AND id = $2;
+  SQL
+
   attr_accessor :db
 
   def initialize
@@ -100,9 +106,9 @@ class DatabasePersistence
   end
 
   def update_todo_status(list_id, todo_id, status)
-    # list = find_list(list_id)
-    # todo = list[:todos].find { |todo| todo[:id] == todo_id }
-    # todo[:completed] = status
+    list_id = list_id.to_i
+    todo_id = todo_id.to_i
+    query(SQL_UPDATE_TODO_STATUS, list_id, todo_id, status)
   end
 
   def find_todos_for_list(list_id)
