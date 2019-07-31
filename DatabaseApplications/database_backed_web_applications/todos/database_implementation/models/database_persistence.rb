@@ -1,7 +1,10 @@
 require 'pg'
 require 'pry-byebug'
 class DatabasePersistence
-  SQL_ALL_LISTS = 'SELECT id, name FROM lists;'
+  SQL_ALL_LISTS = <<~SQL
+  SELECT id, name
+  FROM lists;
+  SQL
 
   SQL_FIND_LIST = <<~SQL
   SELECT l.id, l.name
@@ -18,6 +21,10 @@ class DatabasePersistence
   UPDATE lists
   SET name = $2
   WHERE id = $1;
+  SQL
+
+  SQL_DELETE_LIST = <<~SQL
+  DELETE FROM lists WHERE id = $1;
   SQL
 
   SQL_FIND_TODOS = <<~SQL
@@ -50,8 +57,8 @@ class DatabasePersistence
   end
 
   def delete_list(list_id)
-    # idx = all_lists.index { |list| list[:id] == list_id }
-    # all_lists.delete_at(idx)
+    list_id = list_id.to_i
+    query(SQL_DELETE_LIST, list_id)
   end
 
   def delete_todo_from_list(list_id, todo_id)

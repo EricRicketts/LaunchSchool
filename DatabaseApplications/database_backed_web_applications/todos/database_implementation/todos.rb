@@ -53,6 +53,7 @@ class Todos < Sinatra::Base
     erb :edit_list, locals: { list: list, list_id: list_id, key: :none }, layout: :layout
   end
 
+  # delete a list
   delete '/lists/:list_id' do |list_id|
     list_id = list_id.to_i
     @storage.delete_list(list_id)
