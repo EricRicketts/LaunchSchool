@@ -14,6 +14,12 @@ class DatabasePersistence
   VALUES ($1);
   SQL
 
+  SQL_UPDATE_LIST = <<~SQL
+  UPDATE lists
+  SET name = $2
+  WHERE id = $1;
+  SQL
+
   SQL_FIND_TODOS = <<~SQL
   SELECT td.id, td.name, td.completed
   FROM todos AS td
@@ -72,8 +78,8 @@ class DatabasePersistence
   end
 
   def update_list_name(list_id, list_name)
-    # list = find_list(list_id)
-    # list[:name] = list_name
+    list_id = list_id.to_i
+    query(SQL_UPDATE_LIST, list_id, list_name)
   end
 
   def update_todo_status(list_id, todo_id, status)

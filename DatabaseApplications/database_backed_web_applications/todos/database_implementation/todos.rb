@@ -105,6 +105,7 @@ class Todos < Sinatra::Base
     end
   end
 
+  # update a list
   post '/lists/:list_id' do |list_id|
     list_id = list_id.to_i
     list_name = params[:list_name].strip
@@ -115,9 +116,9 @@ class Todos < Sinatra::Base
       set_flash(:error, error)
       erb :edit_list, locals: { list: list, list_id: list_id, key: :error }, layout: :layout
     else
+      @storage.update_list_name(list_id, list_name)
       message = 'The list has been updated.'
       set_flash(:success, message)
-      @storage.update_list_name(list_id, list_name)
       redirect "/lists/#{list_id}"
     end
   end

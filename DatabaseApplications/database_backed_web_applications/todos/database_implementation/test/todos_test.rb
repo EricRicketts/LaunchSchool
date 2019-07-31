@@ -116,7 +116,7 @@ class SinatraTodosTest < Minitest::Test
   end
 
   def test_edit_a_list
-    skip
+    # skip
     create_new_list(new_list_path, first_list_name)
     assert_text(first_list_name, count: 1)
 
