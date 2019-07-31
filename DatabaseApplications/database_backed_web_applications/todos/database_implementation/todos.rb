@@ -127,6 +127,7 @@ class Todos < Sinatra::Base
     end
   end
 
+  # create a new todo
   post '/lists/:list_id/todos' do |list_id|
     list_id = list_id.to_i
     todo_name = params[:todo].strip

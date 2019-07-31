@@ -33,6 +33,12 @@ class DatabasePersistence
   WHERE td.list_id = $1;
   SQL
 
+  SQL_NEW_TODO = <<~SQL
+  INSERT INTO todos (name, list_id)
+  VALUES
+  ($2, $1);
+  SQL
+
   attr_accessor :db
 
   def initialize
@@ -51,9 +57,8 @@ class DatabasePersistence
   end
 
   def create_new_todo(list_id, todo_name)
-    # list = find_list(list_id)
-    # id = create_id(list[:todos])
-    # list[:todos] << { id: id, name: todo_name, completed: false }
+    list_id = list_id.to_i
+    query(SQL_NEW_TODO, list_id, todo_name)
   end
 
   def delete_list(list_id)
