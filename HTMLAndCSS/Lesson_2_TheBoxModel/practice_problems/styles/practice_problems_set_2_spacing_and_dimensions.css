@@ -1,0 +1,310 @@
+/*
+Problem 1
+
+Use CSS to set a fixed width on the image of 800 pixels, and center it in the window horizontally.
+*/
+#problem-1 {
+  display: block;
+  width: 800px;
+  margin: 0 auto; /* margin: x auto; means top and bottom margins are x, while left and right margins are auto*/
+}
+
+/*
+Launch School Solution:
+
+Is the code shown above.  The reason this did not work in
+my previous solution is that the auto margins only work for
+display: block; not for inline or inline-block which makes
+sense since one should be able to center a block within a
+parent container while inline and inline-block elements are
+to layout side by side.
+*/
+
+/*
+Problem 2
+
+Using the code from the previous problem, change the width property for img to 100%, and set the max-width property
+to 800px. The image should expand to fit any container width up to 800 pixels. Resize your browser width and watch
+how that affects the photograph.
+*/
+
+#problem-2 {
+  display: block;
+  width: 100%;
+  max-width: 800px
+  margin: 0 auto;
+}
+
+/*
+Very cool responsive design, the image changed size as I changed the size
+of the browswer window.  As one might expect the #problem-1 element eventually
+started to crop as the browser window decreased in size.
+*/
+
+/*
+Problem 3
+
+Using the code from the previous problem, set a fixed height on the image of 533 pixels.
+Resize the browser window and watch how the image dimensions change.
+*/
+
+#problem-3 {
+  display: block;
+  max-width: 800px;
+  height: 533px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/*
+In this case the image retained fixed dimensions and was always centered
+on the page.  The margins increased as the page widened and decreased as
+the page narrowed.
+*/
+
+/*
+Problem 4
+
+As you can see, having a variable size for one dimension and fixed for the other makes for a container
+with strange behavior: this one stretches horizontally but remains fixed vertically. Remove the height
+and update the CSS to ensure the width does not get smaller than 500 pixels.
+*/
+
+#problem-4 {
+  display: block;
+  max-width: 800px;
+  min-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/*
+compared to Problem 3, there is less distortion as the image shrinks along both height and width
+as the browser narrows and shortens.  In problem 3 there is some distortion as the picture gets
+to its minimum width because the height remains fixed.
+*/
+
+/*
+Problem 5
+
+Create a new HTML page with two consecutive div elements. Make each a fixed width and height of 300 pixels.
+Set the background color on the first div to "#fcc" (red) and the second to "#ccf" (blue).
+*/
+
+.problem-5 {
+  width: 300px;
+  height: 300px;
+}
+
+#problem-5a {
+  background-color: red;
+}
+
+#problem-5b {
+  background-color: blue;
+}
+
+/*
+the <div> elements are placed one on top of another.
+*/
+
+/*
+Problem 6
+
+Add a 5-pixel solid black border to the blue div. Compare the widths of the two boxes.
+Why is the blue box a different size?
+*/
+
+.problem-6 {
+  width: 300px;
+  height: 300px;
+}
+
+#problem-6a {
+  background-color: red;
+}
+
+#problem-6b {
+  border: 5px solid black;
+  background-color: blue;
+}
+
+/*
+yes, the boxes are different sizes because a content-box is used by default
+for the dimensions of block elements, so the 5px border adds to the total
+height and width of the second <div> element.
+*/
+
+/*
+Problem 7
+
+Add 20 pixels padding to all four sides of the red div. Notice the different widths again. Add a CSS property to
+both elements to ensure the total width for each is 300px rather than 300px and then some.
+*/
+
+.problem-7a {
+  width: 300px;
+  height: 300px;
+}
+
+#problem-7aa {
+  background-color: red;
+  padding: 20px;
+}
+
+#problem-7bb {
+  background-color: blue;
+  border: 5px solid black;
+}
+
+.problem-7b {
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+}
+
+#problem-7cc {
+  background-color: red;
+  padding: 20px;
+}
+
+#problem-7dd {
+  background-color: blue;
+  border: 5px solid black;
+}
+
+/*
+With the class problem-7b and the ids of problem-7cc and problem-7dd the <div> elements line up perfectly
+one on top of another, this is because box-sizing: border-box; makes the total width of the element to
+include the content, padding, and border.
+*/
+
+/*
+Problem 8
+
+Change both boxes to place them side-by-side instead of stacked vertically. If necessary, increase the width of
+your browser window.
+*/
+
+.problem-8 {
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+#problem-8a {
+  background-color: red;
+  padding: 20px;
+}
+
+#problem-8b {
+  background-color: blue;
+  border: 5px solid black;
+}
+
+/* they lined up perfectly my answer was the same as Launch School*/
+
+/*
+Problem 9
+
+Add 20px of space between the red and blue boxes.
+*/
+
+.problem-9 {
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+#problem-9a {
+  background-color: red;
+  padding: 20px;
+  margin-right: 20px;
+}
+
+#problem-9b {
+  background-color: blue;
+  border: 5px solid black;
+}
+
+/* produced the required separation */
+
+/*
+Problem 10
+
+Don't overlook the oddly-formatted comments between the list items above! They're a necessary part of this problem.
+
+Add the CSS needed to list all four items side-by-side in one row. Each list item should use the same amount of
+space as the other elements, and together they should hide the blue background entirely (but not the blue border).
+*/
+
+#problem-10 {
+  margin: 50px;
+}
+
+#problem-10 > ul {
+  background-color: #a7ceff;
+  border: 10px solid blue;
+  list-style: none;
+  padding: 0;
+}
+
+#problem-10 > ul > li {
+  background-color: #ffc;
+  border: 10px solid red;
+  box-sizing: border-box;
+  line-height: 120px;
+  min-height: 120px;
+  text-align: center;
+  display: inline-block;
+  width: 25%;
+}
+
+/* My solution was the same as the Launch School solution, the width had to be divided evenly, so the <li> element
+width had to be 25%
+*/
+
+/*
+Problem 11
+
+Using the code from the previous problem solution, set the left and right margin on each li element to 1%, but do not let
+the inner boxes wrap around - they must all continue to fit on the same line with no change in the outer box's size.
+*/
+
+#problem-11 {
+  margin: 50px;
+}
+
+#problem-11 > ul {
+  background-color: #a7ceff;
+  border: 10px solid blue;
+  list-style: none;
+  padding: 0;
+}
+
+#problem-11 > ul > li {
+  background-color: #ffc;
+  border: 10px solid red;
+  box-sizing: border-box;
+  line-height: 120px;
+  min-height: 120px;
+  text-align: center;
+  display: inline-block;
+  width: 23%;
+  margin: 0 1%;
+}
+
+/*
+I was on the right track originally, I just did not take into account the extra width on each side of the <li> element.
+
+We need to remove 2% from each element's width to account for the 1% margin. (100% - 4 * ( 1% + 1% ) ==> 92%, 92% / 4 => 23%)
+*/
+
+
+
+
+
+
+
