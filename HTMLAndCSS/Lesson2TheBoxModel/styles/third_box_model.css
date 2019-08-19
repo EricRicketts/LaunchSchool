@@ -1,0 +1,27 @@
+.first-row {
+  box-sizing: content-box;
+  background-color: lightblue;
+}
+
+.first-row > div {
+  display: inline-block;
+  border-width: 10px;
+  border-style: solid;
+  padding: 10px;
+  color: white;
+  width: calc((100% / 3) - 40px);
+  height: 50px;
+  text-align: center;
+}
+
+.first-row > div:nth-of-type(1) {
+  border-color: red;
+}
+
+.first-row > div:nth-of-type(2) {
+  border-color: green;
+}
+
+.first-row > div:nth-of-type(3) {
+  border-color: blue
+}
