@@ -8,7 +8,7 @@ def guess_number(max_number, max_attempts)
 
   loop do
     attempts += 1
-    break if attempts > max_attempts
+    break puts "too many tries" if attempts > max_attempts
 
     input = nil
     until valid_integer?(input)
@@ -20,22 +20,13 @@ def guess_number(max_number, max_attempts)
 
     if guess == winning_number
       puts 'Yes! You win.'
-      return
+      break
     else
       puts 'Nope. Too small.' if guess < winning_number
       puts 'Nope. Too big.'   if guess > winning_number
 
-      # Try again:
-      guess_number(max_number, max_attempts)
     end
   end
 end
 
 guess_number(10, 3)
-# the problem with the program is that it will never exit
-# because the #guess_number method keeps getting called again
-# and resetting itself.  Once the method is initially called
-# the max_number stays at 10 and the number of guesses stays
-# at 3, but even if the user wins, the methd gets called again
-# and the whole process starts over, as the attempts are reset
-# to zero.
