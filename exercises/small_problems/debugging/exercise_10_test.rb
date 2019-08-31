@@ -23,7 +23,7 @@ end
 def idf(term, documents)
 =begin
   Original Code
-  
+
   number_of_documents = documents.length
   number_of_documents_with_term = documents.count { |d| tf(term, d) > 0 }
 
