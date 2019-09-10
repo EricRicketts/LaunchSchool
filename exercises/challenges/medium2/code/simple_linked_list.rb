@@ -48,19 +48,13 @@ class SimpleLinkedList
   end
 
   def size
-    count = 0
-    temp = head
-    until temp.nil?
-      count += 1
-      temp = temp.next
-    end
-    count
+    self.to_a.count
   end
 
   def to_a
     ary = []
     temp = head
-    size.times do
+    until temp.nil?
       ary << temp.datum
       temp = temp.next
     end
