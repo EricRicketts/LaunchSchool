@@ -12,21 +12,16 @@ class Element
 end
 
 class SimpleLinkedList
-  attr_reader :size, :head
+  attr_reader :head
 
   def self.from_a(arr)
-    if (arr.nil? || arr.empty?)
-      SimpleLinkedList.new
-    else
-      list = SimpleLinkedList.new
-      arr.reverse.each { |el| list.push(el) }
-      list
+    arr.to_a.reverse.each.with_object(SimpleLinkedList.new) do |el, list|
+      list.push(el)
     end
   end
 
   def initialize
     @head = nil
-    @size = 0
   end
 
   def empty?
@@ -41,26 +36,33 @@ class SimpleLinkedList
     return nil if head.nil?
     data = head.datum
     @head = head.next
-    @size -= 1
     data
   end
 
   def push(data)
-    @head = head.nil? ? Element.new(data) : Element.new(data, @head)
-    @size += 1
+    @head = Element.new(data, @head)
   end
 
   def reverse
-    reversed_arr = to_a.reverse
-    SimpleLinkedList.from_a(reversed_arr)
+    SimpleLinkedList.from_a(self.to_a.reverse)
+  end
+
+  def size
+    count = 0
+    temp = head
+    until temp.nil?
+      count += 1
+      temp = temp.next
+    end
+    count
   end
 
   def to_a
     ary = []
-    return ary if head.nil?
-    until head.nil?
-      ary << head.datum
-      @head = head.next
+    temp = head
+    size.times do
+      ary << temp.datum
+      temp = temp.next
     end
     ary
   end
