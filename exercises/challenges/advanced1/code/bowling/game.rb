@@ -7,7 +7,6 @@ class Game
   LAST_FRAME = 9
 
   attr_accessor :frames, :current_frame
-  attr_reader :generic_frame_rules
 
   def initialize
     @frames = setup_frames
@@ -19,6 +18,11 @@ class Game
   end
 
   private
+
+  def complete_frame(pins, state)
+    current_frame.throw2 = pins
+    current_frame.state = state
+  end
 
   def is_spare?(pins)
     current_frame.throw1 + pins == TEN
@@ -54,25 +58,14 @@ class Game
     is_strike?(pins) ? tally_strike(pins) : current_frame.throw1 = pins
   end
 
-  def tally_open_frame(pins)
-    current_frame.throw2 = pins
-    current_frame.state = :open
-  end
-
   def tally_second_throw(pins)
-    is_spare?(pins) ? tally_spare(pins) : tally_open_frame(pins)
+    is_spare?(pins) ? complete_frame(pins, :spare) : complete_frame(pins, :open)
     current_frame = next_frame
-  end
-
-  def tally_spare(pins)
-    current_frame.throw2 = pins
-    current_frame.state = :spare
   end
 
   def tally_strike(pins)
     current_frame.throw1 = pins
-    current_frame.throw2 = ZERO
-    current_frame.state = :strike
+    complete_frame(ZERO, :strike)
     current_frame = next_frame
   end
 end
