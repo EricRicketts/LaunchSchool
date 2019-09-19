@@ -64,13 +64,30 @@ class GameTest < Minitest::Test
   end
 
   def test_not_at_last_frame
+    # skip
     roll_n_times(16, 1)
     refute(game.send(:last_frame?))
   end
 
   def test_at_last_frame
+    # skip
     roll_n_times(18, 1)
     assert(game.send(:last_frame?))
+  end
+
+  def test_game_complete_last_frame_open
+    # skip
+    expected_throws = [4, 1]
+
+    roll_n_times(18, 1)
+    game.roll(4)
+    game.roll(1)
+
+    resulting_throws = [game.current_frame.throw1, game.current_frame.throw2]
+
+    assert_equal(:open, game.current_frame.state)
+    assert_equal(expected_throws, resulting_throws)
+    assert(game.send(:over?))
   end
 
   def roll_n_times(rolls, pins)
