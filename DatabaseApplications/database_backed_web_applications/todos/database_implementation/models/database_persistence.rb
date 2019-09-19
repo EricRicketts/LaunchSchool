@@ -44,6 +44,10 @@ class DatabasePersistence
   WHERE list_id = $1 AND id = $2;
   SQL
 
+  SQL_DELETE_ALL_TODOS = <<~SQL
+  DELETE FROM todos WHERE list_id = $1;
+  SQL
+
   SQL_UPDATE_TODO_STATUS = <<~SQL
   UPDATE todos
   SET completed = $3
@@ -80,6 +84,7 @@ class DatabasePersistence
 
   def delete_list(list_id)
     list_id = list_id.to_i
+    query(SQL_DELETE_ALL_TODOS, list_id)
     query(SQL_DELETE_LIST, list_id)
   end
 
