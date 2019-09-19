@@ -51,11 +51,18 @@ module CliConstants
   with no arguments to get a list of viable commands.
   INFO_MSG
 
-  SQL_INSERT = <<-SQL_INSERT_TEXT
+  SQL_INSERT_FULL = <<-SQL_INSERT_TEXT
   INSERT INTO expenses (amount, memo, created_on)
   VALUES
   ($1, $2, $3);
   SQL_INSERT_TEXT
+
+  SQL_INSERT = <<-SQL_INSERT_TEXT
+  INSERT INTO expenses (amount, memo)
+  VALUES
+  ($1, $2);
+  SQL_INSERT_TEXT
+
 
   SEARCH = <<-SQL_SEARCH
   SELECT #{DESIRED_ORDER.join(', ')}
