@@ -1,16 +1,16 @@
 require 'pry-byebug'
-require_relative './frames'
 
 class Game
   TEN = 10
   ZERO = 0
   LAST_FRAME = 9
 
-  attr_accessor :frames, :current_frame
+  attr_accessor :frames, :current_frame, :current_frame_index
 
   def initialize
     @frames = setup_frames
-    @current_frame = @frames.first
+    @current_frame_index = 0
+    @current_frame = frames[current_frame_index]
   end
 
   def roll(pins)
@@ -32,21 +32,23 @@ class Game
   end
 
   def last_frame?
-    frames.index(current_frame) == LAST_FRAME
+    current_frame_index == LAST_FRAME
   end
 
   def next_frame
-    idx = frames.index(self.current_frame)
-    self.current_frame = frames[idx + 1]
+    self.current_frame_index += 1
+    frames[current_frame_index]
   end
 
   def record_throw(pins)
     first_throw? ? tally_first_throw(pins) : tally_second_throw(pins)
   end
 
+
   def setup_frames
-    frames = (1..9).map { |_| Frames::GenericFrame.new }
-    frames << Frames::LastFrame.new
+    frame = Struct.new(:throw1, :throw2, :score, :state, keyword_init: nil)
+    frames = (1..9).map { |_| frame.new }
+    frames.push(Struct.new(*frame.new.to_h.keys, :throw3, keyword_init: nil).new)
   end
 
   def tally_first_throw(pins)
@@ -60,7 +62,7 @@ class Game
 
   def tally_second_throw(pins)
     is_spare?(pins) ? tally_spare(pins) : tally_open_frame(pins)
-    current_frame = next_frame
+    self.current_frame = next_frame
   end
 
   def tally_spare(pins)
@@ -72,6 +74,6 @@ class Game
     current_frame.throw1 = pins
     current_frame.throw2 = ZERO
     current_frame.state = :strike
-    current_frame = next_frame
+    self.current_frame = next_frame
   end
 end

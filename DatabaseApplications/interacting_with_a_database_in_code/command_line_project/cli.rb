@@ -44,6 +44,7 @@ class Cli
   end
 
   def datetime_format_correct?
-    !datetime.nil? && datetime.match?(/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}-\d{2}$/)
+    return true if datetime.nil?
+    datetime.match?(/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}-\d{2}$/)
   end
 end

@@ -69,7 +69,11 @@ class ExpenseData
 
   def add_expense
     conn = PG::Connection.new(dbname: DBNAME)
-    conn.exec_params(SQL_INSERT, [cli.amount, cli.memo])
+    if !!cli.datetime
+      conn.exec_params(SQL_INSERT_FULL, [cli.amount, cli.memo, cli.datetime])
+    else
+      conn.exec_params(SQL_INSERT, [cli.amount, cli.memo])
+    end
 
     conn.close
     puts "expense successfully added"
