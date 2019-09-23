@@ -76,7 +76,7 @@ class GameTest < Minitest::Test
   end
 
   def test_game_complete_last_frame_open
-    skip
+    # skip
     expected_throws = [4, 1]
 
     roll_n_times(18, 1)
@@ -90,19 +90,36 @@ class GameTest < Minitest::Test
     assert(game.send(:over?))
   end
 
-  def test_game_not_complete_spare_need_last_fill
-    skip
-    expected_throws = [6, 4]
+  def test_game_complete_spare_need_last_fill
+    # skip
+    expected_throws = [6, 4, 8]
 
     roll_n_times(18, 1)
     game.roll(6)
     game.roll(4)
+    game.roll(8)
 
-    resulting_throws = [game.current_frame.throw1, game.current_frame.throw2]
+    resulting_throws = [game.current_frame.throw1, game.current_frame.throw2, game.current_frame.throw3]
 
     assert_equal(:spare, game.current_frame.state)
     assert_equal(expected_throws, resulting_throws)
-    refute(game.send(:over?))
+    assert(game.send(:over?))
+  end
+
+  def test_game_complete_strike_need_last_fill
+    # skip
+    expected_throws = [10, 10, 8]
+
+    roll_n_times(18, 1)
+    game.roll(10)
+    game.roll(10)
+    game.roll(8)
+
+    resulting_throws = [game.current_frame.throw1, game.current_frame.throw2, game.current_frame.throw3]
+
+    assert_equal(:strike, game.current_frame.state)
+    assert_equal(expected_throws, resulting_throws)
+    assert(game.send(:over?))
   end
 
   def roll_n_times(rolls, pins)
