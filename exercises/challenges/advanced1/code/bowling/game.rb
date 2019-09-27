@@ -3,6 +3,7 @@ require 'pry-byebug'
 class Game
   TEN = 10
   ZERO = 0
+  FIRST_FRAME = 0
   LAST_FRAME = 9
 
   attr_accessor :frames, :current_frame, :current_frame_index
@@ -15,6 +16,12 @@ class Game
 
   def roll(pins)
     record_throw(pins)
+  end
+
+  def score
+    frames.each.with_index do |frame, idx|
+      score_frame(frame, idx)
+    end.sum(&:score)
   end
 
   private
@@ -67,10 +74,39 @@ class Game
     end
   end
 
+  def score_frame(frame, idx)
+    frame_state = frame.state
+    case frame_state
+    when :open then score_open(frame)
+    when :spare then score_spare(frame, idx)
+    when :strike then score_strike(frame, idx)
+    end
+  end
+
+  def score_open(frame)
+    frame.score = sum_throws(frame)
+  end
+
+  def score_spare(frame, idx)
+    frame_next_first_throw = frames[idx + 1].throw1
+    frame.score = sum_throws(frame) + frame_next_first_throw
+  end
+
+  def score_strike(frame, idx)
+    frame_next = frames[idx + 1]
+    frame_after_next = frames[idx + 2]
+    conditional_throw = frame_next.state == :strike ? frame_after_next.throw1 : 0
+    frame.score = sum_throws(frame) + sum_throws(frame_next) + conditional_throw
+  end
+
   def setup_frames
     frame = Struct.new(:throw1, :throw2, :score, :state, keyword_init: nil)
     frames = (1..9).map { |_| frame.new }
     frames.push(Struct.new(*frame.new.to_h.keys, :throw3, keyword_init: nil).new)
+  end
+
+  def sum_throws(frame)
+    frame.throw1 + frame.throw2
   end
 
   def tally_additional_throws_last_frame(pins)
