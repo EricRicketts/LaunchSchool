@@ -275,6 +275,47 @@ class GameTest < Minitest::Test
     end
   end
 
+  def test_should_not_allow_to_take_score_at_the_beginning
+    # skip
+    assert_raises(
+      RuntimeError,
+      'Score cannot be taken until the end of the game',
+    ) do
+      @game.score
+    end
+  end
+
+  def test_should_not_allow_to_take_score_before_game_has_ended
+    # skip
+    roll_n_times(19, 5)
+    assert_raises(
+      RuntimeError,
+      'Score cannot be taken until the end of the game') do
+        @game.score
+      end
+  end
+
+  def test_should_not_allow_rolls_after_the_tenth_frame
+    # skip
+    roll_n_times(20, 0)
+    assert_raises(
+      RuntimeError,
+      'Should not be able to roll after game is over',
+    ) do
+      @game.roll(0)
+    end
+  end
+
+  def test_should_not_calculate_score_before_fill_balls_have_been_played
+    # skip
+    roll_n_times(10, 10)
+
+    assert_raises RuntimeError, 'Game is not yet over, cannot score!' do
+      @game.score
+    end
+  end
+
+
   def roll_n_times(rolls, pins)
     rolls.times do
       Array(pins).each { |value| game.roll(value) }

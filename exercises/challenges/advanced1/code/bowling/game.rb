@@ -22,10 +22,13 @@ class Game
   def roll(pins)
     invalid_throw?(pins)
     invalid_frame?(pins)
+    too_many_throws?(pins)
     record_throw(pins)
   end
 
   def score
+    score_before_game_over?
+    near_perfect_game?
     frames.each.with_index do |frame, idx|
       idx == LAST_FRAME ? score_last_frame(idx) : score_frame(frame, idx)
     end.sum(&:score)
@@ -46,7 +49,7 @@ class Game
   end
 
   def frames_done?
-    (0..9).all? do |idx|
+    (0..8).all? do |idx|
       frame = frames[idx]
       !!frame.throw1 && !!frame.throw2 && !!frame.state
     end
