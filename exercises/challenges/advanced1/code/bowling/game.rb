@@ -1,10 +1,15 @@
 require 'pry-byebug'
+require_relative './error_checks'
 
 class Game
+  include ErrorChecks
+
   TEN = 10
   ZERO = 0
   FIRST_FRAME = 0
   LAST_FRAME = 9
+  NINTH_FRAME = 8
+  EIGHTH_FRAME = 7
 
   attr_accessor :frames, :current_frame, :current_frame_index
 
@@ -15,12 +20,14 @@ class Game
   end
 
   def roll(pins)
+    invalid_throw?(pins)
+    invalid_frame?(pins)
     record_throw(pins)
   end
 
   def score
     frames.each.with_index do |frame, idx|
-      score_frame(frame, idx)
+      idx == LAST_FRAME ? score_last_frame(idx) : score_frame(frame, idx)
     end.sum(&:score)
   end
 
@@ -83,6 +90,11 @@ class Game
     end
   end
 
+  def score_last_frame(idx)
+    last_frame = frames[idx]
+    last_frame.score = last_frame.throw1 + last_frame.throw2 + last_frame.throw3
+  end
+
   def score_open(frame)
     frame.score = sum_throws(frame)
   end
@@ -94,9 +106,12 @@ class Game
 
   def score_strike(frame, idx)
     frame_next = frames[idx + 1]
-    frame_after_next = frames[idx + 2]
-    conditional_throw = frame_next.state == :strike ? frame_after_next.throw1 : 0
-    frame.score = sum_throws(frame) + sum_throws(frame_next) + conditional_throw
+    if idx <= EIGHTH_FRAME && frame_next.state == :strike
+      frame_after_next = frames[idx + 2]
+      frame.score = sum_throws(frame) + sum_throws(frame_next) + frame_after_next.throw1
+    else
+      frame.score = sum_throws(frame) + sum_throws(frame_next)
+    end
   end
 
   def setup_frames

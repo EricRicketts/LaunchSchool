@@ -204,7 +204,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_balls_when_the_final_frame_is_strike
-    skip
+    # skip
     roll_n_times(18, 0)
     @game.roll(10)
     @game.roll(7)
@@ -214,7 +214,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_ball_in_last_frame_if_spare
-    skip
+    # skip
     roll_n_times(18, 0)
     @game.roll(9)
     @game.roll(1)
@@ -224,7 +224,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_balls_to_be_strike
-    skip
+    # skip
     roll_n_times(18, 0)
     @game.roll(10)
     @game.roll(10)
@@ -234,11 +234,46 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_a_perfect_game
-    skip
+    # skip
     roll_n_times(12, 10)
     assert_equal 300, @game.score
   end
 
+  def test_should_not_allow_rolls_with_negative_pins
+    # skip
+    assert_raises(
+      RuntimeError,
+      'Pins must have a value from 0 to 10') do
+        @game.roll(-1)
+      end
+  end
+
+  def test_should_not_allow_rolls_better_than_strike
+    # skip
+    assert_raises(
+      RuntimeError,
+      'Pins must have a value from 0 to 10') do
+        @game.roll(11)
+      end
+  end
+
+  def test_should_not_allow_two_normal_rolls_better_than_strike
+    # skip
+    assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
+      @game.roll(5)
+      @game.roll(6)
+    end
+  end
+
+  def test_should_not_allow_two_normal_rolls_better_than_strike_in_last_frame
+    # skip
+    roll_n_times(18, 0)
+    assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
+      @game.roll(10)
+      @game.roll(5)
+      @game.roll(6)
+    end
+  end
 
   def roll_n_times(rolls, pins)
     rolls.times do
