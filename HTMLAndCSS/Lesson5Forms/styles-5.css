@@ -1,3 +1,11 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .styled-form * {
   margin: 0;
   padding: 0;
@@ -6,23 +14,22 @@
 .styled-form fieldset {
   background-color: #ececec;
   border: 2px solid #999;
-  box-sizing: border-box;
   color: #4d4d4d;
-  font-family: myriad-pro, "Helvetica Nue", Helvetica, Roboto, Arial, sans-serif;
+  font-family: Verdana, "Helvetica Nue", Helvetica, Arial, sans-serif;
   padding: 1rem;
 }
 
 .styled-form label {
   font-weight: bold;
   line-height: 1.5rem;
+  padding-top: 0.3333rem;
 }
 
 .styled-form input[type="text"],
 .styled-form select {
   border: 1px solid #06c;
   border-radius: 4px;
-  box-sizing: border-box;
-  font: normal 1rem Helvetica, Arial, sans-serif;
+  font: normal 1rem Georgia, serif;
   height: 40px;
   padding: 5px 8px;
 }
@@ -38,10 +45,6 @@
   padding-right: 1.5em;
 }
 
-.styled-form label {
-  padding-top: 0.3333rem;
-}
-
 .top-to-bottom label,
 .top-to-bottom input[type="text"] {
   display: block;
@@ -49,7 +52,6 @@
 }
 
 .top-to-bottom dl.partial {
-  box-sizing: border-box;
   display: inline-block;
   padding-right: 1rem;
   vertical-align: top;
