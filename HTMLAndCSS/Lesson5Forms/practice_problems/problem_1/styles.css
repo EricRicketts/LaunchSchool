@@ -25,7 +25,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"], input[type="tel"] {
+input[type="text"], input[type="tel"], input[type="submit"] {
   border: 1px solid #06c;
   border-radius: 4px;
   height: 40px;
@@ -35,7 +35,12 @@ input[type="text"], input[type="tel"] {
   font-family: Georgia, serif;
 }
 
-div.row:nth-of-type(2), div.row:nth-of-type(3) {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+input[type="submit"] {
+  font-weight: bold;
+  width: 15%;
+}
+
+div.row:nth-of-type(2), div.row:nth-of-type(3), div.row:nth-of-type(4) {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
