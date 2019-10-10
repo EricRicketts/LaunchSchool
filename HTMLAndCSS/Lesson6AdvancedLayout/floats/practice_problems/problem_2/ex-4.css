@@ -1,0 +1,25 @@
+html {
+  box-sizing: border-box;
+}
+
+body * {
+  margin: 0;
+  padding: 0;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+#floated {
+  background-color: #ecaa33;
+  float: left;
+}
+
+div + p {
+  background-color: #18aaff;
+}
+
+p {
+  padding: 1rem;
+}

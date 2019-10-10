@@ -1,0 +1,18 @@
+.blue, .red-inner {
+  height: 50px;
+  margin: 10px 0;
+}
+
+.blue {
+  background: blue;
+  color: #fff;
+}
+
+.red-outer {
+  display: flow-root;
+  background: red;
+}
+
+.red-inner {
+  margin: 50px;
+}
