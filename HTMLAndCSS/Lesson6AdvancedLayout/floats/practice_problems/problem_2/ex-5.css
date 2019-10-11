@@ -14,12 +14,23 @@ body * {
 #floated {
   background-color: #ecaa33;
   float: left;
+  width: 20%;
 }
 
-div + p {
+#floated + p {
   background-color: #18aaff;
+  float: right;
 }
 
 p {
   padding: 1rem;
 }
+
+/*
+The problem asked to remove the left margin declaration on the blue background paragraph
+and replace it with a float right declaration.  The paragraphs did not appear side by
+side and this is because the blue backgrounded paragraph will expand its width to contain
+its content.  However, the content is a long paragraph, so it's width becomes too large
+to fit next to the smaller content of the left floated item.  So it moves under the
+the left floated item.
+*/

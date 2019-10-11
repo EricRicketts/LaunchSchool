@@ -14,12 +14,33 @@ body * {
 #floated {
   background-color: #ecaa33;
   float: left;
+  width: 20%;
 }
 
-div + p {
+#floated + p {
   background-color: #18aaff;
+  margin-left: 20%;
 }
 
 p {
   padding: 1rem;
 }
+
+/*
+In this problem we have changed the width of the floated item to 20% of its parent.  The problem
+then asked to remove the clear from the adjacent paragraph.  Obviously, then this is done the
+text and the blue background wrap around the orange floated item.
+
+The problem then asked to set the width of the left margin of the blue background paragrpah to
+equal the width of the floated element which was 20% of the width of the parent, the main element
+in this case.
+
+This had the effect of removing the surrounding blue background color from under the orange
+floated item.  It did so because the floated item has been removed from the normal flow of
+items and the left margin will not be applied agains the right edge of the orange floated item
+but rather is applied behind the floated item against the edge of the parent container.  This
+has the visual effect of aligning the colored backgrounds side by side with no wrap of the blue
+background around the orange background.
+
+This has the effect of creating a two column layout.
+*/

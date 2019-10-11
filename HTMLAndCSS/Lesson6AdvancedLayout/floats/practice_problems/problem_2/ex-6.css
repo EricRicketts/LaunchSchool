@@ -14,12 +14,21 @@ body * {
 #floated {
   background-color: #ecaa33;
   float: left;
+  width: 20%;
 }
 
-div + p {
+#floated + p {
   background-color: #18aaff;
+  float: right;
+  width: 80%;
 }
 
 p {
   padding: 1rem;
 }
+
+/*
+I had already set the box sizing to border-box for the entire
+document.  Since the margin as been zeroed aout everywhere, the
+boxes can align against one another properly.
+*/
