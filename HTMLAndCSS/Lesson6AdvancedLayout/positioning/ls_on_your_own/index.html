@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>On Your Own: Floats and Positioning</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <section>
+      <h1>Inline Elements</h1>
+
+      <p>
+        Inline elements occupy the space required by the content, and nothing more. They do not take width and height values.
+      </p>
+
+      <h2>Example</h2>
+
+      <p>
+        Anchor tags are inline elements: they take up the width required by their content and not the entire width of the page.
+      </p>
+
+      <div class="border">
+        <a href="#">Home</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <h2>What happens when we set a margin on an inline-level element?</h2>
+
+      <p>
+        Inline elements ignore top and bottom margins but observe the left and right margins.
+      </p>
+
+      <div class="border">
+        <a href="#">Home</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <p>
+        In the above example, we requested a margin of 30px on all sides. However, the browser ignored the top and bottom margins.
+      </p>
+
+      <h2>What about padding?</h2>
+
+      <div class="border">
+        <a href="#">Home</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <p>
+        Inline elements accept padding on all sides.
+      </p>
+
+      <h2>Floating Inline Elements</h2>
+
+      <div class="border">
+        <a href="#">Home</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <p>
+        Floating an inline element changes its display value to block, which makes it subject to all block-level characteristics. Thus, floated inline elements can take margins, padding, heights, and widths.
+      </p>
+    </section>
+
+    <!--<section>
+      Block Elements
+
+      Block-level elements require the entire width of the page and always start a new line. They can have margins and padding. When you omit the width, block elements expand to fill their parent container's natural width; when you omit the height, they expand to fit the content.
+
+      Example
+
+      `div` elements are block-level.
+
+      This div has no explicit width or height.
+
+      Without an explicit width or height, the box fills the entire width and uses as much height as it needs to fit the content.
+
+      This div has no explicit width but a height of 60px; it also has both padding and margins of 20px on all sides.
+
+      With an explicit height of 60px plus margins and padding, the box still fills the entire width (including the padding and margins), but now requires the requested height.
+
+      This div has a width of 90px and no explicit height.
+
+      With an explicit width of 90px, the box collapses down to 90px width but expands the height to ensure the text still fits.
+
+      This div has a width of 180px and a height of 120px; it also has both padding and margins of 20px on all sides.
+
+      With an explicit width of 180px and height of 120px, the box takes on the requested dimensions. However, the content can overflow the box as it does here.
+
+      Floating Block Elements
+
+      Floating block elements with no width or height
+
+      Box - 1 - Floated Left
+      Box - 2 - Floated Right
+
+      Floated block-level elements that don't have a width collapse down to the width required by the content. Thus, multiple floated blocks can fit on the same line as shown above where we float one item left and the other right.
+
+      Floating block elements with width and height set.
+
+      Box - 1 - Floated Left
+      Box - 2 - Floated Right
+
+      When you specify the widths on floated block-level elements, the browser will observe the widths. In the above example, our blocks have widths of 40% and 50%.
+
+      Can we change an inline element into a block element?
+
+      Let's use the anchor tag as an example.
+
+        Home
+        About
+        Contact
+
+      Yes, we can change a block element to an inline and vice versa. You can change the display property regardless of the previous value.
+    </section>
+
+    <section>
+      Inline-Block Elements
+
+      Inline-block elements are inline elements that take on most block element properties, such as width and height.
+
+      Example
+
+      Let's use `inline-block` to create a navigation bar:
+
+        Home
+        Portfolio
+        About
+        Contact
+
+      We achieved similar results when we floated the anchor elements. It's as though you get two elements in one: you have the flow properties of inline elements combined with most properties of block elements.
+    </section>
+
+    <section>
+      Floats and Positioning Elements
+
+      Floats
+
+      The browser removes floated elements from the normal flow. Floated elements automatically become block-level elements with change: two or more floated elements can fit on the same line.
+
+      Example
+
+        Box 1
+        Box-2
+        Box-3
+
+      Elements that follow a floated element wrap around it. However, we don't want this behavior above, so we applied clear:both` property to the third `div`. There are two other values for `clear`, `left` and `right`, but we typically want `both.
+
+      There are other ways to clear floats. One technique is the clearfix method:
+
+        elementName::after {
+          content: " ";
+          display:block;
+          clear: both;
+        }
+
+      Here we append the ::after pseudo-element to the parent element's selector.
+    </section>
+
+    <section>
+      Positioning
+
+      We sometimes want to position elements at specific locations on the page. The normal page flow and floats can't do this with the precision we often want. We can use CSS positioning in this case. There are four positioning types:
+
+        Static
+        Fixed
+        Relative
+        Absolute
+
+      Static Positioning
+
+      The element renders at its normal position on the page. That is, the browser uses the standard page flow. All elements default tom static positioning.
+
+      Fixed Positioning
+
+      Lets you place an element at a fixed position in the browser window; it will remain in place even when you scroll the page. You need the top`, `bottom`, `right`, and `left properties to position the element.
+
+      The browser removes elements with fixed positioning from the page flow. It does not leave a gap in the location where the browser would have positioned it otherwise.
+
+      The blue box on the bottom-left corner of the page is a fixed position element.
+
+      I use fixed positioning.
+
+      Relative Positioning
+
+      Relative positioning positions an element at a location relative to its normal position. Unlike fixed positioning, relative positioning does not remove an element from the page flow; in fact, you can observe a gap in the flow indicating the original position.
+
+      I use relative positioning.
+
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non cumque repellat sapiente vitae nihil debitis accusamus, odit, tempore id reiciendis consequatur necessitatibus veritatis, distinctio vel, cum repellendus numquam blanditiis perferendis?
+
+      Absolute Positioning
+
+      Absolute positioning removes an element from the normal page flow and positions it at an absolute position relative to its parent element. If the parent element is the `<body>`, the position is absolute relative to the complete page.
+
+      The green box shows uses absolute positioning.
+
+      I use absolute positioning.
+    </section>-->
+  </main>
+</body>
+</html>
