@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "*"
+  },
+  "mocha": {
+    "diff": true,
+    "extension": [
+      "js"
+    ],
+    "opts": false,
+    "package": "./package.json",
+    "reporter": "spec",
+    "require": "./define-chai",
+    "slow": 75,
+    "timeout": 2000,
+    "ui": "bdd"
+  }
+}
