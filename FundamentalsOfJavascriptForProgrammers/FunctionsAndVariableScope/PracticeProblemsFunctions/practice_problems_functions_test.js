@@ -1,12 +1,6 @@
 var averages = require('./lib');
 
 describe('Practice Problems Function', function () {
-  
-  beforeEach(function () {
-    function average(a, b, c) {
-      return (a + b + c) / 3;
-    }
-  });
 
   it('exercise 1: first average function', function (done) {
     expect(averages.firstAverage(1, 2, 3)).to.equal(2);
