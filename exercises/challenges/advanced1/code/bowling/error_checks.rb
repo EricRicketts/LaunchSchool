@@ -12,10 +12,10 @@ module ErrorChecks
     end
   end
 
-  def too_many_throws?(pins)
-    msg = 'Should not be able to roll after game is over'
-    raise InvalidThrowError.new(msg) if over?
-    false
+  def check_frame_and_throw(pins)
+    invalid_throw?(pins)
+    invalid_frame?(pins)
+    too_many_throws?(pins)
   end
 
   def check_generic_frame(pins, msg)
@@ -55,8 +55,19 @@ module ErrorChecks
     false
   end
 
+  def ready_to_score?
+    score_before_game_over?
+    near_perfect_game?
+  end
+
   def score_before_game_over?
     raise PrematureScoringError.new unless over?
+    false
+  end
+
+  def too_many_throws?(pins)
+    msg = 'Should not be able to roll after game is over'
+    raise InvalidThrowError.new(msg) if over?
     false
   end
 end

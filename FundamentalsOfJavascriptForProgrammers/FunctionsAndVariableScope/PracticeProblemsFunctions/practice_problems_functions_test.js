@@ -9,7 +9,7 @@ describe('Practice Problems Function', function () {
 
   it('exercise 2: second average function', function (done) {
     expect(averages.secondAverage(4, 5, 6)).to.equal(5);
-    done();  
+    done();
   });
 
   it('exericse 3: second average function more arguments', function (done) {
