@@ -1,5 +1,7 @@
+// require('chai/register-expect');
+
 describe('Check Goldbach Conjecture', function () {
-  function checkGoldback(number) {
+  function checkGoldbach(number) {
     var arrayOfPrimes, combinations, allPrimePairs, goldBachNumbers;
     if (!isEven(number)) { return null; }
 
@@ -62,28 +64,28 @@ describe('Check Goldbach Conjecture', function () {
   }
 
   it('odd numbers should return null', function (done) {
-    expect(checkGoldback(3)).to.be.null;
+    expect(checkGoldbach(3)).to.be.null;
     done();
   });
 
   it('4 should return 2 and 2', function (done) {
-    expect(checkGoldback(4)).to.deep.equal([[2, 2]]);
+    expect(checkGoldbach(4)).to.deep.equal([[2, 2]]);
     done();
   });
 
   it('12 should return 5 and 7', function (done) {
-    expect(checkGoldback(12)).to.deep.equal([[5, 7]]);
+    expect(checkGoldbach(12)).to.deep.equal([[5, 7]]);
     done();
   });
 
   it('24 should return 3 pairs of primes', function (done) {
-    expect(checkGoldback(24)).to.deep.equal([[5, 19], [7, 17], [11, 13]]);
+    expect(checkGoldbach(24)).to.deep.equal([[5, 19], [7, 17], [11, 13]]);
     done();
   });
 
   it('100 should return 6 pairs of primes', function (done) {
     var expected = [[3, 97], [11, 89], [17, 83], [29, 71], [41, 59], [47, 53]]
-    expect(checkGoldback(100)).to.deep.equal(expected);
+    expect(checkGoldbach(100)).to.deep.equal(expected);
     done();
   });
 });
