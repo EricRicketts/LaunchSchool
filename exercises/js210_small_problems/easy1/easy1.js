@@ -1,3 +1,9 @@
+function asciiValue(str) {
+  return str.split('').reduce(function(sum, char) {
+    return sum += char.charCodeAt(0);
+  }, 0);
+}
+
 function collectEvenNumbersTo(last) {
   var arr = [...Array(last).keys()].map(n => n + 1);
   return arr.filter(n => isEven(n));

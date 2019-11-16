@@ -94,4 +94,11 @@ describe('JS210 Small Problems: Easy 1', function () {
     done();
   });
 
+  it('Problem 10: ASCII String Value', function (done) {
+    expect(asciiValue('Four score')).to.equal(984);
+    expect(asciiValue('Launch School')).to.equal(1251);
+    expect(asciiValue('a')).to.equal(97);
+    expect(asciiValue('')).to.equal(0);
+    done();
+  });
 });
