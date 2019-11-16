@@ -20,8 +20,23 @@ function isLeapYear(year) {
   return ((year % 4 === 0) && (year % 100 !== 0)) || ((year % 100 === 0) && (year % 400 === 0));
 }
 
+function isLeapYearBritish(year) {
+  if (year < 1752) {
+    return (year % 4 === 0);
+  } else {
+    return ((year % 4 === 0) && (year % 100 !== 0)) || ((year % 100 === 0) && (year % 400 === 0));
+  }
+}
+
 function isOdd(n) {
   return (n % 2 === 1);
+}
+
+function multisum(endpoint) {
+  var arr = [...Array(endpoint).keys()].map(n => n + 1);
+  return arr.reduce(function(sum, n) {
+    return (n % 3 === 0 || n % 5 === 0) ? sum += n : sum;
+  }, 0);
 }
 
 function roomArea(width, length) {

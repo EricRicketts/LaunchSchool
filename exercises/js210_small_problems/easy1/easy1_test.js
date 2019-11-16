@@ -68,4 +68,30 @@ describe('JS210 Small Problems: Easy 1', function () {
     expect(isLeapYear(400)).to.be.true;  
     done();
   });
+
+  it('Problem 8: Leap Years Part 2', function (done) {
+    expect(isLeapYearBritish(2016)).to.be.true;
+    expect(isLeapYearBritish(2015)).to.be.false;
+    expect(isLeapYearBritish(2100)).to.be.false;
+    expect(isLeapYearBritish(2400)).to.be.true;
+    expect(isLeapYearBritish(240000)).to.be.true;
+    expect(isLeapYearBritish(240001)).to.be.false;
+    expect(isLeapYearBritish(2000)).to.be.true;
+    expect(isLeapYearBritish(1900)).to.be.false;
+    expect(isLeapYearBritish(1752)).to.be.true;
+    expect(isLeapYearBritish(1700)).to.be.true;
+    expect(isLeapYearBritish(1)).to.be.false;
+    expect(isLeapYearBritish(100)).to.be.true;
+    expect(isLeapYearBritish(400)).to.be.true;  
+    done();
+  });
+
+  it('Problem 9: Sum multiples of 3 and 5', function (done) {
+    expect(multisum(3)).to.equal(3);
+    expect(multisum(5)).to.equal(8);
+    expect(multisum(10)).to.equal(33);
+    expect(multisum(1000)).to.equal(234168);
+    done();
+  });
+
 });
