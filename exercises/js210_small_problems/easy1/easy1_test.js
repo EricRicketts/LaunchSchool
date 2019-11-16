@@ -1,4 +1,6 @@
 describe('JS210 Small Problems: Easy 1', function () {
+  var expected;
+
   it('Problem 1: Odd Numbers', function (done) {
   var oddNumbersTo99 = [];
   var arrTo99 = [...Array(99).keys()].map(n => n + 1);
@@ -21,6 +23,12 @@ describe('JS210 Small Problems: Easy 1', function () {
 
   expect(collectEvenNumbersTo(99)).to.deep.equal(evenNumbersTo99);
   done();
+  });
+
+  it('Problem 3: How Big Is The Room', function (done) {
+    expected = 'The area of the room is 70.00 square meters (753.47 square feet).';
+    expect(roomArea(10, 7)).to.equal(expected);
+    done();
   });
 
 });

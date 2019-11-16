@@ -15,3 +15,12 @@ function isEven(n) {
 function isOdd(n) {
   return (n % 2 === 1);
 }
+
+function roomArea(width, length) {
+  var SQ_METERS_TO_SQ_FEET = 10.7639;
+  var area_sq_meters = (width * length).toFixed(2);
+  var area_sq_feet = (area_sq_meters * SQ_METERS_TO_SQ_FEET).toFixed(2);
+
+  return 'The area of the room is ' + area_sq_meters +
+  ' square meters ' + '(' + area_sq_feet + ' square feet).';
+}
