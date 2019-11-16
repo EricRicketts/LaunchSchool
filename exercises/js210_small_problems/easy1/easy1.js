@@ -25,6 +25,27 @@ function roomArea(width, length) {
   ' square meters ' + '(' + area_sq_feet + ' square feet).';
 }
 
+function sumOrProductOfIntegersTo(n, operation) {
+  var arr = [...Array(n).keys()].map(n => n + 1);
+  var product, sum;
+  var result = '';
+
+  switch(operation) {
+    case 'p':
+      product = arr.reduce(function(product, num) { return product *= num; }, 1);
+      result = 'The product of the integers between 1 and ' + n + ' is ' + product + '.';
+      break;
+    case 's':
+      sum = arr.reduce(function(sum, num) { return sum += num; }, 0);
+      result = 'The sum of the integers between 1 and ' + n + ' is ' + sum + '.';
+      break;
+    default:
+      result = 'incorrect input.';
+  }
+
+  return result;
+} 
+
 function tipCalculator(bill, percentTip) {
   var tip = (percentTip/100 * bill);
   var total = (bill + tip).toFixed(2);

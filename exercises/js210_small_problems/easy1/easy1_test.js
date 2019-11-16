@@ -36,4 +36,12 @@ describe('JS210 Small Problems: Easy 1', function () {
     expect(tipCalculator(200, 15)).to.equal(expected);
     done();
   });
+
+  it('Problem 5: Sum or Product of Consecutive Integers', function (done) {
+    var firstExpected = 'The sum of the integers between 1 and 5 is 15.'
+    var secondExpected = 'The product of the integers between 1 and 6 is 720.';
+    expect(sumOrProductOfIntegersTo(5, 's')).to.equal(firstExpected);
+    expect(sumOrProductOfIntegersTo(6, 'p')).to.equal(secondExpected);
+    done();
+  });
 });
