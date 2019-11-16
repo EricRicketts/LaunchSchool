@@ -24,3 +24,11 @@ function roomArea(width, length) {
   return 'The area of the room is ' + area_sq_meters +
   ' square meters ' + '(' + area_sq_feet + ' square feet).';
 }
+
+function tipCalculator(bill, percentTip) {
+  var tip = (percentTip/100 * bill);
+  var total = (bill + tip).toFixed(2);
+
+  return 'The tip is $' + tip.toFixed(2) + '.' + '\n' +
+    'The total is $' + total + '.';
+}

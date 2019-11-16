@@ -31,4 +31,9 @@ describe('JS210 Small Problems: Easy 1', function () {
     done();
   });
 
+  it('Problem 4: Tip Calculator', function (done) {
+    expected = 'The tip is $30.00.\nThe total is $230.00.';
+    expect(tipCalculator(200, 15)).to.equal(expected);
+    done();
+  });
 });
