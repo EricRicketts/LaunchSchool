@@ -8,8 +8,16 @@ function collectOddNumbersTo(last) {
   return arr.filter(n => isOdd(n));
 }
 
+function displayStrings(s1, s2) {
+  return s1 + s2 + s1;
+}
+
 function isEven(n) {
   return (n % 2 === 0);
+}
+
+function isLeapYear(year) {
+  return ((year % 4 === 0) && (year % 100 !== 0)) || ((year % 100 === 0) && (year % 400 === 0));
 }
 
 function isOdd(n) {
@@ -45,6 +53,10 @@ function sumOrProductOfIntegersTo(n, operation) {
 
   return result;
 } 
+
+function shortLongShort(str1, str2) {
+  return str1.length <= str2.length ? displayStrings(str1, str2) : displayStrings(str2, str1);
+}
 
 function tipCalculator(bill, percentTip) {
   var tip = (percentTip/100 * bill);

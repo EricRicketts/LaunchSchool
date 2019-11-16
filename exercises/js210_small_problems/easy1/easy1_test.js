@@ -44,4 +44,28 @@ describe('JS210 Small Problems: Easy 1', function () {
     expect(sumOrProductOfIntegersTo(6, 'p')).to.equal(secondExpected);
     done();
   });
+
+  it('Problem 6: Short Long Short', function (done) {
+    expect(shortLongShort('abc', 'defgh')).to.equal('abcdefghabc');
+    expect(shortLongShort('abcde', 'fgh')).to.equal('fghabcdefgh');
+    expect(shortLongShort('', 'xyz')).to.equal('xyz');
+    done();
+  });
+
+  it('Problem 7: Leap Years Part 1', function (done) {
+    expect(isLeapYear(2016)).to.be.true;
+    expect(isLeapYear(2015)).to.be.false;
+    expect(isLeapYear(2100)).to.be.false;
+    expect(isLeapYear(2400)).to.be.true;
+    expect(isLeapYear(240000)).to.be.true;
+    expect(isLeapYear(240001)).to.be.false;
+    expect(isLeapYear(2000)).to.be.true;
+    expect(isLeapYear(1900)).to.be.false;
+    expect(isLeapYear(1752)).to.be.true;
+    expect(isLeapYear(1700)).to.be.false;
+    expect(isLeapYear(1)).to.be.false;
+    expect(isLeapYear(100)).to.be.false;
+    expect(isLeapYear(400)).to.be.true;  
+    done();
+  });
 });
