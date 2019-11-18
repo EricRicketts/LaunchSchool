@@ -20,6 +20,27 @@ function crunchManual(str) {
   return strippedStr + lastChar;
 }
 
+function findFibonacciIndexByLength(numDigits) {
+  var targetNum = 10**(numDigits - 1);
+  var fibArr = [1, 1];
+  var fibNum;
+
+  while(true) {
+    var lastNumber = fibArr[fibArr.length - 1];
+    var nextToLastNumber = fibArr[fibArr.length - 2];
+    fibNum = nextToLastNumber + lastNumber;
+
+    fibArr.push(fibNum);
+    if (fibNum >= targetNum) { break; }
+  }
+
+  return fibArr.indexOf(fibNum) + 1;
+}
+
+function isEven(n) {
+  return n % 2 === 0;
+}
+
 function logInBox(str) {
   return topAndBottomRows(str) +
     secondAndFourthRows(str) +
@@ -34,6 +55,10 @@ function middleRow(str) {
 
 function secondAndFourthRows(str) {
   return '| ' + ' '.repeat(str.length) + ' |\n';
+}
+
+function stringy(bits) {
+  return [...Array(bits).keys()].map(n => isEven(n) ? "1" : "0" ).join('');
 }
 
 function topAndBottomRows(str) {

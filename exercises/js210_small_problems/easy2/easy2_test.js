@@ -38,4 +38,19 @@ describe('JS210 Small Problems: Easy 2', function () {
     done();
   });
 
+  it('Problem 3: Stringy Strings', function (done) {
+    expect(stringy(6)).to.equal('101010');
+    expect(stringy(9)).to.equal('101010101');
+    expect(stringy(4)).to.equal('1010');
+    expect(stringy(7)).to.equal('1010101')
+    done();
+  });
+
+  it('Problem 4: Fibonacci Number Location By Length', function (done) {
+    expect(findFibonacciIndexByLength(2)).to.equal(7);
+    expect(findFibonacciIndexByLength(10)).to.equal(45);
+    expect(findFibonacciIndexByLength(16)).to.equal(74);
+    done();
+  });
+
 });
