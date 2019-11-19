@@ -102,4 +102,10 @@ describe('JS210 Small Problems: Easy 2', function () {
     expect(twice(7676)).to.equal(7676);
     done();
   });
+
+  it('Problem 8: Grade Book', function (done) {
+    expect(getGrades(95, 90, 93)).to.equal('A');
+    expect(getGrades(50, 50, 95)).to.equal('D');
+    done();
+  });
 });

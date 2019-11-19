@@ -37,6 +37,25 @@ function findFibonacciIndexByLength(numDigits) {
   return fibArr.indexOf(fibNum) + 1;
 }
 
+function getGrades(...args) {
+  var avg = args.reduce((sum, grade) => sum += grade) / args.length;
+  var grade;
+
+  if (avg >= 90 && avg <= 100) {
+    grade = 'A';
+  } else if (avg >= 80 && avg < 90) {
+    grade = 'B';
+  } else if (avg >= 70 && avg < 80) {
+    grade = 'C';
+  } else if (avg >= 60 && avg < 70) {
+    grade = 'D';
+  } else {
+    grade = 'F';
+  }
+
+  return grade;
+}
+
 function isDouble(number) {
   var str = String(number);
   var strSize = str.length;
