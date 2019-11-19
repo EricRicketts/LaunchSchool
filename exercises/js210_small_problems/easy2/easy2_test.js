@@ -78,4 +78,16 @@ describe('JS210 Small Problems: Easy 2', function () {
     expect(triangle(9)).to.equal(rightTriangleNine);
     done();
   });
+
+  it('Problem 6: Madlibs', function (done) {
+    var noun = 'dog';
+    var verb = 'walk';
+    var adjective = 'blue';
+    var adverb = 'quickly';
+
+    var statement = "Do you walk your blue dog quickly?  That's hilarious!\n";
+
+    expect(madlibs(noun, verb, adjective, adverb))
+    done();
+  });
 });

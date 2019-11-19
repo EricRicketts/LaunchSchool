@@ -49,6 +49,11 @@ function logInBox(str) {
     topAndBottomRows(str);
 }
 
+function madlibs(noun, verb, adjective, adverb) {
+  return 'Do you ' + verb + ' your ' + adjective + ' ' +
+    noun + ' ' + adverb + '?' + "  That's hilarious!\n"
+}
+
 function middleRow(str) {
   return '| ' + str + ' |\n';
 }
