@@ -64,3 +64,12 @@ function stringy(bits) {
 function topAndBottomRows(str) {
   return '+-' + '-'.repeat(str.length) + '-+\n';
 }
+
+function triangle(sides) {
+  var rt = '';
+  for(var i = 1; i <= sides; i++) {
+    rt += ' '.repeat(sides - i) + '*'.repeat(i) + '\n';
+  }
+
+  return rt;
+}

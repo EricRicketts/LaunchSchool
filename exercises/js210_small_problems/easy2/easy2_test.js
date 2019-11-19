@@ -53,4 +53,29 @@ describe('JS210 Small Problems: Easy 2', function () {
     done();
   });
 
+  it('Problem 5A: Right Triangles', function (done) {
+    var rightTriangleFive = '' +
+    '    *\n' +
+    '   **\n' +
+    '  ***\n' +
+    ' ****\n' +
+    '*****\n';
+    expect(triangle(5)).to.equal(rightTriangleFive);
+    done();
+  });
+
+  it('Problem 5B: Right Triangles', function (done) {
+    var rightTriangleNine = '' +
+    '        *\n' +
+    '       **\n' +
+    '      ***\n' +
+    '     ****\n' +
+    '    *****\n' +
+    '   ******\n' +
+    '  *******\n' +
+    ' ********\n' +
+    '*********\n';
+    expect(triangle(9)).to.equal(rightTriangleNine);
+    done();
+  });
 });
