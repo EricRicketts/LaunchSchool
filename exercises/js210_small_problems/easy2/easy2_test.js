@@ -108,4 +108,9 @@ describe('JS210 Small Problems: Easy 2', function () {
     expect(getGrades(50, 50, 95)).to.equal('D');
     done();
   });
+
+  it('Problem 9: Clean Up The Words', function (done) {
+    expect(cleanUp("---what's my +*& line?")).to.equal(' what s my line ');
+    done();
+  });
 });

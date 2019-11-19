@@ -1,3 +1,8 @@
+function cleanUp(str) {
+  var reNonAlpha = /([^A-Za-z])+/g;
+  return str.replace(reNonAlpha, ' '); 
+}
+
 function crunch(str) {
   return str.replace(/(.)\1+/g, '$1');
 }
