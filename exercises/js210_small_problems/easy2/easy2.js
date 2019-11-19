@@ -37,8 +37,26 @@ function findFibonacciIndexByLength(numDigits) {
   return fibArr.indexOf(fibNum) + 1;
 }
 
+function isDouble(number) {
+  var str = String(number);
+  var strSize = str.length;
+  var firstHalf = '';
+  var secondHalf = '';
+
+  for(var i = 0; i < strSize/2; i++) {
+    firstHalf += str[i];
+    secondHalf += str[strSize/2 + i];
+  }
+
+  return firstHalf === secondHalf;
+}
+
 function isEven(n) {
   return n % 2 === 0;
+}
+
+function isEvenDigits(number) {
+  return (String(number).length % 2 === 0);
 }
 
 function logInBox(str) {
@@ -77,4 +95,8 @@ function triangle(sides) {
   }
 
   return rt;
+}
+
+function twice(number) {
+  return isEvenDigits(number) && isDouble(number) ? number : 2*number;
 }

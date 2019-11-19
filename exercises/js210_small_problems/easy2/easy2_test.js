@@ -90,4 +90,16 @@ describe('JS210 Small Problems: Easy 2', function () {
     expect(madlibs(noun, verb, adjective, adverb))
     done();
   });
+
+  it('Problem 7: Double Doubles', function (done) {
+    expect(twice(37)).to.equal(74);
+    expect(twice(44)).to.equal(44);
+    expect(twice(334433)).to.equal(668866);
+    expect(twice(444)).to.equal(888);
+    expect(twice(107)).to.equal(214);
+    expect(twice(103103)).to.equal(103103);
+    expect(twice(3333)).to.equal(3333);
+    expect(twice(7676)).to.equal(7676);
+    done();
+  });
 });
