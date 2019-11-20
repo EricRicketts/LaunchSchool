@@ -113,4 +113,17 @@ describe('JS210 Small Problems: Easy 2', function () {
     expect(cleanUp("---what's my +*& line?")).to.equal(' what s my line ');
     done();
   });
+
+  it('Problem 10: What Century Is That', function (done) {
+    expect(century(2000)).to.equal('20th');
+    expect(century(2001)).to.equal('21st');
+    expect(century(1965)).to.equal('20th');
+    expect(century(256)).to.equal('3rd');
+    expect(century(5)).to.equal('1st');
+    expect(century(10103)).to.equal('102nd');
+    expect(century(1052)).to.equal('11th');
+    expect(century(1127)).to.equal('12th');
+    expect(century(11201)).to.equal('113th');
+    done();
+  });
 });

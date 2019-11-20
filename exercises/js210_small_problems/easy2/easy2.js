@@ -1,3 +1,21 @@
+function century(number) {
+  var centuryNumber = Math.ceil(number / 100);
+  var strCentury = String(centuryNumber);
+  var lastIndex = strCentury.length - 1;
+  var lastTwoDigits = strCentury.substring(lastIndex - 1, strCentury.length);
+  var endings = {
+    '0': 'th', '1': 'st', '2': 'nd', '3': 'rd', '4': 'th',
+    '5': 'th', '6': 'th', '7': 'th', '8': 'th', '9': 'th'
+  }
+
+  if (Number(lastTwoDigits) >= 11 && Number(lastTwoDigits) <= 13) {
+    return strCentury + 'th';
+  } else {
+    return strCentury + endings[strCentury[lastIndex]];
+  }
+
+}
+
 function cleanUp(str) {
   var reNonAlpha = /([^A-Za-z])+/g;
   return str.replace(reNonAlpha, ' '); 
