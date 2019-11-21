@@ -1,4 +1,4 @@
-describe('Array Operations', function () {
+describe('Array Operations: Push, Pop, Unshift, and Shift', function () {
   var count;
 
   beforeEach(function () {
