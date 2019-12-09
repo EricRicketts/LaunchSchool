@@ -1,6 +1,6 @@
 import {
-  combinedArray, mirrorArray, oddElementsOf, orderAndReverseOrder,
-  sortDescending
+  combinedArray, matrixSums, mirrorArray, oddElementsOf,
+  orderAndReverseOrder, sortDescending, uniqueElements
 } from '../code/arrays_intermediate_uses.js';
 
 describe('Practice Problems: Intermediate Array Uses', () => {
@@ -36,5 +36,17 @@ describe('Practice Problems: Intermediate Array Uses', () => {
     const expected = [42, 23, 16, 15, 8, 4];
     expect(sortDescending(ary)).toEqual(expected);
     expect(ary).toEqual(ary);  // original array unchanged
+  });
+
+  it('matrixSums returns a new array which constains sums of subarrays', () => {
+    const arr = [[2, 8, 5], [12, 48, 0], [12]];
+    const expected = [15, 60, 12];
+    expect(matrixSums(arr)).toEqual(expected);
+  });
+
+  it('uniqueElements returns an arry of unique elements', () => {
+    const arr = [1, 2, 4, 3, 4, 1, 5, 4];
+    const expected = [1, 2, 3, 4, 5];
+    expect(uniqueElements(arr)).toEqual(expected);
   });
 });

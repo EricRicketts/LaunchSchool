@@ -11,6 +11,14 @@ function combinedArray(first, last) { // assumes arrays of equal length
   return ary;
 }
 
+function matrixSums(arr) {
+  return arr.map(function(subArr) {
+    return subArr.reduce(function(sum, num) {
+      return sum += num;
+    }, 0);
+  });
+}
+
 function mirrorArray(arr) {
   return arr.concat(arr.slice().reverse());
 }
@@ -39,10 +47,19 @@ function orderAndReverseOrder(arr) {
 }
 
 function sortDescending(arr) {
+  // Launch School solution better arr.slice().sort((a, b) => b - a);
   return arr.slice().sort((a, b) => a - b).reverse();
 }
 
+function uniqueElements(arr) {
+  var sortedArr = arr.slice().sort((a, b) => a - b);
+  return sortedArr.reduce(function(acc, elem, idx, src) {
+    if (idx !== 0 && src[idx - 1] !== src[idx]) { acc.push(elem); }
+    return acc;
+  }, [sortedArr[0]]);
+}
+
 export {
-  combinedArray, mirrorArray, oddElementsOf, orderAndReverseOrder,
-  sortDescending
+  combinedArray, mirrorArray, matrixSums, oddElementsOf,
+  orderAndReverseOrder, sortDescending, uniqueElements
 };
