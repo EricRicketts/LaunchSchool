@@ -1,5 +1,6 @@
 import {
-  combinedArray, mirrorArray, oddElementsOf, orderAndReverseOrder
+  combinedArray, mirrorArray, oddElementsOf, orderAndReverseOrder,
+  sortDescending
 } from '../code/arrays_intermediate_uses.js';
 
 describe('Practice Problems: Intermediate Array Uses', () => {
@@ -28,5 +29,12 @@ describe('Practice Problems: Intermediate Array Uses', () => {
   it('mirrorArray is Launch School\'s solution to the previous problem', () => {
     const expected = [4, 8, 15, 16, 23, 42, 42, 23, 16, 15, 8, 4];
     expect(mirrorArray(digits)).toEqual(expected);
+  });
+
+  it('sortDescending returns an array in descending sort order', () => {
+    const ary = [23, 4, 16, 42, 8, 15];
+    const expected = [42, 23, 16, 15, 8, 4];
+    expect(sortDescending(ary)).toEqual(expected);
+    expect(ary).toEqual(ary);  // original array unchanged
   });
 });

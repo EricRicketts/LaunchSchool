@@ -38,4 +38,11 @@ function orderAndReverseOrder(arr) {
   return ary;
 }
 
-export { combinedArray, mirrorArray, oddElementsOf, orderAndReverseOrder };
+function sortDescending(arr) {
+  return arr.slice().sort((a, b) => a - b).reverse();
+}
+
+export {
+  combinedArray, mirrorArray, oddElementsOf, orderAndReverseOrder,
+  sortDescending
+};
