@@ -11,8 +11,13 @@ function lastElementOf(arr) {
     return arr[lastIndex];
 }
 
+function lastNOf(arr, number) {
+    var startIdx = arr.length - number;
+    return arr.slice(startIdx);
+}
+
 function nthElementOf(arr, index) {
     return arr[index];
 }
 
-export { firstElementOf, firstNOf, lastElementOf, nthElementOf };
+export { firstElementOf, firstNOf, lastNOf, lastElementOf, nthElementOf };

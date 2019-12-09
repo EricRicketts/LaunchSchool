@@ -1,5 +1,5 @@
-import { firstElementOf, firstNOf,
-  lastElementOf, nthElementOf }
+import { firstElementOf, firstNOf, lastElementOf,
+  lastNOf, nthElementOf }
   from '../code/arrays_basic_uses.js';
 
 describe('Practice Problems: Arrays Basic Uses', () => {
@@ -24,8 +24,13 @@ describe('Practice Problems: Arrays Basic Uses', () => {
     expect(nthElementOf(digits, -1)).toBeUndefined();
   });
   
-  it('firstNOf should return the first N elements of the array', () => {
+  it('firstNOf returns the first N elements of the array', () => {
     const expected = [4, 8, 15];
     expect(firstNOf(digits, 3)).toEqual(expected);
+  });
+
+  it('lastNOf returns the last N elements of the array', () => {
+    const expected = [16, 23, 42];  
+    expect(lastNOf(digits, 3)).toEqual(expected);
   });
 });
