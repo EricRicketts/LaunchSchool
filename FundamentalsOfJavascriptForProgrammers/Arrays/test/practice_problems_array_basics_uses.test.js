@@ -1,4 +1,4 @@
-import { firstElementOf, firstNOf, lastElementOf,
+import { endsOf, firstElementOf, firstNOf, lastElementOf,
   lastNOf, nthElementOf }
   from '../code/arrays_basic_uses.js';
 
@@ -36,5 +36,10 @@ describe('Practice Problems: Arrays Basic Uses', () => {
 
   it('lastNOf returns entire array if number of elements asked for is larger than array', () => {
     expect(lastNOf(digits, 7)).toEqual(digits);
+  });
+
+  it('endsOf returns an array of first element of first array and last element of last array', () => {
+    const expected = [4, 42];
+    expect(endsOf([4, 8, 15], [16, 23, 42])).toEqual(expected);
   });
 });

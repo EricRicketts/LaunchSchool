@@ -1,3 +1,7 @@
+function endsOf(first, last) {
+    return [firstElementOf(first), lastElementOf(last)];
+}
+
 function firstElementOf(arr) {
     return arr[0];
 }
@@ -20,4 +24,4 @@ function nthElementOf(arr, index) {
     return arr[index];
 }
 
-export { firstElementOf, firstNOf, lastNOf, lastElementOf, nthElementOf };
+export { endsOf, firstElementOf, firstNOf, lastNOf, lastElementOf, nthElementOf };
