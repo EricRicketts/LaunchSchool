@@ -33,4 +33,8 @@ describe('Practice Problems: Arrays Basic Uses', () => {
     const expected = [16, 23, 42];  
     expect(lastNOf(digits, 3)).toEqual(expected);
   });
+
+  it('lastNOf returns entire array if number of elements asked for is larger than array', () => {
+    expect(lastNOf(digits, 7)).toEqual(digits);
+  });
 });

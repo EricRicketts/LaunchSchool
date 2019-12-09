@@ -13,7 +13,7 @@ function lastElementOf(arr) {
 
 function lastNOf(arr, number) {
     var startIdx = arr.length - number;
-    return arr.slice(startIdx);
+    return startIdx < 0 ? arr: arr.slice(startIdx);
 }
 
 function nthElementOf(arr, index) {
