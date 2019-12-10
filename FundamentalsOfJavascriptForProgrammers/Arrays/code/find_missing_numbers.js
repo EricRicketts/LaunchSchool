@@ -1,7 +1,15 @@
 function missing(arr) {
-  var missingNums = [];
+  var missingVals = [];
   var sortedArr = arr.slice().sort((a, b) => a - b );
 
+  arr.forEach((val, idx, currentArr) => {
+    var nextVal = currentArr[idx + 1];
+    if (nextVal > val + 1) {
+      missingVals.push(range(val + 1, nextVal - 1, 1));
+    }
+  });
+
+  return missingVals.flat();
 }
 
 function range(start, stop, step) {
