@@ -40,6 +40,14 @@ function assignTwoSliceArgs(arr, idx) {
   }
 }
 
+function deleteOnly(arr, start, deleteCount) {
+  for (var i = start; i < arr.length; i += 1) {
+    arr[i] = arr[i + deleteCount];
+  }
+  arr.length = arr.length - deleteCount;
+  return arr;
+}
+
 function emtpyArray(arr) {
   return Array.isArray(arr) && arr.length === 0;
 }
@@ -58,6 +66,36 @@ function normalizeSingleIdx(idx, arrLength) {
   } else {
     return 0;
   }
+}
+
+function prependElements(arr, elements) {
+  var lastElementsIndex = elements.length - 1;
+
+  for (var i = lastElementsIndex; i >= 0; i -= 1) {
+    arr.unshift(elements[i]);
+  }
+
+  return arr;
+}
+
+function prependOrReplaceElements(arr, elements, start, deleteCount) {
+  if (start === 0 && deleteCount === 0) {
+    arr = prependElements(arr, elements);
+  } else {
+    arr = replaceElements(arr, start, elements);
+  }
+  return arr;
+}
+
+function replaceElements(arr, start, elements) {
+  var numElements = elements.length;
+  var lastIndex = start + numElements;
+
+  for (var i = start; i < lastIndex; i += 1 ) {
+    arr[i] = elements[i - start];
+  }
+
+  return arr;
 }
 
 function slice(...args) {
@@ -84,24 +122,11 @@ function splice(arr, start, deleteCount, ...elements) {
   }
 
   if (emtpyArray(elements)) {
-    for (var i = start; i < arr.length; i += 1) {
-      arr[i] = arr[i + deleteCount];
-    }
-    arr.length = arr.length - deleteCount;
+    arr = deleteOnly(arr, start, deleteCount);
   } else {
-    if (start === 0 && deleteCount === 0) {
-      var lastElementsIndex = elements.length - 1;
-      for (var i = lastElementsIndex; i >= 0; i -= 1) {
-        arr.unshift(elements[i]);
-      }
-    } else {
-      var numElements = elements.length;
-      var lastIndex = start + numElements;
-      for (var i = start; i < lastIndex; i += 1 ) {
-        arr[i] = elements[i - start];
-      }
-    }
+    arr = prependOrReplaceElements(arr, elements, start, deleteCount);
   }
+
   return newArr;
 }
 
