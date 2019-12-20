@@ -1,18 +1,19 @@
-import { incrementProperty, objectHasProperty } from '../code/object_properties.js';
+import { copyProperties, incrementProperty, objectHasProperty } from '../code/object_properties.js';
 describe('Practice Problems: Working With Object Properites', () => {
-  var pets, wins, expected;
+  var pets, wins, expected, hal;
 
   beforeEach(() => {
     pets = {
       cat: 'Simon',
       dog: 'Dwarf',
       mice: null,
-    }
+    };
     wins = {
       steve: 3,
       susie: 4,
       elmer: 'foo',
-    }
+    };
+    hal = { model: 9000, enabled: true };
   });
   it('objectHasProperty returns true if property exists, regardless of value', () => {
     expected = [true, true];
@@ -42,5 +43,18 @@ describe('Practice Problems: Working With Object Properites', () => {
     expected = { steve: 3, susie: 4, elmer: 'foo', lucy: 1 };
     expect(incrementProperty(wins, 'lucy')).toBe(1);
     expect(wins).toEqual(expected);
+  });
+
+  it('copyProperties copies to an empty object', () => {
+    var sal = {};
+    expect(copyProperties(hal, sal)).toBe(2);
+    expect(sal).toEqual(hal);
+  });
+
+  it('copyProperties copies to an object with existing properties', () => {
+    var sal = { foo: "bar" };
+    expected = { model: 9000, enabled: true, foo: "bar" };
+    expect(copyProperties(hal, sal)).toBe(2);
+    expect(sal).toEqual(expected);
   });
 });
