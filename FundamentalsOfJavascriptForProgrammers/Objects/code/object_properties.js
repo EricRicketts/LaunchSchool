@@ -25,4 +25,14 @@ function objectHasProperty(obj, property) {
   return Object.keys(obj).includes(property);
 }
 
-export { copyProperties, incrementProperty, objectHasProperty };
+function wordCount(str) {
+  var obj = {};
+  var words = str.split(/\s+/);
+  words.forEach(word => {
+    obj[word] = obj[word] ? obj[word] + 1 : 1;
+  });
+
+  return obj;
+}
+
+export { copyProperties, incrementProperty, objectHasProperty, wordCount };

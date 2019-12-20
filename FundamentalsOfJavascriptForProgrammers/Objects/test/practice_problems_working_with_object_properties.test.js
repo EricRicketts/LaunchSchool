@@ -1,4 +1,4 @@
-import { copyProperties, incrementProperty, objectHasProperty } from '../code/object_properties.js';
+import { copyProperties, incrementProperty, objectHasProperty, wordCount } from '../code/object_properties.js';
 describe('Practice Problems: Working With Object Properites', () => {
   var pets, wins, expected, hal;
 
@@ -56,5 +56,11 @@ describe('Practice Problems: Working With Object Properites', () => {
     expected = { model: 9000, enabled: true, foo: "bar" };
     expect(copyProperties(hal, sal)).toBe(2);
     expect(sal).toEqual(expected);
+  });
+
+  it('wordCount converts a string to an object with a count for each word', () => {
+    var str = 'box car cat bag box';
+    expected = { box: 2, car: 1, cat: 1, bag: 1 };
+    expect(wordCount(str)).toEqual(expected);
   });
 });
