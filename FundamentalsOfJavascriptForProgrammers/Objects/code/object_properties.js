@@ -1,19 +1,12 @@
 function incrementProperty(obj, property) {
-  var incrementedValue;
 
-  if (Object.keys(obj).includes(property)) {
-    if (typeof(obj[property]) === 'number') {
-      incrementedValue = obj[property] + 1;
-      obj[property] = incrementedValue;
-    } else {
-      incrementedValue = obj[property];
-    }    
+  if (obj[property]) {
+    if (typeof(obj[property]) === 'number') { obj[property] += 1; }
   } else {
-    incrementedValue = 1;
-    obj[property] = incrementedValue;
+    obj[property] = 1;
   }
 
-  return incrementedValue;
+  return obj[property];
 }
 
 function objectHasProperty(obj, property) {
