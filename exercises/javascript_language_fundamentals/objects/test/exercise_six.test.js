@@ -1,5 +1,5 @@
 describe('Exercises: Javascript Language Fundamentals: Objects: Exercise Six', () => {
-  var myArray, average;
+  var myArray, average, refactoredAverage;
 
   beforeEach(() => {
     myArray = [5, 5];
@@ -16,10 +16,20 @@ describe('Exercises: Javascript Language Fundamentals: Objects: Exercise Six', (
 
       return sum / array.length;
     }
+
+    refactoredAverage = function(array) {
+      return array.reduce((sum, n) => {
+        return sum += n;
+      }, 0) / array.length;
+    };
   });
 
   it('Array length is only over indexed items', () => {
     expect(average(myArray)).toBe(10);
+  });
+
+  it('Refactor only accounts for indexed items', () => {
+    expect(refactoredAverage(myArray)).toBe(5);
   });
 });
 /*
