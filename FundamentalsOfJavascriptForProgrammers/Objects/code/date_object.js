@@ -37,6 +37,14 @@ function formattedMonth(monthDigit) {
   return months[monthDigit];
 }
 
+function formatTime(date) {
+  var hours = date.getUTCHours();
+  var minutes = date.getUTCMinutes();
+  hours = hours < 10 ? '0' + hours : hours.toString();
+  minutes = minutes < 10 ? '0' + minutes : minutes.toString();
+  return hours + ":" + minutes;
+}
+
 function range(start, stop, step) {
   return Array.from({ length: (stop - start)/step + 1 }, function(_, i) {
     return start + (i * step);
@@ -44,4 +52,4 @@ function range(start, stop, step) {
 };
 
 export { dateSuffix, formattedDate, formattedDay,
-  formattedDayOfWeek, formattedMonth, range };
+  formattedDayOfWeek, formattedMonth, formatTime, range };

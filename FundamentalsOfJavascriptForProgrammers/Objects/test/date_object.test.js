@@ -1,13 +1,15 @@
 import { dateSuffix, formattedDate, formattedDay, formattedDayOfWeek,
-  formattedMonth, range } from "../code/date_object.js";
+  formattedMonth, formatTime, range } from "../code/date_object.js";
 
 describe('Objects: Working With The Date Object', () => {
   var date, months, days, dayOfWeek, year, month, day, result, expected;
+  var oneDayDifference, today, tomorrow;
   beforeEach(() => {
     date = new Date();
     months = range(0, 11, 1);
     days = range(1, 31, 1);
     dayOfWeek = range(0, 6, 1);
+    oneDayDifference = 24*60*60*1000;
   });
   describe("provides a date object for today's date", () => {
     it('provides a year', () => {
@@ -101,6 +103,67 @@ describe('Objects: Working With The Date Object', () => {
       date = new Date('2019-12-2');
       expected = "Today's date is Monday, December 2nd 2019";
       expect(formattedDate(date)).toBe(expected);
+    });
+
+    it('getFullYear better than getYear', () => {
+      date = new Date('2019-10-11');
+      expect(date.getFullYear().toString()).toMatch(/\d{4}/);
+      expect(date.getYear().toString()).toMatch(/\d{3}/);
+      // after year 2000 getYear() only returns three digits
+      // getFullYear return value is more intention revealing
+    });
+  });
+
+  describe('Time formatting', () => {
+    it('getTime should log milliseconds since Unix Epoch', () => {
+      date = new Date('2019-12-16');
+      var time = date.getTime();
+      expect(Number.isInteger(time)).toBeTruthy();
+      expect(time).toBeGreaterThan(10**12);
+    });
+
+    it('current day and next day are 24 hours apart', () => {
+      date = new Date('2019-11-20UTC');
+      today = new Date(date.getTime());
+      tomorrow = new Date('2019-11-21UTC');
+      tomorrow = new Date(tomorrow.getTime());
+      expect(tomorrow.getTime() - today.getTime()).toBe(oneDayDifference);
+      expected = 'Today\'s date is Wednesday, November 20th 2019';
+      expect(formattedDate(tomorrow)).toBe(expected);
+    });
+
+    it('another way to verify 24 hours difference between today and tomorrow', () => {
+        today = new Date();
+        tomorrow = new Date(today.getTime());
+        tomorrow.setDate(today.getDate() + 1);
+        expect(tomorrow.getTime() - today.getTime()).toBe(oneDayDifference);
+    });
+
+    it('dates are only equal if they are copied from one another', () => {
+      var d1 = new Date();
+      var d2 = d1;
+      expect(d1 === d2).toBeTruthy();
+      d2 = new Date(d1.getTime());
+      expect(d1 === d2).toBeFalsy();
+    });
+
+    it('moves to another week', () => {
+      today = new Date('2019-11-7UTC');
+      var nextWeek = new Date(today.getTime());
+      nextWeek.setDate(today.getDate() + 7);
+      expect(nextWeek.getTime() - today.getTime()).toBe(7*oneDayDifference);
+    });
+
+    it('formatTime for singled digits', () => {
+      today = Date.UTC(2019, 11, 17, 3, 3, 0);
+      today = new Date(today);
+      expect(formatTime(today)).toBe('03:03');
+    });
+
+    it('formatTime for double digits', () => {
+      today = Date.UTC(2019, 11, 17, 12, 35, 0);
+      today = new Date(today);
+      expect(formatTime(today)).toBe('12:35');
     });
   });
 });
