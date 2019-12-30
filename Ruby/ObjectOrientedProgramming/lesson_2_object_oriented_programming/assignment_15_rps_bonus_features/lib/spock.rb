@@ -1,0 +1,2 @@
+class Spock
+end

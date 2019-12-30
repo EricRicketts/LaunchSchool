@@ -1,0 +1,14 @@
+require 'rake/testtask'
+
+task :basics_one_task do
+  Rake::TestTask.new('one') do |t|
+    t.libs << 'basics'
+    t.test_files = FileList["./basics/classes_and_objects_one/*_test.rb"]
+    t.verbose = true
+    t.warning = true
+  end
+end
+
+task :basics_one do
+  Rake::Task['basics_one_task'].invoke
+end

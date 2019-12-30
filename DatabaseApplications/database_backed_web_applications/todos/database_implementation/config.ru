@@ -1,2 +1,0 @@
-require './todos'
-run Todos

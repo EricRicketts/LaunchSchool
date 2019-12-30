@@ -1,0 +1,74 @@
+#related-articles > li {
+  list-style-type: none;
+}
+
+#jquery-reasons > li {
+  list-style-type: upper-roman;
+}
+
+#vert-nav {
+  font-size: 20px;
+}
+
+#vert-nav > ul {
+  background-color: yellow;
+  list-style-position: outside;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+}
+
+#vert-nav > ul > li {
+  margin: 0;
+  color: blue;
+  list-style-type: none;
+}
+
+#vert-nav > ul > li > a {
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 2.5;
+  padding: 0 10px;
+  text-decoration: none;
+  width: 100%;
+}
+
+#vert-nav > ul > li > a:hover {
+  color: white;
+  background-color: green;
+}
+
+#horz-nav {
+  font-size: 20px;
+}
+
+#horz-nav ul {
+  background-color: yellow;
+  list-style-position: outside;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#horz-nav li {
+  display: inline-block;
+  color: blue;
+  list-style-type: none;
+  width: 25%;
+  text-align: center;
+}
+
+#horz-nav a {
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 2.5;
+  padding: 0 10px;
+  text-decoration: none;
+  width: 100%;
+}
+
+#horz-nav > ul > li > a:hover {
+  color: white;
+  background-color: green;
+}
+

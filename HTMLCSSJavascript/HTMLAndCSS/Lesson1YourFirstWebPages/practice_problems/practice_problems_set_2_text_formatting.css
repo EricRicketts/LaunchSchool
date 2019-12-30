@@ -1,0 +1,116 @@
+#first-problem {
+  font-size: 20px;
+}
+
+#second-problem {
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+#third-problem {
+  font-size: 20px;
+  font-family: Tahoma, "Trebuchet MS", Verdana, sans-serif;
+}
+
+#fourth-problem {
+  font-size: 20px;
+  font-family: Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  font-style: italic;
+}
+
+#fifth-problem {
+  font-size: 20px;
+  font-family: Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#sixth-problem {
+  font-size: 20px;
+  font-family: Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 2.5;
+}
+
+#seventh-problem {
+  font: italic normal bold 20px/2.5 Tahoma, "Trebuchet MS", Verdana, sans-serif;
+}
+
+#eighth-problem {
+  font: italic normal bold 20px/2.5 Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  text-align: right;
+}
+
+#ninth-problem {
+  font: italic normal bold 20px/2.5 Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  text-align: center;
+}
+
+#tenth-problem {
+  font: italic normal bold 20px/2.5 Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  text-align: justify;
+}
+
+#eleventh-problem {
+  font: italic normal bold 20px/2.5 Tahoma, "Trebuchet MS", Verdana, sans-serif;
+  text-align: justify;
+  text-indent: 4em;
+}
+
+#problem-12-heading {
+  font-family: Georgia, serif;
+}
+
+#problem-12-code {
+  font-family: monospace;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+#problem-12-main-text {
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#problem-13-heading {
+  font-family: Georgia, serif;
+  color: blue;
+}
+
+#problem-13-code {
+  font-family: monospace;
+  font-style: italic;
+  text-decoration: underline;
+  color: red;
+}
+
+#problem-13-main-text {
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#problem-14-paragraph {
+  font-size: 18px;
+}
+
+#problem-14-mark {
+  font-size: 12px;
+  background: yellow;
+  font-family: Courier, monospace;
+}
+
+#problem-14-strong {
+  font-size: 15px;
+}
+
+#problem-14-em {
+  font-size: 20px;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+#problem-15 {
+  color: red;
+  text-decoration: underline;
+}

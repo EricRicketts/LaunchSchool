@@ -1,3 +1,0 @@
-This is the "bar.txt" file.
-It tries to bar any other file
-from the limelight, except for "foo.txt".

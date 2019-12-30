@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Practice Text Formatting</title>
+  <link rel="stylesheet" href="practice_problems_set_2_text_formatting.css">
+</head>
+<body>
+
+  <p id="first-problem">
+    <!--
+      Problem 1:
+
+      Create an HTML page with a single paragraph of text. Write CSS to set
+      the font size for most elements on the page to 20px (you may ignore
+      headers, subscripts, and other items that often have a different size).
+    -->
+    Problem 1.&nbsp;&nbsp;This is a single paragraph of text and its font size will be
+    20px.&nbsp;&nbsp;In order to distinguish this paragraph from those that follow I
+    am going to give it an id attribute.&nbsp;&nbsp;As a matter of fact all of the elements in
+    the followign problems are going to have id attributes.
+  </p>
+
+  <p id="second-problem">
+    <!--
+    Problem 2:
+
+    Change the font family for the page from the previous problem to a sans-serif font.
+    -->
+    Problem 2.&nbsp;&nbsp;This is also another single paragraph and as with the first
+    paragraph, the font size will be set to 20px.&nbsp;&nbsp;However, now the font type
+    will be sans-serif.
+  </p>
+
+  <p id="third-problem">
+    <!--
+    Problem 3:
+
+    Change the CSS for the previous problem to give the browser a choice one of three fonts
+    (Tahoma, Trebuchet MS, Verdana), depending on what is available, before it uses the
+    default sans-serif font.
+    -->
+    Problem 3.&nbsp;&nbsp;This paragraph is the same as paragraphs 1 and 2 but with
+    additonal font options in the CSS.
+  </p>
+
+  <p id="fourth-problem">
+    <!-- Problem 4: Change the text from the previous problem to italic. -->
+
+    Problem 4.&nbsp;&nbsp;This is the same paragraph as problem 3 but with
+    intalic text style.
+  </p>
+
+  <p id="fifth-problem">
+    <!-- Problem 5: Change the CSS from the previous problem to boldface (keep the italics). -->
+    Problem 5.&nbsp;&nbsp;This is the same as Problem 4 but now we have both italic font style and
+    bold font weight.
+  </p>
+
+  <div id="sixth-problem">
+    <!--
+      Problem 6:
+
+      Change the CSS from the previous problem to increase the line height to 2.5
+      times its default height.
+    -->
+    <p>Problem 6, first paragraph.&nbsp;&nbsp;We are not a paragraph in this problem but a &lt;div&gt;.</p>
+    <p>Probelm 6, second paragrapah.&nbsp;&nbsp;Now we can see the affect of setting the line height to 2.5</p>
+  </div>
+
+  <div id="seventh-problem">
+    <!--
+      Problem 7:
+
+      Change the CSS you wrote in questions 1-6 to a shorthand form that uses precisely one property.
+      The output should not change.
+    -->
+    <p>Problem 7, first paragraph.&nbsp;&nbsp;As with Problem 6, we are not a paragraph in this problem but a &lt;div&gt;.</p>
+    <p>Probelm 7, second paragrapah.&nbsp;&nbsp;Same result as Problem 6 but with on line of CSS code.</p>
+  </div>
+
+  <div id="eighth-problem">
+    <!--
+      Problem 8:
+
+      Change the CSS from the previous problem to right-align the text within the paragraph:
+    -->
+    <p>Problem 8, first paragraph.&nbsp;&nbsp;As with Problem 7, we are not a paragraph in this problem but a &lt;div&gt;.</p>
+    <p>Probelm 8, second paragrapah.&nbsp;&nbsp;Same result as Problem 7 but we are right aligning the text within the paragraph.</p>
+  </div>
+
+  <div id="ninth-problem">
+    <!--
+      Problem 9:
+
+      Change the CSS from the previous problem to center-align the text within the paragraph:
+    -->
+    <p>Problem 9, first paragraph.&nbsp;&nbsp;As with Problem 8, we are not a paragraph in this problem but a &lt;div&gt;.</p>
+    <p>
+      Probelm 9, second paragrapah.&nbsp;&nbsp;Same result as Problem 8 but we are center aligning the text within the paragraph.
+      Note in all of these text alignment problems we can see how block level elements behave in that they take up all of the
+      available width within the web page.  If they did not we would not see such a dramatic shift in the text position from
+      problem 7 to problem 8 to problem 9.
+    </p>
+  </div>
+
+  <div id="tenth-problem">
+    <!--
+      Problem 10:
+
+      Change the CSS from the previous problem to fully justify the text within the paragraph:
+    -->
+    <p>Problem 10, first paragraph.&nbsp;&nbsp;As with Problem 9, we are not a paragraph in this problem but a &lt;div&gt;.</p>
+    <p>
+      Probelm 10, second paragrapah.&nbsp;&nbsp;Same result as Problem 9 but we are justifying the text vice aligning it
+      to a certain position.  I have to put in more text in this paragraph to make sure we can see the effects of justifying
+      the paragraph.  I want to make sure there are enough characters to cause the justify property to take effect.  Since
+      I expanded the browser to take up the entire workspace, I hope I have made this paragraph long enough.
+    </p>
+  </div>
+
+  <div id="eleventh-problem">
+    <!--
+      Problem 11:
+
+      Change the CSS from the previous problem to indent the start of the paragraph by 4em.
+    -->
+    <p>Problem 11, first paragraph.&nbsp;&nbsp;As with Problem 10, we are not a paragraph in this problem but a &lt;div&gt;.</p>
+    <p>
+      Probelm 11, second paragrapah.&nbsp;&nbsp;Same result as Problem 9 but we are justifying the text vice aligning it
+      to a certain position.  I have to put in more text in this paragraph to make sure we can see the effects of justifying
+      the paragraph.  I want to make sure there are enough characters to cause the justify property to take effect.  Since
+      I expanded the browser to take up the entire workspace, I hope I have made this paragraph long enough.  However, in this
+      case we are also adding a paragraph indentation.
+    </p>
+  </div>
+
+    <!--
+      Problem 12:
+
+      One has to go to the Launch School website to see the desired affects on this HTML
+
+      The h1 heading uses the Georgia font while the code element uses the browser's default
+      monospace font. The remaining text uses a 14px sans-serif font, with Helvetica and Arial
+      preferred.
+    -->
+  <article>
+    <header>
+      <h1 id="problem-12-heading">Finessing `feColorMatrix`</h1>
+    </header>
+    <p id="problem-12-main-text">
+      Harness the power of <code id="problem-12-code">feColorMatrix</code> to create detailed
+      filters, with Una Kravets as your guide.
+    </p>
+  </article>
+
+  <!-- Problem 13: Change the CSS from the previous problem to display the h1 element text in blue, and the code text in green. -->
+  <article>
+    <header>
+      <h1 id="problem-13-heading">Finessing `feColorMatrix`</h1>
+    </header>
+    <p id="problem-13-main-text">
+      Harness the power of <code id="problem-13-code">feColorMatrix</code> to create detailed
+      filters, with Una Kravets as your guide.
+    </p>
+  </article>
+
+  <!--
+    Problem 14:
+
+    The font highlighted in yellow is Courier; use a backup font of monospace.
+    The text uses four font sizes - 12px, 15px, 18px and 20px.
+  -->
+
+  <p id="problem-14-paragraph">That episode was <mark id="problem-14-mark">un<strong id="problem-14-strong">be<em id="problem-14-em">lieve</em></strong>able</mark>!</p>
+
+
+  <!--
+    Problem 15:
+
+
+  -->
+  <p>
+    The Creating Hyperlinks section of <a href="http://learn.shayhowe.com/html-css/getting-to-know-html/#creating-hyperlinks" id="problem-15" target="_blank" title="Getting to Know HTML">Getting to Know HTML</a> discusses
+    hyperlinks, or anchors. Be sure to work both "In Practice" sections; they
+    pick up from where you left off in an earlier reading assignment.
+  </p>
+
+</body>
+</html>

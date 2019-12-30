@@ -1,0 +1,30 @@
+/* 1.  Write HTML to display the image. Don't use a <figure> or <figcaption> right now. */
+img {
+  display: block;
+}
+
+/* 2.  Use CSS to set the width of the image to 250 pixels. */
+#second-image {
+  width: 250px;
+}
+
+/* 3.  Update the CSS width from the previous problem with a height of 350 pixels.  Note
+ do not use any width property. */
+#third-image {
+  height: 350px;
+}
+
+/* 4.  Set the width of the image to 400 pixels, but keep the height at 350px. */
+#fourth-image {
+  width: 400px;
+  height: 350px;
+}
+
+/* 5.  Remove the CSS for the img element, and wrap the <img> in a <figure> tag with a yellow background. */
+#first-figure {
+  background-color: yellow;
+}
+/* 6.  Add a caption below the image. */
+
+/* 7.  Move the caption above the image. */
+

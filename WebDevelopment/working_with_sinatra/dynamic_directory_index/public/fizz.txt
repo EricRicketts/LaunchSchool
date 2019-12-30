@@ -1,3 +1,0 @@
-This is the "fizz.txt" file.
-Closely associated with "fizz buzz" he does not
-play well with other files.

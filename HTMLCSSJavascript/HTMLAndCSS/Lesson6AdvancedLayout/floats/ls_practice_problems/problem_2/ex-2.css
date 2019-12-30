@@ -1,0 +1,39 @@
+html {
+  box-sizing: border-box;
+}
+
+body * {
+  margin: 0;
+  padding: 0;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+#floated {
+  background-color: #ecaa33;
+  float: left;
+}
+
+#floated + p {
+  background-color: #18aaff;
+  clear: both;
+}
+
+p {
+  padding: 1rem;
+}
+
+/*
+In the original layout the reason the paragraph hangs out beneath the floated item
+and also to the right of it is because floated items are taken out of the normmal flow
+of elements.  The floated div is pushed the left edge of its parent container, main
+and taken out of the normal block level flow.  The second and bigger paragraph will now
+wrap it content around the floated element such that the top of the content will not rise
+above the top of the floated element.
+
+when the second paragraph is given a clear then any floated items on its left will be
+cleared, meaning the top border edge of the paragraph will be under the margin edge of
+the floated item.
+*/

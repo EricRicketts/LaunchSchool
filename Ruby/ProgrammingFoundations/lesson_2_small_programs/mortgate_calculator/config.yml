@@ -1,0 +1,26 @@
+  InterestAmtMsg: |
+    Enter your annual interest rate.
+    Enter a non-negative decimal or whole number between 0 and 99.
+    What is your annual interest rate?
+  LoanAmtMsg: |
+    Enter your loan amount.
+    Decimals must have at least one digit left of the decimal pont.
+    Negative numbers are not allowed.
+    What is your loan amount?
+  LoanDurationMsg: |
+    Enter your loan duration in years.
+    It must be greater than zero, and decimals are allowed.
+    What is the loan duration in years?
+  WelcomeMsg: |
+    Welcome to the Mortgage Calculator.
+    This will calculate a monthly payment, based on the loan amount,
+    a positive interest rate, and loan duration in months.
+  QuitMsg: |
+    Calculate another monthly payment?
+    (Y/y to continue or N/n to quit)
+  InvalidLoanMsg: "Hmm... that doesn't look like a valid loan amount entry"
+  InvalidInterestMsg: "Hmm... that doesn't look like a valid interest rate entry"
+  InvalidLoanDurationMsg: "Hmm... that doesn't look like a valid loan duration entry"
+  ResultMsg: "Monthly payments are: "
+  GoodByeMsg: "Thank you for using mortgage calculator.  Good bye!"
+  InvalidResponseMsg: "Oops!!  Please enter Y/y to continue or N/n to quit."

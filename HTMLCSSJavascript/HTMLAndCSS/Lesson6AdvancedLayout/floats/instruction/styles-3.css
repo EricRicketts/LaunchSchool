@@ -1,0 +1,59 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 0.5rem;
+}
+
+p {
+  color: black;
+  font-family: serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.outer {
+  border: 1px solid grey;
+  overflow: hidden;
+  width: 100%;
+}
+
+.primary, .secondary, .tertiary {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.primary {
+  background-color: moccasin;
+  float: right;
+  height: 100px;
+  line-height: 100px;
+  width: 65%;
+}
+
+.secondary {
+  background-color: coral;
+  float: left;
+  height: 75px;
+  line-height: 75px;
+  width: 30%
+}
+
+.tertiary {
+  background-color: powderblue;
+  float: left;
+  height: 200px;
+  line-height: 200px;
+  width: 40%;
+}

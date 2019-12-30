@@ -1,0 +1,37 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+body * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ccc;
+}
+
+section {
+  width: 750px;
+  background-color: white;
+  margin: 0 auto;
+}
+
+article, aside {
+  float: left;
+  padding: 1rem;
+}
+
+article {
+  width: 500px;
+  background-color: lightyellow;
+}
+
+aside {
+  width: 250px;
+  background-color: lightgreen;
+}

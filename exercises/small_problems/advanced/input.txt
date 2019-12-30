@@ -1,8 +1,0 @@
-noun:cat
-verb:licks
-adjective:brown
-adverb:noisily
-noun:dog
-verb:licks
-adjective:yellow
-adverb:lazily

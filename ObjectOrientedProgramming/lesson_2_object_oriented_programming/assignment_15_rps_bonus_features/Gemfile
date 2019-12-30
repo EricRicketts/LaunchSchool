@@ -1,5 +1,0 @@
-source 'https://rubygems.org'
-
-gem 'rubocop', '0.46.0'
-gem 'minitest'
-gem 'pry-byebug'

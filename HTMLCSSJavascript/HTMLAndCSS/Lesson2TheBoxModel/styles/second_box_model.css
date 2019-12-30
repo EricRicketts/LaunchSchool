@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+#wrapper * {
+  padding: 20px;
+  font-size: 20px;
+  border: 20px solid rgba(0,0,0,0.5);
+  display: inline-block;
+  width: calc(100% / 3);
+  box-sizing: border-box;
+}
+
+header, footer {
+  background-color: blue;
+  color: white;
+}
+
+main {
+  background-color: yellow;
+}

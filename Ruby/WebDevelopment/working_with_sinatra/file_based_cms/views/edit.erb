@@ -1,0 +1,6 @@
+<form action="/<%= @fname %>" method="post" accept-charset="utf-8">
+  <input type="hidden" name="_method" value="patch">
+  <label for="file" class="block-style">Edit content of <%= @fname %>:</label>
+  <textarea id="file" name="file" rows="20" cols="30"><%= @file %></textarea>
+  <button type="submit" class="block-style">Save Changes</button>
+</form>

@@ -1,0 +1,15 @@
+
+1.  There needs to be a home page route, make it "/"
+    a.  When the user visits "/", we need to load the content from the YAML file
+    b.  I think this should be kept into a local variable
+    c.  I think we should just make an ordered list for the users
+    d.  Each list item will be a link to the user's home page
+2.  Each User's home page will have the following (list or table):
+    a.  User's interests with a comma between each interest
+    b.  At the bottom of each page list links to all of the other users pages, list or table?
+    c.  Based on the other requirements a link to a home page is implied
+3.  At the bottom of all pages, display a message which shows total number of users and total number
+    of interests, such as "There are three users with a total of nine interests"
+4.  Use a helper method to accomplish #4 above, name it count_interests, it should read the YAML file when called
+5.  Manually add a new user to the YAML file, see if the numbers update accordingly.  This implies the helper
+    method is called each time a link is selected.

@@ -1,0 +1,82 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+body * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 90%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  padding-right: calc((20 / 960) * 100%);
+}
+
+.row {
+  clear: both;
+}
+
+.col {
+  float: left;
+  margin-left: calc((20 / 960) * 100%);;
+  width: calc((60 / 960) * 100%);
+  margin-bottom: 5px;
+  background-color: rgb(255, 150, 150);
+}
+
+.col.span1 {
+  width: calc((60 / 960) * 100%);
+}
+
+.col.span2 {
+  width: calc((2*(60 / 960) + 1*(20 / 960)) * 100%);
+}
+
+.col.span3 {
+  width: calc((3*(60 / 960) + 2*(20 / 960)) * 100%);
+}
+
+.col.span4 {
+  width: calc((4*(60 / 960) + 3*(20 / 960)) * 100%);
+}
+
+.col.span5 {
+  width: calc((5*(60 / 960) + 4*(20 / 960)) * 100%);
+}
+
+.col.span6 {
+  width: calc((6*(60 / 960) + 5*(20 / 960)) * 100%);
+}
+
+.col.span7 {
+  width: calc((7*(60 / 960) + 6*(20 / 960)) * 100%);
+}
+
+.col.span8 {
+  width: calc((8*(60 / 960) + 7*(20 / 960)) * 100%);
+}
+
+.col.span9 {
+  width: calc((9*(60 / 960) + 8*(20 / 960)) * 100%);
+}
+
+.col.span10 {
+  width: calc((10*(60 / 960) + 9*(20 / 960)) * 100%);
+}
+
+.col.span11 {
+  width: calc((11*(60 / 960) + 10*(20 / 960)) * 100%)
+}
+
+.col.span12 {
+  width: calc((12*(60 / 960) + 11*(20 / 960)) * 100%)
+}

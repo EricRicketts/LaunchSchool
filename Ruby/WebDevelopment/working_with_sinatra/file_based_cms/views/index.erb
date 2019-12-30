@@ -1,0 +1,28 @@
+<ul>
+<% @files.each.with_index do |file, idx| %>
+  <li>
+  	<a href="/<%= file %>"><%= file %></a>
+    <a href="/<%= file %>/edit">Edit</a>
+    <form action="/<%= file %>/delete" method="post" accept-charset="utf-8" class="inline-style" id="form_<%= idx %>">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit" form="form_<%= idx %>">Delete</button>
+    </form>
+  </li>
+<% end %>
+</ul>
+<p>
+  <a href="/new">New Document</a>
+</p>
+<% if user_signed_in? %>
+<form action="/users/signout" method="post" accept-charset="utf-8">
+  <label for="signout">Signed in as <%= session[:username] %>.</label>
+  <input type="submit" name="signout" id="signout" value="Sign Out">
+</form>
+<% else %>
+<form action="/users/signin" method="get" accept-charset="utf-8">
+  <button type="submit">Sign In</button>
+</form>
+<form action="/users/signup" method="get" accept-charset="utf-8">
+  <button type="submit">Sign Up</button>
+</form>
+<% end %>

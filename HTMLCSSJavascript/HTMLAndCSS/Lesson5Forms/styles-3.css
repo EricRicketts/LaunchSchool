@@ -1,0 +1,43 @@
+.styled-form * {
+  margin: 0;
+  padding: 0;
+}
+
+.styled-form fieldset {
+  background-color: #ececec;
+  border: 2px solid #999;
+  box-sizing: border-box;
+  color: #4d4d4d;
+  font-family: myriad-pro, "Helvetica Nue", Helvetica, Roboto, Arial, sans-serif;
+  padding: 1rem;
+}
+
+.styled-form label {
+  font-weight: bold;
+  line-height: 1.5rem;
+}
+
+.styled-form input[type="text"] {
+  border: 1px solid #06c;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font: normal 1rem Helvetica, Arial, sans-serif;
+  height: 40px;
+  padding: 5px 8px;
+}
+
+.side-by-side label,
+.side-by-side input[type="text"] {
+  display: inline-block;
+}
+
+.side-by-side label {
+  margin-right: 1em;
+  vertical-align: middle;
+}
+
+.side-by-side input[type="text"] {
+  vertical-align: middle;
+  width: 35%;
+}
+

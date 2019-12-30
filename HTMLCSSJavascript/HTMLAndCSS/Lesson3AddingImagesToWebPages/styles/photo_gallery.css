@@ -1,0 +1,244 @@
+/* 1.  After loading the page, you may notice that the images are vertically too near each other,
+and they're flush with the top and left edges of the window. Adjust the spacing between the figure
+elements and the distance between the left and right edges of the browser window to 50px to give
+the images some breathing room.
+*/
+
+/*
+figure {
+  margin: 50px;
+  outline: 1px solid red;
+}
+*/
+
+/*
+Launch School added the outline for debugging purposes.  When resizing the window, the outline
+eventually collapsed on each image.  By default the outline will take up the entire width of
+the block element, so if the browser window is large enough the outline will extend the entire
+width of the browser window.
+*/
+
+/*
+2.  Reduce your browser window's width, if necessary, until at least one image exceeds the window width.
+Next, adjust the CSS to make them all fit inside the window. Don't forget that there is a margin around
+each figure, which should be evident when you display the page.
+
+Once your changes are complete, check what happens as you expand and shrink the browser window; no matter
+what adjustments you make, all images should fit in the window.
+*/
+
+/*
+figure {
+  margin: 50px;
+  outline: 1px solid red;
+}
+
+figure > img {
+  max-width: 100%;
+}
+*/
+
+/* I made the mistake initially of just setting the width, now
+the image will maintain its original size of there is enough room
+otherwise it will fill all space allowed by the parent container.
+*/
+
+/* 3.  Every image should use the entire width of the figure elements. Modify your CSS to implement this requirement. */
+
+/*
+figure {
+  margin: 50px;
+  outline: 1px solid red;
+}
+
+figure > img {
+  width: 100%;
+}
+*/
+
+/* My solution matched the Launch School Solution */
+
+/* 4.  Reduce the width of each figure to 1/2 the width of the browser window: */
+
+/*
+figure {
+  margin: 50px;
+  width: 50%;
+  outline: 1px solid red;
+}
+
+figure > img {
+  width: 100%;
+}
+*/
+
+/* My solution matched the Launch School solution */
+
+/*
+5.  At this point, the figures are narrow enough that we should be able to squeeze 2 of them in every row on the page.
+However, since figures are block elements, they always take up an entire row. Instead, you must convert the figure elements
+to inline-block. Please do so.
+*/
+
+/*
+figure {
+  display: inline-block;
+  margin: 50px;
+  width: 50%;
+  outline: 1px solid red;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+*/
+
+/* My solution was the same as the Launch School solution, however, the figure did not appear side by side
+and Launch School said there was a problem, actually two problems and asked the student to try to identify it
+before moving on, even though the issue will be rectified later in this same problem set.  I read the documentation
+on MDN and for the img element they suggested making it a display: block; because it is inline by default.  This
+did not work
+*/
+
+/* 6.  There's a small cosmetic issue unrelated to squeezing two images per row. Let's center the captions beneath each image: */
+
+/*
+figure {
+  display: inline-block;
+  margin: 50px;
+  width: 50%;
+  outline: 1px solid red;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+}
+*/
+
+/* My soultion was the same as the Launch School solution */
+
+/*
+7.  Returning to the problem of squeezing two images per row, the main issue we have is that we have margins to the left and right
+of each figure. Recall that we used margins here to satisfy our rule of thumb about choosing margins or padding. However, those margins
+take up space in the browser window, so we can't squeeze two 50%-width elements side-by-side. Instead, we need to set the left and right
+margins on the figure elements to 0, and redistribute that space in some other way. Give this a try now.
+*/
+
+/*
+figure {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: 50%;
+  outline: 1px solid red;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+}
+*/
+
+/* I had the same solution as Launch School, apparently even Launch School said they would not appear side by side at this point. */
+
+/*
+8.  The other part of the problem of squeezing two images per row is that there is a small amount of whitespace between every
+pair of inline-block elements.  It's not much whitespace, but it's enough to prevent two 50% elements from fitting side-by-side.
+Go ahead and make the necessary adjustments to get rid of the whitespace.
+*/
+
+/*
+figure {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: 50%;
+  outline: 1px solid red;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+}
+*/
+
+/* My solution worked, I was surprised at how much just a little whitespace messed up the adjacent placement. I put in comments
+to eliminate the whitespace, Launch School used some other methods.
+*/
+
+/*
+9.  The images are a bit on the small side. Let's give the user the ability to see them full-sized by clicking on them.
+When clicked, the browser should load the image directly into a new tab or window. To accomplish this, convert your images into links.
+*/
+
+/*
+figure {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: 50%;
+  outline: 1px solid red;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+}
+*/
+
+/* I had the same soution as Launch School */
+
+/*
+10.  You can now get rid of the outline you attached to the figure elements, and assign a pleasant background to the gallery.
+You can use the background image we used earlier in this lesson
+(http://d3jtzah944tvom.cloudfront.net/202/images/lesson_3/gradient-background.png) or one of your own.
+*/
+
+body {
+  background-image: url("../images/gradient-background.png");
+  background-size: cover;
+}
+
+figure {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: 50%;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+}
+
+/* I put the background image on the main element, Launch School put it on the body and used background-size*/

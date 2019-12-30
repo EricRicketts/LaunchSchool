@@ -1,0 +1,45 @@
+require 'pry-byebug'
+base_dir = Dir.getwd
+rack_dir = base_dir + "/test/rack"
+capybara_dir = base_dir + "/test/capybara"
+test_files = Dir.children(rack_dir)
+symbols_for_rack_tests = []
+symbols_for_capybara_tests = []
+
+def task_variables(test_file, prefix)
+  task_str = test_file.delete_suffix("_test.rb")
+  task_word = task_str.sub(/_/, ' ')
+  task_sym = (prefix + task_str).to_sym
+  [task_word, task_sym]
+end
+
+namespace :test do
+
+  test_files.each do |test_file|
+    rack_task_str, rack_task_sym = task_variables(test_file, "rack_")
+    symbols_for_rack_tests << rack_task_sym
+    desc "run #{rack_task_str} tests from test/rack directory"
+    task rack_task_sym do
+      ruby rack_dir + "/#{test_file}"
+    end
+
+    capybara_task_str, capybara_task_sym = task_variables(test_file, "capybara_")
+    symbols_for_capybara_tests << capybara_task_sym
+    desc "run #{capybara_task_str} tests from test/capybara directory"
+    task capybara_task_sym do
+      ruby capybara_dir + "/#{test_file}"
+    end
+  end
+
+  desc "run all test files in rack/test"
+  task :rack_tests => symbols_for_rack_tests
+
+  desc "run all test files in capybara/test"
+  task :capybara_tests => symbols_for_capybara_tests
+
+  desc "run all tests"
+  task :all_tests => [:rack_tests, :capybara_tests]
+end
+
+desc "default task"
+task :default => ["test:all_tests"]

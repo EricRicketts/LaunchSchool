@@ -1,2 +1,0 @@
-This it the "another_file.txt" file.
-It is located in the "not_here" subdirectory.

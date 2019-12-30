@@ -1,0 +1,60 @@
+#! /usr/bin/env ruby
+require 'pry-byebug'
+require 'open3'
+require 'pg'
+require_relative './cli_constants'
+require_relative './table_format'
+require_relative './cli'
+require_relative './expense_data'
+
+PSQL = "/usr/local/bin/psql"
+PSQL_OPTION = "--list"
+SPACE = " "
+DBNAME = "rb185"
+CREATEDB = "/usr/local/bin/createdb"
+
+QUERY_FOR_TABLE = <<-SQL
+SELECT count(*)
+FROM information_schema.tables
+WHERE table_schema = 'public' AND table_name = 'expenses';
+SQL
+
+CREATE_TABLE = <<-SQL
+CREATE TABLE expenses (
+  id SERIAL PRIMARY KEY,
+  amount DECIMAL(6, 2) NOT NULL CHECK (amount >= 0.01),
+  memo TEXT NOT NULL,
+  created_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+);
+SQL
+
+def setup_schema
+  stdout_str, stderr_str = Open3.capture3(PSQL + SPACE + PSQL_OPTION)
+  unless stderr_str.empty?
+    puts "There was an error with listing the available databases."
+    exit
+  end
+  db = stdout_str.each_line { |line| line.match?(/#{DBNAME}/)}[DBNAME]
+  if db.nil?
+    stdout_str, stderr_str = Open3.capture3(CREATEDB + SPACE + DBNAME)
+  end
+
+  conn = PG::Connection.new(dbname: DBNAME)
+  result = conn.exec(QUERY_FOR_TABLE)
+  conn.exec(CREATE_TABLE) if result[0]["count"] == "0"
+  conn.close
+end
+
+setup_schema
+
+cli = Cli.new(ARGV)
+tf = TableFormat.new
+expenses = ExpenseData.new(cli, tf)
+
+if cli.command.nil?
+  puts CliConstants::HELP
+elsif !cli.valid_command?
+  puts CliConstants::INFO_MSG
+else
+  expenses.send(cli.command.to_sym)
+end
