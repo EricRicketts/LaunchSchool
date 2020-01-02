@@ -2,6 +2,13 @@ var MINUTES_PER_HOUR = 60;
 var HOURS_PER_DAY = 24;
 var MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR;
 
+function timeOfDayWithDate(deltaMinutes) {
+  var referenceDate = new Date('January 1 1970 00:00:00');
+  referenceDate.setMinutes(deltaMinutes);
+
+  return referenceDate.toTimeString().slice(0, 5);
+}
+
 function timeOfDayWithoutDate(deltaMinutes) {
   var hours;
   var minutes;
@@ -27,4 +34,4 @@ function padWithZeroes(number, length) {
   return numberString;
 }
 
-export { timeOfDayWithoutDate };
+export { timeOfDayWithDate, timeOfDayWithoutDate };
