@@ -17,4 +17,11 @@ function wordSizesPartOne(phrase) {
  return wordSizes;
 }
 
-export { wordSizesPartOne };
+function wordSizesPartTwo(phrase) {
+  var regex = /[^a-zA-Z]/;
+  var filteredPhrase = phrase.split(/\s+/).map((word) => word.replace(regex, '')).join(' ');
+
+  return wordSizesPartOne(filteredPhrase);
+}
+
+export { wordSizesPartOne, wordSizesPartTwo };
