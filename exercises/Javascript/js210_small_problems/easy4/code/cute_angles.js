@@ -1,26 +1,58 @@
-function dms(degreeNumber) {
+function calculateDegreesMinutesFractionalSeconds(degreesDecimalFormat) {
   const DEGREE_CHARCODE = 176;
   const DEGREES_IN_CIRCLE = 360;
   const MINUTES_IN_DEGREE = 60;
-  const SECONDS_IN_MINUTE = 60;
-  var degrees;
-  var minutes;
-  var seconds;
+  var degrees, minutes, seconds;
 
-  [degrees, minutes] = integerAndFractionalParts(degreeNumber);
-  degrees = degrees % DEGREES_IN_CIRCLE;
+  [degrees, minutes] = integerAndFractionalParts(degreesDecimalFormat);
+  degrees = String(degrees % DEGREES_IN_CIRCLE) + String.fromCharCode(DEGREE_CHARCODE);
   minutes = minutes * MINUTES_IN_DEGREE;
+
   [minutes, seconds] = integerAndFractionalParts(minutes);
-  minutes = minutes < 10 ? '0' + String(minutes) : minutes;
-  seconds = Math.floor(seconds * SECONDS_IN_MINUTE);
-  seconds = seconds < 10 ? '0' + String(seconds) : seconds;
+  minutes = formatMinutes(minutes);
 
-  minutes = minutes === 0 ? "00'" : String(minutes) + "'";
-  seconds = seconds === 0 ? '00"' : String(seconds) + '"';
+  return [degrees, minutes, seconds];
 
-  return String(degrees) + String.fromCharCode(DEGREE_CHARCODE) + minutes + seconds;
 }
 
+function dms(degreeNumber) {
+  var degrees, minutes, seconds;
+  
+  [degrees, minutes, seconds] = calculateDegreesMinutesFractionalSeconds(degreeNumber);
+  seconds = formatSeconds(seconds);
+
+  return degrees + minutes + seconds;
+}
+
+function formatMinutes(minutes) {
+  const MINUTES_SUFFIX = "'";
+
+  if (minutes === 0) {
+    minutes = "00'"
+  } else if (minutes > 0 && minutes < 10) {
+    minutes = '0' + String(minutes) + MINUTES_SUFFIX;
+  } else {
+    minutes = String(minutes) + MINUTES_SUFFIX;
+  }
+
+  return minutes;
+}
+
+function formatSeconds(seconds) {
+  const SECONDS_IN_MINUTE = 60;
+  const SECONDS_SUFFIX = '"';
+  seconds = Math.floor(seconds * SECONDS_IN_MINUTE);
+
+  if (seconds === 0) {
+    seconds = '00"';
+  } else if (seconds > 0 && seconds < 10) {
+    seconds = '0' + String(seconds) + SECONDS_SUFFIX;
+  } else {
+    seconds = String(seconds) + SECONDS_SUFFIX;
+  }
+
+  return seconds;
+}
 function integerAndFractionalParts(number) {
   var intValue = Math.floor(number);
   var fracValue = number - intValue;
