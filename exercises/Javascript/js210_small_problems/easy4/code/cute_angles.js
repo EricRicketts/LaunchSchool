@@ -17,7 +17,7 @@ function calculateDegreesMinutesFractionalSeconds(degreesDecimalFormat) {
 
 function dms(degreeNumber) {
   var degrees, minutes, seconds;
-  
+
   [degrees, minutes, seconds] = calculateDegreesMinutesFractionalSeconds(degreeNumber);
   seconds = formatSeconds(seconds);
 
