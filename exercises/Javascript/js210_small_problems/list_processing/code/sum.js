@@ -7,4 +7,9 @@ function sum(number) {
   }, 0);
 }
 
-export { sum }
+function sumAlternate(number) {
+  return [...String(number).match(/\d/g)].reduce(function(sum, strDigit) {
+   return sum + Number.parseInt(strDigit, 10);
+  }, 0);
+}
+export { sum, sumAlternate }
