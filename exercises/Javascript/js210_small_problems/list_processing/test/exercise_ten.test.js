@@ -1,7 +1,8 @@
-import { transactionsFor } from "../code/inventory_item_transactions";
+import { isItemAvailable } from "../code/inventory_item_availability";
 
-describe('Exercises JS210 Small Problems List Processing Exercise Nine', function () {
+describe('Exercises JS210 Small Problems List Processing Exercise Ten', function () {
   let id, transactions, expected;
+
   beforeEach(() => {
     transactions = [
       { id: 101, movement: 'in',  quantity:  5 },
@@ -17,14 +18,13 @@ describe('Exercises JS210 Small Problems List Processing Exercise Nine', functio
     ];
   });
 
-  it('selects all transactions from the list with the correct id', function () {
-    expected = [
-      { id: 101, movement: "in",  quantity:  5 },
-      { id: 101, movement: "in",  quantity: 12 },
-      { id: 101, movement: "out", quantity: 18 },
-    ];
+  it('returns false if item has more \'outs\' than \'ins\'', function () {
     id = 101;
+    expect(isItemAvailable(id, transactions)).toBe(false);
+  });
 
-    expect(transactionsFor(id, transactions)).toEqual(expected);
+  it('returns true if item has more \'ins\' than \'outs\'', function () {
+    id = 105;
+    expect(isItemAvailable(id, transactions)).toBe(true);
   });
 });
