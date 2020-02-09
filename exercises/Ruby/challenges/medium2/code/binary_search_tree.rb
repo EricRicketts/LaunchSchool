@@ -11,6 +11,16 @@ class Bst
     @parent = nil
   end
 
+  def each
+    node = self
+    if node.parent
+      yield node.data
+      node = node.parent
+    else
+      yield node.data
+    end
+  end
+
   def insert(value)
     if self.left.nil? && value <= self.data
       self.left = Bst.new(value)
