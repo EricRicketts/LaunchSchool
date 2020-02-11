@@ -10,6 +10,7 @@ const presets = [
           node: 'current'
         },
         useBuiltIns: "usage",
+        corejs: 3
       },
     ],
   ];

@@ -733,9 +733,9 @@
       }
     },
     "@babel/polyfill": {
-      "version": "7.8.3",
-      "resolved": "https://registry.npmjs.org/@babel/polyfill/-/polyfill-7.8.3.tgz",
-      "integrity": "sha512-0QEgn2zkCzqGIkSWWAEmvxD7e00Nm9asTtQvi7HdlYvMhjy/J38V/1Y9ode0zEJeIuxAI0uftiAzqc7nVeWUGg==",
+      "version": "7.7.0",
+      "resolved": "https://registry.npmjs.org/@babel/polyfill/-/polyfill-7.7.0.tgz",
+      "integrity": "sha512-/TS23MVvo34dFmf8mwCisCbWGrfhbiWZSwBo6HkADTBhUa2Q/jWltyY/tpofz/b6/RIhqaqQcquptCirqIhOaQ==",
       "requires": {
         "core-js": "^2.6.5",
         "regenerator-runtime": "^0.13.2"
@@ -1754,7 +1754,8 @@
     "core-js": {
       "version": "3.6.4",
       "resolved": "https://registry.npmjs.org/core-js/-/core-js-3.6.4.tgz",
-      "integrity": "sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw=="
+      "integrity": "sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw==",
+      "dev": true
     },
     "core-js-compat": {
       "version": "3.4.7",
@@ -1779,6 +1780,16 @@
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz",
       "integrity": "sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=",
       "dev": true
+    },
+    "core.js": {
+      "version": "0.4.2",
+      "resolved": "https://registry.npmjs.org/core.js/-/core.js-0.4.2.tgz",
+      "integrity": "sha1-sClu9u0CscFeJJ5M44BnUm8cevE=",
+      "dev": true,
+      "requires": {
+        "underscore": "*",
+        "underscore.string": "*"
+      }
     },
     "cross-spawn": {
       "version": "6.0.5",
@@ -5364,6 +5375,12 @@
         "extend-shallow": "^3.0.0"
       }
     },
+    "sprintf-js": {
+      "version": "1.1.2",
+      "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.1.2.tgz",
+      "integrity": "sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==",
+      "dev": true
+    },
     "sshpk": {
       "version": "1.16.1",
       "resolved": "https://registry.npmjs.org/sshpk/-/sshpk-1.16.1.tgz",
@@ -5660,6 +5677,22 @@
         }
       }
     },
+    "underscore": {
+      "version": "1.9.2",
+      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.9.2.tgz",
+      "integrity": "sha512-D39qtimx0c1fI3ya1Lnhk3E9nONswSKhnffBI0gME9C99fYOkNi04xs8K6pePLhvl1frbDemkaBQ5ikWllR2HQ==",
+      "dev": true
+    },
+    "underscore.string": {
+      "version": "3.3.5",
+      "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-3.3.5.tgz",
+      "integrity": "sha512-g+dpmgn+XBneLmXXo+sGlW5xQEt4ErkS3mgeN2GFbremYeMBSJKr9Wf2KJplQVaiPY/f7FN6atosWYNm9ovrYg==",
+      "dev": true,
+      "requires": {
+        "sprintf-js": "^1.0.3",
+        "util-deprecate": "^1.0.2"
+      }
+    },
     "unicode-canonical-property-names-ecmascript": {
       "version": "1.0.4",
       "resolved": "https://registry.npmjs.org/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz",
@@ -5772,8 +5805,7 @@
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
       "integrity": "sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=",
-      "dev": true,
-      "optional": true
+      "dev": true
     },
     "util.promisify": {
       "version": "1.0.0",
