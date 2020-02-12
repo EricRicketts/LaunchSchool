@@ -1,3 +1,12 @@
+function calculateNumericGrade(scores) {
+  const EXAM_WEIGHT = 0.65;
+  const EXERCISE_WEIGHT = 0.35;
+  let examAvg = examAverage(scores.exams);
+  let exerciseTotal = scores.exercises.reduce((total, score) => total + score, 0);
+
+  return Math.round(EXAM_WEIGHT*examAvg + EXERCISE_WEIGHT*exerciseTotal);
+}
+
 function examAverage(examScores) {
   let numberOfExams = examScores.length;
   return examScores.reduce((sum, score) => sum + score, 0) / numberOfExams;
@@ -12,13 +21,8 @@ function finalGrade(scores) {
     'E': range(60, 68),
     'F': range(0, 59),
   };
-  const EXAM_WEIGHT = 0.65;
-  const EXERCISE_WEIGHT = 0.35;
-  let examAvg = examAverage(scores.exams);
-  let exerciseTotal = scores.exercises.reduce((total, score) => total + score, 0);
 
-  let numericGrade = Math.round(EXAM_WEIGHT*examAvg + EXERCISE_WEIGHT*exerciseTotal);
-
+  let numericGrade = calculateNumericGrade(scores);
   let letterGrade = Object.entries(grades).find(function(gradeAndRange) {
     let gradeRange = gradeAndRange[1];
     return gradeRange.includes(numericGrade);
