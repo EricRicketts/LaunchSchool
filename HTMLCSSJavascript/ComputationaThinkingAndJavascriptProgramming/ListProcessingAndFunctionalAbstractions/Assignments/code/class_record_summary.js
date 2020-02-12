@@ -13,7 +13,14 @@ function examAverage(examScores) {
 }
 
 function finalGrade(scores) {
-  const grades = {
+  let numericGrade = calculateNumericGrade(scores);
+  let letterGrade = findLetterGrade(numericGrade);
+
+  return numericGrade + ' (' + letterGrade + ')';
+}
+
+function findLetterGrade(numericGrade) {
+  const GRADES = {
     'A': range(93, 100),
     'B': range(85, 92),
     'C': range(77, 84),
@@ -22,14 +29,12 @@ function finalGrade(scores) {
     'F': range(0, 59),
   };
 
-  let numericGrade = calculateNumericGrade(scores);
-  let letterGrade = Object.entries(grades).find(function(gradeAndRange) {
+  return Object.entries(GRADES).find(function(gradeAndRange) {
     let gradeRange = gradeAndRange[1];
     return gradeRange.includes(numericGrade);
   })[0];
-
-  return numericGrade + ' (' + letterGrade + ')';
 }
+
 function generateClassRecordSummary(studentRecords) {
   let classSummary = { studentGrades: [], exams: [], };
   let studentScores = Object.values(studentRecords).map((studentRecord) => studentRecord.scores );
