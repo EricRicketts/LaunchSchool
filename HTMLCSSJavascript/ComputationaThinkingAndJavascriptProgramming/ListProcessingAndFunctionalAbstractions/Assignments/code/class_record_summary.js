@@ -27,13 +27,13 @@ function finalGrade(scores) {
   return numericGrade + ' (' + letterGrade + ')';
 }
 function generateClassRecordSummary(studentRecords) {
-  let studentSummary = { studentGrades: [], exams: [], };
+  let classSummary = { studentGrades: [], exams: [], };
   let studentScores = Object.values(studentRecords).map((studentRecord) => studentRecord.scores );
 
-  let classSummary = studentScores.reduce(function(finalSummary, scores) {
-    studentSummary.studentGrades.push(finalGrade(scores));
-    return studentSummary;
-  }, studentSummary);
+  classSummary.studentGrades = studentScores.reduce(function(studentGrade, scores) {
+    studentGrade.push(finalGrade(scores));
+    return studentGrade;
+  }, []);
 
   let classExams = [0, 1, 2, 3].reduce(function(examNumberResults, examNumber) {
     let individualStudentExam = studentScores.reduce(function(studentExamNumberResults, studentScore) {
