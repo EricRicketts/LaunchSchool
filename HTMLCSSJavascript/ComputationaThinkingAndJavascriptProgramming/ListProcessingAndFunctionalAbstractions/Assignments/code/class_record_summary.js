@@ -1,3 +1,15 @@
+function calculateExamStatistics(examDataByExamNumber) {
+  return examDataByExamNumber.reduce(function(examStatisticalResults, examData) {
+    let examStatistics = {
+      average: Number.parseFloat(examAverage(examData).toFixed(1)),
+      minimum: Math.min(...examData),
+      maximum: Math.max(...examData),
+    };
+    examStatisticalResults.push(examStatistics);
+    return examStatisticalResults;
+  }, []);
+}
+
 function calculateNumericGrade(exercisesAndExams) {
   const EXAM_WEIGHT = 0.65;
   const EXERCISE_WEIGHT = 0.35;
@@ -8,29 +20,9 @@ function calculateNumericGrade(exercisesAndExams) {
 }
 
 function compileExamData(studentScores) {
-  // for each of the student exam results collect the exams by exam number
-  // there were four exams, so the exam data will be an array of four arrays
-  // with each subarray containing the number of elements equal to the number of students
+  let examDataByExamNumber = organizeStudentExamDataByExamNumber(studentScores);
 
-  const EXAM_NUMBERS = [0, 1, 2, 3];
-  let classExamData = EXAM_NUMBERS.reduce(function(examNumberResults, examNumber) {
-    let individualStudentExams = studentScores.reduce(function(studentExamNumberResults, studentScore) {
-      studentExamNumberResults.push(studentScore.exams[examNumber]);
-      return studentExamNumberResults;
-    }, []);
-    examNumberResults.push(individualStudentExams);
-    return examNumberResults;
-  }, []);
-
-  return classExamData.reduce(function(examStatisticalResults, examData) {
-    let examStatistics = {
-      average: Number.parseFloat(examAverage(examData).toFixed(1)),
-      minimum: Math.min(...examData),
-      maximum: Math.max(...examData),
-    };
-    examStatisticalResults.push(examStatistics);
-    return examStatisticalResults;
-  }, []);
+  return calculateExamStatistics(examDataByExamNumber);
 }
 
 function compileStudentGrades(studentScores) {
@@ -76,6 +68,22 @@ function generateClassRecordSummary(studentRecords) {
   classSummary.exams = compileExamData(studentScores);
 
   return classSummary;
+}
+
+function organizeStudentExamDataByExamNumber(studentScores) {
+  // for each of the student exam results collect the exams by exam number
+  // there were four exams, so the exam data will be an array of four arrays
+  // with each subarray containing the number of elements equal to the number of students
+
+  const EXAM_NUMBERS = [0, 1, 2, 3];
+  return EXAM_NUMBERS.reduce(function(examNumberResults, examNumber) {
+    let individualStudentExams = studentScores.reduce(function(studentExamNumberResults, studentScore) {
+      studentExamNumberResults.push(studentScore.exams[examNumber]);
+      return studentExamNumberResults;
+    }, []);
+    examNumberResults.push(individualStudentExams);
+    return examNumberResults;
+  }, []);
 }
 
 function range(start, end) {
