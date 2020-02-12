@@ -14,11 +14,11 @@ function compileExamData(studentScores) {
 
   const EXAM_NUMBERS = [0, 1, 2, 3];
   let classExamData = EXAM_NUMBERS.reduce(function(examNumberResults, examNumber) {
-    let individualStudentExam = studentScores.reduce(function(studentExamNumberResults, studentScore) {
+    let individualStudentExams = studentScores.reduce(function(studentExamNumberResults, studentScore) {
       studentExamNumberResults.push(studentScore.exams[examNumber]);
       return studentExamNumberResults;
     }, []);
-    examNumberResults.push(individualStudentExam);
+    examNumberResults.push(individualStudentExams);
     return examNumberResults;
   }, []);
 
