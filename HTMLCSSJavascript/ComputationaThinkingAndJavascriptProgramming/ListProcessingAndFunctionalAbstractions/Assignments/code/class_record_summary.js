@@ -1,8 +1,8 @@
-function calculateNumericGrade(scores) {
+function calculateNumericGrade(exercisesAndExams) {
   const EXAM_WEIGHT = 0.65;
   const EXERCISE_WEIGHT = 0.35;
-  let examAvg = examAverage(scores.exams);
-  let exerciseTotal = scores.exercises.reduce((total, score) => total + score, 0);
+  let examAvg = examAverage(exercisesAndExams.exams);
+  let exerciseTotal = exercisesAndExams.exercises.reduce((total, score) => total + score, 0);
 
   return Math.round(EXAM_WEIGHT*examAvg + EXERCISE_WEIGHT*exerciseTotal);
 }
@@ -34,9 +34,9 @@ function compileExamData(studentScores) {
 }
 
 function compileStudentGrades(studentScores) {
-  return studentScores.reduce(function(studentGrade, scores) {
-    studentGrade.push(finalGrade(scores));
-    return studentGrade;
+  return studentScores.reduce(function(studentGrades, exercisesAndExams) {
+    studentGrades.push(finalGrade(exercisesAndExams));
+    return studentGrades;
   }, []);
 }
 
@@ -45,8 +45,8 @@ function examAverage(examScores) {
   return examScores.reduce((sum, score) => sum + score, 0) / numberOfExams;
 }
 
-function finalGrade(scores) {
-  let numericGrade = calculateNumericGrade(scores);
+function finalGrade(exercisesAndExams) {
+  let numericGrade = calculateNumericGrade(exercisesAndExams);
   let letterGrade = findLetterGrade(numericGrade);
 
   return numericGrade + ' (' + letterGrade + ')';
