@@ -33,6 +33,13 @@ function compileExamData(studentScores) {
   }, []);
 }
 
+function compileStudentGrades(studentScores) {
+  return studentScores.reduce(function(studentGrade, scores) {
+    studentGrade.push(finalGrade(scores));
+    return studentGrade;
+  }, []);
+}
+
 function examAverage(examScores) {
   let numberOfExams = examScores.length;
   return examScores.reduce((sum, score) => sum + score, 0) / numberOfExams;
@@ -65,10 +72,7 @@ function generateClassRecordSummary(studentRecords) {
   let classSummary = {};
   let studentScores = Object.values(studentRecords).map((studentRecord) => studentRecord.scores );
 
-  classSummary.studentGrades = studentScores.reduce(function(studentGrade, scores) {
-    studentGrade.push(finalGrade(scores));
-    return studentGrade;
-  }, []);
+  classSummary.studentGrades = compileStudentGrades(studentScores);
   classSummary.exams = compileExamData(studentScores);
 
   return classSummary;
