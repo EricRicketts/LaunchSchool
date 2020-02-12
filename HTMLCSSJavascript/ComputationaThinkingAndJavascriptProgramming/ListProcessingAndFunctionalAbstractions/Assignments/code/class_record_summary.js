@@ -7,6 +7,32 @@ function calculateNumericGrade(scores) {
   return Math.round(EXAM_WEIGHT*examAvg + EXERCISE_WEIGHT*exerciseTotal);
 }
 
+function compileExamData(studentScores) {
+  // for each of the student exam results collect the exams by exam number
+  // there were four exams, so the exam data will be an array of four arrays
+  // with each subarray containing the number of elements equal to the number of students
+
+  const EXAM_NUMBERS = [0, 1, 2, 3];
+  let classExams = EXAM_NUMBERS.reduce(function(examNumberResults, examNumber) {
+    let individualStudentExam = studentScores.reduce(function(studentExamNumberResults, studentScore) {
+      studentExamNumberResults.push(studentScore.exams[examNumber]);
+      return studentExamNumberResults;
+    }, []);
+    examNumberResults.push(individualStudentExam);
+    return examNumberResults;
+  }, []);
+
+  return classExams.reduce(function(examResults, examNumberScores) {
+    let examData = {
+      average: Number.parseFloat(examAverage(examNumberScores).toFixed(1)),
+      minimum: Math.min(...examNumberScores),
+      maximum: Math.max(...examNumberScores),
+    };
+    examResults.push(examData);
+    return examResults;
+  }, []);
+}
+
 function examAverage(examScores) {
   let numberOfExams = examScores.length;
   return examScores.reduce((sum, score) => sum + score, 0) / numberOfExams;
@@ -36,31 +62,14 @@ function findLetterGrade(numericGrade) {
 }
 
 function generateClassRecordSummary(studentRecords) {
-  let classSummary = { studentGrades: [], exams: [], };
+  let classSummary = {};
   let studentScores = Object.values(studentRecords).map((studentRecord) => studentRecord.scores );
 
   classSummary.studentGrades = studentScores.reduce(function(studentGrade, scores) {
     studentGrade.push(finalGrade(scores));
     return studentGrade;
   }, []);
-
-  let classExams = [0, 1, 2, 3].reduce(function(examNumberResults, examNumber) {
-    let individualStudentExam = studentScores.reduce(function(studentExamNumberResults, studentScore) {
-      studentExamNumberResults.push(studentScore.exams[examNumber]);
-      return studentExamNumberResults;
-    }, []);
-    examNumberResults.push(individualStudentExam);
-    return examNumberResults;
-  }, []);
-
-  classExams.forEach(function(examNumberScores) {
-    let examData = {
-      average: Number.parseFloat(examAverage(examNumberScores).toFixed(1)),
-      minimum: Math.min(...examNumberScores),
-      maximum: Math.max(...examNumberScores),
-    };
-    classSummary.exams.push(examData);
-  });
+  classSummary.exams = compileExamData(studentScores);
 
   return classSummary;
 }
