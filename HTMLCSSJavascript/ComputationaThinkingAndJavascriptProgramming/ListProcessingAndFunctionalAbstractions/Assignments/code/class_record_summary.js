@@ -30,9 +30,9 @@ function findLetterGrade(numericGrade) {
   };
 
   return Object.entries(GRADES).find(function(gradeAndRange) {
-    let gradeRange = gradeAndRange[1];
+    let gradeRange = gradeAndRange[1]; // get numbers in grade range, which is an array
     return gradeRange.includes(numericGrade);
-  })[0];
+  })[0]; // Array.find in this case returns an array of [key, value] I ask for the key which is the grade
 }
 
 function generateClassRecordSummary(studentRecords) {
