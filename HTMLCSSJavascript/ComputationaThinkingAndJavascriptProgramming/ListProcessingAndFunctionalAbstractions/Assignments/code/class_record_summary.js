@@ -13,7 +13,7 @@ function compileExamData(studentScores) {
   // with each subarray containing the number of elements equal to the number of students
 
   const EXAM_NUMBERS = [0, 1, 2, 3];
-  let classExams = EXAM_NUMBERS.reduce(function(examNumberResults, examNumber) {
+  let classExamData = EXAM_NUMBERS.reduce(function(examNumberResults, examNumber) {
     let individualStudentExam = studentScores.reduce(function(studentExamNumberResults, studentScore) {
       studentExamNumberResults.push(studentScore.exams[examNumber]);
       return studentExamNumberResults;
@@ -22,14 +22,14 @@ function compileExamData(studentScores) {
     return examNumberResults;
   }, []);
 
-  return classExams.reduce(function(examResults, examNumberScores) {
-    let examData = {
-      average: Number.parseFloat(examAverage(examNumberScores).toFixed(1)),
-      minimum: Math.min(...examNumberScores),
-      maximum: Math.max(...examNumberScores),
+  return classExamData.reduce(function(examStatisticalResults, examData) {
+    let examStatistics = {
+      average: Number.parseFloat(examAverage(examData).toFixed(1)),
+      minimum: Math.min(...examData),
+      maximum: Math.max(...examData),
     };
-    examResults.push(examData);
-    return examResults;
+    examStatisticalResults.push(examStatistics);
+    return examStatisticalResults;
   }, []);
 }
 
