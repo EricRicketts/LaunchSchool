@@ -1,3 +1,5 @@
+import { myName } from "../code/practice_problem_string";
+
 describe('LS215 String And Text Processing Practice Problem String', function () {
   let firstName, lastName, fullName, language, expected;
   it('should concatenate using concat operator', function () {
@@ -79,5 +81,54 @@ describe('LS215 String And Text Processing Practice Problem String', function ()
   it('should compose strings via concatenation', function () {
     let fact1 = 'Javascript is fun';
     let fact2 = 'Kids like it to';
+    let compoundSentence = fact1.concat(' and ', fact2.toLowerCase(), '.');
+
+    expect(compoundSentence).toBe('Javascript is fun and kids like it to.');
+  });
+
+  it('should use the bracket operator to get specific letters', function () {
+    let fact1 = 'Javascript is fun';
+    let fact2 = 'Kids like it to';
+
+    expect(fact1[0]).toBe('J');
+    expect(fact2[0]).toBe('K');
+  });
+
+  it('should return the last location of characters in a string with lastIndexOf', function () {
+    let pi = (22/7).toString(10);
+
+    expect(pi.lastIndexOf('14')).toBe(14);
+  });
+
+  it('should convert a number to a string with toString', function () {
+     let boxNumber = (356).toString(10);
+     // 356.toString(10) raises an error because Javascript interprets the '.' after the number
+    // as a decimal and separator for a method call
+     expect(boxNumber).toBe('356');
+  });
+
+  it('should convert a number to a string with two .. and then toString', function () {
+    let boxNumber = 356..toString(10);
+    expect(boxNumber).toBe('356');
+  });
+
+  it('should convert back and forth between strings and numbers', function () {
+    let boxNumber = (356).toString(10);
+    expect(Number.parseInt(boxNumber, 10)).toBe(356);
+    expect(typeof Number.parseInt(boxNumber, 10)).toBe('number');
+  });
+
+  it('should convert a number to a string with String()', function () {
+    let boxNumber = Number.parseInt((356).toString(10), 10);
+    expect(String(boxNumber)).toBe('356');
+    expect(typeof String(boxNumber)).toBe('string');
+  });
+
+  it('should use endsWith to determine output string', function () {
+    let responseOne = myName('Bob');
+    let responseTwo = myName('Bob!');
+
+    expect(responseOne).toBe('Hello Bob.');
+    expect(responseTwo).toBe('HELLO BOB.  WHY ARE WE SCREAMING?');
   });
 });

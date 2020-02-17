@@ -1,36 +1,22 @@
-require 'pry-byebug'
-
 class House
-  FIRST_PHRASE_PREFIX = 'This is '
-
+  PREFIX = 'This is '
   def self.recite
-    House.new.recite
-  end
-
-  def recite
-    pieces.reverse.each_index.inject('') do |rhyme, idx|
-      binding.pry
-      slice = pieces.reverse.slice(0, idx + 1).reverse
-      rhyme = gen_rhyme(rhyme, slice)
+    phrases = House.new.pieces
+    last_index = phrases.length - 1
+    all_stanzas = (0..last_index).reduce([]) do |phrase_arr, idx|
+      phrase_arr.push(phrases[idx..])
+      end
+    rhyme = ''
+    phrases.each.with_index.reduce('') do |rhyme, (fragments, idx)|
+      normal_stanza = fragments.first + "\n" + fragments.last + ' '
+      normal_stanza.prepend(PREFIX) if idx.zero?
+      last_stanza = fragments.first + '.' + "\n"
+      stanza = idx == last_index ? last_stanza : normal_stanza
+      rhyme += stanza
+      rhyme
     end
   end
-
-  private
-
-  def gen_rhyme(rhyme, slice)
-    slice.each.with_index.inject(rhyme) do |rhyme, (arr, idx)|
-      binding.pry
-      rhyme << (idx.zero? ? gen_1st_phr(rhyme, arr) : gen_other_phrs(rhyme, arr))
-    end
-  end
-
-  def gen_1st_phr(rhyme, arr)
-    rhyme << FIRST_PHRASE_PREFIX << arr.first << ".\n"
-  end
-
-  def gen_other_phrs(rhyme, arr)
-    rhyme
-  end
+  # (0..11).reduce([]) { |memo, idx| memo.push(phrases[idx..]) }
 
   def pieces
     [
