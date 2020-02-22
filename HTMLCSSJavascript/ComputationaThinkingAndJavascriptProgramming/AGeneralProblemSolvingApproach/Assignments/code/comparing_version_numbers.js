@@ -23,9 +23,14 @@ function compareVersions(version1, version2) {
 }
 
 function invalidFormat(version) {
-  let invalidRegex = /[^0-9.]+/g;
+  let invalidNumericParts = /[^0-9]+/g;
+  let versionDelimiter = '.';
 
-  return invalidRegex.test(version);
+  let versionNumericParts = version.split(versionDelimiter);
+
+  return versionNumericParts.some(function(numericPart) {
+    return numericPart === '' || invalidNumericParts.test(numericPart);
+  });
 }
 
 function normalizeVersionNumbers(version1, version2) {
