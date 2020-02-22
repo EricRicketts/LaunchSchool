@@ -3,20 +3,26 @@ class House
   def self.recite
     phrases = House.new.pieces
     last_index = phrases.length - 1
-    all_stanzas = (0..last_index).reduce([]) do |phrase_arr, idx|
-      phrase_arr.push(phrases[idx..])
-      end
-    rhyme = ''
-    phrases.each.with_index.reduce('') do |rhyme, (fragments, idx)|
-      normal_stanza = fragments.first + "\n" + fragments.last + ' '
-      normal_stanza.prepend(PREFIX) if idx.zero?
-      last_stanza = fragments.first + '.' + "\n"
-      stanza = idx == last_index ? last_stanza : normal_stanza
-      rhyme += stanza
-      rhyme
-    end
+    all_pieces = (0..last_index).reduce([]) { |new_piece, idx| new_piece.push(phrases.slice(idx,last_index + 1))}
+    x = all_pieces.reduce([]) do |rhyme_arr, pieces_arr|
+      rhyme_arr.prepend(House.new.compose_stanza(pieces_arr))
+    end.join("\n")
+    y = x.prepend(PREFIX)
+    y
+    # House.new.compose_stanza(phrases)
   end
   # (0..11).reduce([]) { |memo, idx| memo.push(phrases[idx..]) }
+  def compose_stanza(phrases)
+    last_idx = phrases.length - 1
+    phrases.each.with_index.reduce('') do |stanza, (verse, idx)|
+        normal_verse = verse.first + "\n" + verse.last + " "
+        normal_verse.prepend(PREFIX) if idx.zero?
+        last_verse = verse.first + "." + "\n"
+        verse_str = idx == last_idx ? last_verse : normal_verse
+      stanza += verse_str
+      stanza
+    end
+  end
 
   def pieces
     [

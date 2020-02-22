@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'minitest/reporters'
 require_relative './code/house'
 
+MiniTest::Reporters.use!
 # rubocop:disable Metrics/MethodLength
 class HouseTest < Minitest::Test
   def test_rhyme
