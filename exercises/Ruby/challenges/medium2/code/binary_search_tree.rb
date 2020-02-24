@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 class Bst
   include Enumerable
   attr_accessor :data, :left, :right, :parent

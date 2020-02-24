@@ -1,8 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'pry-byebug'
+require 'minitest/reporters'
 require_relative './code/binary_search_tree'
 
+MiniTest::Reporters.use!
 class BstTest < Minitest::Test
   def test_data_is_retained
     # skip
@@ -58,12 +59,12 @@ class BstTest < Minitest::Test
   end
 
   def test_iterating_one_element
-    # skip
+    skip
     assert_equal [4], record_all_data(Bst.new(4))
   end
 
   def test_iterating_over_smaller_element
-    # skip
+    skip
     four = Bst.new 4
     four.insert 2
     assert_equal [2, 4], record_all_data(four)

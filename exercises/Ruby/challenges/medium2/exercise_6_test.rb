@@ -1,8 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'pry-byebug'
+require 'minitest/reporters'
 require_relative './code/robot_name'
 
+MiniTest::Reporters.use!
 class RobotTest < Minitest::Test
   DIFFERENT_ROBOT_NAME_SEED = 1234
   SAME_INITIAL_ROBOT_NAME_SEED = 1000
