@@ -10,11 +10,23 @@ function generateLuhnNumber(luhnNumber) {
   return luhnNumber.concat(extraDigit.toString());
 }
 
+function generateLuhnNumberAlternate(luhnNumber) {
+  const extraDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const potentialLuhnNumbers = extraDigits.map((digit) => luhnNumber.concat(digit));
+
+  return potentialLuhnNumbers.find((number) => isValidLuhnNumber(number));
+}
+
 function luhnCheckSumNumber(luhnNumber) {
   return isValidLuhnNumber(luhnNumber) ? luhnNumber : generateLuhnNumber(luhnNumber);
 }
 
-export { luhnCheckSumNumber };
+function luhnCheckSumNumberAlternate(luhnNumber) {
+  return isValidLuhnNumber(luhnNumber) ? luhnNumber : generateLuhnNumberAlternate(luhnNumber);
+}
+
+export { luhnCheckSumNumber, luhnCheckSumNumberAlternate };
 /*
-In this case I am assuming there are always digits coming in
+In this case I am assuming there are always digits coming in no need to check for
+bad input
  */
