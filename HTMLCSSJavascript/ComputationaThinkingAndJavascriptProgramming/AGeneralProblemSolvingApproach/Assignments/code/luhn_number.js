@@ -34,4 +34,4 @@ function transformOddDigit(number) {
   return TWICE_NUMBER < MODULUS ? TWICE_NUMBER : TWICE_NUMBER - NORMALIZER;
 }
 
-export { isValidLuhnNumber }
+export { isValidLuhnNumber, isEven, isNumericInput, generateLuhnChecksum, transformOddDigit };
