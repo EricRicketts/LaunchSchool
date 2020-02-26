@@ -24,9 +24,32 @@ function isBlockWord(word) {
   return true;
 }
 
+function isBlockWordAlternate(word) {
+  const blockLetterPairs = [
+    'B:O', 'X:K', 'D:Q', 'C:P', 'N:A',
+    'G:T', 'R:E', 'F:S', 'J:W', 'H:U',
+    'V:I', 'L:Y', 'Z:M'
+  ];
+  let usedArr = [];
+  const nonLetterRegex = /[^A-Z]/;
+  let upCasedWord = word.toUpperCase();
+  if(upCasedWord === '' || nonLetterRegex.test(upCasedWord)) { return false; }
+
+  let letterArr = upCasedWord.split('');
+
+  return !letterArr.some((letter) => {
+    if (!usedArr.includes(letter)) {
+      let foundLetterPair = blockLetterPairs.find((letterPair) => new RegExp(letter).test(letterPair));
+      usedArr.push(...foundLetterPair.split(':'));
+    } else {
+      return true;
+    }
+  });
+}
+
 function removeLetterPair(letterPairFound, blockLetterPairs) {
   let letterPairIndex = blockLetterPairs.indexOf(letterPairFound);
   blockLetterPairs.splice(letterPairIndex, 1);
  }
 
-export { isBlockWord };
+export { isBlockWord, isBlockWordAlternate };
