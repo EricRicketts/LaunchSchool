@@ -13,13 +13,9 @@ function isBlockWord(word) {
 
   for (let i = 0; i < wordSize; i += 1) {
     let letter = wordArr[i];
-    let letterPairFound = blockLetterPairs.find((letterPair) => {
-      let letterPairArr = letterPair.split(':');
-      return letterPairArr.includes(letter);
-    });
+    let letterPairFound = blockLetterPairs.find((letterPair) => new RegExp(letter).test(letterPair));
     if (letterPairFound) {
-      let letterPairIndex = blockLetterPairs.indexOf(letterPairFound);
-      blockLetterPairs.splice(letterPairIndex, 1);
+      removeLetterPair(letterPairFound, blockLetterPairs)
     } else {
       return false;
     }
@@ -27,5 +23,10 @@ function isBlockWord(word) {
 
   return true;
 }
+
+function removeLetterPair(letterPairFound, blockLetterPairs) {
+  let letterPairIndex = blockLetterPairs.indexOf(letterPairFound);
+  blockLetterPairs.splice(letterPairIndex, 1);
+ }
 
 export { isBlockWord };
