@@ -25,12 +25,12 @@ function isBlockWord(word) {
 }
 
 function isBlockWordAlternate(word) {
-  const blockLetterPairs = [
+  const spellingBlocks = [
     'B:O', 'X:K', 'D:Q', 'C:P', 'N:A',
     'G:T', 'R:E', 'F:S', 'J:W', 'H:U',
     'V:I', 'L:Y', 'Z:M'
   ];
-  let usedArr = [];
+  let usedLetterArr = [];
   const nonLetterRegex = /[^A-Z]/;
   let upCasedWord = word.toUpperCase();
   if(upCasedWord === '' || nonLetterRegex.test(upCasedWord)) { return false; }
@@ -38,9 +38,9 @@ function isBlockWordAlternate(word) {
   let letterArr = upCasedWord.split('');
 
   return !letterArr.some((letter) => {
-    if (!usedArr.includes(letter)) {
-      let foundLetterPair = blockLetterPairs.find((letterPair) => new RegExp(letter).test(letterPair));
-      usedArr.push(...foundLetterPair.split(':'));
+    if (!usedLetterArr.includes(letter)) {
+      let foundLetterPair = spellingBlocks.find((letterPair) => new RegExp(letter).test(letterPair));
+      usedLetterArr.push(...foundLetterPair.split(':'));
     } else {
       return true;
     }
