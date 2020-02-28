@@ -2,11 +2,16 @@ function addToFinalSequence(priorNumber, currentNumber, finalSequence) {
   if (priorNumber < currentNumber) {
     finalSequence.push(currentNumber);
   } else {
-    let exponent = Math.floor(Math.log10(currentNumber)) + 1;
-    let incrementer = Math.pow(10, exponent);
-    while (currentNumber < priorNumber) { currentNumber += incrementer; }
-    finalSequence.push(currentNumber);
+    finalSequence.push(increaseNumberBySomePowerOfTen(priorNumber, currentNumber));
   }
+}
+
+function increaseNumberBySomePowerOfTen(priorNumber, currentNumber) {
+  let exponent = Math.floor(Math.log10(currentNumber)) + 1;
+  let PowerOfTenIncrementer = Math.pow(10, exponent);
+
+  while (currentNumber < priorNumber) { currentNumber += PowerOfTenIncrementer; }
+  return currentNumber;
 }
 
 function processNumericSequence(arrOfNumericStrings) {
