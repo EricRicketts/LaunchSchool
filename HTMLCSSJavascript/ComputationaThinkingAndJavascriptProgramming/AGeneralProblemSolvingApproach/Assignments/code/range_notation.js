@@ -1,3 +1,9 @@
+function generateRange(firstEndPoint, currentEndPoint) {
+  let secondEndPoint = getNextSequenceNumber(currentEndPoint, firstEndPoint);
+  // avoid duplicating the last element of the prior range
+  return range(firstEndPoint, secondEndPoint).slice(1);
+}
+
 function getNextSequenceNumber(currentNumber, priorNumber = 0) {
   let nextNumber = Number.parseInt(currentNumber, 10);
 
@@ -23,17 +29,11 @@ function processRange(rangeArray, priorNumber = 0) {
 
   rangeArray.forEach((currentEndPoint, idx) => {
     if (idx === 0) {
-     firstEndPoint = getNextSequenceNumber(currentEndPoint, priorNumber);
-    } else if (idx === 1) {
-      secondEndPoint = getNextSequenceNumber(currentEndPoint, firstEndPoint);
-      finalRange.push(...range(firstEndPoint, secondEndPoint));
+      finalRange.push(getNextSequenceNumber(currentEndPoint, priorNumber));
     } else {
       lastRangeIdx = finalRange.length - 1;
       firstEndPoint = finalRange[lastRangeIdx];
-      secondEndPoint = getNextSequenceNumber(currentEndPoint, firstEndPoint);
-      // below we avoid duplicating the last element of the prior range
-      additionalRangeBeyondTwoEndPoints = range(firstEndPoint, secondEndPoint).slice(1);
-      finalRange.push(...additionalRangeBeyondTwoEndPoints);
+      finalRange.push(...generateRange(firstEndPoint, currentEndPoint));
     }
   });
 
