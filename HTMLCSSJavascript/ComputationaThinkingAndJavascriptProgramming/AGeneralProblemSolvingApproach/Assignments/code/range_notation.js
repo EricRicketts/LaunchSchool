@@ -5,19 +5,16 @@ function getNextSequenceNumber(currentNumber, priorNumber = 0) {
 }
 
 function iterateForNextNumber(currentNumber, priorNumber) {
-  let newNumber = Number.parseInt(currentNumber, 10);
-  let originalCurrentNumber = Number.parseInt(currentNumber, 10);
-  let exponent = currentNumber.length;
-  let powerOfTen = Math.pow(10, exponent);
+  let nextNumber = Number.parseInt(currentNumber, 10);
+  let powerOfTen = Math.pow(10, currentNumber.length); // number of digits is the exponent
   let numberFound;
 
-  while (true) {
-    newNumber += powerOfTen;
-    numberFound = (newNumber > priorNumber) && (newNumber % powerOfTen === originalCurrentNumber);
-    if (numberFound) { break; }
-  }
+ do {
+   nextNumber += powerOfTen;
+   numberFound = nextNumber > priorNumber && nextNumber % powerOfTen === Number.parseInt(currentNumber, 10);
+ }  while (!numberFound);
 
-  return newNumber;
+  return nextNumber;
 }
 
 function processRange(rangeArray, priorNumber = 0) {
