@@ -1,7 +1,7 @@
 function getNextSequenceNumber(currentNumber, priorNumber = 0) {
-  let newNumber = Number.parseInt(currentNumber, 10);
+  let nextNumber = Number.parseInt(currentNumber, 10);
 
-  return priorNumber < newNumber ? newNumber : iterateForNextNumber(currentNumber, priorNumber);
+  return priorNumber < nextNumber ? nextNumber : iterateForNextNumber(currentNumber, priorNumber);
 }
 
 function iterateForNextNumber(currentNumber, priorNumber) {
