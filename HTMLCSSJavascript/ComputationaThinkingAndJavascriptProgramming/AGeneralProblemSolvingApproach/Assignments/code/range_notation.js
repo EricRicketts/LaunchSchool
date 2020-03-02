@@ -1,4 +1,4 @@
-function generateRange(firstEndPoint, currentEndPoint) {
+function generateRangeFromShortHandNotation(firstEndPoint, currentEndPoint) {
   let secondEndPoint = getNextSequenceNumber(currentEndPoint, firstEndPoint);
   // avoid duplicating the last element of the prior range
   return range(firstEndPoint, secondEndPoint).slice(1);
@@ -25,7 +25,7 @@ function iterateForNextNumber(currentNumber, priorNumber) {
 
 function processRange(rangeArray, priorNumber = 0) {
   let finalRange = [];
-  let firstEndPoint, secondEndPoint, lastRangeIdx, additionalRangeBeyondTwoEndPoints;
+  let firstEndPoint, lastRangeIdx;
 
   rangeArray.forEach((currentEndPoint, idx) => {
     if (idx === 0) {
@@ -33,7 +33,7 @@ function processRange(rangeArray, priorNumber = 0) {
     } else {
       lastRangeIdx = finalRange.length - 1;
       firstEndPoint = finalRange[lastRangeIdx];
-      finalRange.push(...generateRange(firstEndPoint, currentEndPoint));
+      finalRange.push(...generateRangeFromShortHandNotation(firstEndPoint, currentEndPoint));
     }
   });
 
