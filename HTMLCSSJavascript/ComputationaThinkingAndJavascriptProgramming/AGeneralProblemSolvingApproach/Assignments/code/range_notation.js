@@ -1,3 +1,16 @@
+function addToFinalSequence(sequence, element, idx) {
+  let rangeOrNumber, priorNumber, lastIdx;
+  if (idx === 0) {
+    rangeOrNumber = Array.isArray(element) ? processRange(element) : Number.parseInt(element, 10);
+  } else {
+    lastIdx = sequence.length - 1;
+    priorNumber = sequence[lastIdx];
+    rangeOrNumber = Array.isArray(element) ? processRange(element, priorNumber) : getNextSequenceNumber(element, priorNumber);
+  }
+  Array.isArray(rangeOrNumber) ? sequence.push(...rangeOrNumber) : sequence.push(rangeOrNumber);
+  return sequence;
+}
+
 function generateRangeFromShortHandNotation(firstEndPoint, currentEndPoint) {
   let secondEndPoint = getNextSequenceNumber(currentEndPoint, firstEndPoint);
   // avoid duplicating the last element of the prior range
@@ -48,21 +61,11 @@ function shortHandRangeToArray(rangeString) {
   const comma = /,\s*/;
   const rangeSeparators = /[:\-]|\.{2}/;
 
-  let formattedSequence = rangeString.split(comma).map((str) => rangeSeparators.test(str) ? str.split(rangeSeparators) : str);
-  return formattedSequence.reduce((sequence, element, idx) => {
-    let rangeOrNumber, priorNumber, lastIdx;
-    if (idx === 0) {
-      rangeOrNumber = Array.isArray(element) ? processRange(element) : Number.parseInt(element, 10);
-      Array.isArray(rangeOrNumber) ? sequence.push(...rangeOrNumber) : sequence.push(rangeOrNumber);
-    } else {
-      lastIdx = sequence.length - 1;
-      priorNumber = sequence[lastIdx];
-      rangeOrNumber = Array.isArray(element) ? processRange(element, priorNumber) : getNextSequenceNumber(element, priorNumber);
-      Array.isArray(rangeOrNumber) ? sequence.push(...rangeOrNumber) : sequence.push(rangeOrNumber);
-    }
+  let formattedSequence = rangeString.split(comma).map((str) => {
+    return rangeSeparators.test(str) ? str.split(rangeSeparators) : str;
+  });
 
-    return sequence;
-  }, []);
+  return formattedSequence.reduce((sequence, element, idx) => addToFinalSequence(sequence, element, idx), []);
 }
 
 export { shortHandRangeToArray, range, getNextSequenceNumber, processRange };
