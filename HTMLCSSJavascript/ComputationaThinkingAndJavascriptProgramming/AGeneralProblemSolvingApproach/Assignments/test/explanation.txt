@@ -1,0 +1,18 @@
+I understand no one is obligated to look at my code, of course I like my solution (because I coded it!), so if anyone has time to make comments, I would greatly appreciate it.
+
+I plan to explain my approach to solving the problem in the following text before I post my code and tests (I used the ```Jest``` test framework for my "test cases", I love testing).
+
+It took me 3 days to get a solution I was finally content with.  This included a failed solution that worked on all but one of my edge cases.  As others have noted, the most difficult part of this problem was understanding it.  This is where I spent most of my time, my notebook is full of notes, numerous algorithms, data structures, and test cases.
+
+As a side note, this problem further illustrates the strength of the Launch School approach to teaching programming.  I intuitively understood that solving this problem on my own would benefit me as a programmer.  I felt skipping over it for the sake of moving through the curriculum at a faster rate would be a poor trade off.  The Launch School Mastery Based Approach lets me make such a call rather than being hamstrung by "The Factory Model".
+
+As of now, though I have looked at the test cases from other students to validate my assumptions, I have not looked at the code submitted by other students, nor have I looked at the video which provides the instructor based solution (I have not looked at the video, I am assuming Kevin Wang solved the problem as 48 minutes to not enough time for a typical Launch School student to solve the problem).
+
+### Problem Description
+
+* I will be processing a mix of numbers and short hand notation for ranges.
+* the short hand notation for ranges gives the end points for the ranges.
+* once resolved the short hand notation for ranges produces a range which is end point inclusive and increments by one.
+* the final sequence will always have a sequence of ever increasing numbers.  So, for instance if we had ```2, 2``` in the original sequence we would not have ```2, 2``` or ```12, 12``` in the final sequence, but something like ```2, 12``` or ```12, 22```.
+* because the final sequence would be a series of ever increasing numbers, resolving the current number or the current range was a function of the prior number or range, unless the current number or range was the first in the sequence, this was by far the most important observation which influenced my eventual algorithm.
+
