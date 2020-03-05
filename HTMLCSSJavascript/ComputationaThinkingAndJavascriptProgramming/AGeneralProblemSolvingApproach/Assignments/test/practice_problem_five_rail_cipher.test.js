@@ -1,4 +1,4 @@
-import { encodeUsingRailCipher } from "../code/rail_cipher";
+import { encodeUsingRailCipher, decodeUsingRailCipher } from "../code/rail_cipher";
 
 describe('LS215 A General Problem Solving Approach Practice Problem Five Rail Cipher', function () {
   let str, expected;
@@ -43,5 +43,23 @@ describe('LS215 A General Problem Solving Approach Practice Problem Five Rail Ci
     str = '';
     expected = '';
     expect(encodeUsingRailCipher(str, 3)).toBe(expected);
+  });
+
+  it('should decode a four rail encoded word', function () {
+    str = 'ESXIEECSR';
+    expected = 'EXERCISES';
+    expect(decodeUsingRailCipher(str, 4)).toBe(expected);
+  });
+
+  it('should decode a two rail encoded word', function () {
+    str = 'XXXXXXXXXOOOOOOOOO';
+    expected = 'XOXOXOXOXOXOXOXOXO';
+    expect(decodeUsingRailCipher(str, 2)).toBe(expected);
+  });
+
+  it('should decode a three rail encoded word', function () {
+    str = 'TEITELHDVLSNHDTISEIIEA';
+    expected = 'THEDEVILISINTHEDETAILS';
+    expect(decodeUsingRailCipher(str, 3)).toBe(expected);
   });
 });

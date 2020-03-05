@@ -1,9 +1,24 @@
+function decodeUsingRailCipher(str, numRails) {
+  if (isTrivialCondition(str, numRails)) { return str; }
+  let [strSize, skipValueArray, numSkipValues, startingIndexArray] = initializeEncodeDecode(str, numRails);
+  let decodedStrArray = [];
+  let currentStrIdx = 0;
+
+  startingIndexArray.forEach((startingIndex) => {
+    let currentRailIdx = startingIndex;
+    while (currentRailIdx < strSize) {
+      decodedStrArray[currentRailIdx] = str[currentStrIdx];
+      currentStrIdx += 1;
+      currentRailIdx += skipValueArray[currentRailIdx % numSkipValues];
+    }
+  });
+
+  return decodedStrArray.join('');
+}
+
 function encodeUsingRailCipher(str, numRails) {
-  if (str === '' || numRails === 1) { return str; }
-  let strSize = str.length;
-  let skipValueArray = generateSkipValueArray(numRails);
-  let numSkipValues = skipValueArray.length;
-  let startingIndexArray = range(0, numRails - 1);
+  if (isTrivialCondition(str, numRails)) { return str; }
+  let [strSize, skipValueArray, numSkipValues, startingIndexArray] = initializeEncodeDecode(str, numRails);
   let encodedStr = '';
 
   startingIndexArray.forEach((startingIdx) => {
@@ -28,8 +43,21 @@ function generateSkipValueArray(numRails) {
   return descendingSkipValueArray.concat(descendingSkipValueArray.slice(1, -1));
 }
 
+function initializeEncodeDecode(str, numRails) {
+  let strSize = str.length;
+  let skipValueArray = generateSkipValueArray(numRails);
+  let numSkipValues = skipValueArray.length;
+  let startingIndexArray = range(0, numRails - 1);
+
+  return [strSize, skipValueArray, numSkipValues, startingIndexArray];
+}
+
 function range(start, end, length = end - start + 1) {
   return Array.from({ length }, (_, i) => start + i);
 }
 
-export { encodeUsingRailCipher };
+function isTrivialCondition(str, numRails) {
+  return str === '' || numRails === 1;
+}
+
+export { encodeUsingRailCipher, decodeUsingRailCipher };
