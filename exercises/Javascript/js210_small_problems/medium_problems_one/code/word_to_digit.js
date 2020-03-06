@@ -8,7 +8,7 @@ function replaceWordWithNumber(match) {
 }
 
 function wordToDigit(phrase) {
-  const numberRegex = /zero|one|two|three|four|five|six|seven|eight|nine/g;
+  const numberRegex = /\b(zero|one|two|three|four|five|six|seven|eight|nine)\b/g;
 
   return phrase.replace(numberRegex, replaceWordWithNumber);
 }
