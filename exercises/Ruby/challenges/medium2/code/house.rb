@@ -8,7 +8,7 @@ class House
       rhyme_arr.prepend(House.new.compose_stanza(pieces_arr))
     end.join("\n").prepend(PREFIX)
   end
-  # (0..11).reduce([]) { |memo, idx| memo.push(phrases[idx..]) }
+
   def compose_stanza(phrases)
     last_idx = phrases.length - 1
     phrases.each.with_index.reduce('') do |stanza, (verse, idx)|
