@@ -4,12 +4,9 @@ class House
     phrases = House.new.pieces
     last_index = phrases.length - 1
     all_pieces = (0..last_index).reduce([]) { |new_piece, idx| new_piece.push(phrases.slice(idx,last_index + 1))}
-    x = all_pieces.reduce([]) do |rhyme_arr, pieces_arr|
+    all_pieces.reduce([]) do |rhyme_arr, pieces_arr|
       rhyme_arr.prepend(House.new.compose_stanza(pieces_arr))
-    end.join("\n")
-    y = x.prepend(PREFIX)
-    y
-    # House.new.compose_stanza(phrases)
+    end.join("\n").prepend(PREFIX)
   end
   # (0..11).reduce([]) { |memo, idx| memo.push(phrases[idx..]) }
   def compose_stanza(phrases)
