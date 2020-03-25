@@ -26,22 +26,69 @@ function toss() {
 // succeeds or fails, based on whether the sum of the dice is higher
 // or lower than the relevant character trait.
 // (See below for examples.)
-function targetRoll(characterValue, bonus, penalty) {
+function targetRoll(characterValue, bonus, penalty, min = false, max = false) {
+  var output = [];
   bonus = bonus || {min: 0, max: 0};
   penalty = penalty || {min: 0, max: 0};
 
   var result = toss(d20, bonus, penalty);
   // Normalize in case bonus or penalty push result out of the D20 range.
-  result = Math.max(1, result);
-  result = Math.min(20, result);
+  if (min === true && max === false) {
+    result = 1;
+  } else if (min === false && max === true) {
+    result = 20;
+  } else {
+    result = Math.max(1, result);
+    result = Math.min(20, result);
+  }
 
-  console.log('--> ' + result);
+  output.push('--> ' + result);
 
   switch (result) {
-    case 1:  automaticFail();
-    case 20: automaticSuccess();
-    default: result >= characterValue ? success() : fail();
+    case 1:  output.push(automaticFail());
+    case 20: output.push(automaticSuccess());
+    default:
+      let defaultResult = result >= characterValue ? success() : fail();
+      output.push(defaultResult);
   }
+
+  return output;
+}
+
+function targetRollFixed(characterValue, bonus, penalty, min = false, max = false) {
+  var output = [];
+  bonus = bonus || {min: 0, max: 0};
+  penalty = penalty || {min: 0, max: 0};
+
+  var result = toss(d20, bonus, penalty);
+  // Normalize in case bonus or penalty push result out of the D20 range.
+  if (min === true && max === false) {
+    result = 1;
+  } else if (min === false && max === true) {
+    result = 20;
+  } else {
+    result = Math.max(1, result);
+    result = Math.min(20, result);
+  }
+
+  output.push('--> ' + result);
+
+  switch (result) {
+    case 1: {
+      output.push(automaticFail());
+      break;
+    }
+    case 20: {
+      output.push(automaticSuccess());
+      break;
+    }
+    default: {
+      let defaultResult = result >= characterValue ? success() : fail();
+      output.push(defaultResult);
+    }
+  }
+
+  return output;
 }
 
 function success() {
@@ -60,13 +107,13 @@ function automaticFail() {
   return 'Meagre attempt. Your character fails miserably.';
 }
 
-export { targetRoll };
-// Example character.
-var myCharacter = {
-  name: 'Jenkins',
-  strength: 4,
-  constitution: 6,
-  education: 11,
-  luck: 3,
-  sanity: 9,
-};
+export { targetRoll, targetRollFixed };
+/*
+As we can see the problem with the original code was that there was no break statement
+in the original switch statement, this mean if result was either 1 or 2 the code 'fell through'
+to the next switch statement rather than breaking out of the switch statement.
+
+I put in the min and max function parameters to force the function to take a certain path
+through the switch statement, in reality all I would have done to fix the program was to add
+the break statements in the switch statement
+ */
