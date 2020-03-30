@@ -26,8 +26,7 @@ const verb = function() {
 };
 
 const randomIdx = function(arr) {
-  let numberOfWords = arr.length;
-  return Math.floor(Math.random() * numberOfWords);
+  return Math.floor(Math.random() * arr.length);
 };
 
 const templateOne = function() {
