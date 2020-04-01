@@ -1,9 +1,13 @@
-function emptyListCase(arr1, arr2) {
+function nonEmptyList(arr1, arr2) {
   return arr1.length === 0 ? arr2 : arr1;
 }
 
+function oneListIsEmpty(arr1, arr2) {
+  return arr1.length === 0 || arr2.length === 0;
+}
+
 function merge(arr1, arr2) {
-  if ([arr1.length, arr2.length].includes(0)) return emptyListCase(arr1, arr2);
+  if (oneListIsEmpty(arr1, arr2)) return nonEmptyList(arr1, arr2);
 
   let sorted = arr1.slice();
   let second = arr2.slice();
