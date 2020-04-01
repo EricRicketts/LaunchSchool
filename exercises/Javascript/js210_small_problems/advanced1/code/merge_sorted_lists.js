@@ -1,8 +1,14 @@
-function merge(arr1, arr2) {
+function emptyListCase(arr1, arr2) {
   if (arr1.length === 0 && arr2.length > 0) {
     return arr2;
   } else if (arr1.length > 0 && arr2.length === 0) {
     return arr1;
+  }
+}
+
+function merge(arr1, arr2) {
+  if ([arr1.length, arr2.length].includes(0)) {
+    return emptyListCase(arr1, arr2);
   }
 
   let sorted = arr1.slice();
