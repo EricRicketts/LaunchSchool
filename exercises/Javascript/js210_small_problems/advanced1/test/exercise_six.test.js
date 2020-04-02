@@ -31,4 +31,8 @@ describe('JS210 Small Problems Advanced One Exercise Six', function () {
     expected = ["Alice", "Bonnie", "Kim", "Pete", "Rachel", "Sue", "Tyler"];
     expect(mergeSort(arr)).toEqual(expected);
   });
+
+  it('should sort a one element list', function () {
+    expect(mergeSort([1])).toEqual([1]);
+  });
 });
