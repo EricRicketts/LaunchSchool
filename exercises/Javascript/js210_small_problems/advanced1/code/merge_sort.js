@@ -12,11 +12,7 @@ function mergeSort(arr) {
     isLastIdx(idx, copy) ? nested.push([[copy[idx]], []]) : nested.push([[copy[idx]], [copy[idx + 1]]]);
   }
 
-  let initialSort = nested.map((arr) => merge(arr[0], arr[1]));
-  return initialSort.reduce((sorted, arr) => {
-    sorted = merge(sorted, arr);
-    return sorted;
-  });
+  return nested.map((arr) => merge(arr[0], arr[1])).reduce((sorted, arr) => merge(sorted, arr));
 }
 
 export { mergeSort };
