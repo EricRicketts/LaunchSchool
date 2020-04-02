@@ -10,7 +10,7 @@ function binarySearch(arr, searchValue, offset = 0) {
     if (middleValue < searchValue) {
       return binarySearch(arr.slice(middleIndex + 1), searchValue, offset + middleIndex + 1);
     } else {
-      return binarySearch(arr.slice(0, middleIndex), searchValue, offset - middleIndex);
+      return binarySearch(arr.slice(0, middleIndex), searchValue, offset);
     }
   }
 }
