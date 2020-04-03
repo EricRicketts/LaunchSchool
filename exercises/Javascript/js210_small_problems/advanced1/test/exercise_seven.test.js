@@ -1,9 +1,14 @@
 import { binarySearch } from "../code/binary_serach";
 
 describe('JS210 Small Problems Advanced One Exercise Seven', function () {
-  let arr, searchValue, expected;
+  let arr, yellowPages, names, searchValue, expected;
   beforeEach(() => {
     arr = [1, 5, 7, 11, 23, 45, 65, 89, 102];
+    yellowPages = [
+      'Apple Store', 'Bags Galore', 'Bike Store', 'Donuts R Us', 'Eat a Lot',
+      'Good Food', 'Pasta Place', 'Pizzeria', 'Tiki Lounge', 'Zooper'
+    ];
+    names = ['Alice', 'Bonnie', 'Kim', 'Pete', 'Rachel', 'Sue', 'Tyler'];
   });
 
   it('should find the second to last value in number list', function () {
@@ -70,5 +75,35 @@ describe('JS210 Small Problems Advanced One Exercise Seven', function () {
     searchValue = 13;
     expected = -1;
     expect(binarySearch(arr, searchValue)).toBe(expected);
+  });
+
+  it('should find "Pizzeria" in the yellow pages', function () {
+    searchValue = 'Pizzeria';
+    expected = 7;
+    expect(binarySearch(yellowPages, searchValue)).toBe(expected);
+  });
+
+  it('should find "Apple Store" in the yellow pages', function () {
+    searchValue = 'Apple Store';
+    expected = 0;
+    expect(binarySearch(yellowPages, searchValue)).toBe(expected);
+  });
+
+  it('should not find "Neman Marcus" in the yellow pages', function () {
+    searchValue = 'Neman Marcus';
+    expected = -1;
+    expect(binarySearch(yellowPages, searchValue)).toBe(expected);
+  });
+
+  it('should not find "Peter" in names', function () {
+    searchValue = 'Peter';
+    expected = -1;
+    expect(binarySearch(names, searchValue)).toBe(expected);
+  });
+
+  it('should find "Tyler" in names', function () {
+    searchValue = 'Tyler';
+    expected = 6;
+    expect(binarySearch(names, searchValue)).toBe(expected);
   });
 });
