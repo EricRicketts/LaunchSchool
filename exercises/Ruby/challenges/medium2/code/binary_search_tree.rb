@@ -1,35 +1,31 @@
-class Bst
-  include Enumerable
-  attr_accessor :data, :left, :right, :parent
+# frozen_string_literal: true
 
+# Bst creates binary search tree data structure
+class Bst
+  attr_accessor :data, :left, :right
   def initialize(data)
     @data = data
-    @left = nil
-    @right = nil
-    @parent = nil
-  end
-
-  def each
-    node = self
-    if node.parent
-      yield node.data
-      node = node.parent
-    else
-      yield node.data
-    end
   end
 
   def insert(value)
-    if self.left.nil? && value <= self.data
-      self.left = Bst.new(value)
-      self.left.parent = self
-    elsif self.right.nil? && value > self.data
-      self.right = Bst.new(value)
-      self.right.parent = self
-    elsif !self.left.nil? && value <= self.data
-      self.left.insert(value)
-    else
-      self.right.insert(value)
-    end
+    value <= data ? insert_left(value) : insert_right(value)
+  end
+
+  def each(&block)
+    return to_enum(:each) if block.nil?
+
+    left&.each(&block)
+    block.call(data)
+    right&.each(&block)
+  end
+
+  private
+
+  def insert_left(value)
+    left.nil? ? self.left = Bst.new(value) : left.insert(value)
+  end
+
+  def insert_right(value)
+    right.nil? ? self.right = Bst.new(value) : right.insert(value)
   end
 end

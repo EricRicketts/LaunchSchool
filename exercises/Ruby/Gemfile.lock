@@ -4,7 +4,10 @@ GEM
     ansi (1.5.0)
     ast (2.4.0)
     builder (3.2.4)
+    byebug (11.1.1)
+    coderay (1.1.2)
     jaro_winkler (1.5.4)
+    method_source (1.0.0)
     minitest (5.14.0)
     minitest-reporters (1.4.2)
       ansi
@@ -14,6 +17,12 @@ GEM
     parallel (1.19.1)
     parser (2.7.0.2)
       ast (~> 2.4.0)
+    pry (0.13.0)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.8.0)
+      byebug (~> 11.0)
+      pry (~> 0.10)
     rainbow (3.0.0)
     rexml (3.2.3)
     rubocop (0.80.0)
@@ -33,6 +42,7 @@ PLATFORMS
 DEPENDENCIES
   minitest (~> 5.14)
   minitest-reporters (~> 1.4.2)
+  pry-byebug (~> 3.8.0)
   rubocop (~> 0.80.0)
 
 RUBY VERSION

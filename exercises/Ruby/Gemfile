@@ -1,5 +1,9 @@
+if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('2.1.4')
+  abort "Bundler version >= 2.1.4 is required"
+end
 source 'https://rubygems.org'
 ruby '2.7.0'
 gem 'minitest', '~>5.14'
 gem 'minitest-reporters', '~>1.4.2'
 gem 'rubocop', '~>0.80.0'
+gem 'pry-byebug', '~>3.8.0'
