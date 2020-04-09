@@ -5,7 +5,9 @@ class OCR
   DIGIT_WIDTH = 3
   DIGIT_REGEXPS = {
     /\s_\s?\n\|\s\|\n\|_\|\n/ => '0',
-    /\s{3}?\n(\s{2}\|\n)\1/ => '1'
+    /\s{3}?\n(\s{2}\|\n)\1/ => '1',
+    /\s_\s?\n\s_\|\n\|_\s?\n/ => '2',
+    /\s_\s?\n(\s_\|\n)\1/ => '3',
   }.freeze
 
   attr_reader :text

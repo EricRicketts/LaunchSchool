@@ -53,7 +53,7 @@ class OCRTest < Minitest::Test
 
 
   def test_recognize_two
-    skip
+    # skip
     text = <<-NUMBER.chomp
  _
  _|
@@ -63,10 +63,32 @@ class OCRTest < Minitest::Test
     assert_equal '2', OCR.new(text).convert
   end
 
+  def test_recognize_full_two
+    # skip
+    text = <<-NUMBER.chomp
+ _ 
+ _|
+|_ 
+
+    NUMBER
+    assert_equal '2', OCR.new(text).convert
+  end
+
   def test_recognize_three
-    skip
+    # skip
     text = <<-NUMBER.chomp
  _
+ _|
+ _|
+
+    NUMBER
+    assert_equal '3', OCR.new(text).convert
+  end
+
+  def test_recognize_full_three
+    # skip
+    text = <<-NUMBER.chomp
+ _ 
  _|
  _|
 
@@ -85,11 +107,33 @@ class OCRTest < Minitest::Test
     assert_equal '4', OCR.new(text).convert
   end
 
+  def test_recognize_full_four
+    skip
+    text = <<-NUMBER.chomp
+   
+|_|
+  |
+
+    NUMBER
+    assert_equal '4', OCR.new(text).convert
+  end
+
   def test_recognize_five
     skip
     text = <<-NUMBER.chomp
  _
 |_
+ _|
+
+    NUMBER
+    assert_equal '5', OCR.new(text).convert
+  end
+
+  def test_recognize_full_five
+    skip
+    text = <<-NUMBER.chomp
+ _ 
+|_ 
  _|
 
     NUMBER
@@ -107,10 +151,32 @@ class OCRTest < Minitest::Test
     assert_equal '6', OCR.new(text).convert
   end
 
+  def test_recognize_full_six
+    skip
+    text = <<-NUMBER.chomp
+ _ 
+|_ 
+|_|
+
+    NUMBER
+    assert_equal '6', OCR.new(text).convert
+  end
+
   def test_recognize_seven
     skip
     text = <<-NUMBER.chomp
  _
+  |
+  |
+
+    NUMBER
+    assert_equal '7', OCR.new(text).convert
+  end
+
+  def test_recognize_full_seven
+    skip
+    text = <<-NUMBER.chomp
+ _ 
   |
   |
 
@@ -129,10 +195,32 @@ class OCRTest < Minitest::Test
     assert_equal '8', OCR.new(text).convert
   end
 
+  def test_recognize_full_eight
+    skip
+    text = <<-NUMBER.chomp
+ _ 
+|_|
+|_|
+
+    NUMBER
+    assert_equal '8', OCR.new(text).convert
+  end
+
   def test_recognize_nine
     skip
     text = <<-NUMBER.chomp
  _
+|_|
+ _|
+
+    NUMBER
+    assert_equal '9', OCR.new(text).convert
+  end
+
+  def test_recognize_full_nine
+    skip
+    text = <<-NUMBER.chomp
+ _ 
 |_|
  _|
 
