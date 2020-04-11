@@ -57,7 +57,7 @@ class OCR
 
   def group_row_indices(row)
     row_indices = (0..row.length - 1).entries
-    row_indices.each_slice(OCR_TEXT_WIDTH).map do |arr|
+    row_indices.each_slice(OCR_TEXT_WIDTH)&.map do |arr|
       (arr.first..arr.last)
     end
   end
