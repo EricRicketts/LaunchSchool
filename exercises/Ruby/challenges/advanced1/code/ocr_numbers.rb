@@ -23,8 +23,12 @@ class OCR
   end
 
   def convert
-    rows = text.split(/\n{2}/)
-    rows.length > 1 ? convert_multiple_rows(rows) : convert_row(rows.first)
+    text_rows = text.split(/\n{2}/)
+    if text_rows.length > 1
+      convert_multiple_rows(text_rows)
+    else
+      convert_row(text_rows.first)
+    end
   end
 
   def convert_multiple_rows(rows)
