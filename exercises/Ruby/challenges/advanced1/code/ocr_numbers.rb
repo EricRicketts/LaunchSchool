@@ -4,18 +4,13 @@
 class OCR
   OCR_TEXT_WIDTH = 3
   # These regexps form text based LED numbers 0 to 9
-  OCR_REGEXPS = {
-    /^\s_\s?\n\|\s\|\n\|_\|\n$/ => '0',
-    /^\s{3}?\n(\s{2}\|\n)\1$/ => '1',
-    /^\s_\s?\n\s_\|\n\|_\s?\n$/ => '2',
-    /^\s_\s?\n(\s_\|\n)\1$/ => '3',
-    /^\s{3}?\n\|_\|\n\s{2}\|\n$/ => '4',
-    /^\s_\s?\n\|_\s?\n\s_\|\n$/ => '5',
-    /^\s_\s?\n\|_\s?\n\|_\|\n$/ => '6',
-    /^\s_\s?\n(\s{2}\|\n)\1$/ => '7',
-    /^\s_\s?\n(\|_\|\n)\1$/ => '8',
-    /^\s_\s?\n\|_\|\n\s_\|\n$/ => '9'
-  }.freeze
+  OCR_REGEXPS = [
+    /^\s_\s?\n\|\s\|\n\|_\|\n$/, /^\s{3}?\n(\s{2}\|\n)\1$/,
+    /^\s_\s?\n\s_\|\n\|_\s?\n$/, /^\s_\s?\n(\s_\|\n)\1$/,
+    /^\s{3}?\n\|_\|\n\s{2}\|\n$/, /^\s_\s?\n\|_\s?\n\s_\|\n$/,
+    /^\s_\s?\n\|_\s?\n\|_\|\n$/, /^\s_\s?\n(\s{2}\|\n)\1$/,
+    /^\s_\s?\n(\|_\|\n)\1$/, /^\s_\s?\n\|_\|\n\s_\|\n$/
+  ].freeze
 
   attr_reader :text
   def initialize(text)
@@ -40,8 +35,8 @@ class OCR
 
   def convert_ocr_strings_to_digits(ocr_strings)
     ocr_strings.reduce('') do |digits, ocr_str|
-      ocr_regex = OCR_REGEXPS.keys.find { |regex| ocr_str.match?(regex) }
-      digit = ocr_regex.nil? ? '?' : OCR_REGEXPS[ocr_regex]
+      ocr_regex_index = OCR_REGEXPS.find_index { |regex| ocr_str.match?(regex) }
+      digit = ocr_regex_index.nil? ? '?' : ocr_regex_index.to_s
       digits += digit
       digits
     end
