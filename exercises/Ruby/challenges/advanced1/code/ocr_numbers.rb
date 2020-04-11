@@ -43,27 +43,14 @@ class OCR
   end
 
   def convert_row(row)
-    normalized_row = normalize_row(row.split(/\n/))
-    grouped_row_indices = group_row_indices(normalized_row.first)
-
-    ocr_strings = make_ocr_strings_from(grouped_row_indices, normalized_row)
+    normalized_rows = normalize_row(row.split(/\n/))
+    ocr_strings = make_ocr_strings_from(normalized_rows)
     convert_ocr_strings_to_digits(ocr_strings)
   end
 
-  def group_row_indices(row)
-    row_indices = (0..row.length - 1).entries
-    row_indices.each_slice(OCR_TEXT_WIDTH)&.map do |arr|
-      (arr.first..arr.last)
-    end
-  end
-
-  def make_ocr_strings_from(grouped_row_indices, normalized_rows)
-    grouped_row_indices.each_with_object([]) do |index_range, digit_str_arr|
-      digit_str = normalized_rows.reduce('') do |str, row|
-        str += row[index_range] + "\n"
-        str
-      end
-      digit_str_arr.push(digit_str)
+  def make_ocr_strings_from(normalized_rows)
+    normalized_rows.map { |txt_row| txt_row.scan(/.{3}/) }.transpose.map do |a|
+      a.join("\n") << "\n"
     end
   end
 
