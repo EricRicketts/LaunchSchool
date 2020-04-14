@@ -1,7 +1,7 @@
 const STAR = '*';
 const SPACE = ' ';
 
-function makeSpacingArray(gridSize) {
+function makeOuterSpacingArray(gridSize) {
   let largestIndex = Math.floor(gridSize/2) - 1;
 
   return range(0, largestIndex);
@@ -16,8 +16,8 @@ function star(gridSize) {
     throw new RangeError('The argument must be odd and greater than 3.');
   }
 
-  let spacingArray = makeSpacingArray(gridSize);
-  let upperHalf = starUpperHalf(spacingArray);
+  let outerSpacingArray = makeOuterSpacingArray(gridSize);
+  let upperHalf = starUpperHalf(outerSpacingArray);
   let middleRow = starMiddleRow(gridSize);
   let lowerHalf = starLowerHalf(upperHalf);
 
@@ -32,10 +32,10 @@ function starMiddleRow(gridSize) {
   return  STAR.repeat(gridSize).concat("\n");
 }
 
-function starUpperHalf(spacingArray) {
-  let maxInnerSpaces = spacingArray.length - 1;
+function starUpperHalf(outerSpacingArray) {
+  let maxInnerSpaces = outerSpacingArray.length - 1;
 
-  return spacingArray.reduce((upperHalf, outerSpaceSize) => {
+  return outerSpacingArray.reduce((upperHalf, outerSpaceSize) => {
     let innerSpaceSize = maxInnerSpaces - outerSpaceSize;
     let starRow = SPACE.repeat(outerSpaceSize) + STAR + SPACE.repeat(innerSpaceSize) + STAR +
       SPACE.repeat(innerSpaceSize) + STAR + SPACE.repeat(outerSpaceSize);
