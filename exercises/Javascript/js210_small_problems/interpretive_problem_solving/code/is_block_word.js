@@ -15,7 +15,6 @@ function isBlockWord(word) {
 }
 
 export { isBlockWord };
-//
 /*
 input: guaranteed to be a word consisting of letters which will be upper case, lower case, or a mix
 output: boolean
