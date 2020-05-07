@@ -4,7 +4,7 @@ function createStudent(name, year) {
     name: name,
     year: year,
     addCourse: function(course) {
-      return this.courses.push(course);
+      return this.courses.push({ name: course.name, code: course.code });
     },
     addNote: function(code, note) {
       let course = this.courses.find((course) => {

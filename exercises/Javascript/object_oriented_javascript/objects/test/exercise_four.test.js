@@ -11,7 +11,7 @@ describe('Exercises JS225 Object Oriented Javascript Objects Exercise Four', fun
   });
 
   it('course initialized to an empty array', function () {
-    expect(foo.listCourses()).toEqual([]);
+    expect(foo.listCourses()).toEqual("[]");
   });
 
   it('should be able to add courses', function () {
