@@ -1,0 +1,15 @@
+1.  As I am doing JS225
+    - Finish book 3 of You Don't Know Javascript: this & Object Prototypes
+    - Finish book 4 of You Don't Know Javascript: Types & Grammar
+    - Work on learning basics of npm, Babel, and Webpack
+    - Work through Interneting Is Hard
+    - Finish Vertabelo Academy Courses
+2.  As I am doing JS230
+    - Finish Book 5 of You Don't Know Javascript: Async & Performance
+    - Finsih Book 6 of You Don't Know Javascript: ES6 & Beyond
+    - Do the Node.js Udemy Course
+    - As needed read Node.js/Express/Mongo Documentation
+    - Finish DOM Enlightenment Book
+3.  Post Launch School
+    - Learn Typescript
+    - React/Redux/GraphQL courses
