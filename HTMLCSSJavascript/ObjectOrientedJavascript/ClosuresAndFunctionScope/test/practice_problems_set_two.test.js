@@ -3,13 +3,13 @@ import { later, makeMultipleLister } from "../code/closures";
 describe('JS225 Object Oriented Javascript Closures and Function Scope', function () {
   describe('Practice Problems Set Two Closures', function () {
     let expected, actual;
-    it('increment by the step size up to but not including 100', function () {
+    it('Exercise 1: increment by the step size up to but not including 100', function () {
       expected = [13, 26, 39, 52, 65, 78, 91];
       let lister = makeMultipleLister(13);
       expect(lister()).toEqual(expected);
     });
 
-    it('functions close over local variables', function () {
+    it('Exercise 2: functions close over local variables', function () {
       let start = 0;
       function add(increment) {
         return start += increment;
@@ -22,13 +22,14 @@ describe('JS225 Object Oriented Javascript Closures and Function Scope', functio
       expect(actual).toEqual(expected);
     });
 
-    it('capitalize the string', function () {
+    it('Exercise 3: capitalize the string', function () {
       let logWarning = later(String.prototype.toUpperCase, 'this system is shutting down!');
       expected = 'THIS SYSTEM IS SHUTTING DOWN!';
       expect(logWarning()).toBe(expected);
     });
 
     /*
+    Exercise 4:
     We have the following code:
 
     function startup() {
