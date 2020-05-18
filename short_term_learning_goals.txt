@@ -7,9 +7,10 @@
 2.  As I am doing JS230
     - Finish Book 5 of You Don't Know Javascript: Async & Performance
     - Finsih Book 6 of You Don't Know Javascript: ES6 & Beyond
-    - Do the Node.js Udemy Course
-    - As needed read Node.js/Express/Mongo Documentation
     - Finish DOM Enlightenment Book
 3.  Post Launch School
+    - Do the Node.js Udemy Course
+    - As needed read Node.js/Express/Mongo Documentation
+    - If possible take the Node.js certifcation course from the Linux Foundation
     - Learn Typescript
     - React/Redux/GraphQL courses
