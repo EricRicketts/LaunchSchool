@@ -61,6 +61,12 @@ let createStudent = (function() {
       clearCourses: function () {
         return this.courses = [];
       },
+      getName: function() {
+        return name;
+      },
+      getYear: function() {
+        return year;
+      },
       info: function() {
         return `${name} is a ${year} year student.`;
       },

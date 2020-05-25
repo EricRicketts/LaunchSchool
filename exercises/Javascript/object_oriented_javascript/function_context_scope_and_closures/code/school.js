@@ -1,7 +1,25 @@
 import { createStudent } from "./student";
 
-let school = (function() {
-
+let createSchool = (function() {
+  let students = [];
+  let validYears = [
+    '1st', '2nd', '3rd',
+    '4th', '5th'
+  ];
+  function invalidYear(student) {
+    return !validYears.includes(student.getYear());
+  }
+  return function() {
+    return {
+      addStudent: function(student) {
+        return invalidYear(student) ? 'Invalid year' : students.push(student);
+      },
+      clearStudents: function() {
+        students = [];
+        return students;
+      }
+    }
+  }
 })()
 
-export { createStudent, school };
+export { createStudent, createSchool };
