@@ -50,6 +50,20 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
         expect(school.enrollStudent(elmer, math, schoolCourses)).toBe('Course Math: 101 added.');
         expect(elmer.courses).toEqual([math]);
       });
+
+      it('should add a grade for a student enrolled in a course', function () {
+        expected = { name: 'Math', code: 101, grade: 85 };
+        school.addStudent(elmer);
+        school.enrollStudent(elmer, math, schoolCourses);
+        expect(school.addGrade(elmer, math, 85)).toBe('Added grade of 85 for elmer in Math.');
+        expect(elmer.courses).toEqual([expected]);
+      });
+
+      it('should not add a grade for a student not enrolled in the course', function () {
+        school.addStudent(elmer);
+        school.enrollStudent(elmer, math, schoolCourses);
+        expect(school.addGrade(elmer, english, 90)).toBe('Course not found, no grade added.');
+      });
     });
   });
 });
