@@ -3,15 +3,14 @@ import { createStudent, createSchool} from "../code/school";
 describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, and Closures', function () {
   describe('Exercise Ten', function () {
     describe('School behavior', function () {
-      let foo, bar, qux, schoolCourses, elmer, school, actual, expected;
+      let foo, bar, qux, schoolCourses, elmer, school, math, advancedMath, physics, english, actual, expected;
       beforeEach(() => {
+        math = { name: 'Math', code: 101 };
+        advancedMath = { name: 'Advanced Math', code: 102 };
+        physics = { name: 'physics', code: 202 };
+        english = { name: 'English', code: 301 };
         schoolCourses = {
-          courses: [
-            { name: 'Math', code: 101 },
-            { name: 'Advanced Math', code: 102 },
-            { name: 'Physics', code: 202 },
-            { name: 'English', code: 301 }
-          ]
+          courses: [math, advancedMath, physics, english]
         }
         foo = createStudent('foo', '3rd');
         foo.addCourse({ name: 'Math', code: 101, grade: 95 }, schoolCourses);
@@ -24,6 +23,8 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
         qux = createStudent('qux', '2nd');
         qux.addCourse({ name: 'Math', code: 101, grade: 93 }, schoolCourses);
         qux.addCourse({ name: 'Advanced Math', code: 102, grade: 90 }, schoolCourses);
+
+        elmer = createStudent('elmer', '4th');
 
         school = createSchool();
         school.addStudent(foo);
@@ -41,8 +42,13 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
       });
 
       it('should add a student and return how many students are enrolled', function () {
-        elmer = createStudent('Elmer', '4th');
         expect(school.addStudent(elmer)).toBe(4);
+      });
+
+      it('should enroll a student in a course', function () {
+        school.addStudent(elmer);
+        expect(school.enrollStudent(elmer, math, schoolCourses)).toBe('Course Math: 101 added.');
+        expect(elmer.courses).toEqual([math]);
       });
     });
   });

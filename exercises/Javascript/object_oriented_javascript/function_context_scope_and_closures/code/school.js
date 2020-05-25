@@ -17,6 +17,9 @@ let createSchool = (function() {
       clearStudents: function() {
         students = [];
         return students;
+      },
+      enrollStudent: function(student, course, validCourses) {
+        return student.addCourse(course, validCourses)
       }
     }
   }
