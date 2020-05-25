@@ -39,6 +39,11 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
         elmer = createStudent('Elmer', '6th');
         expect(school.addStudent(elmer)).toBe('Invalid year');
       });
+
+      it('should add a student and return how many students are enrolled', function () {
+        elmer = createStudent('Elmer', '4th');
+        expect(school.addStudent(elmer)).toBe(4);
+      });
     });
   });
 });
