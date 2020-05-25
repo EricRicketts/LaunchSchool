@@ -70,6 +70,20 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
         actual = school.getReportCard(foo);
         expect(actual).toBe(expected);
       });
+
+      it('should return a course report', function () {
+        expected = [
+          '=Math Grades=\nfoo: 95\nbar: 91\nqux: 93\n---\nCourse Average: 93\n',
+          '=Advanced Math Grades=\nfoo: 90\nqux: 90\n---\nCourse Average: 90\n',
+          undefined
+        ];
+        actual = [
+          school.courseReport('Math'),
+          school.courseReport('Advanced Math'),
+          school.courseReport('Physics')
+        ];
+        expect(actual).toEqual(expected);
+      });
     });
   });
 });
