@@ -32,6 +32,16 @@ let createSchool = (function() {
       },
       enrollStudent: function(student, course, validCourses) {
         return student.addCourse(course, validCourses)
+      },
+      getReportCard: function(student) {
+        return student.courses.reduce((reportCard, course) => {
+          if (course.grade) {
+            reportCard += `${course.name}: ${course.grade}\n`;
+          } else {
+            reportCard += `${course.name}: In progress\n`;
+          }
+          return reportCard;
+        }, '');
       }
     }
   }

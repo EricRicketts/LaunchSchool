@@ -7,7 +7,7 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
       beforeEach(() => {
         math = { name: 'Math', code: 101 };
         advancedMath = { name: 'Advanced Math', code: 102 };
-        physics = { name: 'physics', code: 202 };
+        physics = { name: 'Physics', code: 202 };
         english = { name: 'English', code: 301 };
         schoolCourses = {
           courses: [math, advancedMath, physics, english]
@@ -63,6 +63,12 @@ describe('Exercises JS225 Object Oriented Javascript Function Context, Scopes, a
         school.addStudent(elmer);
         school.enrollStudent(elmer, math, schoolCourses);
         expect(school.addGrade(elmer, english, 90)).toBe('Course not found, no grade added.');
+      });
+
+      it('should return a student\'s report card', function () {
+        expected = 'Math: 95\nAdvanced Math: 90\nPhysics: In progress\n';
+        actual = school.getReportCard(foo);
+        expect(actual).toBe(expected);
       });
     });
   });
