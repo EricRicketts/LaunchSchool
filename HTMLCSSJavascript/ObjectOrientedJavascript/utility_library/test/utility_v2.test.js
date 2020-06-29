@@ -95,5 +95,23 @@ describe('Practice Project: Array and Object Utility Library', function () {
         expect(results).toEqual(expected);
       });
     });
+
+    describe('sample Method', function () {
+
+      it('is a function', function () {
+        expect(typeof _().sample).toBe('function');
+      });
+
+      it('returns a single element when no argument is supplied', function () {
+        results = _([1, 2, 3]).sample();
+        expect(results === 1 || results === 2 || results === 3).toBe(true);
+      });
+
+      it('returns multiple non-repeated elements when a number is supplied', function () {
+        results = _([1, 2, 1, 3]).sample(3);
+        let check = (results[0] !== results[1]) && (results[0] !== results[2]) && (results[1] !== results[2]);
+        expect(check && results.length === 3).toBe(true);
+      });
+    });
   });
 });

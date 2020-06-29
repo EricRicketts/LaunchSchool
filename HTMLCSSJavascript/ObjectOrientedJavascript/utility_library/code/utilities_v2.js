@@ -1,4 +1,18 @@
 let _ = function(element) {
+  function makeSample(size) {
+    let sampledArray = [];
+    let copiedArray = element.slice();
+    let randomIndex, randomElement;
+
+    while (sampledArray.length < size) {
+      randomIndex = Math.floor(Math.random() * copiedArray.length - 1);
+      randomElement = copiedArray[randomIndex];
+      if (!sampledArray.includes(randomElement)) sampledArray.push(randomElement);
+    }
+
+    return sampledArray;
+  }
+
   let u = {
     first: function() {
       return element[0];
@@ -16,6 +30,17 @@ let _ = function(element) {
       })
 
       return lastIndex;
+    },
+
+    sample: function(size) {
+      let lastIndex = element.length - 1;
+      let randomIndex;
+      if (size === undefined) {
+        randomIndex = Math.floor(Math.random() * Math.floor(lastIndex));
+        return element[randomIndex];
+      } else {
+        return makeSample(size);
+      }
     },
 
     without: function(...args) {
