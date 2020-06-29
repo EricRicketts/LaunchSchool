@@ -10,7 +10,7 @@ describe('Practice Project: Array and Object Utility Library', function () {
     beforeEach(() => {
       emptyArray = [];
     });
-    describe('First and Last Methods', function () {
+    describe('first and last Methods', function () {
       let fourElementArray, oneElementArray;
       beforeEach(() => {
         oneElementArray = [4];
@@ -44,7 +44,7 @@ describe('Practice Project: Array and Object Utility Library', function () {
       });
     });
 
-    describe('Without Method', function () {
+    describe('without Method', function () {
       let fiveElementArray, sixElementArray; 
       beforeEach(() => {
         fiveElementArray = [1, 2, 3, 4, 5];
@@ -66,7 +66,7 @@ describe('Practice Project: Array and Object Utility Library', function () {
       });
     });
 
-    describe('Range Method', function () {
+    describe('range Method', function () {
 
       it('should be a function', function () {
         expect(typeof _.range).toBe('function');
@@ -80,6 +80,19 @@ describe('Practice Project: Array and Object Utility Library', function () {
       it('returns an array of values starting with the first value when two arguments given', function () {
         expected = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         expect(_.range(1, 10)).toEqual(expected);
+      });
+    });
+
+    describe('lastIndexOf Method', function () {
+
+      it('is a function', function () {
+        expect(typeof _().lastIndexOf).toBe('function');
+      });
+
+      it('returns last index of supplied value', function () {
+        results = [_([1, 1, 1]).lastIndexOf(1), _([1, 2, 3]).lastIndexOf(2)];
+        expected = [2, 1];
+        expect(results).toEqual(expected);
       });
     });
   });

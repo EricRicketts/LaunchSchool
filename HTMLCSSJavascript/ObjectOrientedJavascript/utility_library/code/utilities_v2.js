@@ -9,6 +9,15 @@ let _ = function(element) {
       return element[lastIndex];
     },
 
+    lastIndexOf: function(elem) {
+      let lastIndex = undefined;
+      element.forEach((val, index) => {
+        if (val === elem) { lastIndex = index }
+      })
+
+      return lastIndex;
+    },
+
     without: function(...args) {
       return element.reduce((newArr, elem) => {
         if (!args.includes(elem)) newArr.push(elem);
