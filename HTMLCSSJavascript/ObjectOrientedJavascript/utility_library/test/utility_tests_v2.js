@@ -267,14 +267,15 @@ test("has returns true when hasOwnProperty is defined", function() {
   return _(o).has("hasOwnProperty");
 });
 
-(["isElement", "isArray", "isObject", "isFunction", "isBoolean", "isString", "isNumber"]).forEach(function(method) {
+// (["isElement", "isArray", "isObject", "isFunction", "isBoolean", "isString", "isNumber"]).forEach(function(method) {
+(["isArray", "isObject", "isFunction", "isBoolean", "isString", "isNumber"]).forEach(function(method) {
   test(method + " is defined", function() {
     return typeof _[method] === "function" && typeof _()[method] === "function";
   });
 });
-test("isElement returns true if DOM element, otherwise false", function() {
-  return _.isElement(document.body) && !_.isElement({});
-});
+// test("isElement returns true if DOM element, otherwise false", function() {
+//   return _.isElement(document.body) && !_.isElement({});
+// });
 test("isArray returns true if array, otherwise false", function() {
   return _.isArray([]) && !_.isArray({ 0: "a", 1: "b" });
 });

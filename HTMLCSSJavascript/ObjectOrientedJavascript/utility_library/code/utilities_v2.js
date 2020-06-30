@@ -67,6 +67,30 @@ let _ = function(element) {
       return false;
     },
 
+    isArray: function() {
+      return Object.prototype.toString.call(element) === '[object Array]';
+    },
+
+    isBoolean: function() {
+      return typeof element === 'boolean' || typeof element === 'object' || typeof element === 'function';
+    },
+
+    isFunction: function() {
+      return Object.prototype.toString.call(element) === '[object Function]';
+    },
+
+    isNumber: function() {
+      return typeof element === 'number' || typeof element === 'object';
+    },
+
+    isObject: function() {
+      return typeof element === 'object' || typeof element === 'function';
+    },
+
+    isString: function() {
+      return typeof element === 'string' || typeof element === 'object';
+    },
+
     keys: function() {
       let ownKeys = [];
       for (const key in element) {
@@ -170,6 +194,30 @@ let _ = function(element) {
   return u;
 }
 
+_.isArray = function(instance) {
+  return _(instance).isArray();
+}
+
+_.isBoolean = function(instance) {
+  return _(instance).isBoolean();
+}
+
+_.isFunction = function(instance) {
+  return _(instance).isFunction();
+}
+
+_.isNumber = function(instance) {
+  return _(instance).isNumber();
+}
+
+_.isObject = function(instance) {
+  return _(instance).isObject();
+}
+
+_.isString = function(instance) {
+  return _(instance).isString();
+}
+
 _.extend = function(target, ...sources) {
   let numberOfSources = sources.length;
   for (let i = 0; i < numberOfSources; i += 1)  {
@@ -191,4 +239,5 @@ _.range = function(...args) {
 
   return Array.from( { length },(_, i) =>  start + i );
 }
-export { _ };
+
+// export { _ };

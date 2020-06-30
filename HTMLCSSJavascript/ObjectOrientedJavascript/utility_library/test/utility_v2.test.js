@@ -312,4 +312,51 @@ describe('Practice Project: Array and Object Utility Library', function () {
       });
     });
   });
+
+  describe('Utility Methods', function () {
+    let methodNames;
+    it('both formats isArray, isObject, isFunction are functions', function () {
+      methodNames = ['isArray', 'isObject', 'isFunction'];
+      results = methodNames.every((methodName) => {
+        return typeof _[methodName] === 'function' && typeof _()[methodName] === 'function';
+      });
+      expect(results).toBe(true);
+    });
+
+    it('both formats isBoolean, isNumber, isString are functions', function () {
+      methodNames = ['isBoolean', 'isNumber', 'isString'];
+      results = methodNames.every((methodName) => {
+        return typeof _[methodName] === 'function' && typeof _()[methodName] === 'function';
+      });
+      expect(results).toBe(true);
+    });
+
+    it('isArray returns true if element is an array, false otherwise', function () {
+      expect(_([]).isArray() && !_.isArray({ 0: "a", 1: "b" })).toBe(true);
+    });
+
+    it('isObject returns true if instance is an object, array or function, false otherwise', function () {
+      results = _({}).isObject() && _.isObject([]) && _(isNaN).isObject() && !_.isObject(1);
+      expect(results).toBe(true);
+    });
+
+    it('isFunction returns true if instance is a function false otherwise', function () {
+      expect(_(isNaN).isFunction() && !_.isFunction({})).toBe(true);
+    });
+
+    it('isBoolean returns true if instance is primitive boolean or object, false otherwise', function () {
+      results = _(false).isBoolean() && _.isBoolean(new Boolean(false)) && !_(1).isBoolean();
+      expect(results).toBe(true);
+    });
+
+    it('isString returns true if instance is primitive string or object, false otherwise', function () {
+      results = _('foo').isString() && _.isString(new String()) && !_(1 ).isString();
+      expect(results).toBe(true);
+    });
+
+    it('isNumber returns true if instance is primitive number or object, false otherwise', function () {
+      results = _(5).isNumber() && _.isNumber(new Number(10)) && !_('5').isNumber();
+      expect(results).toBe(true);
+    });
+  });
 });
