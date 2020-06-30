@@ -57,6 +57,15 @@ let _ = function(element) {
       return element[0];
     },
 
+    keys: function() {
+      let ownKeys = [];
+      for (const key in element) {
+        if (element.hasOwnProperty(key)) ownKeys.push(key);
+      }
+
+      return ownKeys;
+    },
+
     last: function() {
       let lastIndex = element.length - 1;
       return element[lastIndex];
@@ -88,6 +97,15 @@ let _ = function(element) {
       } else {
         return makeSample(size);
       }
+    },
+
+    values: function() {
+      let ownValues = [];
+      for (const key in element) {
+        if (element.hasOwnProperty(key)) ownValues.push(element[key]);
+      }
+
+      return ownValues;
     },
 
     where: function(object) {

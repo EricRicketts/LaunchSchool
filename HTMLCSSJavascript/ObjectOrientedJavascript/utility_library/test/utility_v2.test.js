@@ -185,5 +185,33 @@ describe('Practice Project: Array and Object Utility Library', function () {
         expect(_(collection).pluck('acme')).toEqual([]);
       });
     });
+
+    describe('keys and values Methods', function () {
+      let object;
+      beforeEach(() => {
+        object = { foo: "bar", baz: "quuz" };
+      });
+
+      it('keys and values are function', function () {
+        expected = ['function', 'function'];
+        results = [typeof _().keys, typeof _().values];
+        expect(results).toEqual(expected);
+      });
+
+      it('keys returns an array of keys from the object', function () {
+        expected = ['foo', 'baz'];
+        expect(_(object).keys()).toEqual(expected);
+      });
+
+      it('keys does not return inherited properties', function () {
+        results = _(object).keys();
+        expect(results).not.toContain('toString');
+      });
+
+      it('values returns an array of values from the object', function () {
+        expected = ['bar', 'quuz'];
+        expect(_(object).values()).toEqual(expected);
+      });
+    });
   });
 });
