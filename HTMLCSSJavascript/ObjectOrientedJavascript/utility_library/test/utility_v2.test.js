@@ -116,7 +116,7 @@ describe('Practice Project: Array and Object Utility Library', function () {
   });
 
   describe('Object and Object Collection Tests', function () {
-    let dictionary, collection;
+    let dictionary, collection, oldObj, newObj, obj;
     describe('findWhere Method', function () {
       beforeEach(() => {
         dictionary = [{ foo: "bar", idx: 0 }, { foo: "baz", idx: 1 }, { foo: "bar", idx: 2 }];
@@ -215,7 +215,6 @@ describe('Practice Project: Array and Object Utility Library', function () {
     });
 
     describe('extend Method', function () {
-      let newObj, oldObj, obj;
       beforeEach(() => {
         oldObj = { foo: 'bar' };
         newObj = { bar: 'baz' };
@@ -239,6 +238,29 @@ describe('Practice Project: Array and Object Utility Library', function () {
       it('works with any number of objects', function () {
         expected = { foo: 'bar', bar: 'baz' };
         expect(_.extend(obj, oldObj, newObj)).toEqual(expected);
+      });
+    });
+
+    describe('pick Method', function () {
+      beforeEach(() => {
+        oldObj = { foo: 'bar' };
+      });
+
+      it('is a function', function () {
+        expect(typeof _().pick).toBe('function');
+      });
+
+      it('returns a new object with the passed in properties', function () {
+        newObj = _(oldObj).pick('foo');
+        expect(oldObj.foo === newObj.foo).toBe(true);
+        expect(newObj !== oldObj).toBe(true);
+      });
+
+      it('accepts more than on argument and ignores properties not on the original object', function () {
+        oldObj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+        expected = { a: 1, c: 3, e: 5 };
+        results = _(oldObj).pick('a', 'c', 'g', 'e');
+        expect(results).toEqual(expected);
       });
     });
   });

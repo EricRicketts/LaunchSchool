@@ -80,6 +80,17 @@ let _ = function(element) {
       return lastIndex;
     },
 
+    pick: function(...keys) {
+      let newObj = {}
+      keys.forEach((key) => {
+        if (element.hasOwnProperty(key)) {
+          newObj[key] = element[key];
+        }
+      });
+
+      return newObj;
+    },
+
     pluck: function(key) {
       return element.filter((object) => {
         return object.hasOwnProperty(key);
@@ -157,4 +168,4 @@ _.range = function(...args) {
 
   return Array.from( { length },(_, i) =>  start + i );
 }
-// export { _ };
+export { _ };
