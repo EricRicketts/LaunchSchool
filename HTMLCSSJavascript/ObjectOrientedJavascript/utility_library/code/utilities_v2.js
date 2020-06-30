@@ -136,6 +136,20 @@ let _ = function(element) {
   return u;
 }
 
+_.extend = function(target, ...sources) {
+  let numberOfSources = sources.length;
+  for (let i = 0; i < numberOfSources; i += 1)  {
+    let source = sources[i];
+    for (const key in source) {
+      if (source.hasOwnProperty(key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+}
+
 _.range = function(...args) {
   let start, end, length;
   args.length === 1 ? [start, end] = [0, args[0]] : [start, end] = [args[0], args[1]];
@@ -143,4 +157,4 @@ _.range = function(...args) {
 
   return Array.from( { length },(_, i) =>  start + i );
 }
-export { _ };
+// export { _ };

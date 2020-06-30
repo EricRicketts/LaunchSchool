@@ -213,5 +213,33 @@ describe('Practice Project: Array and Object Utility Library', function () {
         expect(_(object).values()).toEqual(expected);
       });
     });
+
+    describe('extend Method', function () {
+      let newObj, oldObj, obj;
+      beforeEach(() => {
+        oldObj = { foo: 'bar' };
+        newObj = { bar: 'baz' };
+        obj = { foo: 'quuz' };
+      });
+
+      it('is a function', function () {
+        expect(typeof _.extend).toBe('function');
+      });
+
+      it('returns an extended object using the new objects properties', function () {
+        expected = { foo: 'bar', bar: 'baz' };
+        results = _.extend(oldObj, newObj);
+        expect(results).toEqual(expected);
+      });
+
+      it('modifies the first object passed in rather than creating a new object', function () {
+        expect(_.extend(oldObj, {})).toBe(oldObj);
+      });
+
+      it('works with any number of objects', function () {
+        expected = { foo: 'bar', bar: 'baz' };
+        expect(_.extend(obj, oldObj, newObj)).toEqual(expected);
+      });
+    });
   });
 });
