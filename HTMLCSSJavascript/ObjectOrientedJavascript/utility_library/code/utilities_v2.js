@@ -80,6 +80,19 @@ let _ = function(element) {
       return lastIndex;
     },
 
+    omit: function(...keys) {
+      let newObj = {};
+      Object.keys(element).forEach((origKey) => {
+        if (element.hasOwnProperty(origKey)) {
+          if (!keys.includes(origKey)) {
+            newObj[origKey] = element[origKey];
+          }
+        }
+      });
+
+      return newObj;
+    },
+
     pick: function(...keys) {
       let newObj = {}
       keys.forEach((key) => {

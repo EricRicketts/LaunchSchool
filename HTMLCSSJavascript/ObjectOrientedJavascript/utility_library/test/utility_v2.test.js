@@ -263,5 +263,33 @@ describe('Practice Project: Array and Object Utility Library', function () {
         expect(results).toEqual(expected);
       });
     });
+
+    describe('pick Method', function () {
+      beforeEach(() => {
+        oldObj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+      });
+
+      it('is a function', function () {
+        expect(typeof _().omit).toBe('function');
+      });
+
+      it('returns an empty object if all properties are omitted', function () {
+        oldObj = { foo: 'bar' };
+        expect(_(oldObj).omit('foo')).toEqual({})
+      });
+
+      it('ignores properties that are not on the original object', function () {
+        expected = { b: 2, d: 4, f: 6 };
+        results = _(oldObj).omit('a', 'c', 'e', 'g');
+        expect(results).toEqual(expected);
+      });
+
+      it('returns a new object', function () {
+        expected = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+        results = _(oldObj).omit('g');
+        expect(results).toEqual(expected);
+        expect(results === expected).toBe(false);
+      });
+    });
   });
 });
