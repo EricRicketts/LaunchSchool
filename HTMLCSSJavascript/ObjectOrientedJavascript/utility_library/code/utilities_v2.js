@@ -57,6 +57,16 @@ let _ = function(element) {
       return element[0];
     },
 
+    has: function(key) {
+      let objOwnKeys = Object.keys(element);
+      let numberObjOwnKeys = objOwnKeys.length;
+      for (let i = 0; i < numberObjOwnKeys; i += 1) {
+        if (objOwnKeys[i] === key) return true;
+      }
+
+      return false;
+    },
+
     keys: function() {
       let ownKeys = [];
       for (const key in element) {

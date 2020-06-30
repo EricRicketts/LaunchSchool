@@ -291,5 +291,25 @@ describe('Practice Project: Array and Object Utility Library', function () {
         expect(results === expected).toBe(false);
       });
     });
+
+    describe('has Method', function () {
+
+      it('is a function', function () {
+        expect(typeof _().has).toBe('function');
+      });
+
+      it('returns true if property exists, false if it does not', function () {
+        let obj = { a: 1, b: 2, c: 3 };
+        expected = [true, false];
+        results = [_(obj).has('b'), _(obj).has('d')];
+        expect(results).toEqual(expected);
+      });
+
+      it('returns true when hasOwnProperty is defined', function () {
+        let obj = { foo: 'bar', fizz: 'buzz' };
+        obj.hasOwnProperty = function() {};
+        expect(_(obj).has('hasOwnProperty')).toBe(true);
+      });
+    });
   });
 });
