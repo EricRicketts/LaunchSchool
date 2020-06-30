@@ -114,4 +114,53 @@ describe('Practice Project: Array and Object Utility Library', function () {
       });
     });
   });
+
+  describe('Object and Object Collection Tests', function () {
+    let dictionary, collection;
+    describe('findWhere Method', function () {
+      beforeEach(() => {
+        dictionary = [{ foo: "bar", idx: 0 }, { foo: "baz", idx: 1 }, { foo: "bar", idx: 2 }];
+      });
+
+      it('is a function', function () {
+        expect(typeof _().findWhere).toBe('function');
+      });
+
+      it('return object with only one matched property', function () {
+        expect(_(dictionary).findWhere({ foo: 'bar' }).idx).toBe(0);
+      });
+
+      it('return undefined if no matched property', function () {
+        expect(_(dictionary).findWhere({ foo: 'fizz' })).toBeUndefined();
+      });
+
+      it('returns object with more than one matched property', function () {
+        dictionary = [
+          { foo: "bar", quux: "q", idx: 0 }, { foo: "baz", quux: "z", idx: 1 },
+          { foo: "bar", quux: "z", idx: 2 }
+        ];
+        expect(_(dictionary).findWhere({ foo: 'bar', quux: 'z'}).idx).toBe(2);
+      });
+    });
+
+    describe('where Method', function () {
+      beforeEach(() => {
+        dictionary = [{ foo: "bar", idx: 0 }, { foo: "baz", idx: 1 }, { foo: "bar", idx: 2 }];
+      });
+
+      it('is a function', function () {
+        expect(typeof _().where).toBe('function');
+      });
+
+      it('returns an array with one matched object', function () {
+        expected = [{ foo: 'bar', idx: 0 }];
+        expect(_(dictionary).where({ idx: 0 })).toEqual(expected);
+      });
+
+      it('returns an array with two matched objects', function () {
+        expected = [{ foo: "bar", idx: 0 }, { foo: "bar", idx: 2 }];
+        expect(_(dictionary).where({ foo: "bar" })).toEqual(expected);
+      });
+    });
+  });
 });
