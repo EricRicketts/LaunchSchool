@@ -42,7 +42,7 @@ let _ = function(element) {
       for (let i = 0; i < elementSize; i += 1) {
         let currentElement = element[i];
         let objectKeys = findObjectKeys(object);
-        
+
         let matchingKeys = findMatchingKeys(object, currentElement, objectKeys);
         if (matchingKeys.length === objectKeys.length) {
           foundObject = currentElement;
@@ -69,6 +69,14 @@ let _ = function(element) {
       })
 
       return lastIndex;
+    },
+
+    pluck: function(key) {
+      return element.filter((object) => {
+        return object.hasOwnProperty(key);
+      }).flatMap((object) => {
+        return Object.values(object)
+      });
     },
 
     sample: function(size) {

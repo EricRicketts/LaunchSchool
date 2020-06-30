@@ -161,6 +161,29 @@ describe('Practice Project: Array and Object Utility Library', function () {
         expected = [{ foo: "bar", idx: 0 }, { foo: "bar", idx: 2 }];
         expect(_(dictionary).where({ foo: "bar" })).toEqual(expected);
       });
+
+      it('returns an empty array if there is no match', function () {
+        expect(_(dictionary).where({ foo: "fizz" })).toEqual([]);
+      });
+    });
+
+    describe('pluck Method', function () {
+      beforeEach(() => {
+        collection = [{ foo: 'bar' }, { foo: 'baz' }];
+      });
+
+      it('is a function', function () {
+        expect(typeof _().pluck).toBe('function');
+      });
+
+      it('returns an array of values', function () {
+        expected = ['bar', 'baz'];
+        expect(_(collection).pluck('foo')).toEqual(expected);
+      });
+
+      it('returns an empty array if there is no match', function () {
+        expect(_(collection).pluck('acme')).toEqual([]);
+      });
     });
   });
 });
