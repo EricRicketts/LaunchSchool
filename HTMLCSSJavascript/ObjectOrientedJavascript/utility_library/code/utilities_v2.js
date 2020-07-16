@@ -240,4 +240,4 @@ _.range = function(...args) {
   return Array.from( { length },(_, i) =>  start + i );
 }
 
-// export { _ };
+export { _ };
