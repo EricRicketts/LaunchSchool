@@ -17,15 +17,17 @@
   },
   "homepage": "https://github.com/EricRicketts/LaunchSchool#readme",
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/preset-env": "^7.7.5",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-classes": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
-    "qunit": "^2.10.0"
+    "qunit": "^2.10.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.8.3",
-    "core-js": "^3.6.4"
+    "@babel/polyfill": "^7.10.4",
+    "core-js": "^3.6.5"
   }
 }
