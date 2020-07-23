@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice A Hierarchy Of Nodes</title>
+</head>
+<body>
+  <!-- A short comment -->
+  <h1>Newsletter Signup</h1>
+  <p class="intro" id="simple">
+    To receive our weekly emails, enter your email address below.
+    <a href="info.html">Get more info</a>.
+  </p>
+  <div class="form">
+    <form>
+      <label>
+        Enter your email:
+        <input name="email" placeholder="user.name@domain.test"/>
+      </label>
+      <p class="controls">
+        <button id="cancelButton">Cancel</button>
+        <button type="submit" id="submitButton">Subscribe</button>
+      </p>
+    </form>
+  </div>
+</body>
+</html>
+<!--
+1.  True or False: there is a direct one-to-one mapping between the tags
+that appear in an HTML file and the nodes in the DOM.
+
+There may not be a one to one mapping between the tags that appear in the HTML and the
+Nodes in the DOM because of extra text nodes that might appear in the DOM.
+
+As noted by Launch School the browser might insert additional nodes that do not appear in
+the HTML due to invalid markup or omission of tags.
+
+2.  True or False: Text nodes sometimes contain nothing but whitespace.
+
+True, we might have whitespace between two different tags that appear on different lines
+in the HTML.
+
+Problems 3 and 4 were done in a notebook
+-->
