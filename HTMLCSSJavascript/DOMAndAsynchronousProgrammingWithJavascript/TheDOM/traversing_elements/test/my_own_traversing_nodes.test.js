@@ -106,5 +106,14 @@ describe('My Own Exercises Traversing Elements And Nodes', function () {
     it('should return an HTMLCollection of first level list items', function () {
       expect(Array.from(ulLIs).every(node => node.nodeName === 'LI')).toBe(true);
     });
+
+    it('first and last child first and last Element child can return different nodes', function () {
+      expected = ['#text', 'LI', '#text', 'LI'];
+      results = [
+        topUL.firstChild.nodeName, topUL.firstElementChild.nodeName,
+        topUL.lastChild.nodeName, topUL.lastElementChild.nodeName
+      ];
+      expect(results).toEqual(expected);
+    });
   });
 });
