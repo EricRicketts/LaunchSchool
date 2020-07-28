@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Own DOM Traversal</title>
+</head>
+<body>
+  <h1>My Own DOM Traversal</h1>
+  <p class="para">This is the first paragraph</p>
+  <p class="para">This is the second paragraph</p>
+
+  <ul id="unordered">
+    <li class="un_li">An unordered list item</li>
+    <li class="un_li">Another unordered list item</li>
+    <li class="un_li">
+      <ol id="ordered">
+        <li class="ord_li">First List Item</li>
+        <li class="ord_li">Second List Item</li>
+        <li class="ord_li">Third List Item</li>
+      </ol>
+    </li>
+  </ul>
+
+  <div id="tables">
+    <div id="first-table-group">
+      <p>Simple table with header</p>
+      <table id="first-table">
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>Doe</td>
+        </tr>
+        <tr>
+          <td>Jane</td>
+          <td>Doe</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="second-table-group">
+      <p>Table with thead, tfoot, and tbody</p>
+      <table id="second-table">
+        <thead>
+        <tr>
+          <th>Header content 1</th>
+          <th>Header content 2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Body content 1</td>
+          <td>Body content 2</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td>Footer content 1</td>
+          <td>Footer content 2</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div id="third-table-group">
+      <p>Table with colgroup</p>
+      <table id="third-table">
+        <colgroup span="4"></colgroup>
+        <tr>
+          <th>Countries</th>
+          <th>Capitals</th>
+          <th>Population</th>
+          <th>Language</th>
+        </tr>
+        <tr>
+          <td>USA</td>
+          <td>Washington, D.C.</td>
+          <td>309 million</td>
+          <td>English</td>
+        </tr>
+        <tr>
+          <td>Sweden</td>
+          <td>Stockholm</td>
+          <td>9 million</td>
+          <td>Swedish</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="fourth-table-group">
+      <p>Table with colgroup and col</p>
+      <table id="fourth-table">
+        <colgroup>
+          <col style="background-color: #0f0">
+          <col span="2">
+        </colgroup>
+        <tr>
+          <th>Lime</th>
+          <th>Lemon</th>
+          <th>Orange</th>
+        </tr>
+        <tr>
+          <td>Green</td>
+          <td>Yellow</td>
+          <td>Orange</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="fifth-table-group">
+      <p>Simple table with caption</p>
+      <table id="fifth-table">
+        <caption>Awesome caption</caption>
+        <tr>
+          <td>Awesome data</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
