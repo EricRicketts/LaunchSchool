@@ -137,4 +137,25 @@ describe('Creating, Moving, and Deleting DOM Nodes Assignment', function () {
       });
     });
   });
+
+  describe('remove and removeChild to remove Nodes from the DOM', function () {
+    let p, ul;
+    beforeEach(() => {
+      p = document.querySelector('p');
+      ul = document.querySelector('ul');
+    });
+
+    it('remove the top level paragraph', function () {
+      p.remove();
+      expect(document.querySelectorAll('body > p').length).toBe(0);
+    });
+
+    it('remove the middle list element', function () {
+      expected = [3, 2];
+      results = [ul.children.length];
+      ul.removeChild(ul.children.item(1));
+      results.push(ul.children.length);
+      expect(results).toEqual(expected);
+    });
+  });
 });
