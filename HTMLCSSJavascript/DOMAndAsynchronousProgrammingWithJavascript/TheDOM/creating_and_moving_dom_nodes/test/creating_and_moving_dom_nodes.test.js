@@ -14,10 +14,13 @@ describe('Creating, Moving, and Deleting DOM Nodes Assignment', function () {
 
   describe('Creating And Adding Nodes To The DOM', function () {
     describe('Using appendChild, insertBefore, and replaceChild', function () {
-      it('appendChild inserts after last child', function () {
-        let p = document.createElement('p');
+      let p;
+      beforeEach(() => {
+        p = document.createElement('p');
         let text = document.createTextNode('This is another paragraph element.');
         p.appendChild(text);
+      });
+      it('appendChild inserts after last child', function () {
         document.body.appendChild(p);
         expected = [2, 'P', 'This is another paragraph element.'];
         results = [
@@ -29,9 +32,6 @@ describe('Creating, Moving, and Deleting DOM Nodes Assignment', function () {
       });
 
       it('insertBefore first paragraph in body', function () {
-        let p = document.createElement('p');
-        let text = document.createTextNode('This is another paragraph element.');
-        p.appendChild(text);
         let currentParagraph = document.querySelector('body > p');
         document.body.insertBefore(p, currentParagraph);
         expected = [2, 'P', 'This is another paragraph element.'];
@@ -44,7 +44,7 @@ describe('Creating, Moving, and Deleting DOM Nodes Assignment', function () {
       });
 
       it('replaceChild to replace current paragraph', function () {
-        let p = document.createElement('p');
+        p = document.createElement('p');
         let text = document.createTextNode('This is the replacement paragraph.');
         p.appendChild(text);
         let currentParagraph = document.querySelector('body > p');
@@ -57,6 +57,84 @@ describe('Creating, Moving, and Deleting DOM Nodes Assignment', function () {
         ];
         expect(results).toEqual(expected);
       });
-    }); 
+    });
+
+    describe('Using insertAdjacentElement and insertAdjacentText', function () {
+      let newP, newLi, ul, currentParagraph;
+      beforeEach(() => {
+        newP = document.createElement('p');
+        let text = document.createTextNode('This is the text for the new paragraph.');
+        newP.appendChild(text);
+        newLi = document.createElement('li');
+        text = document.createTextNode('This is the text for the new list element.');
+        newLi.appendChild(text);
+        ul = document.getElementById('ul-list');
+        currentParagraph = document.querySelector('p');
+      });
+
+      it('insert paragraph before the unordered list', function () {
+        expected = [2, newP.textContent];
+        ul.insertAdjacentElement('beforebegin', newP);
+        results = [
+          document.querySelectorAll('body > p').length,
+          ul.previousSibling.textContent
+        ];
+        expect(results).toEqual(expected);
+      });
+
+      it('insert paragraph after the unordered list', function () {
+        expected = [2, newP.textContent];
+        ul.insertAdjacentElement('afterend', newP);
+        results = [
+          document.querySelectorAll('body > p').length,
+          ul.nextSibling.textContent
+        ];
+        expect(results).toEqual(expected);
+      });
+
+      it('insert new list element before first list element', function () {
+        expected = [4, newLi.textContent];
+        ul.insertAdjacentElement('afterbegin', newLi);
+        results = [
+          ul.querySelectorAll('li').length,
+          ul.firstElementChild.textContent
+        ];
+        expect(results).toEqual(expected);
+      });
+
+      it('insert new list element after last list element', function () {
+        expected = [4, newLi.textContent];
+        ul.insertAdjacentElement('beforeend', newLi);
+        results = [
+          ul.querySelectorAll('li').length,
+          ul.lastElementChild.textContent
+        ];
+        expect(results).toEqual(expected);
+      });
+
+      it('insert new text before current paragraph text', function () {
+        expected = [
+          'This is a single paragraph element.',
+          'This comes before the current paragraph text. This is a single paragraph element.'
+        ];
+        results = [currentParagraph.textContent];
+        let newText = 'This comes before the current paragraph text. ';
+        currentParagraph.insertAdjacentText('afterbegin', newText);
+        results.push(currentParagraph.textContent);
+        expect(results).toEqual(expected);
+      });
+
+      it('insert new text after current paragraph text', function () {
+        expected = [
+          'This is a single paragraph element.',
+          'This is a single paragraph element. This comes after the current paragraph text.'
+        ];
+        results = [currentParagraph.textContent];
+        let newText = ' This comes after the current paragraph text.';
+        currentParagraph.insertAdjacentText('beforeend', newText);
+        results.push(currentParagraph.textContent);
+        expect(results).toEqual(expected);
+      });
+    });
   });
 });

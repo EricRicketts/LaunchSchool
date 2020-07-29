@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.10.4",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
+    "jsdom": "^16.3.0",
     "qunit": "^2.10.1"
   },
   "dependencies": {
