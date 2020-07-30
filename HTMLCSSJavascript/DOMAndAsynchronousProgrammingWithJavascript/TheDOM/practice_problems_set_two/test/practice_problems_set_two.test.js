@@ -62,9 +62,9 @@ describe('Launch School Practice Problems: The DOM', function () {
   });
 
   describe('Manage some onclick requirements', function() {
-    let firsOnClick;
+    let linkOnClick;
     beforeEach(() => {
-      firsOnClick = jest.fn().mockImplementation(function () {
+      linkOnClick = jest.fn().mockImplementation(function () {
         let targetDiv = document.getElementById('notice');
         if (targetDiv.getAttribute('class') === 'hidden') {
           targetDiv.setAttribute('class', 'visible');
@@ -76,8 +76,16 @@ describe('Launch School Practice Problems: The DOM', function () {
 
     it('toggle the hidden div element', function() {
      let link = document.getElementById('toggle');
-     link.setAttribute('onclick', 'firstOnClick()');
-     expect(link.getAttribute('onclick')).toBe('firstOnClick()');
+     let div = document.getElementById('notice');
+     link.onclick = linkOnClick;
+     expected = ['hidden', 'visible', 'hidden'];
+     results = [div.getAttribute('class')];
+     link.click();
+     results.push(div.getAttribute('class'));
+     link.click();
+     results.push(div.getAttribute('class'));
+     expect(results).toEqual(expected);
+     expect(linkOnClick).toBeCalledTimes(2);
     });
   });
 });
