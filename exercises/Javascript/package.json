@@ -4,17 +4,28 @@
   "description": "Javascript tests for Launch School exercises",
   "main": "index.js",
   "dependencies": {
-    "@babel/polyfill": "^7.7.0",
-    "core-js": "^3.6.1",
-    "jest": "^24.9.0"
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-classes": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/runtime": "^7.10.5",
+    "babel-jest": "^26.2.1",
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7"
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "jest": "^26.2.1",
+    "jsdom": "^16.3.0"
   },
   "scripts": {
     "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
   },
   "repository": {
     "type": "git",
