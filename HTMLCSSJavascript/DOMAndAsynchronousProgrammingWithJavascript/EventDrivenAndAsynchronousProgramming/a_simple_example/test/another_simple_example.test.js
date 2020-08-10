@@ -3,27 +3,22 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 describe('Launch School A Simple Example', function () {
-  let results, html, expected, window, document, output, addButton, resetButton;
+  let results, dom, html, expected, window, document, output, addButton, resetButton;
   describe('Load Script In JSDOM Vice External Loading', function () {
-    beforeEach(() => {
+    beforeEach( async () => {
       let codeDirectory = path.join(__dirname, '..', 'code');
       html = fs.readFileSync(codeDirectory + '/main.html', 'utf8');
-        let options = {
-          resources: 'usable',
-          runScripts: 'dangerously',
-        };
-        const dom = new JSDOM(html, options)
-        dom.window.document.addEventListener('DOMContentLoaded', () => {
-          // We need to delay one extra turn because we are the first DOMContentLoaded listener,
-          // but we want to execute this code only after the second DOMContentLoaded listener
-          // (added by external.js) fires.
-          setImmediate(() => {
-            console.log(dom.window.document.body.children.length) // Expecting to see `1`
-            console.log(dom.window.document.body.innerHTML) // Expecting to see `<h1>Hello world</h1>`
-          });
-        });
+      let options = {
+        resources: 'usable',
+        runScripts: 'dangerously',
+      };
+      let scriptContent = fs.readFileSync(codeDirectory + '/simple_example_launch_school.js', 'utf8');
+      dom = new JSDOM(html, options);
       window = dom.window;
       document = window.document;
+      let scriptElement = document.createElement('script');
+      scriptElement.textContent = scriptContent;
+      document.head.appendChild(scriptElement);
       output = document.getElementById('output');
       addButton = document.getElementById('add');
       resetButton = document.getElementById('reset');
@@ -33,6 +28,20 @@ describe('Launch School A Simple Example', function () {
       expected = ["0", "1", "2"];
       results = [output.textContent];
       addButton.click();
+      results.push(output.textContent);
+      addButton.click();
+      results.push(output.textContent);
+      expect(results).toEqual(expected);
+    });
+
+    it('the reset button should reset the element', function () {
+      expected = ["0", "1", "2", "0", "1"];
+      results = [output.textContent];
+      addButton.click();
+      results.push(output.textContent);
+      addButton.click();
+      results.push(output.textContent);
+      resetButton.click();
       results.push(output.textContent);
       addButton.click();
       results.push(output.textContent);
