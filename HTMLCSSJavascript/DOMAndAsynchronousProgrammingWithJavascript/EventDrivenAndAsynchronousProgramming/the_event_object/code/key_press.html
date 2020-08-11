@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Press Exercise</title>
+  <style>
+    html {
+      height: 100%;
+      background: lightblue;
+      text-align: center;
+      font-family: monospace;
+      line-height: 1.4;
+      font-size: 14px;
+    }
+    td, th {
+      width: 5em
+    }
+
+    tbody tr:first-child td {
+      padding-top: 2em;
+    }
+
+    thead {
+      position: fixed;
+      background: lightblue;
+    }
+
+    button {
+      position: fixed;
+      top: .3em;
+      left: 38em;
+    }
+  </style>
+  <script type="text/javascript" src="key_press.js"></script>
+</head>
+<body>
+<button id="clear">Clear</button>
+
+<table>
+  <thead>
+  <tr>
+    <th>type</th>
+    <th>key</th>
+    <th>shiftKey</th>
+    <th>altKey</th>
+    <th>ctrlKey</th>
+    <th>metaKey</th>
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</body>
+</html>
