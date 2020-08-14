@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Problem One</title>
+  <style>
+    #elem1 {
+      background-color: green;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #elem2 {
+      background-color: blue;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 150px;
+      height: 150px;
+    }
+
+    #elem3 {
+      background-color: red;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 100px;
+      height: 100px;
+      line-height: 25px;
+    }
+
+    #elem4 {
+      background-color: yellow;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    #elem4.update-border {
+      border: 2px solid green;
+    }
+  </style>
+  <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+  <div id="elem1">1
+    <div id="elem2">2
+      <div id="elem3">3
+        <div id="elem4">4
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
