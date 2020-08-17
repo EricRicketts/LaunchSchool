@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prevent Default</title>
+  <style>
+    button {
+      width: 100px;
+      height: 100px;
+      background: blue;
+      color: white;
+      position: relative;
+      top: 25px;
+      left: 25px;
+    }
+
+    a {
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: red;
+    }
+  </style>
+  <script type="text/javascript" src="prevent_default_capture.js"></script>
+<!--  <script type="text/javascript" src="allow_follow.js"></script>-->
+</head>
+<body>
+  <a href="./blank.html">
+    <button>View Page</button>
+  </a>
+</body>
+</html>
