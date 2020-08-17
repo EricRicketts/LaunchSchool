@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Standard Event Listener Assignment</title>
+  <style>
+    #message {
+      padding: .5em .8em;
+      background-color: lightyellow;
+      display: inline-block;
+    }
+    a.highlight {
+      color: green;
+    }
+  </style>
+  <script type="text/javascript" src="delegation_issues.js"></script>
+</head>
+<body>
+  <div>
+    <p>
+      <button>One</button>
+      <button>Two</button>
+      <a href="#">Three</a>
+      <a href="#">Four</a>
+    </p>
+  </div>
+
+  <div>
+    <p>
+      <button>Five</button>
+      <button>Six</button>
+      <a href="#">Seven</a>
+      <a href="#">Eight</a>
+    </p>
+  </div>
+
+  <div id="message"></div>
+</body>
+</html>
