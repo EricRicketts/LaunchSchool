@@ -1,7 +1,7 @@
 let randomizer = require('../code/randomizer');
 
 describe('Exercise One Randomizer', function () {
-  let expected, results, callback1, callback2, callback3, callback4, callback5;
+  let results, callback1, callback2, callback3, callback4, callback5;
   beforeEach(() => {
     callback1 = function() {
       return 'callback1';
@@ -20,7 +20,7 @@ describe('Exercise One Randomizer', function () {
     }
   });
 
-  it('randomizer includes three callbacks and a count from one to six in this case', done => {
+  it('randomizer includes five callbacks and a count from one to ten in this case', done => {
     jest.useFakeTimers();
     let arr = [];
     randomizer(arr, callback1, callback2, callback3, callback4, callback5);
