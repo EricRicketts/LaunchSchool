@@ -1,5 +1,3 @@
-import {doubleConsonants} from "../../js210_small_problems/easy5/code/double_char_part_two";
-
 const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
