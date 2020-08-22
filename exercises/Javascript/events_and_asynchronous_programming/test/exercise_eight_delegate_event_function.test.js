@@ -45,8 +45,9 @@ describe('Exercise Eight Delegate Event Functions', function () {
 
   it('Launch School Test Case One', function () {
     let delegateCallResults = delegateEvent(element1, 'p', 'click', callback, arr);
+    let listeners = checkListeners(treeWalker);
 
-    expect(delegateCallResults).toBeUndefined();
+    expect([delegateCallResults, listeners]).toEqual([undefined, []]);
   });
 
   it('Launch School Test Case Two', function () {
