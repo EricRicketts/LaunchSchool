@@ -3,7 +3,7 @@ function sliceTree(document, start, end) {
   let topLevelElement = document.getElementById(start);
   let innerMostChildElement = document.getElementById(end);
 
-  if (topLevelElement === null || innerMostChildElement === null) {
+  if (!topLevelElement || !innerMostChildElement) {
     return undefined;
   }
 
