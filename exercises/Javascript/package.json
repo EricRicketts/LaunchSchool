@@ -10,7 +10,8 @@
     "@babel/polyfill": "^7.10.4",
     "@babel/runtime": "^7.10.5",
     "babel-jest": "^26.2.1",
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "js-beautify": "^1.13.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
