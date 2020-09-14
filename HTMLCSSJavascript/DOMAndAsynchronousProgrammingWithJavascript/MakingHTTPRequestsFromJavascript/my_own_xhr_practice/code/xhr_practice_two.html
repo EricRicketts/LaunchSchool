@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Second Practice</title>
+  <script type="text/javascript" src="xhr_practice_two.js"></script>
+  <link rel="stylesheet" href="xhr_problem_two.css">
+</head>
+<body>
+  <h1>XMLHttpRequest</h1>
+  <p>
+    <label for="extraEvents">Show <code>progress</code> and <code>readystatechange</code> events</label>
+    <input type="checkbox" name="extraEvents" id="extraEvents">
+  </p>
+  <p>
+    <button id="successButton">Successful Request</button>
+    <button id="errorButton">Server Error</button>
+    <button id="redirectButton">Redirect</button>
+    <button id="timeoutButton">Timeout</button>
+    <button id="networkButton">Network Error</button>
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th class="ms">ms</th>
+        <th>Event</th>
+        <th><code>readyState</code></th>
+        <th>description</th>
+        <th><code>length</code></th>
+        <th><code>responseText</code></th>
+      </tr>
+    </thead>
+    <tbody id="output">
+    </tbody>
+  </table>
+</body>
+</html>

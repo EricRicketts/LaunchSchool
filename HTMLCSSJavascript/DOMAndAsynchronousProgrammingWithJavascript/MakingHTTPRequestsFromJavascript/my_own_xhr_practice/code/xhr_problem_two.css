@@ -1,0 +1,65 @@
+body {
+  font-family: sans-serif;
+  padding: 0 2em;
+}
+
+table {
+  background: #f5f5f5;
+  border: solid 2px #ddd;
+  border-spacing: 0;
+}
+
+table tr:nth-child(2n+1) td {
+  background: #fff;
+}
+
+table th {
+  text-align: left;
+  font-size: 0.8em;
+  color: #666;
+  padding: 5px;
+  border-right: solid white 1px;
+
+}
+
+table td {
+  padding: 5px 8px;
+  vertical-align: top;
+  border-right: solid white 1px;
+}
+
+table td:last-of-type, table th:last-of-type {
+  border-right: 0;
+}
+
+table td.event {
+  font-style: italic;
+}
+
+table td.length {
+  text-align: right;
+}
+
+table td.code, table th.code {
+  text-align: center;
+}
+
+table td.ms, table th.ms, table tr.header td.ms {
+  text-align: right;
+  width: 50px;
+}
+
+table td.ms, table tr.header td.ms {
+  text-align: right;
+  font-weight: normal;
+}
+
+table tr.header td {
+  background: #ddd;
+  border-right-color: #eee;
+  font-weight: bold;
+}
+
+table pre {
+  margin: 0;
+}
