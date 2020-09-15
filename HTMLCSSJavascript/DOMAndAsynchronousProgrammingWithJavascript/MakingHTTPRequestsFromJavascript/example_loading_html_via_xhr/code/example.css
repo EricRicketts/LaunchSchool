@@ -1,0 +1,13 @@
+#store {
+  border: solid 1px black;
+  padding: 0 1em;
+  float: left;
+}
+
+#store h1 {
+  font-size: 1.2em;
+}
+
+#store h2 {
+  font-size: 1em;
+}
