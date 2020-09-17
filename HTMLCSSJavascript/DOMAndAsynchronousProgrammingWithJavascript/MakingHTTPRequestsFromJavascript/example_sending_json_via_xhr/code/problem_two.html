@@ -18,9 +18,26 @@
     </thead>
     <tbody></tbody>
   </table>
-  <p>
+  <form id="form">
+    <fieldset>
+      <h2>Add A New Product</h2>
+      <p>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+      </p>
+      <p>
+        <label for="sku">Sku:</label>
+        <input type="text" name="sku" id="sku">
+      </p>
+      <p>
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price">
+      </p>
+      <p><input type="submit" value="Submit"></input></p>
+    </fieldset>
+  </form>
+  <p id="buttons">
     <button id="all-entries" type="submit">Get All Entries</button>
-    <button id="add-entry" type="submit">Add Another Entry</button>
     <button id="clear-entries" type="submit">Clear All Entries</button>
   </p>
   <script type="text/javascript" src="problem_two.js"></script>
