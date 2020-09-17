@@ -1,0 +1,33 @@
+#initial {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#initial > thead th, #initial > tbody td, #initial > caption {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#initial > tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#initial > tbody tr:hover {
+  background-color: #ddd;
+}
+
+#initial > thead th, #initial > caption {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+#initial > thead th {
+  text-align: left;
+}
+
+#initial > caption {
+  text-align: center;
+}
