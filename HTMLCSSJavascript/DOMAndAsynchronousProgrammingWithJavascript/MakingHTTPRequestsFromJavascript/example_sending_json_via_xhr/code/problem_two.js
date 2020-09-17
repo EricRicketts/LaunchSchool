@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let tableBody = document.querySelector('#initial > tbody');
   let allEntriesButton = document.getElementById('all-entries');
   let addEntryButton = document.getElementById('add-entry');
-  let clearButton = document.getElementById('clear');
+  let clearButton = document.getElementById('clear-entries');
   let xhr;
   let request;
   let products;
@@ -48,5 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     xhr.send();
+  });
+
+  clearButton.addEventListener('click', event => {
+    event.preventDefault();
+    removeAllChildren(tableBody);
   });
 });
