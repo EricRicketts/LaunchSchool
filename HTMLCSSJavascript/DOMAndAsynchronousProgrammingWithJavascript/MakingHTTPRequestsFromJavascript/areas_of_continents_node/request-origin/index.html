@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon"
+          type="image/png"
+          href="http://example.com/myicon.png">
+</head>
+<body>
+  <script type="text/javascript">
+
+    function getAreasOfContinents() {
+      let xhr = new XMLHttpRequest();
+
+      xhr.addEventListener('load', () => {
+        console.log('Areas of continents received!')
+        console.log(xhr.response);
+      });
+
+      xhr.responseType = 'json';
+      xhr.open('GET', 'http://localhost:3000/areas_of_continents');
+      xhr.setRequestHeader('Origin', 'http://localhost:3000/areas_of_continents');
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
