@@ -9,10 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let firstFigure = document.querySelector('figure:nth-of-type(1)');
   let secondFigure = document.querySelector('figure:nth-of-type(2)');
 
-  let [currentFirstImage, currentSecondImage] = document.querySelectorAll('img');
-  let desiredFirstImage = currentSecondImage.cloneNode(true);
-  let desiredSecondImage = currentFirstImage.cloneNode(true);
-
-  firstFigure.replaceChild(desiredFirstImage, currentFirstImage);
-  secondFigure.replaceChild(desiredSecondImage, currentSecondImage);
+  let desiredFirstImage = document.querySelector('figure:nth-of-type(2) > img');
+  let currentFirstImage = document.querySelector('figure:nth-of-type(1) > img');
+  let desiredSecondImage = firstFigure.replaceChild(desiredFirstImage, currentFirstImage);
+  secondFigure.insertAdjacentElement('afterbegin', desiredSecondImage);
 });
