@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capturing And Bubbling</title>
+  <style>
+    body * {
+      margin: 10px;
+      border: 1px solid blue;
+    }
+  </style>
+</head>
+<body>
+  <form>FORM
+    <div>DIV
+      <p>P</p>
+    </div>
+  </form>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      for (let elem of document.querySelectorAll('*')) {
+        /*
+        elem.addEventListener('click', e => alert(`Capturing: ${elem.tagName}`), { capture: true });
+        elem.addEventListener('click', e => alert(`Bubbling: ${elem.tagName}`), { capture: false });
+        */
+        elem.addEventListener('click', e => {
+          alert(`Capturing: Clicked Element Is: ${e.target.tagName}`);
+          alert(`Capturing: Current Phase Is: ${e.eventPhase}`);
+          alert(`Capturing: Handler Registered On: ${e.currentTarget.tagName}`);
+        }, { capture: true });
+        elem.addEventListener('click', e => {
+          alert(`Bubbling: Clicked Element Is: ${e.target.tagName}`);
+          alert(`Bubbling: Current Phase Is: ${e.eventPhase}`);
+          alert(`Bubbling: Handler Registered On: ${e.currentTarget.tagName}`);
+      }, { capture: false });
+      }
+    });
+  </script>
+</body>
+</html>
