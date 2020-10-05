@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Event Delegation</title>
+    <style>
+      #message {
+        padding: .5em .8em;
+        background-color: lightyellow;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <button>One</button>
+    <button>Two</button>
+    <button>Three</button>
+    <button>Four</button>
+
+    <div>
+      <p>
+        <button>Five</button>
+        <button>Six</button>
+        <button>Seven</button>
+        <button>Eight</button>
+      </p>
+    </div>
+
+    <div id="message"></div>
+    <script>
+      function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
+      }
+    document.addEventListener('DOMContentLoaded', () => {
+      let message = document.getElementById('message');
+      document.body.addEventListener('click', event => {
+        if (event.target.tagName === 'BUTTON') {
+          removeAllChildNodes(message);
+          let p = document.createElement('p');
+          let text = document.createTextNode(`${event.target.textContent} was clicked!`);
+          p.appendChild(text);
+          message.appendChild(p);
+        }
+      });
+    });
+    </script>
+  </body>
+</html>
