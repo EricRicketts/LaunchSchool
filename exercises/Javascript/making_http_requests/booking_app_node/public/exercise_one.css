@@ -1,0 +1,26 @@
+#table-one, th, td {
+  border: 1px black solid;
+}
+#table-one {
+  border-collapse: collapse;
+  border-spacing: 10px 10px;
+  width: 100%;
+}
+
+th {
+  height: 30px;
+  background-color: grey;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: lightgrey;
+}
+
+tbody > tr > td:nth-of-type(n+2) {
+  text-align: center;
+}
