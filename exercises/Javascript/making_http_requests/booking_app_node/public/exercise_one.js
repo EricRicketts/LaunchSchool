@@ -4,6 +4,7 @@ function addNumberOf(items, row) {
   let text = document.createTextNode(number.toString());
   cell.appendChild(text);
 }
+
 function numberOfSchedulesWithBookings(schedules, scheduleRow) {
   let numberOfBookings = Array.from(schedules).filter(schedule => schedule["student_email"] !== null).length;
   let text = document.createTextNode(numberOfBookings.toString());
@@ -33,38 +34,41 @@ function numberOfStudentsWithBookings(schedules, studentRow) {
   cell.appendChild(text);
 }
 
-function makeRequestForTotalNumberOf(item, row, DOMAIN) {
+function getPersonnelOrSchedulesTotals(personOrSchedulePath, PERSONNEL_OR_SCHEDULES_API) {
+  let staffRow = document.getElementById('staff');
+  let studentRow = document.getElementById('students');
+  let scheduleRow = document.getElementById('schedules');
+
   let request = new XMLHttpRequest();
-  request.open('GET', DOMAIN + item);
+  request.open('GET', PERSONNEL_OR_SCHEDULES_API + personOrSchedulePath);
   request.responseType = 'json';
   request.addEventListener('load', event => {
-    let items = event.target.response;
-    addNumberOf(items, row);
-    switch (item) {
+    let personnelOrSchedules = event.target.response;
+    switch(personOrSchedulePath) {
+      case '/staff_members': {
+        addNumberOf(personnelOrSchedules, staffRow);
+        break;
+      } case '/students': {
+        addNumberOf(personnelOrSchedules, studentRow);
+        break;
+      }
       case '/schedules': {
-        let staffRow = document.getElementById('staff');
-        let studentRow = document.getElementById('students');
-        numberOfSchedulesWithBookings(items, row);
-        numberOfStaffWithSchedules(items, staffRow);
-        numberOfStudentsWithBookings(items, studentRow);
+        addNumberOf(personnelOrSchedules, scheduleRow);
+        numberOfSchedulesWithBookings(personnelOrSchedules, scheduleRow);
+        numberOfStaffWithSchedules(personnelOrSchedules, staffRow);
+        numberOfStudentsWithBookings(personnelOrSchedules, studentRow);
         break;
       }
     }
   });
   request.send();
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const DOMAIN = 'http://localhost:3000/api';
-  let staffRow = document.getElementById('staff');
-  let studentRow = document.getElementById('students');
-  let scheduleRow = document.getElementById('schedules');
-  let itemsAndRows = [
-    ['/staff_members', staffRow], ['/students', studentRow], ['/schedules', scheduleRow]
-  ];
 
-  itemsAndRows.forEach(itemAndRow => {
-    let item = itemAndRow[0];
-    let row = itemAndRow[1];
-    makeRequestForTotalNumberOf(item, row, DOMAIN);
+document.addEventListener('DOMContentLoaded', () => {
+  const PERSONNEL_OR_SCHEDULES_API = 'http://localhost:3000/api';
+  let personnelOrSchedulesPaths = ['/staff_members', '/students', '/schedules'];
+
+  personnelOrSchedulesPaths.forEach(personOrSchedulePath => {
+    getPersonnelOrSchedulesTotals(personOrSchedulePath, PERSONNEL_OR_SCHEDULES_API);
   });
 });
