@@ -1,0 +1,44 @@
+table, th, td {
+  border: 1px black solid;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 10px 10px;
+  width: 100%;
+}
+
+th {
+  height: 30px;
+  background-color: grey;
+  color: white;
+  font-size: 2em;
+}
+
+th, td {
+  padding: 10px;
+}
+
+td {
+  font-size: 1.5em;
+}
+
+tbody > tr:nth-child(even) {
+  background-color: lightgrey;
+}
+
+tbody > tr > td {
+  text-align: center;
+}
+
+button {
+  padding: 5px;
+  margin: 10px 0px;
+  background-color: grey;
+  color: white;
+  border: 1px grey solid;
+  width: 46%;
+  height: 60px;
+  font-size: 2em;
+}
+
