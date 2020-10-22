@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Templating With Javascript</title>
+  <script type="text/javascript" src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../../../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script type="text/javascript" src="html_templating_with_javascript.js"></script>
+</head>
+<body>
+  <script id="productTemplate" type="text/x-handlebars">
+    <li>
+      <h3>{{name}}</h3>
+      <dl>
+        <dt>Quantity:</dt>
+        <dd>{{quantity}}</dd>
+        <dt>Price:</dt>
+        <dd>
+          ${{price}}
+          {{#if on_sale}}
+          <strong>SALE!</strong>
+          {{/if}}
+        </dd>
+      </dl>
+    </li>
+  </script>
+</body>
+</html>

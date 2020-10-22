@@ -32,11 +32,13 @@
     "babel-jest": "^26.2.1",
     "eslint": "^7.9.0",
     "jest": "^26.2.1",
+    "jquery": "^3.5.1",
     "jsdom": "^16.3.0",
     "qunit": "^2.10.1"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "handlebars": "^4.7.6"
   }
 }
