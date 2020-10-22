@@ -13,10 +13,6 @@ $(document).ready(function() {
   ];
 
   let productTemplate = Handlebars.compile($('#productTemplate').html());
-  let $list = $('ul');
-  let productsHTML = products.map(product => {
-    return productTemplate(product);
-  });
-
-  $(document.body).append($list.html(productsHTML.join('')));
+  let $list = $('<ul></ul>');
+  $(document.body).append($list.html(productTemplate({ items: products })));
 });
