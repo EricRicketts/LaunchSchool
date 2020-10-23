@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Handlebars Blocks With Helpers</title>
+  <script src="../../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+</head>
+<body>
+<script id="entry-point" type="text/x-handlebars-template">
+  {{#list people}}
+    {{firstName}} {{lastName}}
+  {{/list}}
+</script>
+<script type="text/javascript" src="blocks_with_helpers.js"></script>
+</body>
+</html>
