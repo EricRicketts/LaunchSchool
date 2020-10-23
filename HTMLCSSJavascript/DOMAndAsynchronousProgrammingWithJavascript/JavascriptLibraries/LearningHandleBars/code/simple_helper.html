@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Simple Helper</title>
+  <script src="../../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+</head>
+<body>
+<script id="entry-point" type="text/x-handlebars-template">
+  <div class="post">
+    <h1>By {{fullName author}}</h1>
+    <div class="body">{{body}}</div>
+
+    <h1>Comments</h1>
+    {{#each comments}}
+      <h2>By {{fullName author}}</h2>
+      <div class="body">{{body}}</div>
+    {{/each}}
+  </div>
+</script>
+<script type="text/javascript" src="simple_helper.js"></script>
+</body>
+</html>
