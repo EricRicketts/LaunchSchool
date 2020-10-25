@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Block Partials</title>
+  <script src="../../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+</head>
+<body>
+<script id="import" type="text/javascript" src="block_partials.js"></script>
+<script id="people-template" type="text/x-handlebars-template">
+  {{#each people}}
+    {{> person}}
+  {{/each}}
+</script>
+<script id="person-partial" type="text/x-handlebars-template">
+  <div class="person">
+    <h2>{{firstName}} {{lastName}}</h2>
+    <p class="phone">{{phone}}</p>
+    <p class="email"><a href="mailto:{{email}}">{{email}}</a></p>
+    <p class="since">User since {{memberSince}}</p>
+  </div>
+</script>
+</body>
+</html>
