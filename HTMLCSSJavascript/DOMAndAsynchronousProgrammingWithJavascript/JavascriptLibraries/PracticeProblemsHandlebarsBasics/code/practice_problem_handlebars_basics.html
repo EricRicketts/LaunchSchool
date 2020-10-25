@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Handlebars Practice Problem</title>
+  <script src="../../../../node_modules/handlebars/dist/handlebars.min.js"></script>
+</head>
+<body>
+<script id="first" type="text/javascript" src="practice_problems_handlebars_basics.js"></script>
+<script id="post" type="text/x-handlebars-template">
+  <article>
+    <h1>{{title}}</h1>
+    <p>Posted on {{published}}</p>
+    {{{body}}}
+    <footer>
+      <p>
+        Tags:
+        {{#if tags}}
+          {{#each tags}}
+            {{> tag}}
+          {{/each}}
+        {{else}}
+          <strong>Not Tagged</strong>
+        {{/if}}
+      </p>
+    </footer>
+  </article>
+</script>
+<script id="tag-partial" type="text/x-handlebars-template">
+  <strong>{{this}}</strong>
+</script>
+</body>
+</html>
