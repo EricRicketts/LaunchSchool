@@ -1,61 +1,64 @@
-function addChild(element, arr) {
-  let children = last(arr);
-  let parent = walkArray(element, children);
-  last(parent).push([elementTagNameAndID(element), []]);
-}
-
-function addToArray(element, arr) {
-  if (element.tagName === 'BODY') {
-    arr.push('BODY', []);
-  } else if (element.parentElement.tagName === 'BODY') {
-    last(arr).push([elementTagNameAndID(element), []]);
-  } else {
-    addChild(element, arr);
-  }
-}
-
-function elementTagNameAndID(element) {
-  return `${element.tagName}#${element.getAttribute('id')}`;
-}
-
-function first(arr) {
-  return arr[0];
-}
-
-function isParent(element, potentialParentTagAndID) {
-  return elementTagNameAndID(element.parentElement) === potentialParentTagAndID;
-}
-
-function last(arr) {
-  return arr[arr.length - 1];
-}
-
 function nodesToArr(document) {
-  let arr = [];
-  walkTree(document.body, arr)
+  /*
+  so we pass in the document object, I have to do this since I am testing with JSDOM.  The first thing
+  to do is to define an array with the 'BODY' tag and all of the children of the BODY element.  The
+  function formatNodes is very simple it just takes the Array of HTML Elements (made an array from
+  document.body.children by the Array slice method) and then maps each Element to an array containing that element.
 
-  return arr;
+  So in the first problem the nodesArray initializes to ['BODY', [[header element], [main element], [footer element]]];
+
+  then currentParentNodes grabs the second element of the nodesArray which is the array of arrays
+  currentParentNodes =  [[header element], [main element], [footer element]]
+
+  the while loop is then entered, the anyChildren function checks if any children exist at all in the current
+  parent array, if so it breaks out of the function and returns true.  In the case of the first html there are no
+  children of the arrayed parents.  So we move onto the getNextGenerationParents of the currentParentNodes
+
+
+  */
+  const nodesArray = ['BODY', formatNodes(Array.prototype.slice.call(document.body.children))];
+  let currentParentNodes = nodesArray[1];
+
+  while (anyChildren(currentParentNodes)) {
+    currentParentNodes = getNextGenerationParents(currentParentNodes);
+  }
+
+  getNextGenerationParents(currentParentNodes);
+
+  return nodesArray;
 }
 
-function walkArray(element, arr) {
-  for (let index = 0; index < arr.length; index += 1) {
-    let potentialParent = arr[index];
-    let potentialParentChildren = last(arr[index]);
-    let potentialParentTagAndID = first(potentialParent);
-    if (isParent(element, potentialParentTagAndID)) {
-      return potentialParent;
-    } else if (potentialParentChildren.length !== 0) {
-      walkArray(element, potentialParentChildren);
+function getNextGenerationParents(currentParentNodes) {
+  let newParentNodes = [];
+  currentParentNodes.forEach((parentNode, index, parentNodes) => {
+    parentNodes[index] = appendChildren(parentNode);
+    if (parentNodes[index][1].length > 0) {
+      newParentNodes = newParentNodes.concat(parentNodes[index][1]);
+    }
+  });
+
+  return newParentNodes;
+}
+
+function anyChildren(parentNodes) {
+  for (let i = 0; i < parentNodes.length; i += 1) {
+    if (parentNodes[i][0].children.length > 0) {
+      return true;
     }
   }
+
+  return false;
 }
 
-function walkTree(element, arr) {
-  addToArray(element, arr);
-  for (let index = 0; index < element.children.length; index += 1) {
-    walkTree(element.children[index], arr);
-  }
+function appendChildren(parentNode) {
+  const children = formatNodes(Array.prototype.slice.call(parentNode[0].children));
+  parentNode[0] = parentNode[0].tagName;
+  parentNode.push(children);
+  return parentNode;
 }
 
+function formatNodes(nodes) {
+  return nodes.map(node => [node]);
+}
 
 export { nodesToArr };

@@ -17,7 +17,7 @@ describe('Exercise Seven Nodes To Array', function () {
     html = fs.readFileSync(codeDirectory + '/exercise_seven_a.html', 'utf8');
     window = new JSDOM(html, options).window;
     document = window.document;
-    expected = ["BODY",[["HEADER#1",[]],["MAIN#2",[]],["FOOTER#3",[]]]];
+    expected = ["BODY",[["HEADER",[]],["MAIN",[]],["FOOTER",[]]]];
     
     expect(nodesToArr(document)).toEqual(expected);
   });
@@ -26,7 +26,7 @@ describe('Exercise Seven Nodes To Array', function () {
     html = fs.readFileSync(codeDirectory + '/exercise_seven_b.html', 'utf8');
     window = new JSDOM(html, options).window;
     document = window.document;
-    expected = ["BODY",[["HEADER#1",[]],["MAIN#2",[["DIV#4",[]],["DIV#5",[]]]],["FOOTER#3",[]]]];
+    expected = ["BODY",[["HEADER",[]],["MAIN",[["DIV",[]],["DIV",[]]]],["FOOTER",[]]]];
     
     expect(nodesToArr(document)).toEqual(expected);
   });
@@ -36,15 +36,15 @@ describe('Exercise Seven Nodes To Array', function () {
     window = new JSDOM(html, options).window;
     document = window.document;
     expected = ["BODY",[
-      ["DIV#1",[
-        ["DIV#4",[]],["DIV#5",[
-          ["DIV#6",[]]
+      ["DIV",[
+        ["DIV",[]],["DIV",[
+          ["DIV",[]]
             ]
           ]
         ]
       ],
-      ["DIV#2",[]],["DIV#3",[
-        ["DIV#7",[]],["DIV#8",[]],["DIV#9",[]]
+      ["DIV",[]],["DIV",[
+        ["DIV",[]],["DIV",[]],["DIV",[]]
         ]
       ]
     ]
