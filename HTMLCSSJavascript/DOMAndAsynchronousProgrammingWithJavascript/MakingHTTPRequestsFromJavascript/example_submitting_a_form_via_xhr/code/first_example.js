@@ -9,12 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
   xhr.open('POST', DOMAIN);
   xhr.setRequestHeader(headerName, headerValue);
 
-  xhr.addEventListener('load', () => {
-    [`Response Status: ${xhr.status}`, `Response Text: ${xhr.responseText}`].forEach(string => {
-      let par = document.createElement('p');
-      let text = document.createTextNode(string);
-      par.appendChild(text);
-      responseDiv.appendChild(par);
+  xhr.addEventListener('load', event => {
+    let responseObject = JSON.parse(event.target.response);
+    [`Response Status: ${event.target.status}`, 'Response Object:'].forEach(str => {
+      let p = document.createElement('p');
+      let text = document.createTextNode(str);
+      p.appendChild(text);
+      responseDiv.appendChild(p);
+    });
+    Object.entries(responseObject).forEach(arr => {
+      let key = arr[0];
+      let value = arr[1];
+      let p = document.createElement('p');
+      let text = document.createTextNode(`${key}: ${value}`);
+      p.appendChild(text);
+      responseDiv.appendChild(p);
     });
   });
   xhr.send(data);

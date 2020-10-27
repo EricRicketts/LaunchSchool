@@ -2,12 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const PRODUCTS_DOMAIN = 'https://ls-230-web-store-demo.herokuapp.com/products';
   const DOMAIN = 'https://ls-230-web-store-demo.herokuapp.com';
   let store = document.getElementById('store');
+  let initialXhr;
   let xhr = new XMLHttpRequest();
   xhr.open('GET', PRODUCTS_DOMAIN);
-  xhr.addEventListener('load', () => store.innerHTML = xhr.responseText);
+  xhr.addEventListener('load', event => {
+    initialXhr = event.target;
+    store.innerHTML = event.target.responseText
+  });
   xhr.send();
 
   document.addEventListener('click', event => {
+    let linkXhr;
     if (event.target.tagName !== 'A') {
       return;
     }
@@ -15,7 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let path = event.target.getAttribute('href');
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DOMAIN + path);
-    xhr.addEventListener('load', event => store.innerHTML = event.target.responseText);
+    xhr.addEventListener('load', event => {
+      linkXhr = event.target;
+      store.innerHTML = event.target.responseText
+    });
     xhr.send();
   });
 });
