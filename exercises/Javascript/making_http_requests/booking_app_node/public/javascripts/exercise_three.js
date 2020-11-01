@@ -1,25 +1,35 @@
+function stringifyFormData(formData) {
+  let object = {};
+  Array.from(formData.entries()).forEach(([key, value]) => object[key] = value);
+  return JSON.stringify(object);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  let submitButton = document.getElementById('submit-button');
-  let emailInput = document.getElementById('email');
-  let nameInput = document.getElementById('name');
-  submitButton.addEventListener('click', () => {
-    let request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:3000/api/staff_members');
-    request.setRequestHeader('Content-Type', 'application/json');
-    let staffData = { email: emailInput.value, name: nameInput.value }
-    let jsonStaffData = JSON.stringify(staffData);
-    emailInput.value = '';
-    nameInput.value = '';
-    request.send(jsonStaffData);
-    request.addEventListener('load', event => {
-      let status = Number.parseInt(event.target.status, 10);
-      if (status >= 400 && status < 500) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Incorrect Input',
-          text: `{event.target.responseText}`
-        });
+  let form = document.querySelector('form');
+  document.addEventListener('submit', event => {
+    event.preventDefault();
+    let formData = new FormData(form);
+    let jsonFormData = stringifyFormData(formData);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:3000/api/staff_members');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(jsonFormData);
+
+    xhr.addEventListener('load', event => {
+      let responseXhr = event.target;
+      switch (responseXhr.status) {
+        case 201: {
+          let data = JSON.parse(responseXhr.response);
+          alert(`Successfully add a new staff member with an id of ${data.id}`)
+          form.reset();
+          break;
+        }
+        case 400: {
+          alert(`${responseXhr.responseText}`);
+          break;
+        }
       }
     });
-  })
+  });
 });

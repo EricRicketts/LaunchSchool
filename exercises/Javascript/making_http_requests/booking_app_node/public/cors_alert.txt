@@ -1,0 +1,5 @@
+Remember when running all of the html an javascript code below, you must server the files from the express based
+node server.  So for example if you want to run exercise_one.html, then start the application => npm start since
+the port number for local host is 3000 you need to load the html through via the server, so in your browser
+navigate to http://localhost:3000/exercise_one.html and this will solve the CORS issues.  If you just load the file
+then the javascript will fail because of the CORS violation.

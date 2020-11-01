@@ -40,5 +40,6 @@ button {
   width: 46%;
   height: 60px;
   font-size: 2em;
+  cursor: pointer;
 }
 
