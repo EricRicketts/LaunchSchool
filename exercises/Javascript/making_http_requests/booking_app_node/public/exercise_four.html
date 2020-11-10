@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Making HTTP Requests Exercise Four</title>
+  <link rel="stylesheet" href="stylesheets/exercise_four.css">
+</head>
+<body>
+  <button type="button" id="add_schedule">Add More Schedules</button>
+  <form method="post" action="/api/schedules" class="submission-form">
+    <fieldset>
+      <legend>Schedule 1</legend>
+      <div class="staff-name-input">
+        <label for="staff_name">Staff Name: </label>
+        <select id="staff_name" name="staff_id">
+          <option value="">--Please choose a staff member--</option>
+        </select>
+      </div>
+      <div class="date-time-inputs">
+        <div class="date-inputs">
+          <label for="date">Date: </label>
+          <input type="date" id="date" name="date">
+        </div>
+        <div class="time-inputs">
+          <label for="time">Time: </label>
+          <input type="time" id="time" name="time">
+        </div>
+      </div>
+    </fieldset>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

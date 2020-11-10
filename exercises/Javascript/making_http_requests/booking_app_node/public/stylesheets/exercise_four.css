@@ -1,0 +1,101 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+#add_schedule, input[type="submit"] {
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  width: 100px;
+  text-align: center;
+  color: white;
+  padding: 10px;
+}
+
+#add_schedule:hover, input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+#add_schedule {
+  margin: 20px 0 10px 10px;
+  background-color: #5BC0DE;
+}
+
+#add_schedule:hover {
+  background-color: #00B7FF;
+}
+
+input[type="submit"] {
+  margin: 10px 0 0 0;
+  background-color: #FF4500;
+}
+
+input[type="submit"]:hover {
+  background-color: #FF0000;
+}
+
+.submission-form {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.submission-form > fieldset {
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.staff-name-input {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.staff-name-input > label {
+  margin-right: 10px;
+}
+
+.date-time-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.staff-name-input, .date-time-inputs {
+  color: #FF4500;
+  width: 400px;
+}
+
+.date-inputs, .time-inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 45px;
+}
+
+.date-inputs > label, .time-inputs > label {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.date-inputs {
+  margin-bottom: 20px;
+}
+
