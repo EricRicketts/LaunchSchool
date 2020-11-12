@@ -6,28 +6,28 @@
   <link rel="stylesheet" href="stylesheets/exercise_four.css">
 </head>
 <body>
-  <button type="button" id="add_schedule">Add More Schedules</button>
+  <button type="button" id="add-schedule">Add More Schedules</button>
   <form method="post" action="/api/schedules" class="submission-form">
-    <fieldset>
+    <fieldset class="fieldset-data">
       <legend>Schedule 1</legend>
       <div class="staff-name-input">
-        <label for="staff_name">Staff Name: </label>
-        <select id="staff_name" name="staff_id">
-          <option value="">--Please choose a staff member--</option>
+        <label for="staff-name-1">Staff Name: </label>
+        <select id="staff-name-1" name="staff_id" class="staff-name-select">
         </select>
       </div>
       <div class="date-time-inputs">
         <div class="date-inputs">
-          <label for="date">Date: </label>
-          <input type="text" id="date" name="date" placeholder="mm-dd-yyy">
+          <label for="date-1">Date: </label>
+          <input type="text" id="date-1" name="date" placeholder="mm-dd-yy">
         </div>
         <div class="time-inputs">
-          <label for="time">Time: </label>
-          <input type="text" id="time" name="time" placeholder="hh:mm">
+          <label for="time-1">Time: </label>
+          <input type="text" id="time-1" name="time" placeholder="hh:mm">
         </div>
       </div>
     </fieldset>
     <input type="submit" value="Submit">
   </form>
+  <script type="text/javascript" src="javascripts/exercise_four.js"></script>
 </body>
 </html>
