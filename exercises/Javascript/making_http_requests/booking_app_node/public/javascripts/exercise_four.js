@@ -9,6 +9,26 @@ function addANewScheduleFieldSet() {
   updateClonedFieldSet(fieldSetClone, newFieldSetNumber);
   lastScheduleFieldSet.insertAdjacentElement('afterend', fieldSetClone);
 }
+function configureFormData(form, serverData) {
+  let formData = new FormData(form);
+  let arrayedData = Array.from(formData.entries()).reduce((arr, [name, value]) => {
+    if (name === 'staff_id') {
+      let subArray = [[name, Number(value)]];
+      arr.push(subArray);
+    } else {
+      let lastIndex = arr.length - 1;
+      arr[lastIndex].push([name, value]);
+    }
+    return arr;
+  }, []);
+  arrayedData.forEach(subArray => {
+    let obj = {};
+    subArray.forEach(([name, value]) => {
+      obj[name] = value;
+    });
+    serverData.schedules.push(obj);
+  });
+}
 function formatServerStaffData(event) {
   let allStaffData = event.target.response;
   return allStaffData.reduce((staffNamesAndIds, staffData) => {
@@ -41,6 +61,25 @@ function populateStaffNameSelectElement() {
 
   allStaffXhr.addEventListener('load', mapServerStaffDataToStaffNameSelectElement);
 }
+function scheduleHandler(event) {
+  const domain = 'http://localhost:3000';
+  let form = document.querySelector('form');
+  let path = form.getAttribute('action');
+  let data = { schedules: [] };
+  event.preventDefault();
+
+  configureFormData(form, data);
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', domain + path);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  let jsonData = JSON.stringify(data);
+  xhr.send(jsonData);
+
+  xhr.addEventListener('loadend', serverHandler);
+}
+function serverHandler(event) {
+  alert(`${event.target.responseText}`);
+}
 function updateClonedFieldSet(fieldSetClone, newFieldSetNumber) {
   const fieldSetClasses = ['staff-name-input', 'date-inputs', 'time-inputs'];
   fieldSetClone.querySelector('legend').innerText = `Schedule ${newFieldSetNumber}`;
@@ -71,4 +110,5 @@ document.addEventListener('DOMContentLoaded', function() {
   populateStaffNameSelectElement();
   const addMoreSchedulesButton = document.getElementById('add-schedule');
   addMoreSchedulesButton.addEventListener('click', addANewScheduleFieldSet);
+  document.addEventListener('submit', scheduleHandler);
 });
