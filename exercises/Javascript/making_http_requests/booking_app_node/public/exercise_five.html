@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Time Slots</title>
+  <link rel="stylesheet" href="stylesheets/exercise_five.css">
+</head>
+<body>
+  <form id="booking-form" action="/api/bookings">
+    <fieldset id="booking">
+      <legend>Schedules</legend>
+      <div class="form-row">
+        <label for="booking-select">Please Select One Schedule:</label>
+        <select name="booking-select" id="booking-select"></select>
+      </div>
+      <div class="form-row">
+        <label for="student-email-booking">Email:</label>
+        <input type="email" name="student_email" id="student-email-booking">
+      </div>
+    </fieldset>
+    <input type="submit" value="Submit">
+  </form>
+
+  <form action="/api/students" id="new-student-form">
+    <fieldset id="new-student">
+      <legend>Please Provide New Student Details</legend>
+      <div class="form-row">
+        <label for="student-email-new-student">Email:</label>
+        <input type="email" name="email" id="student-email-new-student">
+      </div>
+      <div class="form-row">
+        <label for="student-name">Name:</label>
+        <input type="text" name="name" id="student-name">
+      </div>
+      <div class="form-row">
+        <label for="booking-sequence">Booking Sequence:</label>
+        <input type="number" name="booking_sequence" id="booking-sequence">
+      </div>
+    </fieldset>
+  </form>
+  <script type="text/javascript" src="javascripts/exercise_five.js"></script>
+</body>
+</html>

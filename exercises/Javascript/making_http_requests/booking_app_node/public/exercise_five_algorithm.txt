@@ -1,0 +1,42 @@
+First sketch out the forms:
+
+Legend --Schedules--
+Please Select One Schedule: select tag => staff_name | date | time
+Email: input[type="text"] tag (for student email)
+input[type="submit"]
+
+Optional Form
+Legend --Please Provide New Student Details--
+Email: input[type="text"] tag (for student email)
+Name: input[type="text"] tag (for student name)
+Booking Sequence: input[type="text"] this we should get from the Student Not Found Error Response
+input[type="submit"]
+
+Algorithm
+
+Populating the select tag
+1.  Do a GET Request on api/schedules, which returns an array of objects.
+2.  Filter the response, selecting those which have student_email as null
+3.  Once I get the schedules I have to get all of the staff members api/staff_members
+4.  Now I have to use the staff_id of the filtered schedules to get the name of the staff members
+3.  When populating the select tag for the first form, the value for each option will be the
+schedule id.
+4.  If I have time I can try to sort the option fields by staff id first then within staff_id sort by date
+and finally by time.
+
+Submitting the first form
+1.  Do an addEventListener('submit') on the submit button of the form.
+2.  event.preventDefault()
+3.  If the response status is 204, then alert => "Booked"
+5.  Then populate the select tag with the new booking information
+6.  If the student does not exist in the database then a 404 will return and the message will contain the
+booking_sequence, grab the booking_sequence from the response.
+7.  So the above response should be an error and we can have an event listener for the error, in which case we
+have to bring up the new form.
+8.  The new form should be pre-populated with the new student email and booking_sequence.
+9.  The student should fill in his name
+10. Once the new student form is submitted, then the booking form should also be submitted but after the
+server has verified that the student is now valid.
+11. If there is an error in submitting this new student form, an alert error should be shown.
+12. If there is no error, then the first alert should be the responseText from the new student form
+and then 'Booked' from the booking form submission.
