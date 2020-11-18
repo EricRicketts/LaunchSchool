@@ -1,3 +1,36 @@
+function bookingErrorHandler(event) {
+  let response = event.target.responseText;
+  let sequenceNumber = response.match(/\d+/)[0];
+  if (event.target.status === 404) {
+    alert(`${response}`);
+    registerNewStudent(event);
+  } else {
+    return;
+  }
+}
+function bookingFormHandler(event) {
+  const domain = 'http://localhost:3000';
+  event.preventDefault();
+  let path = event.target.getAttribute('action');
+  let bookingFormData = new FormData(event.target);
+  let bookingFormDataJson = JSON.stringify(bookingFormData);
+
+  let bookingXhr = new XMLHttpRequest();
+  bookingXhr.open('POST', domain + path);
+  bookingXhr.setRequestHeader('Content-Type', 'application/json');
+  bookingXhr.send(bookingFormDataJson);
+  bookingXhr.addEventListener('load', bookingResponseHandler)
+
+}
+function bookingResponseHandler(event) {
+  event.preventDefault();
+  if (event.target.status === 204) {
+    alert('Booked');
+    return;
+  } else {
+    bookingErrorHandler(event);
+  }
+}
 function createOptionTagDataAndAppendToSelectTag(event, bookingOptionTagData) {
   let allStaff = JSON.parse(event.target.response);
   let bookingSelectTag = document.querySelector('#booking-select');
@@ -40,13 +73,17 @@ function prepareBookingOptionTagData(schedule) {
   optionTagData.time = schedule.time;
   return optionTagData;
 }
+function registerNewStudent(event) {
 
+}
 document.addEventListener('DOMContentLoaded', function() {
   const apiSchedules = 'http://localhost:3000/api/schedules';
+  let bookingForm = document.getElementById('booking-form');
 
   let schedulesXhr = new XMLHttpRequest();
   schedulesXhr.open('GET', apiSchedules);
   schedulesXhr.send();
 
   schedulesXhr.addEventListener('load', populateBookingSelectTag)
+  bookingForm.addEventListener('submit', bookingFormHandler);
 });

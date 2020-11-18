@@ -18,13 +18,14 @@ html {
   border-radius: 10px;
   max-width: 600px;
   padding: 10px;
+  margin-top: 20px;
 }
 
-#booking-form {
+#booking-form, #new-student-form {
   background-color: whitesmoke;
 }
 
-#booking {
+#booking, #new-student {
   border: 0;
   padding: 15px;
 }
@@ -36,6 +37,11 @@ html {
 }
 
 #booking > .form-row:nth-of-type(2) {
+  margin-top: 15px;
+}
+
+#new-student > .form-row:nth-of-type(2),
+#new-student > .form-row:nth-of-type(3) {
   margin-top: 15px;
 }
 
