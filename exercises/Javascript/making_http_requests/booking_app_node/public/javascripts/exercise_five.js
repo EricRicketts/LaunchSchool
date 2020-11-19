@@ -3,16 +3,19 @@ function bookingErrorHandler(event) {
   let sequenceNumber = response.match(/\d+/)[0];
   if (event.target.status === 404) {
     alert(`${response}`);
-    registerNewStudent(event);
+    registerNewStudent(event, sequenceNumber);
   } else {
     return;
   }
 }
-function bookingFormHandler(event) {
+function bookingFormHandler(form) {
   const domain = 'http://localhost:3000';
-  event.preventDefault();
-  let path = event.target.getAttribute('action');
-  let bookingFormData = new FormData(event.target);
+  let path = form.getAttribute('action');
+  let bookingForm = form;
+  let bookingFormData = {
+    id: bookingForm.querySelector('#booking-select').value,
+    student_email: bookingForm.querySelector('#student-email-booking').value
+  };
   let bookingFormDataJson = JSON.stringify(bookingFormData);
 
   let bookingXhr = new XMLHttpRequest();
@@ -23,7 +26,6 @@ function bookingFormHandler(event) {
 
 }
 function bookingResponseHandler(event) {
-  event.preventDefault();
   if (event.target.status === 204) {
     alert('Booked');
     return;
@@ -47,6 +49,35 @@ function createOptionTagDataAndAppendToSelectTag(event, bookingOptionTagData) {
 
     bookingOptionTag.appendChild(bookingOptionTagText);
     bookingSelectTag.appendChild(bookingOptionTag);
+  });
+}
+function newStudentFormHandler(event, bookingForm) {
+  const domain = 'http://localhost:3000';
+  let newStudentForm = event.target;
+  let path = newStudentForm.getAttribute('action');
+  let newStudentFormData = Array.from(new FormData(newStudentForm).entries()).reduce((obj, arr) => {
+    let [key, value] = [arr[0], arr[1]];
+    obj[key] = value;
+    return obj;
+  }, {});
+  let newStudentFormDataJson = JSON.stringify(newStudentFormData);
+
+  let newStudentXhr = new XMLHttpRequest();
+  newStudentXhr.open('POST', domain + path);
+  newStudentXhr.setRequestHeader('Content-Type', 'application/json');
+  newStudentXhr.send(newStudentFormDataJson);
+
+  newStudentXhr.addEventListener('load', event => {
+    let statusCode = event.target.status;
+    let responseText = event.target.responseText;
+    if (statusCode === 201) {
+      alert(`${responseText}`);
+      bookingFormHandler(bookingForm);
+    } else if (statusCode === 400 || statusCode === 403) {
+      alert(`${responseText}`);
+    } else {
+      return;
+    }
   });
 }
 function populateBookingSelectTag(event) {
@@ -73,8 +104,19 @@ function prepareBookingOptionTagData(schedule) {
   optionTagData.time = schedule.time;
   return optionTagData;
 }
-function registerNewStudent(event) {
+function registerNewStudent(event, sequenceNumber) {
+  let newStudentForm = document.getElementById('new-student-form');
+  let bookingForm = document.getElementById('booking-form');
 
+  let newStudentEmail = bookingForm.querySelector('#student-email-booking').value;
+  newStudentForm.querySelector('#student-email-new-student').value = newStudentEmail;
+  newStudentForm.querySelector('#booking-sequence').value = Number(sequenceNumber);
+  newStudentForm.style.display = 'flex';
+
+  newStudentForm.addEventListener('submit', event => {
+    event.preventDefault();
+    newStudentFormHandler(event, bookingForm)
+  });
 }
 document.addEventListener('DOMContentLoaded', function() {
   const apiSchedules = 'http://localhost:3000/api/schedules';
@@ -84,6 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
   schedulesXhr.open('GET', apiSchedules);
   schedulesXhr.send();
 
-  schedulesXhr.addEventListener('load', populateBookingSelectTag)
-  bookingForm.addEventListener('submit', bookingFormHandler);
+  schedulesXhr.addEventListener('load', populateBookingSelectTag);
+  bookingForm.addEventListener('submit', event => {
+    event.preventDefault();
+    bookingFormHandler(event.target);
+  });
 });
