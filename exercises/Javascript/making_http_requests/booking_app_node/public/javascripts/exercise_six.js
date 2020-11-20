@@ -22,6 +22,15 @@ function createDatesAndBookings(date, dateDataArray, topLevelUl) {
   });
   topLevelLi.appendChild(secondLevelUl);
 }
+function extractBookingData(bookingObject, schedule, allStaffData) {
+  if (!Object.keys(bookingObject).includes(schedule.date)) { bookingObject[schedule.date] = []; }
+  let bookingData = {};
+  bookingData.staff_name = allStaffData.find(staffMember => staffMember.id === schedule.staff_id).name;
+  bookingData.student_email = schedule.student_email;
+  bookingData.time = schedule.time;
+  bookingObject[schedule.date].push(bookingData);
+  return bookingObject;
+}
 function toggleDateBookings(element) {
   element.addEventListener('click', event => {
     let hiddenUl = event.target.nextElementSibling;
@@ -54,13 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       let filteredSchedulesData = schedulesData.filter(schedule => schedule.student_email !== null);
       let bookingDateData = filteredSchedulesData.reduce((bookingObject,schedule) => {
-        if (!Object.keys(bookingObject).includes(schedule.date)) { bookingObject[schedule.date] = []; }
-        let bookingData = {};
-        bookingData.staff_name = allStaffData.find(staffMember => staffMember.id === schedule.staff_id).name;
-        bookingData.student_email = schedule.student_email;
-        bookingData.time = schedule.time;
-        bookingObject[schedule.date].push(bookingData);
-        return bookingObject;
+        return extractBookingData(bookingObject, schedule, allStaffData);
       }, {});
 
       Object.entries(bookingDateData).forEach(([date, dateDataArray]) => {
