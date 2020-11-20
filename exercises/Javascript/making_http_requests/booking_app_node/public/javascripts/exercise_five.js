@@ -12,10 +12,7 @@ function bookingFormHandler(form) {
   const domain = 'http://localhost:3000';
   let path = form.getAttribute('action');
   let bookingForm = form;
-  let bookingFormData = {
-    id: bookingForm.querySelector('#booking-select').value,
-    student_email: bookingForm.querySelector('#student-email-booking').value
-  };
+  let bookingFormData = convertFormDataToObject(new FormData(bookingForm));
   let bookingFormDataJson = JSON.stringify(bookingFormData);
 
   let bookingXhr = new XMLHttpRequest();
@@ -26,12 +23,26 @@ function bookingFormHandler(form) {
 
 }
 function bookingResponseHandler(event) {
+  let newStudentForm = document.getElementById('new-student-form');
+  let bookingStudentEmailInput = document.getElementById('student-email-booking');
+  let bookingSelectTag = document.getElementById('booking-select');
   if (event.target.status === 204) {
     alert('Booked');
+    newStudentForm.reset();
+    newStudentForm.style.display = 'none';
+    bookingStudentEmailInput.value = '';
+    Array.from(bookingSelectTag.children).forEach(optionTag => bookingSelectTag.removeChild(optionTag));
+    populateBookingSelectTag();
     return;
   } else {
     bookingErrorHandler(event);
   }
+}
+function convertFormDataToObject(formData) {
+  return Array.from(formData.entries()).reduce((obj, [key, value]) => {
+    obj[key] = value;
+    return obj;
+  }, {});
 }
 function createOptionTagDataAndAppendToSelectTag(event, bookingOptionTagData) {
   let allStaff = JSON.parse(event.target.response);
@@ -55,11 +66,7 @@ function newStudentFormHandler(event, bookingForm) {
   const domain = 'http://localhost:3000';
   let newStudentForm = event.target;
   let path = newStudentForm.getAttribute('action');
-  let newStudentFormData = Array.from(new FormData(newStudentForm).entries()).reduce((obj, arr) => {
-    let [key, value] = [arr[0], arr[1]];
-    obj[key] = value;
-    return obj;
-  }, {});
+  let newStudentFormData = convertFormDataToObject(new FormData(newStudentForm));
   let newStudentFormDataJson = JSON.stringify(newStudentFormData);
 
   let newStudentXhr = new XMLHttpRequest();
@@ -80,7 +87,16 @@ function newStudentFormHandler(event, bookingForm) {
     }
   });
 }
-function populateBookingSelectTag(event) {
+function populateBookingSelectTag() {
+  const apiSchedules = 'http://localhost:3000/api/schedules';
+
+  let schedulesXhr = new XMLHttpRequest();
+  schedulesXhr.open('GET', apiSchedules);
+  schedulesXhr.send();
+
+  schedulesXhr.addEventListener('load', populateBookingSelectTagHandler);
+}
+function populateBookingSelectTagHandler(event) {
   const apiStaffMembers = 'http://localhost:3000/api/staff_members';
 
   let allSchedules = JSON.parse(event.target.response);
@@ -119,14 +135,9 @@ function registerNewStudent(event, sequenceNumber) {
   });
 }
 document.addEventListener('DOMContentLoaded', function() {
-  const apiSchedules = 'http://localhost:3000/api/schedules';
   let bookingForm = document.getElementById('booking-form');
 
-  let schedulesXhr = new XMLHttpRequest();
-  schedulesXhr.open('GET', apiSchedules);
-  schedulesXhr.send();
-
-  schedulesXhr.addEventListener('load', populateBookingSelectTag);
+  populateBookingSelectTag();
   bookingForm.addEventListener('submit', event => {
     event.preventDefault();
     bookingFormHandler(event.target);
