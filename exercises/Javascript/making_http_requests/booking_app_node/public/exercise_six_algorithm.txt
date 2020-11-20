@@ -1,0 +1,26 @@
+I need to show a list of dates, these dates are the one which currently have bookings.  A booking is defined as
+a schedule which is assigned, i.e., it has a non-null values associated with the student_email key.  The second
+level of display is optional.  The user clicks on the date and booking information is shown for that date, which
+is the name of the staff, the student email and the time.
+
+1.  If I send a GET request to /api/schedules I get all of the schedules.
+2.  I then need to filter out all of the schedules that have bookings, in this case it is where the
+student_email key is non-null.
+3.  I then need to make a request to api/staff_members so that I have access to all staff_ids and their names
+4.  I then need to create a new data structure which would be an array of objects:
+{
+    date_0: [{staff_name, student_email, time}, {staff_name, student_email, time}, ...],
+    date_1: [same as above]
+}
+5.  Once I do this I cycle through the object:
+    create a new list item with the date as the text
+    create a new unordered list
+    for each object create a new list item for the unordered list which contains the following text
+    staff_name | student_email | time
+
+Creating the data structure:
+use reduce to cycle through the schedules filtered schedules data
+1.  has the current date already been seen?
+    1.  If so then push the data onto the array for that date that data will be on object form.
+    2.  If not use the date as a new key and push the data into object form as the value for the date key
+    3.  If time sort the keys.
