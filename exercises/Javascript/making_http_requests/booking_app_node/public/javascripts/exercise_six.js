@@ -1,3 +1,38 @@
+function createDateBookings(dateData, ul) {
+  let li = document.createElement('li');
+  let str = `${dateData.staff_name} | ${dateData.student_email} | ${dateData.time}`;
+  let text = document.createTextNode(str);
+  li.appendChild(text);
+  ul.appendChild(li);
+}
+function createDatesAndBookings(date, dateDataArray, topLevelUl) {
+  let dateText = document.createTextNode(date);
+  let topLevelLi = document.createElement('li');
+  let span = document.createElement('span');
+
+  span.appendChild(dateText);
+  span.classList.add('date');
+  topLevelLi.appendChild(span);
+  topLevelUl.appendChild(topLevelLi);
+
+  let secondLevelUl = document.createElement('ul');
+  secondLevelUl.classList.add('second-level');
+  dateDataArray.forEach(dateData => {
+    createDateBookings(dateData, secondLevelUl);
+  });
+  topLevelLi.appendChild(secondLevelUl);
+}
+function toggleDateBookings(element) {
+  element.addEventListener('click', event => {
+    let hiddenUl = event.target.nextElementSibling;
+    let cssHiddenUl = window.getComputedStyle(hiddenUl, null);
+    if (hiddenUl.style.display === 'none' || cssHiddenUl.display === 'none') {
+      hiddenUl.style.display = 'flex';
+    } else {
+      hiddenUl.style.display = 'none';
+    }
+  });
+}
 document.addEventListener('DOMContentLoaded', function() {
   const domain = 'http://localhost:3000';
   const schedulesApi = '/api/schedules';
@@ -29,36 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }, {});
 
       Object.entries(bookingDateData).forEach(([date, dateDataArray]) => {
-        let dateText = document.createTextNode(date);
-        let topLevelLi = document.createElement('li');
-        let span = document.createElement('span');
-        span.appendChild(dateText);
-        span.classList.add('date');
-        topLevelLi.appendChild(span);
-        topLevelUl.appendChild(topLevelLi);
-        let secondLevelUl = document.createElement('ul');
-        secondLevelUl.classList.add('second-level');
-        dateDataArray.forEach(dateData => {
-          let li = document.createElement('li');
-          let str = `${dateData.staff_name} | ${dateData.student_email} | ${dateData.time}`;
-          let text = document.createTextNode(str);
-          li.appendChild(text);
-          secondLevelUl.appendChild(li);
-        });
-        topLevelLi.appendChild(secondLevelUl);
+        createDatesAndBookings(date, dateDataArray, topLevelUl);
       });
 
       Array.from(document.getElementsByClassName('date')).forEach(element => {
-        element.addEventListener('click', event => {
-          let hiddenUl = event.target.nextElementSibling;
-          let cssHiddenUl = window.getComputedStyle(hiddenUl, null);
-          if (hiddenUl.style.display === 'none' || cssHiddenUl.display === 'none') {
-            hiddenUl.style.display = 'flex';
-          } else {
-            hiddenUl.style.display = 'none';
-          }
-        });
-      })
+        toggleDateBookings(element);
+      });
     });
   });
 
