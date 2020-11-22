@@ -24,5 +24,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
     });
-  })
+  });
+
+  bookingsForm.addEventListener('submit', event => {
+    event.preventDefault();
+    let booking_id = document.querySelector('input[name="booking_id"]').value;
+
+    let bookingsXhr = new XMLHttpRequest();
+    bookingsXhr.open('PUT', `${bookingsAPI}/${booking_id}`);
+    bookingsXhr.send();
+
+    bookingsXhr.addEventListener('load', event => {
+      let statusCode = event.target.status;
+      let responseMessage = event.target.responseText;
+
+      if (statusCode === 404) {
+        alert(`${responseMessage}`);
+      } else if (statusCode === 204) {
+        alert(`Booking with id ${booking_id} successfully cancelled.`);
+      } else {
+        return;
+      }
+    });
+  });
 });
