@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grocery List</title>
+  <link rel="stylesheet" href="grocery_list.css">
+</head>
+<body>
+  <div id="container">
+    <form id="add-item">
+      <h2>Add an item</h2>
+      <div id="item-name">
+        <label for="name">Item name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div id="item-quantity">
+        <label for="quantity">Quantity</label>
+        <input type="text" name="quantity" id="quantity" placeholder="1">
+      </div>
+      <input type="submit" value="Add">
+    </form>
+    <div id="grocery-list">
+      <h2>Groceries</h2>
+      <ul></ul>
+    </div>
+  </div>
+  <script type="text/javascript" src="grocery_list.js"></script>
+</body>
+</html>
