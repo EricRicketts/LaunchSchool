@@ -14,8 +14,8 @@ var inventory;
       document.querySelector('#order_date').appendChild(dateText);
     },
     cacheTemplate: function() {
-      var $iTmpl = $("#inventory_item").remove();
-      this.template = $iTmpl.html();
+      let iTmpl = document.querySelector('#inventory_item');
+      this.template = iTmpl.parentElement.removeChild(iTmpl).innerHTML;
     },
     add: function() {
       this.lastId++;
