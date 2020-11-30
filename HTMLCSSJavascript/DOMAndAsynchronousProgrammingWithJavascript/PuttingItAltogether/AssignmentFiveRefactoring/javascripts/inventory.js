@@ -79,7 +79,7 @@ var inventory;
       this.update($item);
     },
     bindEvents: function() {
-      $("#add_item").on("click", $.proxy(this.newItem, this));
+      document.querySelector('#add_item').addEventListener('click', event => this.newItem(event));
       $("#inventory").on("click", "a.delete", $.proxy(this.deleteItem, this));
       $("#inventory").on("blur", ":input", $.proxy(this.updateItem, this));
     },
