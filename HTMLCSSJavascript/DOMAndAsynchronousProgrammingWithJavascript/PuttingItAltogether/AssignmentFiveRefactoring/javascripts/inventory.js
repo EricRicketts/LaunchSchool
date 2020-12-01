@@ -56,10 +56,12 @@ var inventory;
     },
     newItem: function(e) {
       e.preventDefault();
-      var item = this.add(),
-          $item = $(this.template.replace(/ID/g, item.id));
+      let item = this.add();
+      this.template = this.template.replace(/ID/g, item.id);
 
-      $("#inventory").append($item);
+      let tbody = document.createElement('tbody');
+      tbody.innerHTML = this.template;
+      document.getElementById('inventory').appendChild(tbody.firstElementChild);
     },
     findParent: function(e) {
       return $(e.target).closest("tr");
@@ -93,7 +95,7 @@ var inventory;
     },
     bindEvents: function() {
       let inventoryTable = document.querySelector('#inventory');
-      document.querySelector('#add_item').addEventListener('click', event => this.newItem(event));
+      document.querySelector('#add_item').addEventListener('click', event => this.newItem(event, this));
       inventoryTable.addEventListener('click', event => this.deleteCallback(event, this));
       inventoryTable.addEventListener('focusout', event => this.updateCallback(event, this));
     },
