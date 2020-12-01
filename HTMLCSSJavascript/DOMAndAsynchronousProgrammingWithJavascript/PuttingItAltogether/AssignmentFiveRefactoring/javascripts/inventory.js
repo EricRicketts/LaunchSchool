@@ -79,9 +79,23 @@ var inventory;
       this.update($item);
     },
     bindEvents: function() {
+      let deleteCallback = function(event, context) {
+        let deleteAnchorClicked = event.target.nodeName === 'A' &&
+          event.target.classList.contains('delete');
+        if (deleteAnchorClicked) {
+          context.deleteItem(event);
+        }
+      };
+      let updateCallback = function(event, context) {
+        let allInventoryInputs = document.getElementById('inventory').getElementsByTagName('input');
+        Array.from(allInventoryInputs).forEach(inputElement => {
+          inputElement.onblur = context.updateItem(event);
+        });
+      }
+      let inventoryTable = document.querySelector('#inventory');
       document.querySelector('#add_item').addEventListener('click', event => this.newItem(event));
-      $("#inventory").on("click", "a.delete", $.proxy(this.deleteItem, this));
-      $("#inventory").on("blur", ":input", $.proxy(this.updateItem, this));
+      inventoryTable.addEventListener('click', event => deleteCallback(event, this));
+      inventoryTable.addEventListener('focusout', event => updateCallback(event, this));
     },
     init: function() {
       this.setDate();
