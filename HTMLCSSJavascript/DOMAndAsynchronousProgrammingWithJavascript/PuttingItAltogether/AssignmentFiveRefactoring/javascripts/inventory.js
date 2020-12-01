@@ -67,6 +67,13 @@ var inventory;
     findID: function($item) {
       return +$item.find("input[type=hidden]").val();
     },
+    deleteCallback: function(event, context) {
+      let deleteAnchorClicked = event.target.nodeName === 'A' &&
+        event.target.classList.contains('delete');
+      if (deleteAnchorClicked) {
+        context.deleteItem(event);
+      }
+    },
     deleteItem: function(e) {
       e.preventDefault();
       var $item = this.findParent(e).remove();
@@ -79,13 +86,6 @@ var inventory;
       this.update($item);
     },
     bindEvents: function() {
-      let deleteCallback = function(event, context) {
-        let deleteAnchorClicked = event.target.nodeName === 'A' &&
-          event.target.classList.contains('delete');
-        if (deleteAnchorClicked) {
-          context.deleteItem(event);
-        }
-      };
       let updateCallback = function(event, context) {
         let allInventoryInputs = document.getElementById('inventory').getElementsByTagName('input');
         Array.from(allInventoryInputs).forEach(inputElement => {
@@ -94,7 +94,7 @@ var inventory;
       }
       let inventoryTable = document.querySelector('#inventory');
       document.querySelector('#add_item').addEventListener('click', event => this.newItem(event));
-      inventoryTable.addEventListener('click', event => deleteCallback(event, this));
+      inventoryTable.addEventListener('click', event => this.deleteCallback(event, this));
       inventoryTable.addEventListener('focusout', event => updateCallback(event, this));
     },
     init: function() {
