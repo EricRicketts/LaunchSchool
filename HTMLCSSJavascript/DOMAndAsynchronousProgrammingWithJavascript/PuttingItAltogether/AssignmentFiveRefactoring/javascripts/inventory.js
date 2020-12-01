@@ -80,22 +80,22 @@ var inventory;
 
       this.remove(this.findID($item));
     },
+    updateCallback: function(event, context) {
+      let allInventoryInputs = document.getElementById('inventory').getElementsByTagName('input');
+      Array.from(allInventoryInputs).forEach(inputElement => {
+        inputElement.onblur = context.updateItem(event);
+      });
+    },
     updateItem: function(e) {
       var $item = this.findParent(e);
 
       this.update($item);
     },
     bindEvents: function() {
-      let updateCallback = function(event, context) {
-        let allInventoryInputs = document.getElementById('inventory').getElementsByTagName('input');
-        Array.from(allInventoryInputs).forEach(inputElement => {
-          inputElement.onblur = context.updateItem(event);
-        });
-      }
       let inventoryTable = document.querySelector('#inventory');
       document.querySelector('#add_item').addEventListener('click', event => this.newItem(event));
       inventoryTable.addEventListener('click', event => this.deleteCallback(event, this));
-      inventoryTable.addEventListener('focusout', event => updateCallback(event, this));
+      inventoryTable.addEventListener('focusout', event => this.updateCallback(event, this));
     },
     init: function() {
       this.setDate();
