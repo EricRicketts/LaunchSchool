@@ -107,7 +107,10 @@ var inventory;
   };
 })();
 
-$($.proxy(inventory.init, inventory));
+document.addEventListener('DOMContentLoaded', function() {
+  inventory.init();
+});
+// $($.proxy(inventory.init, inventory));
 /*
 so lets work from the inside out, $.proxy(inventory.init, inventory) what does this expression do?
 According to the jQuery documentation, jQuery.proxy(function, context) is the same as
