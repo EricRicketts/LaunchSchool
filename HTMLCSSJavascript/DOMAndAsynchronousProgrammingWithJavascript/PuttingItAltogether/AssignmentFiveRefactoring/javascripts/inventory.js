@@ -46,28 +46,28 @@ var inventory;
 
       return found_item;
     },
-    update: function($item) {
-      var id = this.findID($item),
-          item = this.get(id);
+    update: function(tableRow) {
+      let id = this.findID(tableRow);
+      let item = this.get(id);
 
-      item.name = $item.find("[name^=item_name]").val();
-      item.stock_number = $item.find("[name^=item_stock_number]").val();
-      item.quantity = $item.find("[name^=item_quantity]").val();
+      item.name = tableRow.querySelector('[name^=item_name]').value;
+      item.stock_number = tableRow.querySelector('[name^=item_stock_number]').value;
+      item.quantity = tableRow.querySelector('[name^=item_quantity]').value;
     },
     newItem: function(e) {
       e.preventDefault();
       let item = this.add();
-      this.template = this.template.replace(/ID/g, item.id);
+      let newTemplateStr = this.template.replace(/ID/g, item.id);
 
       let tbody = document.createElement('tbody');
-      tbody.innerHTML = this.template;
+      tbody.innerHTML = newTemplateStr;
       document.getElementById('inventory').appendChild(tbody.firstElementChild);
     },
     findParent: function(e) {
-      return $(e.target).closest("tr");
+      return e.target.closest('tr');
     },
-    findID: function($item) {
-      return +$item.find("input[type=hidden]").val();
+    findID: function(item) {
+      return Number.parseInt(item.querySelector("input[type=hidden]").value, 10);
     },
     deleteCallback: function(event, context) {
       let deleteAnchorClicked = event.target.nodeName === 'A' &&
@@ -78,9 +78,9 @@ var inventory;
     },
     deleteItem: function(e) {
       e.preventDefault();
-      var $item = this.findParent(e).remove();
-
-      this.remove(this.findID($item));
+      let item = this.findParent(e);
+      item.remove();
+      this.remove(this.findID(item));
     },
     updateCallback: function(event, context) {
       let allInventoryInputs = document.getElementById('inventory').getElementsByTagName('input');
@@ -89,9 +89,9 @@ var inventory;
       });
     },
     updateItem: function(e) {
-      var $item = this.findParent(e);
+      let tableRow = this.findParent(e);
 
-      this.update($item);
+      this.update(tableRow);
     },
     bindEvents: function() {
       let inventoryTable = document.querySelector('#inventory');
