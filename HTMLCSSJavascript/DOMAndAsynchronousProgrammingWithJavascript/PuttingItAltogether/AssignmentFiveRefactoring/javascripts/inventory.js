@@ -1,8 +1,3 @@
-/*
-  inventory is a variable declared at the top of the file and as such it is global to the
-  entire file, we we see with the IIFE below that it is accessible and set as an object with
-  properties lastId, collection, and setDate.
-*/
 var inventory;
 
 (function() {
@@ -14,8 +9,8 @@ var inventory;
       document.querySelector('#order_date').appendChild(dateText);
     },
     cacheTemplate: function() {
-      let iTmpl = document.querySelector('#inventory_item');
-      this.template = iTmpl.parentElement.removeChild(iTmpl).innerHTML;
+      let inventoryItem = document.getElementById('inventory_item');
+      this.template = Handlebars.compile(inventoryItem.innerHTML);
     },
     add: function() {
       this.lastId++;
@@ -57,11 +52,10 @@ var inventory;
     newItem: function(e) {
       e.preventDefault();
       let item = this.add();
-      let newTemplateStr = this.template.replace(/ID/g, item.id);
 
-      let tbody = document.createElement('tbody');
-      tbody.innerHTML = newTemplateStr;
-      document.getElementById('inventory').appendChild(tbody.firstElementChild);
+      let inventoryItemParent = document.createElement('tbody');
+      inventoryItemParent.innerHTML = this.template({ id: item.id });
+      document.getElementById('inventory').appendChild(inventoryItemParent.firstElementChild);
     },
     findParent: function(e) {
       return e.target.closest('tr');
@@ -107,15 +101,4 @@ var inventory;
   };
 })();
 
-document.addEventListener('DOMContentLoaded', function() {
-  inventory.init();
-});
-// $($.proxy(inventory.init, inventory));
-/*
-so lets work from the inside out, $.proxy(inventory.init, inventory) what does this expression do?
-According to the jQuery documentation, jQuery.proxy(function, context) is the same as
-$.proxy(function, context).  So this function returns a new function based on the given context.  In this
-case the context is inventory which is an object instantiated at the beginning of the IIFE.  Then
-$(new function) is called because $() is the same as document.addEventListener('DOMContentLoaded',
-function() {});  So, init() is called which calls setDate(), cacheTemplate() and bindEvents().
-*/
+document.addEventListener('DOMContentLoaded', () => inventory.init());
