@@ -3,10 +3,11 @@ let words = [
   'unction', 'abort', 'abrogate', 'upload', 'bequeath'
 ];
 
-function random() {
+function randomWord() {
   let chosenIndex = Math.floor(Math.random() * words.length);
   return words.splice(chosenIndex, 1)[0];
-}
+};
 
-export { words, random };
+export { randomWord as default };
+export { words, randomWord };
 
