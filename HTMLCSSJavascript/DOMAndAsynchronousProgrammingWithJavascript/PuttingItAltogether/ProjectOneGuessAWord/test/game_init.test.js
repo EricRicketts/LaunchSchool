@@ -7,7 +7,7 @@ describe('Guess A Word Game Initialization', function () {
     originalWords = [
       'stipend', 'foolish', 'signal', 'constant', 'bedazzle',
       'unction', 'abort', 'abrogate', 'upload', 'bequeath'
-    ];
+    ].map(word => word.toUpperCase());
     maxWordLength = 0;
     originalWords.forEach(word => {
       maxWordLength = word.length > maxWordLength ? word.length : maxWordLength;
