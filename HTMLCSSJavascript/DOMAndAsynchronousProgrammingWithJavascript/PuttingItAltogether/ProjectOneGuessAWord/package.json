@@ -1,0 +1,18 @@
+{
+  "name": "projectoneguessaword",
+  "version": "1.0.0",
+  "description": "Launch School JS230 Lesson Putting It Altogether first of two projects within the lesson",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -1,4 +1,4 @@
-import Game from '../code/javascript/game';
+import { Game } from '../code/javascript/game';
 
 describe('Guess A Word Game Initialization', function () {
   let game, originalWords, maxWordLength, minWordLength, results, expected;

@@ -1,4 +1,4 @@
-import { words, randomWord } from '../code/javascript/random_word';
+import { randomWord } from '../code/javascript/random_word';
 
 describe('Test random function', function () {
   let expected, results;
@@ -10,10 +10,8 @@ describe('Test random function', function () {
     ].map(word => word.toUpperCase());
     let w1 = randomWord();
     let w2 = randomWord();
-    expected = [13, true, true, true];
-    results = [
-      words.length, originalWords.includes(w1), originalWords.includes(w2), (w1 !== w2)
-    ];
+    expected = [true, true, true];
+    results = [originalWords.includes(w1), originalWords.includes(w2), (w1 !== w2)];
 
     expect(results).toEqual(expected);
   });

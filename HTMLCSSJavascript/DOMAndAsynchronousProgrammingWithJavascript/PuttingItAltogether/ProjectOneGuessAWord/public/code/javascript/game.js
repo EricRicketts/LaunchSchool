@@ -1,4 +1,4 @@
-import randomWord from "./random_word";
+import { randomWord } from "./random_word.js";
 
 function Game() {
   this.word = randomWord().toUpperCase();
@@ -52,7 +52,7 @@ Game.prototype.processGuessedLetter = function(letter) {
     this.incorrectGuesses += 1;
   }
 }
-export { Game as default };
+export { Game };
 /*
   what a Game object should track:
   1.  The current word for the game

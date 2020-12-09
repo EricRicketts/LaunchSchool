@@ -8,5 +8,4 @@ function randomWord() {
   return words.splice(chosenIndex, 1)[0];
 };
 
-export { randomWord as default };
-export { words, randomWord };
+export { randomWord };

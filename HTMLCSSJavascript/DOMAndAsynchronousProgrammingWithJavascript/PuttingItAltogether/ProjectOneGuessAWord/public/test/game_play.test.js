@@ -1,5 +1,4 @@
-import { words, randomWord } from '../code/javascript/random_word';
-import Game from '../code/javascript/game';
+import { Game } from '../code/javascript/game';
 
 describe('Guess A Word Game Logic', function () {
   let game, results, expected;
