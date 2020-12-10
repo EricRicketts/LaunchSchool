@@ -38,7 +38,7 @@ function displayRemainingGuesses(document, incorrectGuesses) {
     document.getElementById('apples').setAttribute('class', `guess_${incorrectGuesses}`);
   }
 }
-document.addEventListener('DOMContentLoaded', function() {
+function playGame(document) {
   const letterCodeForA = 97;
   const letterCodeForZ = 122;
   let game = new Game();
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   game.validLetters = new Array(game.letterSpacesForWord);
   createLetterLocationsForWord(document, game.letterSpacesForWord);
 
-  document.addEventListener('keydown', event => {
+  document.addEventListener('keyup', event => {
     if (event.key.charCodeAt(0) < letterCodeForA || event.key.charCodeAt(0) > letterCodeForZ) { return; }
     let letter = event.key.toUpperCase();
     game.processGuessedLetter(letter);
@@ -55,9 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
     displayGuessedLetters(document, game.guessedLetters);
     displayRemainingGuesses(document, game.incorrectGuesses)
     game.checkAndProcessGameCompletion();
-    if (game.over) { displayGameOver(document, game); }
-  })
-});
+    if (game.over) {
+      displayGameOver(document, game);
+
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', () => { playGame(document); });
 
 /*
 Game flow
