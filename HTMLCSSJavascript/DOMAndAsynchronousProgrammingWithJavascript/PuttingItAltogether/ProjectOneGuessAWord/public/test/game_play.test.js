@@ -101,22 +101,22 @@ describe('Guess A Word Game Logic', function () {
     });
 
     it('should indicate when the game is over with a player win', function () {
-      expected = [true, { won: true, message: 'You won!!' }];
+      expected = [true, true, 'You won!!'];
       ['B', 'E', 'Q', 'U', 'A', 'T', 'H'].forEach(letter => {
         game.processGuessedLetter(letter);
       });
-      let wonObject = game.checkAndProcessGameCompletion();
-      results = [game.over, wonObject];
+      game.checkAndProcessGameCompletion();
+      results = [game.over, game.won, game.message];
       expect(results).toEqual(expected);
     });
 
     it('should indicate when the game is over with a player loss', function () {
-      expected = [true, { won: false, message: 'Sorry, you lost.' }];
+      expected = [true, false, 'Sorry, you lost.'];
       ['B', 'E', 'X', 'D', 'S', 'Q', 'F', 'J', 'U', 'Z'].forEach(letter => {
         game.processGuessedLetter(letter);
       });
       let lostObject = game.checkAndProcessGameCompletion();
-      results = [game.over, lostObject];
+      results = [game.over, game.won, game.message];
       expect(results).toEqual(expected);
     });
   });

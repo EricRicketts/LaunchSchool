@@ -1,7 +1,7 @@
 import { randomWord } from "./random_word.js";
 
 function Game() {
-  this.word = randomWord().toUpperCase();
+  this.word = randomWord();
   this.letterSpacesForWord = this.word.length;
   this.validLetters = new Array(this.letterSpacesForWord);
   this.incorrectGuesses = 0;
@@ -16,10 +16,12 @@ Game.prototype.checkAndProcessGameCompletion = function() {
 
   if (gameWon) {
     this.over = true;
-    return { won: true, message: 'You won!!' };
+    this.won = true;
+    this.message = 'You won!!';
   } else if (gameLost) {
     this.over = true;
-    return { won: false, message: 'Sorry, you lost.' };
+    this.won = false;
+    this.message = 'Sorry, you lost.'
   }
 }
 Game.prototype.findLetterPositionsInWord = function(letter) {

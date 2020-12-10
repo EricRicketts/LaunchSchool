@@ -1,7 +1,62 @@
 import { Game } from "./code/javascript/game.js";
 
+function createLetterLocationsForWord(document, numberOfLetters) {
+  for (let i = 0; i < numberOfLetters; i += 1) {
+    let span = document.createElement('span');
+    document.getElementById('spaces').appendChild(span);
+  }
+}
+function displayGameOver(document, game) {
+  let body = document.body;
+  let messageText = document.createTextNode(game.message);
+  document.getElementById('message').appendChild(messageText);
+  game.won ? body.setAttribute('class', 'win') : body.setAttribute('class', 'lose');
+}
+function displayGuessedLetters(document, guessedLetterArray) {
+  let guesses = document.getElementById('guesses');
+  let letterSpans = Array.from(guesses.getElementsByTagName('span'));
+  let numberOfGuesses = guessedLetterArray.length;
+  let mostRecentLetter = guessedLetterArray[numberOfGuesses - 1];
+  if (numberOfGuesses === letterSpans.length + 1) {
+    let span = document.createElement('span');
+    let text = document.createTextNode(mostRecentLetter);
+    span.appendChild(text);
+    guesses.appendChild(span);
+  }
+}
+function displayLettersInWord(document, validLetterArray) {
+  let wordSpans = Array.from(document.getElementById('spaces').getElementsByTagName('span'));
+  wordSpans.forEach((span, index) => {
+    if (validLetterArray[index] !== undefined && span.firstChild === null) {
+      let text = document.createTextNode(validLetterArray[index]);
+      span.appendChild(text);
+    }
+  })
+}
+function displayRemainingGuesses(document, incorrectGuesses) {
+  if (incorrectGuesses !== 0) {
+    document.getElementById('apples').setAttribute('class', `guess_${incorrectGuesses}`);
+  }
+}
 document.addEventListener('DOMContentLoaded', function() {
+  const letterCodeForA = 97;
+  const letterCodeForZ = 122;
   let game = new Game();
+  game.word = 'foolish'.toUpperCase();
+  game.letterSpacesForWord = game.word.length;
+  game.validLetters = new Array(game.letterSpacesForWord);
+  createLetterLocationsForWord(document, game.letterSpacesForWord);
+
+  document.addEventListener('keydown', event => {
+    if (event.key.charCodeAt(0) < letterCodeForA || event.key.charCodeAt(0) > letterCodeForZ) { return; }
+    let letter = event.key.toUpperCase();
+    game.processGuessedLetter(letter);
+    displayLettersInWord(document, game.validLetters)
+    displayGuessedLetters(document, game.guessedLetters);
+    displayRemainingGuesses(document, game.incorrectGuesses)
+    game.checkAndProcessGameCompletion();
+    if (game.over) { displayGameOver(document, game); }
+  })
 });
 
 /*
