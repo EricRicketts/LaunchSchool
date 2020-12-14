@@ -12,6 +12,7 @@ describe('View Object functionality', function () {
     game.letterSpacesForWord = game.word.length;
     game.validLetters = new Array(game.letterSpacesForWord);
     game.guessedLetters = [];
+    game.incorrectGuesses = 0;
     let htmlPath = path.join(__dirname, '..');
     let htmlFile = fs.readFileSync(htmlPath + '/index.html', 'utf-8');
     window =  new JSDOM(htmlFile).window;
@@ -62,10 +63,24 @@ describe('View Object functionality', function () {
     expect(results).toEqual(expected);
   });
 
+  it('should update the remaining guesses', function () {
+    game.incorrectGuesses = 3;
+    View.updateRemainingGuesses(document, game.incorrectGuesses);
+    expect(apples.getAttribute('class')).toBe('guess_3');
+  });
+
   it('should display the game win', function () {
     results = [];
     expected = ['win', 'You win!!', 'visible'];
     View.processWin(document)
+    results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
+    expect(results).toEqual(expected);
+  });
+
+  it('should display the game loss', function () {
+    results = [];
+    expected = ['lose', 'Sorry, you lost.', 'visible'];
+    View.processLoss(document)
     results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });
