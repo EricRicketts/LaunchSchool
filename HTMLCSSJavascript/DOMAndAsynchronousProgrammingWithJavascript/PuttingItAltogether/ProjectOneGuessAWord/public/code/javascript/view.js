@@ -40,5 +40,31 @@ View.init = function(document, numberOfSpaces) {
   resetGuesses(document);
   document.body.removeAttribute('class');
 }
+View.processWin = function(document) {
+  const winMessage = 'You win!!';
+  let message = document.getElementById('message');
+  let replay = document.getElementById('replay');
+
+  document.body.setAttribute('class', 'win');
+  let text = document.createTextNode(winMessage);
+  message.appendChild(text);
+  replay.setAttribute('class', 'visible')
+}
+View.updateGuesses = function(document, letter) {
+  let guesses = document.getElementById('guesses');
+  let span = document.createElement('span');
+  let text = document.createTextNode(letter);
+  span.appendChild(text);
+  guesses.appendChild(span);
+}
+View.updateSpaces = function(document, gameLetterArray) {
+  let allSpans =  Array.from(document.getElementById('spaces').getElementsByTagName('span'));
+  allSpans.forEach((span, index) => {
+    if (span.textContent === '' && gameLetterArray[index] !== undefined) {
+      let text = document.createTextNode(gameLetterArray[index]);
+      span.appendChild(text);
+    }
+  })
+}
 
 export { View };

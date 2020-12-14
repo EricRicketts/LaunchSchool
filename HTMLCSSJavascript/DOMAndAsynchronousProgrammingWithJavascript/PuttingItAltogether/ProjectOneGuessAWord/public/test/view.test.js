@@ -5,12 +5,13 @@ import { JSDOM } from 'jsdom';
 
 
 describe('View Object functionality', function () {
-  let window, document, game, view, results, expected, apples,  message, replay, spaces, guesses;
+  let window, document, game, results, expected, apples,  message, replay, spaces, guesses;
   beforeEach(() => {
     game = {};
-    game.word = 'upside';
+    game.word = 'foobar';
     game.letterSpacesForWord = game.word.length;
     game.validLetters = new Array(game.letterSpacesForWord);
+    game.guessedLetters = [];
     let htmlPath = path.join(__dirname, '..');
     let htmlFile = fs.readFileSync(htmlPath + '/index.html', 'utf-8');
     window =  new JSDOM(htmlFile).window;
@@ -20,6 +21,7 @@ describe('View Object functionality', function () {
     replay = document.getElementById('replay');
     spaces = document.getElementById('spaces');
     guesses = document.getElementById('guesses');
+    View.init(document, game.letterSpacesForWord);
   });
 
   it('should initialize the view', function () {
@@ -35,6 +37,36 @@ describe('View Object functionality', function () {
       spaces.getElementsByTagName('h2').length, guesses.getElementsByTagName('h2').length,
       document.body.hasAttribute('class')
     ];
+    expect(results).toEqual(expected);
+  });
+
+  it('should update the word letters', function () {
+    [game.validLetters[1], game.validLetters[2]] = ['O', 'O'];
+    View.updateSpaces(document, game.validLetters)
+    results = [];
+    expected = ['', 'O', 'O', '', '', ''];
+    Array.from(spaces.children).forEach(element => {
+      if (element.nodeName !== 'H2') { results.push(element.textContent); }
+    });
+    expect(results).toEqual(expected);
+  });
+
+  it('should update the guesses', function () {
+    results = [];
+    game.guessedLetters.push('F');
+    expected = ['F'];
+    View.updateGuesses(document, 'F');
+    Array.from(guesses.children).forEach(element => {
+      if (element.nodeName !== 'H2') { results.push(element.textContent); }
+    });
+    expect(results).toEqual(expected);
+  });
+
+  it('should display the game win', function () {
+    results = [];
+    expected = ['win', 'You win!!', 'visible'];
+    View.processWin(document)
+    results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });
 });
