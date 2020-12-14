@@ -1,5 +1,7 @@
 import { randomWord } from "./random_word.js";
 
+const allowedIncorrectGuesses = 6;
+
 function Game() {
   let selectedWord = randomWord();
   if (selectedWord === undefined) {
@@ -23,9 +25,6 @@ Game.prototype.findLetterPositionsInWord = function(letter) {
     return indices;
   }, []);
 }
-Game.prototype.getAllowedIncorrectGuesses = function() {
-  return 6;
-}
 Game.prototype.incrementIncorrectGuesses = function() {
   this.incorrectGuesses += 1;
 }
@@ -33,7 +32,7 @@ Game.prototype.isLetterInWord = function(letter) {
   return this.word.includes(letter);
 }
 Game.prototype.isLost = function() {
-  return this.getAllowedIncorrectGuesses() - this.incorrectGuesses === 0;
+  return allowedIncorrectGuesses - this.incorrectGuesses === 0;
 }
 Game.prototype.isWon = function() {
   return this.validLetters.join('') === this.word;

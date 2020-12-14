@@ -41,8 +41,5 @@ describe('Guess A Word Game Initialization', function () {
         game.validLetters.every(letter => letter === undefined);
       expect(emptyArrayInit).toBe(true);
     });
-    it('should store the number of allowed incorrect guesses', function () {
-      expect(game.getAllowedIncorrectGuesses()).toBe(6);
-    });
   });
 });
