@@ -40,6 +40,16 @@ View.init = function(document, numberOfSpaces) {
   resetGuesses(document);
   document.body.removeAttribute('class');
 }
+View.outOfWords = function(document) {
+  const outOfWordsMessage = 'The Game is out of words.';
+  let message = document.getElementById('message');
+  let replay = document.getElementById('replay');
+
+  document.body.setAttribute('class', 'lose');
+  let text = document.createTextNode(outOfWordsMessage);
+  message.appendChild(text);
+  replay.removeAttribute('class');
+}
 View.processLoss = function(document) {
   const winMessage = 'Sorry, you lost.';
   let message = document.getElementById('message');

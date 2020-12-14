@@ -84,4 +84,12 @@ describe('View Object functionality', function () {
     results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });
+
+  it('should present the out of words state', function () {
+    results = [];
+    expected = ['lose', 'The Game is out of words.', false];
+    View.outOfWords(document);
+    results.push(document.body.getAttribute('class'), message.textContent, replay.hasAttribute('class'));
+    expect(results).toEqual(expected);
+  });
 });

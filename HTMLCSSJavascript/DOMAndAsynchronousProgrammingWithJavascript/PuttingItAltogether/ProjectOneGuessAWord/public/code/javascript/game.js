@@ -5,7 +5,6 @@ const allowedIncorrectGuesses = 6;
 function Game() {
   let selectedWord = randomWord();
   if (selectedWord === undefined) {
-    this.message = 'Sorry, the game has run out of words.'
     this.outOfWords = true;
     return this;
   }
