@@ -1,28 +1,21 @@
 import { randomWord } from "./random_word.js";
 
 function Game() {
-  this.word = randomWord();
+  let selectedWord = randomWord();
+  if (selectedWord === undefined) {
+    this.message = 'Sorry, the game has run out of words.'
+    this.outOfWords = true;
+    return this;
+  }
+  this.word = selectedWord;
   this.letterSpacesForWord = this.word.length;
   this.validLetters = new Array(this.letterSpacesForWord);
   this.incorrectGuesses = 0;
   this.guessedLetters = [];
-  this.over = false;
 }
 
-Game.prototype.checkAndProcessGameCompletion = function() {
-  let currentWordStatus = this.validLetters.join('');
-  let gameWon = currentWordStatus === this.word && this.incorrectGuesses <= this.getAllowedIncorrectGuesses();
-  let gameLost = currentWordStatus !== this.word && this.incorrectGuesses === this.getAllowedIncorrectGuesses();
-
-  if (gameWon) {
-    this.over = true;
-    this.won = true;
-    this.message = 'You won!!';
-  } else if (gameLost) {
-    this.over = true;
-    this.won = false;
-    this.message = 'Sorry, you lost.'
-  }
+Game.prototype.addToGuesses = function(letter) {
+  this.guessedLetters.push(letter);
 }
 Game.prototype.findLetterPositionsInWord = function(letter) {
   return this.word.split('').reduce((indices, wordLetter, index) => {
@@ -33,27 +26,27 @@ Game.prototype.findLetterPositionsInWord = function(letter) {
 Game.prototype.getAllowedIncorrectGuesses = function() {
   return 6;
 }
+Game.prototype.incrementIncorrectGuesses = function() {
+  this.incorrectGuesses += 1;
+}
 Game.prototype.isLetterInWord = function(letter) {
   return this.word.includes(letter);
+}
+Game.prototype.isLost = function() {
+  return this.getAllowedIncorrectGuesses() - this.incorrectGuesses === 0;
+}
+Game.prototype.isWon = function() {
+  return this.validLetters.join('') === this.word;
+}
+Game.prototype.hasLetterBeenPlayed = function(letter) {
+  return this.guessedLetters.includes(letter);
 }
 Game.prototype.positionLetterInWord = function(letterIndices, letter) {
   letterIndices.forEach(letterIndex => {
     this.validLetters[letterIndex] = letter;
   });
 }
-Game.prototype.processGuessedLetter = function(letter) {
-  let letterInWordAndNotAlreadyGuessed = this.isLetterInWord(letter) && !this.guessedLetters.includes(letter);
-  let letterNotInWordAndNotAlreadyGuessed = !this.isLetterInWord(letter) && !this.guessedLetters.includes(letter);
 
-  if (letterInWordAndNotAlreadyGuessed) {
-    this.guessedLetters.push(letter);
-    let letterIndices = this.findLetterPositionsInWord(letter);
-    this.positionLetterInWord(letterIndices, letter);
-  } else if (letterNotInWordAndNotAlreadyGuessed) {
-    this.guessedLetters.push(letter);
-    this.incorrectGuesses += 1;
-  }
-}
 export { Game };
 /*
   what a Game object should track:

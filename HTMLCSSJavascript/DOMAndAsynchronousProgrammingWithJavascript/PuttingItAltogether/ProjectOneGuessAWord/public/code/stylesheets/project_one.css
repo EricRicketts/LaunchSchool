@@ -110,6 +110,14 @@ show the image with 6 apples he dividing the height of the image by 6 or 1932/6 
   display: none;
 }
 
+#replay {
+  display: none;
+}
+
+#replay.visible {
+  display: inline;
+}
+
 span {
   display: inline-block;
   vertical-align: top;

@@ -1,7 +1,7 @@
 import { Game } from '../code/javascript/game';
 
 describe('Guess A Word Game Logic', function () {
-  let game, results, expected;
+  let game, results, expected, letter, letterIndices, letters;
   beforeEach(() => {
     game = new Game();
     game.word = 'bequeath'.toUpperCase();
@@ -25,98 +25,75 @@ describe('Guess A Word Game Logic', function () {
     });
 
     it('should place a single letter correctly is a single position correctly', function () {
-      expected[5] = 'A';
-      game.processGuessedLetter('A');
+      letter = 'A'
+      expected[5] = letter;
+      letterIndices = game.findLetterPositionsInWord(letter);
+      game.positionLetterInWord(letterIndices, letter);
       results = game.validLetters;
       expect(results).toEqual(expected);
     });
 
     it('should place a single letter in multiple positions correctly', function () {
+      letter = 'E';
       [expected[1], expected[4]] = ['E', 'E'];
-      game.processGuessedLetter('E');
+      letterIndices = game.findLetterPositionsInWord(letter);
+      game.positionLetterInWord(letterIndices, letter);
       results = game.validLetters;
       expect(results).toEqual(expected);
     });
+  });
 
-    it('A correct letter guessed twice will not change the valid letters array', function () {
-      expected[3] = 'U';
-      game.processGuessedLetter('U');
-      results = [game.validLetters];
-      game.processGuessedLetter('U');
-      results.push(game.validLetters);
-      expect(results).toEqual([expected, expected]);
+  describe('Game Logic will add a letter to the guessed letters array', function () {
+    it('A letter can be added', function () {
+      expected = ['U'];
+      game.addToGuesses('U');
+      results = game.guessedLetters;
+      expect(results).toEqual(expected);
+    });
+
+    it('A previously guessed letter can be identified', function () {
+      letter = 'T';
+      game.addToGuesses(letter);
+      expect(game.hasLetterBeenPlayed(letter)).toBe(true);
     });
   });
 
-  describe('Game Logic will increment incorrect guesses as necessary', function () {
-    it('should increment the incorrect guesses if the letter guess is wrong', function () {
+  describe('Game can add to the incorrect guesses', function () {
+    it('If the letter is not part of the word add to the incorrect guess count', function () {
       expected = [0, 1];
       results = [game.incorrectGuesses];
-      game.processGuessedLetter('D');
+      letter = 'Z';
+      game.incrementIncorrectGuesses();
       results.push(game.incorrectGuesses);
-      expect(results).toEqual(expected);
-    });
-
-    it('should not increment the incorrect guesses if the letter guess is correct', function () {
-      expected = [0, 0];
-      results = [game.incorrectGuesses];
-      game.processGuessedLetter('B');
-      results.push(game.incorrectGuesses);
-      expect(results).toEqual(expected);
-    });
-
-    it('A letter previously guessed will not increment the incorrect letter guess count', function () {
-      game.processGuessedLetter('Q');
-      results = [game.incorrectGuesses];
-      game.processGuessedLetter('X');
-      results.push(game.incorrectGuesses);
-      game.processGuessedLetter('Q');
-      game.processGuessedLetter('X');
-      results.push(game.incorrectGuesses);
-      expected = [0, 1, 1];
       expect(results).toEqual(expected);
     });
   });
 
-  describe('Game Logic updates the guessed letter array', function () {
-    it('should update the guessed letter array if the letter is a new guess', function () {
-      game.processGuessedLetter('E');
-      game.processGuessedLetter('Z');
-      expect(game.guessedLetters).toEqual(['E', 'Z']);
-    });
-
-    it('should not update the guessed letter array if the letter has already been guessed', function () {
-      game.processGuessedLetter('T');
-      game.processGuessedLetter('T');
-      expect(game.guessedLetters).toEqual(['T']);
-    });
-  });
-
-  describe('Game Logic determines if the game is over', function () {
-    it('should indicate that the game is not over', function () {
-      game.processGuessedLetter('B');
-      game.processGuessedLetter('E');
-      game.checkAndProcessGameCompletion();
-      expect(game.over).toBe(false);
-    });
-
-    it('should indicate when the game is over with a player win', function () {
-      expected = [true, true, 'You won!!'];
-      ['B', 'E', 'Q', 'U', 'A', 'T', 'H'].forEach(letter => {
-        game.processGuessedLetter(letter);
+  describe('Game can determine if there is a win or loss', function () {
+    it('should determine a win', function () {
+      expected = [false, false, false, false, false, false, true];
+      results = [];
+      letters = ['B', 'E', 'Q', 'U', 'E', 'A', 'T', 'H'].forEach(letter => {
+        if (game.isLetterInWord(letter) && !game.hasLetterBeenPlayed(letter)) {
+          game.addToGuesses(letter);
+          letterIndices = game.findLetterPositionsInWord(letter);
+          game.positionLetterInWord(letterIndices, letter);
+          results.push(game.isWon())
+        }
       });
-      game.checkAndProcessGameCompletion();
-      results = [game.over, game.won, game.message];
       expect(results).toEqual(expected);
     });
 
-    it('should indicate when the game is over with a player loss', function () {
-      expected = [true, false, 'Sorry, you lost.'];
-      ['B', 'E', 'X', 'D', 'S', 'Q', 'F', 'J', 'U', 'Z'].forEach(letter => {
-        game.processGuessedLetter(letter);
+    it('should determine a loss', function () {
+      expected = [false, false, false, false, false, true];
+      results = [];
+      letters = ['B', 'X', 'Y', 'Z', 'T', 'S', 'D', 'F'].forEach(letter => {
+        if (!game.isLetterInWord(letter) && !game.hasLetterBeenPlayed(letter)) {
+          game.addToGuesses(letter);
+          game.incrementIncorrectGuesses();
+          results.push(game.isLost());
+        }
       });
-      let lostObject = game.checkAndProcessGameCompletion();
-      results = [game.over, game.won, game.message];
       expect(results).toEqual(expected);
     });
   });
