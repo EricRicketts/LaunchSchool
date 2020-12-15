@@ -7,8 +7,9 @@ import { JSDOM } from 'jsdom';
 
 describe('Controller Functionality', function () {
   let window, document, game, view, controller, randomWordList, results, expected;
-  let apples, message, replay, spaces, guesses;
+  let apples, message, replay, spaces, guesses, alphabet;
   beforeEach(() => {
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
     let htmlPath = path.join(__dirname, '..');
     let htmlFile = fs.readFileSync(htmlPath + '/index.html', 'utf-8');
     window = new JSDOM(htmlFile).window;
@@ -70,7 +71,70 @@ describe('Controller Functionality', function () {
       done();
     });
 
-    it('should handle an incorrect guess', function () {
+    it('should handle an incorrect guess', done => {
+      randomWord = controller.game.word;
+      let aLetterNotInWord = alphabet.find((letter) => !randomWord.includes(letter));
+      event = new window.KeyboardEvent('keyup', {
+        key: aLetterNotInWord.toLowerCase(),
+        code: `Key${aLetterNotInWord}`,
+        which: aLetterNotInWord.toLowerCase().charCodeAt(0),
+        shiftKey: false,
+        ctrlKey: false,
+        metaKey: false
+      });
+      document.dispatchEvent(event);
+
+      spacesSpans = spaces.getElementsByTagName('span');
+      guessesSpans = guesses.getElementsByTagName('span');
+      results = [
+        Array.from(spacesSpans).every(span => span.textContent === ''),
+        guessesSpans.length,
+        guessesSpans[0].textContent === aLetterNotInWord,
+        apples.getAttribute('class')
+      ];
+      expected = [true, 1, true, 'guess_1'];
+      expect(results).toEqual(expected);
+     done();
+    });
+  });
+
+  describe('Controller Processes A Win Or Loss', function () {
+    let wordChosen, createKeyBoardEvent, lettersNotInWord, sixIncorrectLetters;
+    beforeEach(() => {
+      wordChosen = controller.game.word;
+      createKeyBoardEvent = function(letter) {
+        return new window.KeyboardEvent('keyup', {
+          key: letter.toLowerCase(),
+          code: `Key${letter}`,
+          which: letter.toLowerCase().charCodeAt(0),
+          shiftKey: false,
+          ctrlKey: false,
+          metaKey: false
+        });
+      }
+      lettersNotInWord = alphabet.filter(letter => !wordChosen.includes(letter));
+      sixIncorrectLetters = lettersNotInWord.splice(0, 6);
+    });
+
+    it('should record a win', done => {
+      Array.from(wordChosen).forEach(letter => {
+        let event = createKeyBoardEvent(letter);
+        document.dispatchEvent(event);
+      });
+      let spacesSpansArray = Array.from(spaces.getElementsByTagName('span'));
+      results = [
+        document.body.getAttribute('class'),
+        message.textContent === 'You win!!',
+        replay.getAttribute('class'),
+        spacesSpansArray.reduce((word, span) => {
+          word += span.textContent;
+          return word;
+        }, '')
+      ];
+      expected = ['win', true, 'visible', wordChosen];
+
+      expect(results).toEqual(expected);
+      done();
     });
   });
 });
