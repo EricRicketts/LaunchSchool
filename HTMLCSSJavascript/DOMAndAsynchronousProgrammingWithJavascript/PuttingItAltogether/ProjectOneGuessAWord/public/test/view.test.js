@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom';
 
 
 describe('View Object functionality', function () {
-  let window, document, game, results, expected, apples,  message, replay, spaces, guesses;
+  let window, document, view, game, results, expected, apples,  message, replay, spaces, guesses;
   beforeEach(() => {
     game = {};
     game.word = 'foobar';
@@ -22,7 +22,8 @@ describe('View Object functionality', function () {
     replay = document.getElementById('replay');
     spaces = document.getElementById('spaces');
     guesses = document.getElementById('guesses');
-    View.init(document, game.letterSpacesForWord);
+    view = new View(document);
+    view.init(game.letterSpacesForWord);
   });
 
   it('should initialize the view', function () {
@@ -30,7 +31,7 @@ describe('View Object functionality', function () {
     let span = document.createElement('span');
     span.appendChild(text);
     [spaces, guesses].forEach(element => element.appendChild(span));
-    View.init(document, game.letterSpacesForWord);
+    view.init(game.letterSpacesForWord);
     expected = ['guess_1', 0, false, 6, 0, 1, 1, false];
     results = [
       apples.getAttribute('class'), message.childNodes.length, replay.hasAttribute('class'),
@@ -43,7 +44,7 @@ describe('View Object functionality', function () {
 
   it('should update the word letters', function () {
     [game.validLetters[1], game.validLetters[2]] = ['O', 'O'];
-    View.updateSpaces(document, game.validLetters)
+    view.updateSpaces(game.validLetters)
     results = [];
     expected = ['', 'O', 'O', '', '', ''];
     Array.from(spaces.children).forEach(element => {
@@ -56,7 +57,7 @@ describe('View Object functionality', function () {
     results = [];
     game.guessedLetters.push('F');
     expected = ['F'];
-    View.updateGuesses(document, 'F');
+    view.updateGuesses('F');
     Array.from(guesses.children).forEach(element => {
       if (element.nodeName !== 'H2') { results.push(element.textContent); }
     });
@@ -65,14 +66,14 @@ describe('View Object functionality', function () {
 
   it('should update the remaining guesses', function () {
     game.incorrectGuesses = 3;
-    View.updateRemainingGuesses(document, game.incorrectGuesses);
+    view.updateRemainingGuesses(game.incorrectGuesses);
     expect(apples.getAttribute('class')).toBe('guess_3');
   });
 
   it('should display the game win', function () {
     results = [];
     expected = ['win', 'You win!!', 'visible'];
-    View.processWin(document)
+    view.processWin();
     results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });
@@ -80,7 +81,7 @@ describe('View Object functionality', function () {
   it('should display the game loss', function () {
     results = [];
     expected = ['lose', 'Sorry, you lost.', 'visible'];
-    View.processLoss(document)
+    view.processLoss();
     results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });
@@ -88,7 +89,7 @@ describe('View Object functionality', function () {
   it('should present the out of words state', function () {
     results = [];
     expected = ['lose', 'The Game is out of words.', false];
-    View.outOfWords(document);
+    view.outOfWords();
     results.push(document.body.getAttribute('class'), message.textContent, replay.hasAttribute('class'));
     expect(results).toEqual(expected);
   });
