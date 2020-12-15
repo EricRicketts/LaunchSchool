@@ -32,7 +32,7 @@ describe('View Object functionality', function () {
     span.appendChild(text);
     [spaces, guesses].forEach(element => element.appendChild(span));
     view.init(game.letterSpacesForWord);
-    expected = ['guess_1', 0, false, 6, 0, 1, 1, false];
+    expected = [null, 0, false, 6, 0, 1, 1, false];
     results = [
       apples.getAttribute('class'), message.childNodes.length, replay.hasAttribute('class'),
       spaces.getElementsByTagName('span').length, guesses.getElementsByTagName('span').length,
@@ -73,7 +73,7 @@ describe('View Object functionality', function () {
   it('should display the game win', function () {
     results = [];
     expected = ['win', 'You win!!', 'visible'];
-    view.processWin();
+    view.displayWin();
     results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });
@@ -81,7 +81,7 @@ describe('View Object functionality', function () {
   it('should display the game loss', function () {
     results = [];
     expected = ['lose', 'Sorry, you lost.', 'visible'];
-    view.processLoss();
+    view.displayLoss();
     results.push(document.body.getAttribute('class'), message.textContent, replay.getAttribute('class'));
     expect(results).toEqual(expected);
   });

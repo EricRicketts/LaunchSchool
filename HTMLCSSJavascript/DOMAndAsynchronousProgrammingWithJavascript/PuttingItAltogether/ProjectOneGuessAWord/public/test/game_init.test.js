@@ -2,7 +2,7 @@ import { Game } from '../code/javascript/game';
 
 describe('Guess A Word Game Initialization', function () {
   let game, originalWords, maxWordLength, minWordLength, results, expected;
-  beforeAll(() => {
+  beforeEach(() => {
     game = new Game();
     originalWords = [
       'stipend', 'foolish', 'signal', 'constant', 'bedazzle',

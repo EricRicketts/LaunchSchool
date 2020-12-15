@@ -7,7 +7,7 @@ function removeSpans(parent) {
 }
 function resetApples (document) {
   let apples = document.getElementById('apples');
-  apples.setAttribute('class', 'guess_1');
+  apples.removeAttribute('class');
 }
 function resetGuesses(document) {
   let guesses = document.getElementById('guesses');
@@ -53,7 +53,7 @@ View.prototype = {
     message.appendChild(text);
     replay.removeAttribute('class');
   },
-  processLoss: function() {
+  displayLoss: function() {
     const winMessage = 'Sorry, you lost.';
     let message = this.document.getElementById('message');
     let replay = this.document.getElementById('replay');
@@ -63,7 +63,7 @@ View.prototype = {
     message.appendChild(text);
     replay.setAttribute('class', 'visible')
   },
-  processWin: function() {
+  displayWin: function() {
     const winMessage = 'You win!!';
     let message = this.document.getElementById('message');
     let replay = this.document.getElementById('replay');
