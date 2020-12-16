@@ -136,5 +136,26 @@ describe('Controller Functionality', function () {
       expect(results).toEqual(expected);
       done();
     });
+
+    it('should record a loss', done => {
+      sixIncorrectLetters.forEach(letter => {
+        let event = createKeyBoardEvent(letter);
+        document.dispatchEvent(event);
+      });
+      let guessesSpansArray = Array.from(guesses.getElementsByTagName('span'));
+      results = [
+        document.body.getAttribute('class'),
+        message.textContent === 'Sorry, you lost.',
+        replay.getAttribute('class'),
+        guessesSpansArray.reduce((word, span) => {
+          word += span.textContent;
+          return word;
+        }, '')
+      ];
+      expected = ['lose', true, 'visible', sixIncorrectLetters.join('')];
+
+      expect(results).toEqual(expected);
+      done();
+    });
   });
 });

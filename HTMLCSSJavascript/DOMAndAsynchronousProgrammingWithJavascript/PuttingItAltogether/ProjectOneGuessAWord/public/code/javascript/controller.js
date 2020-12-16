@@ -40,6 +40,7 @@ Controller.prototype = {
     this.game.incrementIncorrectGuesses();
     this.view.updateGuesses(letter);
     this.view.updateRemainingGuesses(this.game.incorrectGuesses);
+    if (this.game.isLost()) { this.lose(); }
   },
   notALetter: function(charCode) {
     const LetterACharCode = 97;
