@@ -9,6 +9,19 @@ function renderInformationForDisplayedPhoto(desiredPhoto, templates, document) {
 
   photoInformation.insertAdjacentHTML('beforeend', photoInformationHTML);
 }
+function renderCommentsForDisplayedPhoto(photoId, templates, document) {
+  const photoCommentURL = `http://localhost:3000/comments?photo_id=${photoId}`;
+  let photoComment = document.getElementById('comments').querySelector('ul');
+
+  let photoCommentXhr = new XMLHttpRequest();
+  photoCommentXhr.open('GET', photoCommentURL);
+  photoCommentXhr.send();
+
+  photoCommentXhr.addEventListener('load', event => {
+    let comments = JSON.parse(event.target.response);
+    photoComment.insertAdjacentHTML('beforeend', templates['photo_comments']({ comments: comments }));
+  });
+}
 document.addEventListener('DOMContentLoaded', function() {
   let templates = {};
   document.querySelectorAll('script[type="text/x-handlebars"]').forEach(template => {
@@ -27,5 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let allPhotos = JSON.parse(event.target.response);
     renderAllPhotos(allPhotos, templates, document);
     renderInformationForDisplayedPhoto(allPhotos[0], templates, document);
+    renderCommentsForDisplayedPhoto(allPhotos[0].id, templates, document);
   });
 });
