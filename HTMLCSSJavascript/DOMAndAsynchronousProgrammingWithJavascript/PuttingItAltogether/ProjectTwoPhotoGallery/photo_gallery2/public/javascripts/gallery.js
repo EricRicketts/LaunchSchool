@@ -9,6 +9,8 @@ function renderAllPhotos(allPhotos, templates, document) {
 }
 function renderInformationForDisplayedPhoto(desiredPhoto, templates, document) {
   let photoInformation = document.querySelector('section > header');
+  removeAllChildren(photoInformation);
+
   let photoInformationTemplate = templates["photo_information"];
   let photoInformationHTML = photoInformationTemplate(desiredPhoto);
 
@@ -17,6 +19,7 @@ function renderInformationForDisplayedPhoto(desiredPhoto, templates, document) {
 function renderCommentsForDisplayedPhoto(photoId, templates, document) {
   const photoCommentURL = `http://localhost:3000/comments?photo_id=${photoId}`;
   let photoComment = document.getElementById('comments').querySelector('ul');
+  removeAllChildren(photoComment);
 
   let photoCommentXhr = new XMLHttpRequest();
   photoCommentXhr.open('GET', photoCommentURL);
@@ -45,7 +48,7 @@ function rotateSlides(slides, increment) {
 
   return newSlideOrder;
 }
-function slideHandler(event, document, increment) {
+function slideHandler(event, document, increment, templates, allPhotos) {
   event.preventDefault();
   let slides = document.getElementById('slides');
   if (slides.children.length === 0) { return; }
@@ -55,10 +58,16 @@ function slideHandler(event, document, increment) {
   newSlideOrder.forEach(slide => {
     slides.appendChild(slide);
   });
+
+  let firstSlideId = newSlideOrder[0].dataset.id;
+  let desiredPhoto = allPhotos.find(photo => photo.id == firstSlideId);
+  renderInformationForDisplayedPhoto(desiredPhoto, templates, document);
+  renderCommentsForDisplayedPhoto(desiredPhoto.id, templates, document);
 }
 document.addEventListener('DOMContentLoaded', function() {
   let nextSlide = document.querySelector('a.next');
   let previousSlide = document.querySelector('a.prev');
+  let allPhotos;
   let templates = {};
 
   document.querySelectorAll('script[type="text/x-handlebars"]').forEach(template => {
@@ -74,35 +83,17 @@ document.addEventListener('DOMContentLoaded', function() {
   initialXhr.send();
 
   initialXhr.addEventListener('load', event => {
-    let allPhotos = JSON.parse(event.target.response);
+    allPhotos = JSON.parse(event.target.response);
     renderAllPhotos(allPhotos, templates, document);
     renderInformationForDisplayedPhoto(allPhotos[0], templates, document);
     renderCommentsForDisplayedPhoto(allPhotos[0].id, templates, document);
   });
 
-  nextSlide.addEventListener('click', event => slideHandler(event, document, 1))
-  previousSlide.addEventListener('click', event => slideHandler(event, document, -1))
+  nextSlide.addEventListener('click', event => {
+    slideHandler(event, document, 1, templates, allPhotos);
+  });
+  previousSlide.addEventListener('click', event => {
+    slideHandler(event, document, -1, templates, allPhotos);
+  });
 });
 
-/*
-1 2 3
-2 3 1
-3 1 2
-1 2 3
-0 + 1 = 1, 2, 3, 1
-1 + 1 = 2, 3, 1, 2
-2 + 1 = 0  1, 2, 3
-
-
-1 2 3
-3 1 2
-2 3 1
-1 2 3
-0 - 1 = 2, 3, 1, 2
-2 - 1 = 1, 2, 3, 1
-1 - 1 = 0, 1, 2, 3
-
-(0 - 1 + 3) % 3 = 2
-(2 - 1 + 3) % 3 = 1
-(1 - 1 + 3) % 3 = 0
-*/
