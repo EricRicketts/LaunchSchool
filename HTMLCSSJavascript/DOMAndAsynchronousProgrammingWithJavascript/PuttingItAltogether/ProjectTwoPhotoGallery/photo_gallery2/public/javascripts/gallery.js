@@ -1,3 +1,22 @@
+function photoInformationHandler(event, document) {
+  event.preventDefault();
+  let button = event.target;
+  let buttonType = button.dataset.property;
+
+  if (buttonType) {
+    let href = button.getAttribute('href');
+    let dataId = button.dataset.id;
+    let photoInformationXhr = new XMLHttpRequest();
+    photoInformationXhr.open('POST', href);
+    photoInformationXhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    photoInformationXhr.send('photo_id=' + dataId);
+
+    photoInformationXhr.addEventListener('load', event => {
+      let response = JSON.parse(event.target.response);
+      button.textContent = button.textContent.replace(/\d+/, response.total.toString());
+    })
+  }
+}
 function removeAllChildren(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.lastChild);
@@ -67,6 +86,8 @@ function slideHandler(event, document, increment, templates, allPhotos) {
 document.addEventListener('DOMContentLoaded', function() {
   let nextSlide = document.querySelector('a.next');
   let previousSlide = document.querySelector('a.prev');
+  let photoInformation = document.querySelector('section > header');
+  let commentForm = document.querySelector('form');
   let allPhotos;
   let templates = {};
 
@@ -95,5 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
   previousSlide.addEventListener('click', event => {
     slideHandler(event, document, -1, templates, allPhotos);
   });
+
+  photoInformation.addEventListener('click', event => photoInformationHandler(event, document));
 });
 
