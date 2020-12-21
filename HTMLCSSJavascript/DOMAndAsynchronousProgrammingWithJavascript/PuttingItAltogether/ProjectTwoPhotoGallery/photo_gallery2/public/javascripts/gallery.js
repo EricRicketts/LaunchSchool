@@ -1,3 +1,8 @@
+function addCommentFormHandler(event, document) {
+  event.preventDefault();
+  let form = event.target;
+  form.nodeName;
+}
 function photoInformationHandler(event, document) {
   event.preventDefault();
   let button = event.target;
@@ -82,6 +87,13 @@ function slideHandler(event, document, increment, templates, allPhotos) {
   let desiredPhoto = allPhotos.find(photo => photo.id == firstSlideId);
   renderInformationForDisplayedPhoto(desiredPhoto, templates, document);
   renderCommentsForDisplayedPhoto(desiredPhoto.id, templates, document);
+  updateHiddenFormInput(document);
+}
+function updateHiddenFormInput(document) {
+  let hiddenInput = document.querySelector('form > fieldset > input[type="hidden"]');
+  let desiredPhoto = document.querySelector('#slides > figure:first-of-type');
+
+  hiddenInput.setAttribute('value', desiredPhoto.dataset.id);
 }
 document.addEventListener('DOMContentLoaded', function() {
   let nextSlide = document.querySelector('a.next');
@@ -108,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderAllPhotos(allPhotos, templates, document);
     renderInformationForDisplayedPhoto(allPhotos[0], templates, document);
     renderCommentsForDisplayedPhoto(allPhotos[0].id, templates, document);
+    updateHiddenFormInput(document);
   });
 
   nextSlide.addEventListener('click', event => {
@@ -118,5 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   photoInformation.addEventListener('click', event => photoInformationHandler(event, document));
+  commentForm.addEventListener('submit', event => addCommentFormHandler(event, document));
 });
 
