@@ -1,7 +1,28 @@
-function addCommentFormHandler(event, document) {
+function addCommentFormHandler(event, templates, document) {
   event.preventDefault();
+  let photoComments = document.querySelector('#comments > ul');
   let form = event.target;
-  form.nodeName;
+  let formData = new FormData(form);
+
+  let urlEncodedData = Array.from(formData.entries()).reduce((arr, data) => {
+    let key = data[0];
+    let value = data[1];
+    let str = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+    arr.push(str)
+    return arr;
+  }, []).join('&');
+
+  let formXhr = new XMLHttpRequest();
+  formXhr.open('POST', form.getAttribute('action'))
+  formXhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  formXhr.send(urlEncodedData);
+  form.reset();
+
+  formXhr.addEventListener('load', event => {
+    let response = JSON.parse(event.target.response);
+    let comment = { gravatar: response.gravatar, name: response.name, date: response.date, body: response.body };
+    photoComments.insertAdjacentHTML('beforeend', templates['photo_comment'](comment));
+  });
 }
 function photoInformationHandler(event, document) {
   event.preventDefault();
@@ -42,8 +63,8 @@ function renderInformationForDisplayedPhoto(desiredPhoto, templates, document) {
 }
 function renderCommentsForDisplayedPhoto(photoId, templates, document) {
   const photoCommentURL = `http://localhost:3000/comments?photo_id=${photoId}`;
-  let photoComment = document.getElementById('comments').querySelector('ul');
-  removeAllChildren(photoComment);
+  let photoComments = document.getElementById('comments').querySelector('ul');
+  removeAllChildren(photoComments);
 
   let photoCommentXhr = new XMLHttpRequest();
   photoCommentXhr.open('GET', photoCommentURL);
@@ -51,7 +72,7 @@ function renderCommentsForDisplayedPhoto(photoId, templates, document) {
 
   photoCommentXhr.addEventListener('load', event => {
     let comments = JSON.parse(event.target.response);
-    photoComment.insertAdjacentHTML('beforeend', templates['photo_comments']({ comments: comments }));
+    photoComments.insertAdjacentHTML('beforeend', templates['photo_comments']({ comments: comments }));
   });
 }
 function rotateSlides(slides, increment) {
@@ -131,6 +152,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   photoInformation.addEventListener('click', event => photoInformationHandler(event, document));
-  commentForm.addEventListener('submit', event => addCommentFormHandler(event, document));
+  commentForm.addEventListener('submit', event => addCommentFormHandler(event, templates, document));
 });
 
