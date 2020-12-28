@@ -8,22 +8,38 @@
 <body>
   <div class="form-container">
     <h1>Sign Up Form</h1>
-    <form>
+    <form novalidate >
+      <p id="form_errors"></p>
       <fieldset>
         <dl>
           <dt><label for="first_name">First Name</label></dt>
-          <dd><input type="text" id="first_name" name="first_name"></dd>
+          <dd>
+            <input type="text" id="first_name" name="first_name" required>
+            <span class="hide-error">First Name is a required field.</span>
+          </dd>
           <dt><label for="last_name">Last Name</label></dt>
-          <dd><input type="text" id="last_name" name="last_name"></dd>
+          <dd>
+            <input type="text" id="last_name" name="last_name" required>
+            <span class="hide-error">Last Name is a required field.</span>
+          </dd>
           <dt><label for="email">Email</label></dt>
-          <dd><input type="email" id="email" name="email" placeholder="someone@example.com"></dd>
+          <dd>
+            <input type="email" id="email" name="email" placeholder="someone@example.com" required>
+            <span class="hide-error">Email is a required field.</span>
+          </dd>
           <dt><label for="password">Password</label></dt>
-          <dd><input type="password" id="password" name="password"></dd>
+          <dd>
+            <input type="password" id="password" name="password" required>
+            <span class="hide-error">Password is a required field.</span>
+          </dd>
           <dt><label for="phone">Phone Number</label></dt>
-          <dd><input type="tel" id="phone" name="phone" placeholder="111-222-3333"></dd>
-          <button type="submit">Sign Up</button>
+          <dd>
+            <input type="tel" id="phone" name="phone" placeholder="111-222-3333">
+            <span class="hide-error"></span>
+          </dd>
         </dl>
       </fieldset>
+      <button type="submit">Sign Up</button>
     </form>
   </div>
   <script type="text/javascript" src="../javascripts/exercise_one.js"></script>
