@@ -1,42 +1,36 @@
-function attachRequiredEventHandlers(form) {
-  form.addEventListener('focusin', event => {
-    if (event.target.nodeName === 'INPUT') {
-      event.target.classList.remove('input-error');
-      let span = event.target.nextElementSibling;
-      let secondSpan;
-      if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
+function attachEventHandlers(form) {
+  form.addEventListener('focusin', event => inputModeHandler(event.target));
+  form.addEventListener('focusout', event => checkEachInputElementForErrors(event.target));
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    let [firstName, lastName, email, password, phone ] = Array.from(event.target.querySelectorAll('form input'));
 
-      span.classList.remove('show-error');
-      span.classList.add('hide-error');
-      if (secondSpan) {
-        secondSpan.classList.remove('show-error');
-        secondSpan.classList.add('hide-error');
-      }
-    }
-  });
+    [firstName, lastName, email, password, phone].forEach(element => {
 
-  form.addEventListener('focusout', event => {
-    if (event.target.nodeName === 'INPUT') {
-      let span = event.target.nextElementSibling;
-      let secondSpan;
-      if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
-
-      if (event.target.validity.valid) {
-        removeAllErrors(event, span, secondSpan)
-      } else if (event.target.validity.valueMissing && event.target.id !== 'phone') {
-        showFirstSpanError(span, event)
-      } else if (event.target.validity.tooShort) {
-        showSecondSpanError(span, secondSpan, event);
-      } else if (event.target.validity.patternMismatch && event.target.id === 'email') {
-        showSecondSpanError(span, secondSpan, event);
-      } else if (event.target.validity.patternMismatch && event.target.id === 'phone') {
-        showFirstSpanError(span, event);
-      }
-    }
+    });
   });
 }
-function removeAllErrors(event, span, secondSpan) {
-  event.target.classList.remove('input-error');
+function checkEachInputElementForErrors(element) {
+  if (element.nodeName === 'INPUT') {
+    let span = element.nextElementSibling;
+    let secondSpan;
+    if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
+
+    if (element.validity.valid) {
+      removeAllErrors(element, span, secondSpan)
+    } else if (element.validity.valueMissing && element.id !== 'phone') {
+      showFirstSpanError(span, element)
+    } else if (element.validity.tooShort) {
+      showSecondSpanError(span, secondSpan, element);
+    } else if (element.validity.patternMismatch && element.id === 'email') {
+      showSecondSpanError(span, secondSpan, element);
+    } else if (element.validity.patternMismatch && element.id === 'phone') {
+      showFirstSpanError(span, element);
+    }
+  }
+}
+function removeAllErrors(inputElement, span, secondSpan) {
+  inputElement.classList.remove('input-error');
   span.classList.remove('show-error');
   span.classList.add('hide-error');
   if (secondSpan) {
@@ -44,20 +38,27 @@ function removeAllErrors(event, span, secondSpan) {
     secondSpan.classList.add('hide-error');
   }
 }
-function showFirstSpanError(span, event) {
+function showFirstSpanError(span, inputElement) {
   span.classList.remove('hide-error');
   span.classList.add('show-error');
-  event.target.classList.add('input-error');
+  inputElement.classList.add('input-error');
 }
-function showSecondSpanError(span, secondSpan, event) {
+function showSecondSpanError(span, secondSpan, inputElement) {
   span.classList.remove('show-error');
   span.classList.add('hide-error');
   secondSpan.classList.remove('hide-error');
   secondSpan.classList.add('show-error');
-  event.target.classList.add('input-error');
+  inputElement.classList.add('input-error');
+}
+function inputModeHandler(element) {
+  if (element.nodeName === 'INPUT') {
+    element.classList.remove('input-error');
+    let span = element.nextElementSibling;
+    let secondSpan;
+    if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
+    removeAllErrors(element, span, secondSpan);
+  }
 }
 document.addEventListener('DOMContentLoaded', function() {
-  let form = document.querySelector('form');
-
-  attachRequiredEventHandlers(form);
+  attachEventHandlers(document.querySelector('form'));
 });
