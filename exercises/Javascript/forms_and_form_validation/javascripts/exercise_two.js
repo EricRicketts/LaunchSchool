@@ -1,4 +1,10 @@
 function attachEventHandlers(form, document) {
+  const invalidNameKeys = /[^A-Za-z'\s]/;
+  let firstName = document.getElementById('first_name');
+  let lastName = document.getElementById('last_name');
+  let creditCardFields = document.querySelectorAll('input[name="credit_card"]');
+  [firstName, lastName].forEach(element => checkKeyInputForNames(element, invalidNameKeys));
+  Array.from(creditCardFields).forEach(field => checkKeyInputForCreditCard(field));
   form.addEventListener('focusin', event => inputModeHandler(event.target));
   form.addEventListener('focusout', event => checkEachInputElementForErrors(event.target));
   form.addEventListener('submit', event => {
@@ -40,18 +46,42 @@ function checkEachInputElementForErrors(element) {
     }
   }
 }
+function checkKeyInputForCreditCard(element) {
+  element.addEventListener('keydown', event => {
+    const validKeys = [
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'Tab'
+    ];
+    if (!validKeys.includes(event.key)) { event.preventDefault(); }
+  });
+}
+function checkKeyInputForNames(element, invalidKeys) {
+  element.addEventListener('keydown', event => {
+    if (invalidKeys.test(event.key)) { event.preventDefault(); }
+  })
+}
 function deleteAllChildNodes(element) {
   while (element.firstChild) {
     element.removeChild(element.lastChild);
   }
 }
+function inputModeHandler(element) {
+  if (element.nodeName === 'INPUT' && element.getAttribute('name') !== 'credit_card') {
+    element.classList.remove('input-error');
+    let span = element.nextElementSibling;
+    let secondSpan;
+    if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
+    removeAllErrors(element, span, secondSpan);
+  }
+}
 function removeAllErrors(inputElement, span, secondSpan) {
-  inputElement.classList.remove('input-error');
-  span.classList.remove('show-error');
-  span.classList.add('hide-error');
-  if (secondSpan) {
-    secondSpan.classList.remove('show-error');
-    secondSpan.classList.add('hide-error');
+  if (inputElement.getAttribute('name') !== 'credit_card') {
+    inputElement.classList.remove('input-error');
+    span.classList.remove('show-error');
+    span.classList.add('hide-error');
+    if (secondSpan) {
+      secondSpan.classList.remove('show-error');
+      secondSpan.classList.add('hide-error');
+    }
   }
 }
 function showFirstSpanError(span, inputElement) {
@@ -65,15 +95,6 @@ function showSecondSpanError(span, secondSpan, inputElement) {
   secondSpan.classList.remove('hide-error');
   secondSpan.classList.add('show-error');
   inputElement.classList.add('input-error');
-}
-function inputModeHandler(element) {
-  if (element.nodeName === 'INPUT') {
-    element.classList.remove('input-error');
-    let span = element.nextElementSibling;
-    let secondSpan;
-    if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
-    removeAllErrors(element, span, secondSpan);
-  }
 }
 document.addEventListener('DOMContentLoaded', function() {
   attachEventHandlers(document.querySelector('form'), document);
