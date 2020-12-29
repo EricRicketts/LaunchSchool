@@ -85,3 +85,7 @@ form > fieldset input:focus {
    padding: 0;
    color: red;
  }
+
+ #form_errors {
+   color: red;
+ }
