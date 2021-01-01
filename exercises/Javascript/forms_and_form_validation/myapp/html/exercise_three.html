@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise Three</title>
+  <link rel="stylesheet" href="../stylesheets/exercise_three.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Sign Up Form</h1>
+    <form action="#" method="POST" novalidate >
+      <p id="form_errors"></p>
+      <fieldset>
+        <dl>
+          <dt><label for="first_name">First Name</label></dt>
+          <dd>
+            <input type="text" id="first_name" name="first_name" required>
+            <span class="hide-error">First Name is a required field.</span>
+          </dd>
+          <dt><label for="last_name">Last Name</label></dt>
+          <dd>
+            <input type="text" id="last_name" name="last_name" required>
+            <span class="hide-error">Last Name is a required field.</span>
+          </dd>
+          <dt><label for="email">Email</label></dt>
+          <dd>
+            <input type="email" id="email" name="email" placeholder="someone@example.com" pattern=".+@.+" required>
+            <span class="hide-error">Email is a required field.</span>
+            <span class="hide-error">Please enter a valid Email.</span>
+          </dd>
+          <dt><label for="password">Password</label></dt>
+          <dd>
+            <input type="password" id="password" name="password" minlength="10" required>
+            <span class="hide-error">Password is a required field.</span>
+            <span class="hide-error">Password must be at least 10 characters long.</span>
+          </dd>
+          <dt><label for="phone">Phone Number</label></dt>
+          <dd>
+            <input type="tel" id="phone" name="phone" placeholder="111-222-3333" pattern="\d{3}-\d{3}-\d{4}">
+            <span class="hide-error">Please enter a valid Phone Number.</span>
+          </dd>
+          <dt><label for="credit_card">Credit Card</label></dt>
+          <dd>
+            <input type="text" name="credit_card" id="cd1" maxlength="4">
+            <input type="text" name="credit_card" id="cd2" maxlength="4">
+            <input type="text" name="credit_card" id="cd3" maxlength="4">
+            <input type="text" name="credit_card" id="cd4" maxlength="4">
+            <span class="hide-error"></span>
+          </dd>
+        </dl>
+      </fieldset>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  <script type="text/javascript" src="../javascripts/exercise_three.js"></script>
+</body>
+</html>
