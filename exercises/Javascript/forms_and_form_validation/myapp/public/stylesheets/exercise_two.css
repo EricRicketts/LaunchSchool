@@ -58,10 +58,10 @@ form > fieldset input {
 }
 
 form > fieldset input:focus {
-  border: 1px solid blue;
+  border: 1px solid limegreen;
 }
 
-.input-error {
+.input_error {
   border: 1px solid red;
 }
 
@@ -76,11 +76,7 @@ form > fieldset input:focus {
    border: none;
  }
 
- .hide-error {
-  display: none;
- }
-
- .show-error {
+ .show_error {
    margin-left: 30px;
    padding: 0;
    color: red;
@@ -90,6 +86,6 @@ form > fieldset input:focus {
    color: red;
  }
 
- #cd1, #cd2, #cd3, #cd4 {
-   width: 10%;
+ #credit_card {
+   width: 235px;
  }

@@ -1,9 +1,11 @@
+/*
 function attachEventHandlers(form, document) {
+  const invalidNameKeys = /[^A-Za-z'\s]/;
   let firstName = document.getElementById('first_name');
   let lastName = document.getElementById('last_name');
   let creditCardFields = document.querySelectorAll('input[name="credit_card"]');
-  [firstName, lastName].forEach(element => checkKeyInputForNames(element));
-  Array.from(creditCardFields).forEach(field => checkKeyInputForCreditCard(field, document));
+  [firstName, lastName].forEach(element => checkKeyInputForNames(element, invalidNameKeys));
+  Array.from(creditCardFields).forEach(field => checkKeyInputForCreditCard(field));
   form.addEventListener('focusin', event => inputModeHandler(event.target));
   form.addEventListener('focusout', event => checkEachInputElementForErrors(event.target));
   form.addEventListener('submit', event => {
@@ -13,12 +15,8 @@ function attachEventHandlers(form, document) {
 }
 function checkAllInputElementsBeforeSubmission(event, document) {
   let errorParagraph = document.getElementById('form_errors');
-  let inputs = Array.from(event.target.querySelectorAll('form input'));
-  let numberOfInputs = inputs.length;
-  let nonCreditCardInputs = inputs.slice(0, numberOfInputs - 1);
-  let creditCard = inputs[numberOfInputs - 1];
-  let creditCardFields = Array.from(creditCard.querySelector('input[name="credit_card"]'));
-  let validityCheck = nonCreditCardInputs.every(element => element.validity.valid);
+  let inputs = [firstName, lastName, email, passwd, phone] = Array.from(event.target.querySelectorAll('form input'));
+  let validityCheck = inputs.every(element => element.validity.valid);
 
   if (validityCheck) {
     deleteAllChildNodes(errorParagraph);
@@ -27,11 +25,11 @@ function checkAllInputElementsBeforeSubmission(event, document) {
     deleteAllChildNodes(errorParagraph);
     let errorText = document.createTextNode('Form cannot be submitted until the errors are corrected.');
     errorParagraph.appendChild(errorText);
-    nonCreditCardInputs.forEach(inputElement => checkEachInputElementForErrors(inputElement));
+    inputs.forEach(inputElement => checkEachInputElementForErrors(inputElement));
   }
 }
 function checkEachInputElementForErrors(element) {
-  if (element.nodeName === 'INPUT' && element.getAttribute('name') !== 'credit_card') {
+  if (element.nodeName === 'INPUT') {
     let span = element.nextElementSibling;
     let secondSpan;
     if (span.nextElementSibling) { secondSpan = span.nextElementSibling; }
@@ -49,38 +47,15 @@ function checkEachInputElementForErrors(element) {
     }
   }
 }
-function checkKeyInputForCreditCard(creditCardField, document) {
-  creditCardField.addEventListener('keydown', event => {
+function checkKeyInputForCreditCard(element) {
+  element.addEventListener('keydown', event => {
     const validKeys = [
       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'Tab'
     ];
-    if (!validKeys.includes(event.key)) {
-      event.preventDefault();
-    } else {
-      creditCardField.addEventListener('keyup', event => {
-        let notLastField = creditCardField.id !== 'cd4';
-        let hasRequiredDigits = creditCardField.value.length.toString() === creditCardField.getAttribute('maxlength');
-        if (notLastField && hasRequiredDigits) {
-          creditCardField.classList.remove('input-error');
-          creditCardField.nextElementSibling.focus();
-        }
-        let allCreditCardFields = Array.from(document.querySelectorAll('input[name="credit_card"]'));
-        let numberOfFields = allCreditCardFields.length;
-        let desiredFields = allCreditCardFields.slice(0, numberOfFields - 1);
-        desiredFields.forEach(field => {
-          field.classList.remove('input-error');
-          let notActive = (field !== document.activeElement);
-          let fieldLength = field.value.length;
-          let fieldMaxLength = Number.parseInt(field.getAttribute('maxlength'), 10);
-          let notEnoughDigits = fieldLength > 0 && fieldLength < fieldMaxLength;
-          if (notActive && notEnoughDigits) { field.classList.add('input-error'); }
-        })
-      });
-    }
+    if (!validKeys.includes(event.key)) { event.preventDefault(); }
   });
 }
-function checkKeyInputForNames(element) {
-  const invalidKeys = /[^A-Za-z'\s]/;
+function checkKeyInputForNames(element, invalidKeys) {
   element.addEventListener('keydown', event => {
     if (invalidKeys.test(event.key)) { event.preventDefault(); }
   })
@@ -124,4 +99,9 @@ function showSecondSpanError(span, secondSpan, inputElement) {
 }
 document.addEventListener('DOMContentLoaded', function() {
   attachEventHandlers(document.querySelector('form'), document);
+});
+ */
+import App from './app_exercise_two.js';
+document.addEventListener('DOMContentLoaded', function() {
+  App.init(document);
 });
