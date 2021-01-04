@@ -89,3 +89,17 @@ form > fieldset input:focus {
  #credit_card {
    width: 235px;
  }
+
+ #form_content {
+   display: block;
+   background-color: white;
+   margin-top: 25px;
+ }
+
+ #form_content > h2 {
+   padding: 10px 0 10px 10px;
+ }
+
+ #form_content > p {
+   margin-top: 5px;
+ }

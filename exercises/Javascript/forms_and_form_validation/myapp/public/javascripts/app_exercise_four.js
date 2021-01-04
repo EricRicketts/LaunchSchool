@@ -1,4 +1,4 @@
-let AppExerciseTwo = {
+let AppExerciseFour = {
   form: null,
   inputs: null,
   document: null,
@@ -13,10 +13,16 @@ let AppExerciseTwo = {
       '0', '1', '2', '3', '4', '5', '6',
       '7', '8', '9', '-', 'Backspace', 'Tab'
     ];
-    console.log(event.key);
     if (!allowedNumerics.includes(event.key)) {
       event.preventDefault();
     }
+  },
+  createURIEncodedString(key, value) {
+    let p = this.document.createElement('p');
+    let urlString = encodeURIComponent(`${key}=${value}`);
+    let text = this.document.createTextNode(urlString);
+    p.appendChild(text);
+    return p;
   },
   handleBlur: function(event) {
     if (this.form.checkValidity()) {
@@ -38,7 +44,21 @@ let AppExerciseTwo = {
     this.removeAllChildNodes(formErrors);
     if (this.form.checkValidity()) {
       this.removeAllChildNodes(formErrors);
-      console.log('form submitted');
+      let formData = new FormData(this.form);
+      let formContentDiv = this.document.getElementById('form_content');
+      Array.from(formData.entries()).forEach(([key, value]) => {
+        let passwordAndNotRequiredCheck = (key !== 'password' && key !== 'credit_card' && key !== 'phone');
+        if (passwordAndNotRequiredCheck) {
+          formContentDiv.appendChild(this.createURIEncodedString(key, value));
+        }
+        if (key === 'phone' && value.length !== 0) {
+          formContentDiv.appendChild(this.createURIEncodedString(key, value));
+        }
+        if (key === 'credit_card' && value.length !==0) {
+          let joinedPhoneNumber = value.split('-').join('');
+          formContentDiv.appendChild(this.createURIEncodedString(key, joinedPhoneNumber));
+        }
+      });
     } else {
       let errorMessage = this.document.createTextNode('Form cannot be submitted until errors are corrected.');
       formErrors.appendChild(errorMessage);
@@ -112,4 +132,4 @@ let AppExerciseTwo = {
   }
 }
 
-export { AppExerciseTwo as default };
+export { AppExerciseFour as default };
