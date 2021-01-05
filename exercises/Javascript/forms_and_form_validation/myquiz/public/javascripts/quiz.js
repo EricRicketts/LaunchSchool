@@ -36,6 +36,7 @@ let quizApp = {
     let submitButton = this.document.querySelector('form > button:first-of-type');
     let resetButton = this.document.querySelector('form > button:nth-of-type(2)');
     submitButton.addEventListener('click', event => this.handleSubmit(event, resetButton));
+    resetButton.addEventListener('click', event => this.handleReset(event, submitButton));
   },
   gradeQuestion: function(question, answer) {
     let questionID = question.dataset.id;
@@ -58,6 +59,11 @@ let quizApp = {
       this.gradeQuestion(question, answer);
     });
     resetButton.classList.remove('disabled');
+  },
+  handleReset: function(event, submitButton) {
+    event.preventDefault();
+    let resetButton = event.target;
+    resetButton.classList.contains('disabled') ? undefined : this.resetQuiz(resetButton, submitButton);
   },
   handleSubmit: function(event, resetButton) {
     event.preventDefault();
@@ -89,7 +95,18 @@ let quizApp = {
       this.document.querySelector('fieldset').insertAdjacentHTML('beforeend', this.questionTemplate(question));
     });
   },
-
+  resetQuiz: function(resetButton, submitButton) {
+    this.document.querySelector('form').reset();
+    let allQuestions = Array.from(this.document.getElementsByClassName('question'));
+    allQuestions.forEach(question => {
+      let result = question.querySelector('p.result');
+      result.setAttribute('class', 'result');
+      result.textContent = '';
+    });
+    resetButton.classList.remove('submit');
+    resetButton.classList.add('disabled');
+    submitButton.classList.remove('disabled');
+  }
 }
 document.addEventListener('DOMContentLoaded', function() {
   quizApp.init(document, questions, answerKey);
