@@ -1,0 +1,78 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #eee9ce;
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+form {
+  margin: 30px 0 0 0;
+}
+
+fieldset {
+  border: none;
+}
+
+label {
+  display: block;
+  margin-top: 5px;
+}
+
+#container {
+  width: 600px;
+  margin: 20px auto;
+}
+
+.question {
+  margin: 0 0 10px 0;
+}
+
+.result {
+  margin-top: 10px;
+  height: 35px;
+  padding: 5px;
+}
+
+.submit, .reset_form {
+  font-size: 18px;
+  height: 40px;
+  padding: 5px 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.submit {
+  background-color: #55ec39;
+}
+
+.disabled {
+  background-color: #cccccc;
+}
+
+.question .description {
+  margin: 0 0 10px 0;
+}
+
+.result.correct {
+  border: 1px solid green;
+}
+
+.results.wrong {
+  border: 1px solid red;
+}

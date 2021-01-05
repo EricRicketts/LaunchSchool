@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="UTF-8">
+  <title>Exercise Five</title>
+  <link rel="icon" type="image/png" href="http://example.com/myicon.png">
+  <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+<body>
+  <div id="container">
+    <h1>Multiple Choice Quiz</h1>
+    <form action="#", method="POST" novalidate>
+      <p class="form_errors"></p>
+      <fieldset></fieldset>
+      <button type="submit" class="submit">Submit Quiz</button>
+      <button type="button" class="reset_form disabled">Reset</button>
+    </form>
+  </div>
+  <script id="question_template" type="text/x-handlebars-template">
+    <div class="question" data-id="{{id}}">
+      <p class="description">Q{{id}}. {{description}}</p>
+      {{#each options}}
+        <label>
+          <input type="radio" name="{{../id}}" value="{{.}}">
+          {{.}}
+        </label>
+      {{/each}}
+      <p class="result"></p>
+    </div>
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./javascripts/quiz.js"></script>
+</body>
+</html>
