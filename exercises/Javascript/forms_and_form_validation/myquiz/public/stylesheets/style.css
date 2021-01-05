@@ -33,6 +33,10 @@ label {
   margin-top: 5px;
 }
 
+button {
+  outline: none;
+}
+
 #container {
   width: 600px;
   margin: 20px auto;
@@ -52,13 +56,10 @@ label {
   font-size: 18px;
   height: 40px;
   padding: 5px 15px;
+  background-color: #55ec39;
   cursor: pointer;
   border: none;
   border-radius: 4px;
-}
-
-.submit {
-  background-color: #55ec39;
 }
 
 .disabled {
@@ -69,10 +70,10 @@ label {
   margin: 0 0 10px 0;
 }
 
-.result.correct {
+.correct {
   border: 1px solid green;
 }
 
-.results.wrong {
+.wrong {
   border: 1px solid red;
 }
