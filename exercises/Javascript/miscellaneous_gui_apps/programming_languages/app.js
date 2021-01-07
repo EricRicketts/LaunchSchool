@@ -32,16 +32,41 @@ const languages = [
 ];
 
 let MyLanguagesApp = {
+  populateLanguageElements: function() {
+    languages.forEach(obj => {
+      let html = this.template({ name: obj.name, description: obj.description });
+      let div = this.document.createElement('div');
+      div.setAttribute('class', 'prog_lang');
+      div.innerHTML = html;
+      this.truncateAndHideDescription(div);
+      this.document.getElementById('container').insertAdjacentElement('beforeend', div);
+    });
+  },
+  removeAllChildren(element) {
+    while (element.firstChild) {
+      element.removeChild(element.lastChild);
+    }
+  },
+  truncateAndHideDescription: function(div) {
+    let p = div.querySelector('p');
+    let splitDescription = p.textContent.split('').reduce((arr, char, index) => {
+      index < 120 ? arr[0].push(char) : arr[1].push(char);
+      return arr;
+    }, [[], []]);
+    this.removeAllChildren(p);
+    [splitDescription[0].join(''), ' ... ', splitDescription[1].join('')].forEach((str, index) => {
+      let span = this.document.createElement('span');
+      let text = this.document.createTextNode(str);
+      span.appendChild(text);
+      if (index === 2) { span.style.display = 'none'; }
+      p.appendChild(span);
+    });
+  },
   init: function(document) {
     let source = document.getElementById('prog_lang').innerHTML;
     this.document = document;
     this.template = Handlebars.compile(source);
-    languages.forEach(obj => {
-      let div = document.createElement('div');
-      div.setAttribute('class', 'prog_lang');
-      let html = this.template({ name: obj.name, description: obj.description });
-      this.document.getElementById('container').insertAdjacentHTML('beforeend', html);
-    });
+    this.populateLanguageElements();
   }
 }
 document.addEventListener('DOMContentLoaded', function() {
