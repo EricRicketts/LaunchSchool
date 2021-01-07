@@ -32,13 +32,32 @@ const languages = [
 ];
 
 let MyLanguagesApp = {
+  bindButtonHandlers: function() {
+    let allButtons = Array.from(this.document.querySelectorAll('.prog_lang > button'));
+    allButtons.forEach(button => {
+      button.addEventListener('click', event => this.buttonHandler(event));
+    });
+  },
+  buttonHandler: function(event) {
+    let button = event.target;
+    let p = button.previousElementSibling;
+    if (button.textContent.includes('More')) {
+      p.children[1].style.display = 'none';
+      p.children[2].style.display = 'inline';
+      button.textContent = 'Show Less';
+    } else {
+      p.children[1].style.display = 'inline';
+      p.children[2].style.display = 'none';
+      button.textContent = 'Show More';
+    }
+  },
   populateLanguageElements: function() {
     languages.forEach(obj => {
       let html = this.template({ name: obj.name, description: obj.description });
       let div = this.document.createElement('div');
       div.setAttribute('class', 'prog_lang');
       div.innerHTML = html;
-      this.truncateAndHideDescription(div);
+      this.truncateAndHideDescription(div.querySelector('p'));
       this.document.getElementById('container').insertAdjacentElement('beforeend', div);
     });
   },
@@ -47,8 +66,7 @@ let MyLanguagesApp = {
       element.removeChild(element.lastChild);
     }
   },
-  truncateAndHideDescription: function(div) {
-    let p = div.querySelector('p');
+  truncateAndHideDescription: function(p) {
     let splitDescription = p.textContent.split('').reduce((arr, char, index) => {
       index < 120 ? arr[0].push(char) : arr[1].push(char);
       return arr;
@@ -67,6 +85,7 @@ let MyLanguagesApp = {
     this.document = document;
     this.template = Handlebars.compile(source);
     this.populateLanguageElements();
+    this.bindButtonHandlers();
   }
 }
 document.addEventListener('DOMContentLoaded', function() {
