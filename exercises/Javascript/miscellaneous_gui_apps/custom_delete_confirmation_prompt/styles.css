@@ -1,0 +1,53 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  background-color: darkgreen;
+}
+
+h2 {
+  font-size: 24px;
+  color: white;
+  margin: 40px 0 20px 20px;
+}
+
+#todos {
+  list-style-type: none;
+  margin: 0 0 0 40px;
+  padding: 10px;
+  width: 50%;
+}
+
+#todos > li {
+  background-color: white;
+  margin-bottom: 20px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 0 20px 15px;
+  font-size: 18px;
+}
+
+#todos > li:last-of-type {
+  margin-bottom: 0;
+}
+
+#todos span.remove {
+  display: inline-block;
+  float: right;
+  margin-right: 15px;
+  color: red;
+  cursor: pointer;
+}
+

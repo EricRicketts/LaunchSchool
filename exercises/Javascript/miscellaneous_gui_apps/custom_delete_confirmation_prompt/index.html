@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Delete Confirmation Prompt</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h2>Todos</h2>
+  <ul id="todos"></ul>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+  <script id="todo_items" type="text/x-handlebars">
+    <li data-id="{{id}}"><span>{{title}}</span><span class="remove">&#10060;</span></li>
+  </script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
