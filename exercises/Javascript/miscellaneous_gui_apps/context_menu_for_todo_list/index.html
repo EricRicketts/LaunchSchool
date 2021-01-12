@@ -8,7 +8,7 @@
 <body>
   <h2>Todos</h2>
   <ul id="todos">
-    <div id="popup">
+    <div id="popup" data-id="1">
       <p>Are you sure you want to delete this todo?</p>
       <div>
         <button type="button">Yes</button>
@@ -20,10 +20,10 @@
   <script id="todo_items" type="text/x-handlebars">
     <li data-id="{{id}}">
       <span>{{title}}</span>
-      <div class="menu" data-id="{{id}}">
+      <div class="menu">
         <p class="edit_todo">Edit Todo</p>
         <p class="show_details_todo"">Show Details</p>
-        <p class="delete_todo">Delete</p>
+        <p data-id="{{id}}" class="delete_todo">Delete</p>
       </div>
     </li>
   </script>
