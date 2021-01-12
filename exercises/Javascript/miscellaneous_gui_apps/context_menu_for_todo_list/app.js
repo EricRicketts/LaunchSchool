@@ -25,7 +25,7 @@ let App = {
   },
   listItemHandler: function(event, listItem) {
     event.preventDefault();
-    this.showMenu(listItem);
+    this.showMenu(event, listItem);
     this.document.addEventListener('click', this.clickOutsideMenuHandler.bind(this));
   },
   populateTodos: function() {
@@ -34,7 +34,7 @@ let App = {
       this.list.insertAdjacentHTML('beforeend', html);
     })
   },
-  showMenu: function(listItem) {
+  showMenu: function(event, listItem) {
     let menu = listItem.querySelector('div.menu');
     const rect = listItem.getBoundingClientRect();
     const x = event.clientX - rect.left;
