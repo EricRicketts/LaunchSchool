@@ -42,6 +42,19 @@ let App = {
     menu.style.left = `${x}px`;
     menu.style.top = `${y}px`;
     menu.style.display = 'block';
+    let menuParagraphs = Array.from(menu.querySelectorAll('p'));
+    menuParagraphs.forEach(p => {
+      p.addEventListener('mouseenter', event => {
+        event.target.style.backgroundColor = 'darkgray';
+        event.target.style.color = 'white';
+      });
+    });
+    menuParagraphs.forEach(p => {
+      p.addEventListener('mouseleave', event => {
+        event.target.style.backgroundColor = 'lightgray';
+        event.target.style.color = 'black';
+      });
+    });
   },
   yesButtonHandler: function(event, id, element) {
     let numericId = Number.parseInt(id, 10);
