@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Car Shop With Filtering</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="nav_container">
+    <h1>Buy Used Cars</h1>
+    <nav>
+      <div class="menu">
+        <label for="make">Make</label>
+        <select name="make" id="make">
+          <option value="All" selected>All</option>
+        </select>
+      </div>
+      <div class="menu">
+        <label for="model">Model</label>
+        <select name="model" id="model">
+          <option value="All" selected>All</option>
+        </select>
+      </div>
+      <div class="menu">
+        <label for="price">Price</label>
+        <select name="price" id="price">
+          <option value="Any" selected>Any</option>
+        </select>
+      </div>
+      <div class="menu">
+        <label for="year">Year</label>
+        <select name="year" id="year">
+          <option value="Any" selected>Any</option>
+        </select>
+      </div>
+      <button type="button">Filter</button>
+    </nav>
+  </div>
+  <section id="results"></section>
+</body>
+</html>
