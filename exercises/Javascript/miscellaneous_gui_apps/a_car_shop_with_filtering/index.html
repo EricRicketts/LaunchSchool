@@ -9,6 +9,7 @@
   <div id="nav_container">
     <h1>Buy Used Cars</h1>
     <nav>
+      <!--
       <div class="menu">
         <label for="make">Make</label>
         <select name="make" id="make">
@@ -34,6 +35,7 @@
         </select>
       </div>
       <button type="button">Filter</button>
+      -->
     </nav>
   </div>
   <section id="results">
@@ -60,7 +62,7 @@
     </div>
 
     <div class="menu">
-      <label for="model_select">Make</label>
+      <label for="model_select">Model</label>
       <select name="model" id="model_select">
         <option value="">All</option>
         {{#each models}}
@@ -70,7 +72,7 @@
     </div>
 
     <div class="menu">
-      <label for="price_select">Make</label>
+      <label for="price_select">Price</label>
       <select name="price" id="price_select">
         <option value="">Any</option>
         {{#each prices}}
@@ -80,7 +82,7 @@
     </div>
 
     <div class="menu">
-      <label for="year_select">Make</label>
+      <label for="year_select">Year</label>
       <select name="year" id="year_select">
         <option value="">Any</option>
         {{#each years}}
@@ -88,6 +90,7 @@
         {{/each}}
       </select>
     </div>
+    <button type="button">Filter</button>
   </script>
   <script type="text/javascript" src="app.js"></script>
 </body>

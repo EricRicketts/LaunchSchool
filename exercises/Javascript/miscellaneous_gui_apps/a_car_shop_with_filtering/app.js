@@ -30,12 +30,19 @@ let App = {
     });
     return menuData;
   },
-  init: function() {
+  populateMenus: function() {
+    let menuData = this.getMenuData();
+    let source = this.document.getElementById('menu_template').innerHTML;
+    let template = Handlebars.compile(source);
+    this.document.querySelector('#nav_container nav').insertAdjacentHTML('afterbegin', template(menuData));
+  },
+  init: function(document) {
+    this.document = document;
+    this.populateMenus();
   }
 }
 document.addEventListener('DOMContentLoaded', function() {
-  let test = App.getMenuData();
-  let y = 'foo';
+  App.init(document);
 });
 /*
 1.  Load up the menus
