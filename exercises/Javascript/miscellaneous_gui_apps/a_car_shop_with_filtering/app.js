@@ -7,27 +7,41 @@ const cars = [
   { make: 'Audi', image: 'images/audi-a4-2013.jpg', model: 'A4', year: 2013, price: 25000 },
   { make: 'Audi', image: 'images/audi-a4-2013.jpg', model: 'A4', year: 2013, price: 26000 },
 ];
+let App = {
+  getMenuData: function() {
+    let emptyData = { makes: [], models: [], prices: [], years: [] };
+    let menuData = cars.reduce((newData, obj) => {
+      Object.keys(obj).forEach(key => {
+        if (key !== 'image') {
+          let newDataKey = key + 's';
+          if (!newData[newDataKey].includes(obj[key])) {
+            newData[newDataKey].push(obj[key]);
+          }
+        }
+      });
+      return newData;
+    }, emptyData);
+    Object.values(menuData).forEach(values => {
+      if (typeof values[0] === 'string') {
+        values.sort();
+      } else {
+        values.sort((a, b) => a - b);
+      }
+    });
+    return menuData;
+  },
+  init: function() {
+  }
+}
 document.addEventListener('DOMContentLoaded', function() {
-
+  let test = App.getMenuData();
+  let y = 'foo';
 });
 /*
-  1.  Load the car data
-      i.    image
-      ii.   make and model
-      iii.  price
-      iv.   year manufactured
-      v.    you can add more data if you want to
-  2.  Load the select boxes
-      i.    they will be select elements but their values must be loaded by Javascript.
-      ii.   select boxes are:
-            a.  makes
-            b.  models
-            c.  years
-            d.  price
-            e.  filter button - all select fields initialized to 'All'
-  3.  The order in which the above two are executed is not that pertinent
-  4.  when the filter button is selected the following happens:
-      i.    take each selected field from the select element and make it a search criteria
-      ii.   if the selected field is 'All' then that field is not used as a search criteria
-      iii.  if all fields are 'All' then return the entire list
+1.  Load up the menus
+    i.    Create a template for all of the menus
+    ii.   get an array of all the keys except image which have all of the corresponding values, remove duplicates.
+    iii.  the keys should be makes, models, years, and prices
+    iii.  Grab the menu_template and get its inner html
+    iv.   Iterate through makes, models, prices, and years
 */

@@ -52,10 +52,34 @@ select {
   background-color: #E29921;
 }
 
+select:focus {
+  outline: none;
+  border: 1px solid white;
+}
+
 button {
   width: 50px;
   background-color: #E29921;
 }
 
 section {
+  margin-top: 30px;
+  margin-left: 20px;
 }
+
+.car {
+  width: 200px;
+}
+
+.car img {
+  width: 100%;
+}
+
+.car p, .car figure {
+  margin-bottom: 5px;
+}
+
+.car > p:first-of-type {
+  font-weight: bold;
+}
+

@@ -36,6 +36,59 @@
       <button type="button">Filter</button>
     </nav>
   </div>
-  <section id="results"></section>
+  <section id="results">
+    <div class="car">
+      <figure>
+        <img src="images/honda-accord-2005.jpg" alt="2005 Honda Accord">
+      </figure>
+      <p>Honda Accord</p>
+      <p>Year: 2005</p>
+      <p>Price: $7000</p>
+      <button type="button">Buy</button>
+    </div>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+  <script type="text/x-handlebars" id="menu_template">
+    <div class="menu">
+      <label for="make_select">Make</label>
+      <select name="make" id="make_select">
+        <option value="">All</option>
+        {{#each makes}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="menu">
+      <label for="model_select">Make</label>
+      <select name="model" id="model_select">
+        <option value="">All</option>
+        {{#each models}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="menu">
+      <label for="price_select">Make</label>
+      <select name="price" id="price_select">
+        <option value="">Any</option>
+        {{#each prices}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="menu">
+      <label for="year_select">Make</label>
+      <select name="year" id="year_select">
+        <option value="">Any</option>
+        {{#each years}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </script>
+  <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
