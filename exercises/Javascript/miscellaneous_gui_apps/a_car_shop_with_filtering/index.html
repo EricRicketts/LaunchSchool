@@ -8,36 +8,9 @@
 <body>
   <div id="nav_container">
     <h1>Buy Used Cars</h1>
-    <nav>
-      <!--
-      <div class="menu">
-        <label for="make">Make</label>
-        <select name="make" id="make">
-          <option value="All" selected>All</option>
-        </select>
-      </div>
-      <div class="menu">
-        <label for="model">Model</label>
-        <select name="model" id="model">
-          <option value="All" selected>All</option>
-        </select>
-      </div>
-      <div class="menu">
-        <label for="price">Price</label>
-        <select name="price" id="price">
-          <option value="Any" selected>Any</option>
-        </select>
-      </div>
-      <div class="menu">
-        <label for="year">Year</label>
-        <select name="year" id="year">
-          <option value="Any" selected>Any</option>
-        </select>
-      </div>
-      <button type="button">Filter</button>
-      -->
-    </nav>
+    <nav></nav>
   </div>
+  <!--
   <section id="results">
     <div class="car">
       <figure>
@@ -49,6 +22,7 @@
       <button type="button">Buy</button>
     </div>
   </section>
+  -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
   <script type="text/x-handlebars" id="menu_template">
     <div class="menu">
@@ -91,6 +65,24 @@
       </select>
     </div>
     <button type="button">Filter</button>
+  </script>
+  <script type="text/x-handlebars" id="car_partial">
+    <div class="car">
+      <figure>
+        {{image}}
+      </figure>
+      <p>{{make}} {{model}}</p>
+      <p>Year: {{year}}</p>
+      <p>Price: ${{price}}</p>
+      <button type="button">Buy</button>
+    </div>
+  </script>
+  <script type="text/x-handlebars" id="filtered_cars">
+    <section id="results">
+      {{#each filteredCars}}
+        {{> carPartial}}
+      {{/each}}
+    </section>
   </script>
   <script type="text/javascript" src="app.js"></script>
 </body>

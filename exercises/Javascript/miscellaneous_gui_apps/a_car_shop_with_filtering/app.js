@@ -36,9 +36,25 @@ let App = {
     let template = Handlebars.compile(source);
     this.document.querySelector('#nav_container nav').insertAdjacentHTML('afterbegin', template(menuData));
   },
+  registerPartialTemplate: function() {
+    let source = this.document.getElementById('car_partial').innerHTML;
+    Handlebars.registerPartial('carPartial', source);
+  },
+  showNonFilteredData: function() {
+    let source = this.document.getElementById('filtered_cars').innerHTML;
+    let template = Handlebars.compile(source);
+    let filteredCars = cars.reduce((newObj, obj) => {
+      newObj.filteredCars.push(obj);
+      return newObj;
+    }, { filteredCars: [] });
+    let html = template(filteredCars);
+    this.document.getElementById('nav_container').insertAdjacentHTML('afterend', html);
+  },
   init: function(document) {
     this.document = document;
     this.populateMenus();
+    this.registerPartialTemplate();
+    this.showNonFilteredData();
   }
 }
 document.addEventListener('DOMContentLoaded', function() {
