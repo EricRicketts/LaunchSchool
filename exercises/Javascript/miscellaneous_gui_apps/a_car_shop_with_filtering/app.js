@@ -99,13 +99,3 @@ let App = {
 document.addEventListener('DOMContentLoaded', function() {
   App.init(document);
 });
-/*
-1.  Develop the search criteria, start with an empty object
-2.  Cycle through all of the selects and build up the search criteria
-    i.    If the value is not an empty string, '', then add the name of the select and the chosen
-          value to the search object
-    ii.   if the search object remains empty then we return the cars array.
-    iii.  if the search object is not empty then we cycle through the cars array using Array.filter
-    iv.   If the results section already exists, remove it and then run through the process of creating
-          it again with the new data.
-*/
