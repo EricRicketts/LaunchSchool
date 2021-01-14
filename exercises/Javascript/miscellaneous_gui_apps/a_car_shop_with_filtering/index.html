@@ -10,19 +10,6 @@
     <h1>Buy Used Cars</h1>
     <nav></nav>
   </div>
-  <!--
-  <section id="results">
-    <div class="car">
-      <figure>
-        <img src="images/honda-accord-2005.jpg" alt="2005 Honda Accord">
-      </figure>
-      <p>Honda Accord</p>
-      <p>Year: 2005</p>
-      <p>Price: $7000</p>
-      <button type="button">Buy</button>
-    </div>
-  </section>
-  -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
   <script type="text/x-handlebars" id="menu_template">
     <div class="menu">
@@ -69,7 +56,7 @@
   <script type="text/x-handlebars" id="car_partial">
     <div class="car">
       <figure>
-        {{image}}
+        <img src={{image}}>
       </figure>
       <p>{{make}} {{model}}</p>
       <p>Year: {{year}}</p>
