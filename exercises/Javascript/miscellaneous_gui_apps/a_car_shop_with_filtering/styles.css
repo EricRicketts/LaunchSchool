@@ -32,8 +32,13 @@ h1 {
 nav {
   display: inline-flex;
   flex-flow: row wrap;
-  width: 50%;
+  width: 80%;
   justify-content: space-between;
+}
+
+.menu, nav > button {
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 input, select {
@@ -62,13 +67,20 @@ button {
   background-color: #E29921;
 }
 
-section {
+#results {
   margin-top: 30px;
   margin-left: 20px;
+  display: inline-flex;
+  flex-flow: row wrap;
+  width: 80%;
+  justify-content: space-between;
 }
 
 .car {
   width: 200px;
+  align-self: flex-end;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .car img {
