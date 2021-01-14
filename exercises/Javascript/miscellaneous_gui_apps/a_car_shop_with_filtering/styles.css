@@ -41,6 +41,10 @@ nav {
   margin-right: 5px;
 }
 
+nav > button:focus {
+  outline: 0;
+}
+
 input, select {
   display: inline-block;
 }
@@ -67,7 +71,7 @@ button {
   background-color: #E29921;
 }
 
-#results {
+#car_data {
   margin-top: 30px;
   margin-left: 20px;
   display: inline-flex;

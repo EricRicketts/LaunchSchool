@@ -10,6 +10,7 @@
     <h1>Buy Used Cars</h1>
     <nav></nav>
   </div>
+  <section id="car_data"></section>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
   <script type="text/x-handlebars" id="menu_template">
     <div class="menu">
@@ -65,11 +66,9 @@
     </div>
   </script>
   <script type="text/x-handlebars" id="filtered_cars">
-    <section id="results">
-      {{#each filteredCars}}
-        {{> carPartial}}
-      {{/each}}
-    </section>
+    {{#each filteredCars}}
+      {{> carPartial}}
+    {{/each}}
   </script>
   <script type="text/javascript" src="app.js"></script>
 </body>

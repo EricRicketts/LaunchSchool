@@ -20,20 +20,29 @@ let App = {
     });
     return searchObject;
   },
+  createFilteredCarObject: function(carData) {
+    return carData.reduce((newObj, obj) => {
+      newObj.filteredCars.push(obj);
+      return newObj;
+    }, { filteredCars: [] });
+  },
   enableFilter: function() {
+    let filteredDataSection = this.document.getElementById('car_data');
+    let filteredCarData;
     let filter = this.document.getElementById('filter');
     filter.addEventListener('click', event => {
       let searchCriteria = this.buildSearchCriteria();
       if (Object.keys(searchCriteria).length === 0) {
-        return cars;
+        filteredCarData = cars;
       } else {
-        let filteredData = cars.filter(car => {
+        filteredCarData = cars.filter(car => {
           return Object.keys(searchCriteria).every(searchKey => {
             return searchCriteria[searchKey] === String(car[searchKey]);
           });
         });
-        return filteredData;
       }
+      this.removeAllChildNodes(filteredDataSection);
+      this.showFilteredCarData(filteredCarData);
     });
   },
   getMenuData: function() {
@@ -68,21 +77,22 @@ let App = {
     let source = this.document.getElementById('car_partial').innerHTML;
     Handlebars.registerPartial('carPartial', source);
   },
-  showNonFilteredData: function() {
+  removeAllChildNodes(element) {
+    while (element.firstChild) {
+      element.removeChild(element.lastChild);
+    }
+  },
+  showFilteredCarData: function(filteredCarData) {
     let source = this.document.getElementById('filtered_cars').innerHTML;
     let template = Handlebars.compile(source);
-    let filteredCars = cars.reduce((newObj, obj) => {
-      newObj.filteredCars.push(obj);
-      return newObj;
-    }, { filteredCars: [] });
-    let html = template(filteredCars);
-    this.document.getElementById('nav_container').insertAdjacentHTML('afterend', html);
+    let html = template(this.createFilteredCarObject(filteredCarData));
+    this.document.getElementById('car_data').insertAdjacentHTML('afterbegin', html);
   },
   init: function(document) {
     this.document = document;
     this.populateMenus();
     this.registerPartialTemplate();
-    this.showNonFilteredData();
+    this.showFilteredCarData(cars);
     this.enableFilter();
   }
 }
