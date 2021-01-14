@@ -8,6 +8,34 @@ const cars = [
   { make: 'Audi', image: 'images/audi-a4-2013.jpg', model: 'A4', year: 2013, price: 26000 },
 ];
 let App = {
+  buildSearchCriteria: function() {
+    let searchObject = {};
+    let filterButton = this.document.getElementById('filter');
+    let allFilterSelects = Array.from(this.document.querySelectorAll('.menu > select'));
+    allFilterSelects.forEach(select => {
+      if (select.value !== '') {
+        let key = select.getAttribute('name');
+        searchObject[key] = select.value;
+      }
+    });
+    return searchObject;
+  },
+  enableFilter: function() {
+    let filter = this.document.getElementById('filter');
+    filter.addEventListener('click', event => {
+      let searchCriteria = this.buildSearchCriteria();
+      if (Object.keys(searchCriteria).length === 0) {
+        return cars;
+      } else {
+        let filteredData = cars.filter(car => {
+          return Object.keys(searchCriteria).every(searchKey => {
+            return searchCriteria[searchKey] === String(car[searchKey]);
+          });
+        });
+        return filteredData;
+      }
+    });
+  },
   getMenuData: function() {
     let emptyData = { makes: [], models: [], prices: [], years: [] };
     let menuData = cars.reduce((newData, obj) => {
@@ -55,16 +83,19 @@ let App = {
     this.populateMenus();
     this.registerPartialTemplate();
     this.showNonFilteredData();
+    this.enableFilter();
   }
 }
 document.addEventListener('DOMContentLoaded', function() {
   App.init(document);
 });
 /*
-1.  Load up the menus
-    i.    Create a template for all of the menus
-    ii.   get an array of all the keys except image which have all of the corresponding values, remove duplicates.
-    iii.  the keys should be makes, models, years, and prices
-    iii.  Grab the menu_template and get its inner html
-    iv.   Iterate through makes, models, prices, and years
+1.  Develop the search criteria, start with an empty object
+2.  Cycle through all of the selects and build up the search criteria
+    i.    If the value is not an empty string, '', then add the name of the select and the chosen
+          value to the search object
+    ii.   if the search object remains empty then we return the cars array.
+    iii.  if the search object is not empty then we cycle through the cars array using Array.filter
+    iv.   If the results section already exists, remove it and then run through the process of creating
+          it again with the new data.
 */
