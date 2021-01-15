@@ -14,20 +14,7 @@ let App = {
     makeSelect.addEventListener('change', event => {
       let carMakeValue = event.target.value;
       if (carMakeValue !== '') {
-        let allMakeOfCarData = cars.filter(car => car.make === carMakeValue);
-        let uniqueModelsOfCarMake = allMakeOfCarData.reduce((uniqModels, car) => {
-          if (!uniqModels.includes(car.model)) {
-            uniqModels.push(car.model);
-          }
-          return uniqModels;
-        }, []);
-        Array.from(modelSelect.children).forEach(option => {
-          if (!uniqueModelsOfCarMake.includes(option.value) && option.value !== '') {
-            option.style.display = 'none';
-          } else {
-            option.style.display = 'block';
-          }
-        })
+        this.findUniqueCarModelsForMake(carMakeValue, modelSelect);
       } else {
         modelSelect.getElementsByTagName('option')[0].selected = 'selected';
         Array.from(modelSelect.children).forEach(option => option.style.display = 'block');
@@ -70,6 +57,22 @@ let App = {
       this.removeAllChildNodes(filteredDataSection);
       this.showFilteredCarData(filteredCarData);
     });
+  },
+  findUniqueCarModelsForMake: function(make, modelSelect) {
+    let allMakeOfCarData = cars.filter(car => car.make === make);
+    let uniqueModelsOfCarMake = allMakeOfCarData.reduce((uniqModels, car) => {
+      if (!uniqModels.includes(car.model)) {
+        uniqModels.push(car.model);
+      }
+      return uniqModels;
+    }, []);
+    Array.from(modelSelect.children).forEach(option => {
+      if (!uniqueModelsOfCarMake.includes(option.value) && option.value !== '') {
+        option.style.display = 'none';
+      } else {
+        option.style.display = 'block';
+      }
+    })
   },
   getMenuData: function() {
     let emptyData = { makes: [], models: [], prices: [], years: [] };
