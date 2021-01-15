@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adding A Smart Select To Car Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="nav_container">
+    <h1>Buy Used Cars</h1>
+    <nav></nav>
+  </div>
+  <section id="car_data"></section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+  <script type="text/x-handlebars" id="menu_template">
+    <div class="menu">
+      <label for="make_select">Make</label>
+      <select name="make" id="make_select">
+        <option value="">All</option>
+        {{#each makes}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="menu">
+      <label for="model_select">Model</label>
+      <select name="model" id="model_select">
+        <option value="">All</option>
+        {{#each models}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="menu">
+      <label for="price_select">Price</label>
+      <select name="price" id="price_select">
+        <option value="">Any</option>
+        {{#each prices}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="menu">
+      <label for="year_select">Year</label>
+      <select name="year" id="year_select">
+        <option value="">Any</option>
+        {{#each years}}
+          <option value="{{.}}">{{.}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <button id="filter" type="button">Filter</button>
+  </script>
+  <script type="text/x-handlebars" id="car_partial">
+    <div class="car">
+      <figure>
+        <img src={{image}}>
+      </figure>
+      <p>{{make}} {{model}}</p>
+      <p>Year: {{year}}</p>
+      <p>Price: ${{price}}</p>
+      <button type="button">Buy</button>
+    </div>
+  </script>
+  <script type="text/x-handlebars" id="filtered_cars">
+    {{#each filteredCars}}
+      {{> carPartial}}
+    {{/each}}
+  </script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
