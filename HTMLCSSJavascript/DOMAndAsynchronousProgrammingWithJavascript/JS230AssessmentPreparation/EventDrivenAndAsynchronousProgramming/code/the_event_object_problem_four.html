@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Object Problem Four</title>
+  <style>
+    .composer {
+      background: #f5f5f5;
+      padding:  1em;
+      width:  30em;
+    }
+
+    .composer textarea {
+      width: 100%;
+      height: 4em;
+    }
+
+    .composer textarea.invalid {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="composer">
+    <textarea placeholder="Enter your message"></textarea>
+    <p class="counter"></p>
+    <button type="submit">Post Message</button>
+  </div>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      let characterTrigger = 140;
+      let count = 0;
+      let textArea = document.querySelector('textarea');
+      let counter = document.querySelector('p.counter');
+      let button = document.querySelector('button');
+      textArea.addEventListener('keyup', event => {
+        event.key === 'Backspace' ? count -= 1 : count += 1;
+        if (count >= characterTrigger) {
+          event.target.classList.toggle('invalid', true);
+          counter.textContent = 'Character limit reached, all characters red from now on.';
+          button.disabled = true;
+        } else {
+          event.target.classList.toggle('invalid', false);
+          counter.textContent = `${characterTrigger - count} characters remaining.`;
+          button.disabled = false;
+        }
+      })
+    });
+  </script>
+</body>
+</html>
