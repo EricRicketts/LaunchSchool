@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capturing And Bubbling Part One Problem Three</title>
+  <style>
+    #elem0 {
+      width: 250px;
+      height: 250px;
+      position: absolute;
+      background-color: orange;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #elem1 {
+      background-color: green;
+      position: relative;
+      top: 25px;
+      left: 25px;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #elem2 {
+      background-color: blue;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 150px;
+      height: 150px;
+    }
+
+    #elem3 {
+      background-color: red;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 100px;
+      height: 100px;
+      line-height: 25px;
+    }
+
+    #elem4 {
+      background-color: yellow;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="elem0">0</div>
+  <div id="elem1">1
+    <div id="elem2">2
+      <div id="elem3">3
+        <div id="elem4">4
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    let elem0 = document.querySelector('#elem0');
+    let elem1 = document.querySelector('#elem1');
+    let elem4 = document.querySelector('#elem4');
+
+    elem0.addEventListener('click', event => alert(`${event.currentTarget.id} ${event.eventPhase}`));
+    elem1.addEventListener('click', event => alert(`${event.currentTarget.id} ${event.eventPhase}`), true);
+    elem4.addEventListener('click', event => alert(`${event.currentTarget.id} ${event.eventPhase}`));
+    /*
+      if div#elem4 is clicked there will be first "elem1 1" and then "elem4 2" two alert boxes, "elem0" is
+      not in the hierarchy of elem1 - elem4, so its event listener is not triggered.
+    */
+  </script>
+</body>
+</html>

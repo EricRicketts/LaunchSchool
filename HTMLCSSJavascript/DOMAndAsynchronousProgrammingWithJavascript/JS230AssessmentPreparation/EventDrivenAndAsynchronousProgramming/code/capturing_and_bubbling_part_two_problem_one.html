@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capturing And Bubbling Part Two Problem One</title>
+  <style>
+    #elem1 {
+      background-color: green;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #elem2 {
+      background-color: blue;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 150px;
+      height: 150px;
+    }
+
+    #elem3 {
+      background-color: red;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 100px;
+      height: 100px;
+      line-height: 25px;
+    }
+
+    #elem4 {
+      background-color: yellow;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="elem1">1
+    <section id="elem2">2
+      <article id="elem3">3
+        <main id="elem4">4
+        </main>
+      </article>
+    </section>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let elem1 = document.getElementById('elem1');
+      elem1.addEventListener('click', event => {
+        alert(`${event.target.tagName} ${event.eventPhase}`);
+      });
+      elem1.addEventListener('click', event => {
+        alert(`${event.currentTarget.tagName} ${event.eventPhase}`);
+      });
+    });
+    /*
+      The video showed a click on Element 4, which is the inner most element, the we would get the
+      following alerts:
+
+      "MAIN 3" "DIV 3" this is because the event listener was put only on element 1 and only one event gets
+      dispatched to two different event listeners on the same element.  When an event occurs the browser
+      always knows who is the target and currentTarget, it just so happens that one handler logs the target
+      while another handler logs the current target.  Note that we can have more than one event listener on
+      an element even of the same type as they do not overwrite one another.
+    */
+  </script>
+</body>
+</html>

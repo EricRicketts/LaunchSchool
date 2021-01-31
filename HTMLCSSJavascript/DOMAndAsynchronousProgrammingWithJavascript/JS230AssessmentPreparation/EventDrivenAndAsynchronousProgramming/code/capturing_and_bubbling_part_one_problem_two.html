@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capturing And Bubbling Part One Problem Two</title>
+  <style>
+    .d1 {
+      background-color: green;
+      position: relative;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .d2 {
+      background-color: blue;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 150px;
+      height: 150px;
+    }
+
+    .d3 {
+      background-color: red;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 100px;
+      height: 100px;
+      line-height: 25px;
+    }
+
+    .d4 {
+      background-color: yellow;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="d1 pick">1
+    <main class="d2 pick">2
+      <div class="d3">3
+        <section class="d4 pick">4
+        </section>
+      </div>
+    </main>
+  </div>
+  <script>
+    let divs = document.querySelectorAll('.pick');
+
+    for(let index = 0; index < divs.length; index += 1) {
+      divs[index].addEventListener('click', highlightThis, true);
+    }
+
+    document.querySelector('.d3').addEventListener('click', highlightThis, false);
+
+    function highlightThis(e) {
+      alert(`${this.className} ${e.currentTarget.tagName} ${event.eventPhase}`);
+    }
+    /*
+      if we click on the inner most element class "d4 pick", then we would get a series of alerts saying
+      the following (in order): "d1 pick DIV" "d2 pick MAIN" "d4 pick SECTION" as the there are event
+      listeners on every element, and capturing is in place by the true argument.
+
+      this is if line 62 is commented out
+
+      if line 62 is uncommented
+
+      If we click on the inner most element "d4 pick" we will have the following alerts:
+      "d1 pick DIV" "d2 pick MAIN" "d4 pick SECTION" "d3 DIV", this is because all of the event
+      listeners except d3 are in the capture phase so they will be alerted first as the capture phase
+      occurs before the bubble phase, when the bubble phase happens "d3 DIV" will be alerted because that
+      is the only element set to trigger in the bubble phase.
+    */
+  </script>
+</body>
+</html>
