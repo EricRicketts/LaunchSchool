@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Prevent Default Part Three</title>
+  <style>
+    button {
+      width: 100px;
+      height: 100px;
+      background: blue;
+      color: white;
+      position: relative;
+      top: 25px;
+      left: 25px;
+    }
+
+    a {
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+<a href="https://www.google.com">
+  <button>View Page</button>
+</a>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    let anchor = document.querySelector('a');
+    let button = document.querySelector('button');
+    let composeAlertString = function(event) {
+      return `${event.target.tagName} ${event.currentTarget.tagName} ${event.eventPhase}`;
+    }
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      alert(composeAlertString(event));
+      alert('Following the link was prevented.');
+    });
+
+    anchor.addEventListener('click', event => {
+      event.stopPropagation();
+      alert(composeAlertString(event));
+      alert('A click event on the anchor tag.');
+    }, { capture: true });
+  });
+  /*
+    in this case no matter if we click on the outer anchor or the inner button the link will be followed.  this is
+    because stopPropagation was put on the anchor element so the resulting response is as follows when the button
+    is clicked:
+
+    1.  BUTTON A 1
+    2.  A click event on the anchor tag
+    3.  link to google.com followed
+
+    thus the preventDefault call is never invoked because the button element is never reached, so its event
+    listener is never called.
+  */
+</script>
+</body>
+</html>

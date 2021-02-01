@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Prevent Default Part Two</title>
+  <style>
+    button {
+      width: 100px;
+      height: 100px;
+      background: blue;
+      color: white;
+      position: relative;
+      top: 25px;
+      left: 25px;
+    }
+
+    a {
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+<a href="https://www.google.com">
+  <button>View Page</button>
+</a>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    let anchor = document.querySelector('a');
+    let button = document.querySelector('button');
+    let composeAlertString = function(event) {
+      return `${event.target.tagName} ${event.currentTarget.tagName} ${event.eventPhase}`;
+    }
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      alert(composeAlertString(event));
+      alert('Following the link was prevented.');
+    });
+
+    anchor.addEventListener('click', event => {
+      alert(composeAlertString(event));
+      alert('A click event on the anchor tag.');
+    }, { capture: true });
+  });
+  /*
+    when clicking on the anchor tag we had the following response:
+    1.  A A 2
+    2.  A click event on the anchor tag
+    3.  the link to google.com was followed
+
+    when clicking on the button, we get the following response:
+    1.  BUTTON A 1
+    2.  A click on the anchor tag
+    3.  BUTTON BUTTON 2
+    4.  Following the link was prevented
+    5.  google.com was never followed
+
+    in the first case when we clicked on the anchor tag, we were in the target phase, so there was no
+    propagation down to the button tag.  Thus the preventDefault method was never invoked, both alerts
+    came up an the link was followed to google.
+
+    to understand the second case is very important, the preventDefault method is called on the event object, not
+    on the element to which the event listener was attached.  when clicking on the button, the browser waits for
+    the event to go through all of the propagation phases before it performs the default action on the event.  If
+    there is an event handler with a preventDefault invocation somewhere in the path, the default behavior is
+    skipped.  In this case the target phase BUTTON BUTTON 2 invokes the preventDefault method and the link is not
+    followed.
+  */
+</script>
+</body>
+</html>

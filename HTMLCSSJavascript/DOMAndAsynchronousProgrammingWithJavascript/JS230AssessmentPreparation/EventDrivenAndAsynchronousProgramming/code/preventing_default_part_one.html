@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Prevent Default Part One</title>
+  <style>
+    button {
+      width: 100px;
+      height: 100px;
+      background: blue;
+      color: white;
+      position: relative;
+      top: 25px;
+      left: 25px;
+    }
+
+    a {
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://www.google.com">
+    <button>View Page</button>
+  </a>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      let anchor = document.querySelector('a');
+      anchor.addEventListener('click', event => {
+        event.preventDefault();
+        alert('Following the link was prevented.');
+      });
+    });
+  </script>
+</body>
+</html>
