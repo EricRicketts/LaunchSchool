@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopping Propagation Part One</title>
+  <style>
+    div {
+      border: solid 2px blue;
+      background-color: lightblue;
+      padding: 2em;
+    }
+    .make-red {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="outer">
+    <div id="inner">
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function makeRed(event) {
+        event.target.classList.toggle('make-red');
+        let alertStr = `${event.target.id} ${event.currentTarget.id} ${event.eventPhase}`
+        alert(alertStr);
+      }
+      document.getElementById('outer').addEventListener('click', makeRed);
+      document.getElementById('inner').addEventListener('click', makeRed);
+    });
+    /*
+      I got some unusual behavior to begin with, when I clicked the inner div and it did not turn red.  When I
+      opened the DevTools and set a breakpoint, I found it did turn red and then turned back to lightblue.  This was
+      because the event handler was called twice for the inner div.
+
+      I put in a debugging alert statement as shown above, when I clicked the inner div, I got the following two
+      alerts:
+
+      inner inner 2 - this was the target phase, both the target and the current target are the same element
+      inner outer 3 - this was the bubble phase, the target is inner but the current target is outer, since
+      an event listener was put on outer, the bubble phase forced this event listener to fire, in doing so it
+      caused the makeRed event handler to be invoked again, thus causing the make-red class to be removed from
+      the inner div, so the color reverted back to lightblue.
+
+      However, when I clicked on the outer div I got the following alert:
+
+      outer outer 2 - this was both the target phase, but since there are no events registered on any other elements
+      higher up in the DOM tree, this was the only listener that fired, there is no other element to "bubble up" to.
+      Thus the code behaved as I originally anticipated.
+      */
+  </script>
+</body>
+</html>

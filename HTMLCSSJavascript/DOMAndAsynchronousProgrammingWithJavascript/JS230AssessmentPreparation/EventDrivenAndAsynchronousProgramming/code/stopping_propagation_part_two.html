@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopping Propagation Part Two</title>
+  <style>
+    div {
+      border: solid 2px blue;
+      background-color: lightblue;
+      padding: 2em;
+    }
+    .make-red {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="outer">
+  <div id="inner">
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function makeRed(event) {
+      event.stopPropagation();
+      event.target.classList.toggle('make-red');
+      let alertStr = `${event.target.id} ${event.currentTarget.id} ${event.eventPhase}`
+      alert(alertStr);
+    }
+    document.getElementById('outer').addEventListener('click', makeRed);
+    document.getElementById('inner').addEventListener('click', makeRed);
+  });
+  /*
+    When I click on the inner div I get the following alert:
+    inner inner 2 - this is the target phase, the makeRed event handler is called and the inner div turns red, no
+    bubbling to div#outer takes place because propagation is stopped.
+
+    When I click on the outer div I get the following alert:
+    outer outer 2 - this is the target phase and no other bubbling takes place because the stopPropagation prevents
+    any bubbling and also because there are not ancestors with any event listeners attached to them.
+  */
+</script>
+</body>
+</html>
