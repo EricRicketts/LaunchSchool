@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopping Propagation Part Three</title>
+  <style>
+    div {
+      border: solid 2px blue;
+      background-color: lightblue;
+      padding: 2em;
+    }
+    .make-red {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+<div id="outer">
+  <div id="inner">
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function makeRed(event) {
+      event.stopPropagation();
+      // event.target.classList.toggle('make-red');
+      event.currentTarget.classList.toggle('make-red');
+      let alertStr = `${event.target.id} ${event.currentTarget.id} ${event.eventPhase}`;
+      alert(alertStr);
+    }
+    document.getElementById('outer').addEventListener('click', makeRed, { capture: true });
+    document.getElementById('inner').addEventListener('click', makeRed);
+  });
+  /*
+    in this case when I click on the inner div I get the following alert:
+    inner outer 1 - this is the capture phase because the event handler on the outer div was activated during
+    this capture phase, because stopPropagation was called in the makeRed event handler the target phase was
+    never reached.  Now the inner div did turn red, but this is because the EventObject will always give one
+    access to the target
+
+    However, if I swap out the currentTarget for the target, then the inner div will never the changed to the color
+    red.  This is because the event will never make it down to the inner div thus we will not have a case where
+    the currentTarget is ever the inner div.  If I did not have stopPropagation then clicking on the inner div
+    would yield two alerts (and target was toggled with makeRed not currentTarget):
+    inner outer 1 - capture phase
+    inner inner 2 - target phase
+
+    in such a case the inner div would never turn red because makeRed would be called twice
+  */
+</script>
+</body>
+</html>
